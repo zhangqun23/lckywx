@@ -1,5 +1,8 @@
 package com.mvc.entiy;
-
+/*
+ * 用户表
+ * zq
+ * */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
