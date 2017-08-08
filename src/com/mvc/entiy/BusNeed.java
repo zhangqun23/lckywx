@@ -32,7 +32,7 @@ public Integer getBune_id() {
 public void setBune_id(Integer bune_id) {
 	this.bune_id = bune_id;
 }
-@Column(length=32)
+@Column(length=16)
 public String getBune_tel() {
 	return bune_tel;
 }
@@ -60,14 +60,14 @@ public Date getBune_gath_time() {
 public void setBune_gath_time(Date bune_gath_time) {
 	this.bune_gath_time = bune_gath_time;
 }
-@Column(length=255)
+@Column(length=32)
 public String getBune_gath_pla() {
 	return bune_gath_pla;
 }
 public void setBune_gath_pla(String bune_gath_pla) {
 	this.bune_gath_pla = bune_gath_pla;
 }
-@Column(length=255)
+@Column(length=32)
 public String getBune_goal_pla() {
 	return bune_goal_pla;
 }
