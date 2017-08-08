@@ -96,7 +96,7 @@ public void setTrne_time(Date trne_time) {
 	this.trne_time = trne_time;
 }
 
-@Column(name = "trck_check", nullable = false)
+@Column(columnDefinition = "INT not null default 0")
 public Integer getTrne_check() {
 	return trne_check;
 }

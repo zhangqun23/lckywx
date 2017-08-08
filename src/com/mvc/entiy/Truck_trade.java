@@ -60,7 +60,7 @@ public void setTrtr_evaluate(String trtr_evaluate) {
 	this.trtr_evaluate = trtr_evaluate;
 }
 
-@Column(name = "is_over", nullable = false)
+@Column(name = "is_over", length = 11)
 public Integer getIs_over() {
 	return is_over;
 }
@@ -68,7 +68,7 @@ public void setIs_over(Integer is_over) {
 	this.is_over = is_over;
 }
 
-@Column(name = "is_evaluate", nullable = false)
+@Column(name = "is_evaluate", length = 11)
 public Integer getIs_evaluate() {
 	return is_evaluate;
 }

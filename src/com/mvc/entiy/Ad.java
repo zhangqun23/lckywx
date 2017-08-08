@@ -31,7 +31,7 @@ public void setAd_id(Integer ad_id) {
 	this.ad_id = ad_id;
 }
 
-@Column(name = "ad_type", nullable = false)
+@Column(name = "ad_type", length = 10)
 public Integer getAd_type() {
 	return ad_type;
 }
@@ -39,7 +39,7 @@ public void setAd_type(Integer ad_type) {
 	this.ad_type = ad_type;
 }
 
-@Column(name = "ad_state", nullable = false)
+@Column(name = "ad_state", length = 11)
 public Integer getAd_state() {
 	return ad_state;
 }
@@ -55,7 +55,7 @@ public void setUser_id(Integer user_id) {
 	this.user_id = user_id;
 }
 
-@Column(name = "ad_name", length = 36)
+@Column(name = "ad_name", length = 32)
 public String getAd_name() {
 	return ad_name;
 }
@@ -63,7 +63,7 @@ public void setAd_name(String ad_name) {
 	this.ad_name = ad_name;
 }
 
-@Column(name = "ad_tel", length = 36)
+@Column(name = "ad_tel", length = 32)
 public String getAd_tel() {
 	return ad_tel;
 }
