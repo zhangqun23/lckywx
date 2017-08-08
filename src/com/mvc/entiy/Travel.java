@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
+
 /*
  * 旅游信息表
  * zq
@@ -18,9 +20,10 @@ import javax.persistence.Table;
 public class Travel {
 private Integer travel_id;//旅游信息Id
 private String travel_title;//标题
-private String travel_content;//活动描述
+private Text travel_content;//活动描述
 private String travel_route;//路线
-private Float travel_price;//价格
+private Float travel_mprice;//成人票价格
+private Float travel_cprice;//儿童票价格
 private Float travel_insurance;//保险费
 private Float travel_discount;//折扣
 private Date travel_stime;//出发时间
@@ -30,7 +33,7 @@ private String tel;//联系电话
 private Integer travel_total_num;//总人数
 private Integer travel_left_num;//剩余人数
 private String travel_firm;//旅游承办公司
-private Boolean is_delete;//信息是否删除
+private Integer is_delete;//信息是否删除
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTravel_id() {
@@ -46,11 +49,11 @@ public String getTravel_title() {
 public void setTravel_title(String travel_title) {
 	this.travel_title = travel_title;
 }
-@Column(length=255)
-public String getTravel_content() {
+@Column(name="travel_content")
+public Text getTravel_content() {
 	return travel_content;
 }
-public void setTravel_content(String travel_content) {
+public void setTravel_content(Text travel_content) {
 	this.travel_content = travel_content;
 }
 @Column(length=64)
@@ -61,11 +64,18 @@ public void setTravel_route(String travel_route) {
 	this.travel_route = travel_route;
 }
 @Column(columnDefinition = "float(10,2) not null default '0.00'")
-public Float getTravel_price() {
-	return travel_price;
+public Float getTravel_mprice() {
+	return travel_mprice;
 }
-public void setTravel_price(Float travel_price) {
-	this.travel_price = travel_price;
+public void setTravel_mprice(Float travel_mprice) {
+	this.travel_mprice = travel_mprice;
+}
+@Column(columnDefinition = "float(10,2) not null default '0.00'")
+public Float getTravel_cprice() {
+	return travel_cprice;
+}
+public void setTravel_cprice(Float travel_cprice) {
+	this.travel_cprice = travel_cprice;
 }
 @Column(columnDefinition = "float(10,2) not null default '0.00'")
 public Float getTravel_insurance() {
@@ -74,7 +84,7 @@ public Float getTravel_insurance() {
 public void setTravel_insurance(Float travel_insurance) {
 	this.travel_insurance = travel_insurance;
 }
-@Column(columnDefinition = "float(10,2) not null default '0.00'")
+@Column(columnDefinition = "float(10,1) not null default '0.0'")
 public Float getTravel_discount() {
 	return travel_discount;
 }
@@ -131,10 +141,10 @@ public void setTravel_firm(String travel_firm) {
 	this.travel_firm = travel_firm;
 }
 
-public Boolean getIs_delete() {
+public Integer getIs_delete() {
 	return is_delete;
 }
-public void setIs_delete(Boolean is_delete) {
+public void setIs_delete(Integer is_delete) {
 	this.is_delete = is_delete;
 }
 

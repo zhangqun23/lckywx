@@ -41,7 +41,7 @@ public String getSmgo_name() {
 public void setSmgo_name(String smgo_name) {
 	this.smgo_name = smgo_name;
 }
-@Column(columnDefinition = "float(10,2) not null default '0.00'")
+@Column(columnDefinition = "float(10,1) not null default '0.0'")
 public Float getSmgo_weight() {
 	return smgo_weight;
 }
@@ -69,7 +69,7 @@ public String getSmgo_sender() {
 public void setSmgo_sender(String smgo_sender) {
 	this.smgo_sender = smgo_sender;
 }
-@Column(length=32)
+@Column(length=16)
 public String getSmgo_sender_tel() {
 	return smgo_sender_tel;
 }
@@ -83,14 +83,14 @@ public String getSmgo_receiver() {
 public void setSmgo_receiver(String smgo_receiver) {
 	this.smgo_receiver = smgo_receiver;
 }
-@Column(length=32)
+@Column(length=16)
 public String getSmgo_receiver_tel() {
 	return smgo_receiver_tel;
 }
 public void setSmgo_receiver_tel(String smgo_receiver_tel) {
 	this.smgo_receiver_tel = smgo_receiver_tel;
 }
-@Column(columnDefinition = "float(10,2) not null default '0.00'")
+@Column(columnDefinition = "float(10,1) not null default '0.0'")
 public Float getAmgo_money() {
 	return amgo_money;
 }
@@ -109,7 +109,7 @@ public Date getSmgo_send_time() {
 public void setSmgo_send_time(Date smgo_send_time) {
 	this.smgo_send_time = smgo_send_time;
 }
-@Column(length=255)
+@Column(length=256)
 public String getSmgo_remark() {
 	return smgo_remark;
 }
