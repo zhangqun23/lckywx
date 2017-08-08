@@ -25,7 +25,7 @@ public Integer getUser_id() {
 public void setUser_id(Integer user_id) {
 	this.user_id = user_id;
 }
-@Column(length = 64)
+@Column(length = 32)
 public String getUser_openId() {
 	return user_openId;
 }

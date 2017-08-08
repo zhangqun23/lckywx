@@ -18,13 +18,12 @@ private Integer butr_id;//主键
 private Date butr_time;//交易创建时间
 private Float butr_depo;//押金
 private Float butr_money;//交易金额
-private Integer butr_rent_if;//续租状态
-private Date butr_rent_time;//续租时间
-private Integer invoice_id;//是否开发票
+private String bune_bus;//车牌号
+private Integer bune_type;//交易类型，0表示线上，1表示线下
+private Integer invoice_if;//是否开发票，0:未开1:已开
 private String invoice_num;//发票号
-private  Integer butr_state;//交易状态
+private  Integer butr_state;//交易状态，0表示交易中，1表示交易结束
 private BusNeed busNeed;//班车需求fk
-private BusInfo busInfo;//班车fk
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getButr_id() {
@@ -53,27 +52,28 @@ public Float getButr_money() {
 public void setButr_money(Float butr_money) {
 	this.butr_money = butr_money;
 }
-@Column(columnDefinition="INT not null default 0")
-public Integer getButr_rent_if() {
-	return butr_rent_if;
+@Column(length=64)
+public String getBune_bus() {
+	return bune_bus;
 }
-public void setButr_rent_if(Integer butr_rent_if) {
-	this.butr_rent_if = butr_rent_if;
+public void setBune_bus(String bune_bus) {
+	this.bune_bus = bune_bus;
+}
+@Column(columnDefinition="INT not null default 0")
+public Integer getBune_type() {
+	return bune_type;
+}
+public void setBune_type(Integer bune_type) {
+	this.bune_type = bune_type;
+}
+@Column(columnDefinition="INT not null default 0")
+public Integer getInvoice_if() {
+	return invoice_if;
+}
+public void setInvoice_if(Integer invoice_if) {
+	this.invoice_if = invoice_if;
 }
 
-public Date getButr_rent_time() {
-	return butr_rent_time;
-}
-public void setButr_rent_time(Date butr_rent_time) {
-	this.butr_rent_time = butr_rent_time;
-}
-@Column(columnDefinition="INT not null default 0")
-public Integer getInvoice_id() {
-	return invoice_id;
-}
-public void setInvoice_id(Integer invoice_id) {
-	this.invoice_id = invoice_id;
-}
 @Column(length=32)
 public String getInvoice_num() {
 	return invoice_num;
@@ -96,13 +96,4 @@ public BusNeed getBusNeed() {
 public void setBusNeed(BusNeed busNeed) {
 	this.busNeed = busNeed;
 }
-@ManyToOne
-@JoinColumn(name="bus_id")
-public BusInfo getBusInfo() {
-	return busInfo;
-}
-public void setBusInfo(BusInfo busInfo) {
-	this.busInfo = busInfo;
-}
-
 }
