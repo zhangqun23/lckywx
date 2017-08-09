@@ -20,7 +20,7 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 public class Travel {
 private Integer travel_id;//旅游信息Id
 private String travel_title;//标题
-private Text travel_content;//活动描述
+private String travel_content;//活动描述
 private String travel_route;//路线
 private Float travel_mprice;//成人票价格
 private Float travel_cprice;//儿童票价格
@@ -50,10 +50,10 @@ public void setTravel_title(String travel_title) {
 	this.travel_title = travel_title;
 }
 @Column(name="travel_content")
-public Text getTravel_content() {
+public String getTravel_content() {
 	return travel_content;
 }
-public void setTravel_content(Text travel_content) {
+public void setTravel_content(String travel_content) {
 	this.travel_content = travel_content;
 }
 @Column(length=64)
