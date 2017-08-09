@@ -1,14 +1,14 @@
 package com.mvc.dao.impl;
 
 import org.springframework.stereotype.Repository;
-import com.mvc.dao.BusDao;
+import com.mvc.dao.BusNeedDao;
 
 /**
   * 
   * @author wanghuimin
   * @date 2017年8月9日
   */
-@Repository("busDaoImpl")
-public class BusDaoImpl implements BusDao {
+@Repository("busNeedDaoImpl")
+public class BusNeedDaoImpl implements BusNeedDao {
 
 }

@@ -1,10 +1,10 @@
-package com.mvc.service;
+package com.mvc.dao;
  
 /**
  * 
  * @author wanghuimin
  * @date 2017年8月9日
  */
-public interface BusService {
+public interface BusNeedDao {
 
 }
