@@ -72,7 +72,7 @@ public class BusNeedController {
 			busNeed.setBune_time(Float.parseFloat(jsonObject.getString("bune_time")));
 		}
 		User user = new User();
-		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
+		user.setUser_id(1);
 		busNeed.setUser(user);
 		boolean result;
 		if (jsonObject.containsKey("bune_id")) {
