@@ -68,6 +68,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/indexPlat', {
 		templateUrl : '/lckywx/jsp/platform/platformMain.html',
 		controller : 'PlatformController'
+	}).when('/', {
+		templateUrl : '/lckywx/jsp/platform/platformMain.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -103,7 +106,7 @@ app
 
 								} else if ($location.path().indexOf(
 										'/indexPlat') == 0) {
-									alert("进来了");
+									
 								} 
 							}
 							initData();

@@ -49,7 +49,7 @@ public class BusNeedController {
 			busNeed.setBune_gath_pla(jsonObject.getString("bune_gath_pla"));
 		}
 		if (jsonObject.containsKey("bune_gath_time")) {
-			SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("bune_gath_time"));
 			busNeed.setBune_gath_time(date);
 		}
@@ -74,6 +74,7 @@ public class BusNeedController {
 		User user = new User();
 		user.setUser_id(1);
 		busNeed.setUser(user);
+		busNeed.setIs_delete(true);
 		boolean result;
 		if (jsonObject.containsKey("bune_id")) {
 			busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
