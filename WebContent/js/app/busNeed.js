@@ -75,10 +75,10 @@ app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	// zq获取做房用时列表A
-	services.selectWorkHouseByLimits = function(data) {
+	services.addBusNeed = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'workHouse/selectWorkHouseBylimits.do',
+			url : baseUrl + 'busNeed/addBusNeed.do',
 			data : data
 		});
 	};
@@ -110,7 +110,7 @@ app
 								console.log("zhangqun"+busLimit);
 								alert("进来了");
 								services.addBusNeed({
-									limit : busLimit
+									busNeed : busLimit
 								}).success(function(data) {
 									
 									if (data.list.length) {
