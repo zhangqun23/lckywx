@@ -27,7 +27,8 @@ import net.sf.json.JSONObject;
  * @author wanghuimin
  * @date 2017年8月9日
  */
-@Controller("/busNeed")
+@Controller
+@RequestMapping("/busNeed")
 public class BusNeedController {
 	@Autowired
 	BusNeedService busNeedService;
@@ -70,7 +71,6 @@ public class BusNeedController {
 		if (jsonObject.containsKey("bune_time")) {
 			busNeed.setBune_time(Float.parseFloat(jsonObject.getString("bune_time")));
 		}
-		
 		User user = new User();
 		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
 		busNeed.setUser(user);
