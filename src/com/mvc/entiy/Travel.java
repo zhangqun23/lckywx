@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
+
 
 /*
  * 旅游信息表
