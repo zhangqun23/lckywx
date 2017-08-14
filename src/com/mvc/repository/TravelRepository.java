@@ -17,8 +17,11 @@ import com.mvc.entiy.Travel;
  *
  */
 public interface TravelRepository extends JpaRepository<Travel, Integer> {
-	// 根据使用时间查询旅游信息
-		@Query("select b from Travel b where travel_stime  = :travel_stime  and is_delete=0 ")
+	    // 根据使用时间查询旅游信息
+		@Query("select t from Travel t where travel_stime  = :travel_stime  and is_delete=0 ")
 		public List<Travel> findByUsertime(@Param("travel_stime ") String useDate);
+		//根据价格查询旅游信息
+		@Query("select p from Travel b where travel_mprice  = :travel_mprice  and is_delete=0 ")
+		public List<Travel> findByUserPrice(@Param("travel_mprice ") String usePrice);
 
 }

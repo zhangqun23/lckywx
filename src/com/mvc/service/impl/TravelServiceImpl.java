@@ -14,10 +14,15 @@ public class TravelServiceImpl implements TravelService{
 	@Autowired
 	TravelRepository travelRepository;
 	
-	//查询旅游信息
+	     //按时间查询旅游信息
 		@Override
 		public List<Travel> findTravelAlls(String useDate) {
 			return travelRepository.findByUsertime(useDate);
+		}
+		//按价格查询旅游信息
+		@Override
+		public List<Travel> findTravelAlls1(String usePrice) {
+			return travelRepository.findByUserPrice(usePrice);
 		}
 
 }

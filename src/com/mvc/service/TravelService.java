@@ -14,6 +14,7 @@ import com.mvc.entiy.Travel;
  */
 public interface TravelService {
 	
-		List<Travel> findTravelAlls(String useDate);// 查询旅游信息
+		List<Travel> findTravelAlls(String useDate);// 按时间查询旅游信息
+		List<Travel> findTravelAlls1(String usePrice);// 按价格查询旅游信息
 
 }
