@@ -1,0 +1,54 @@
+<article style="margin-top: 54px;">
+ <form action="" method="post" enctype="multipart/form-data">
+            <ul class="xunjia-box">
+			 <li class="inner">
+                    <div class="item-name">客户电话：</div>
+                    <div class="item-value">
+                     <div class="input-wrap">
+                            <input type="text" ng-model="TradeLimit.trtr_tel">
+                        </div>
+                    </div>
+                </li>
+				 <li class="inner">
+                    <div class="item-name">交易额：</div>
+                    <div class="item-value">
+                        <div class="input-wrap">
+                            <input type="text" ng-model="TradeLimit.trtr_price">
+                        </div>
+                    </div>
+                </li>
+                <li class="inner">
+                    <div class="item-name">购买的成人票数：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                            <input type="text" ng-model="TradeLimit.trtr_mnum">
+                        </div>
+                       
+                    </div>
+                </li>
+                 <li class="inner">
+                    <div class="item-name">购买的儿童票数：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                            <input type="text" ng-model="TradeLimit.trtr_cnum">
+                        </div>
+                       
+                    </div>
+                </li>
+				<!-- <li class="inner">
+                    <div class="item-name">同意租赁条款：</div>
+                    <div class="item-value">
+                        <input type="checkbox"/>
+                    </div>
+                </li> -->
+				<li class="inner">
+                    
+                    <div class="item-value" style="margin-right:90px">
+                         <div class="a-wrap">
+                           <input type="button" class="weui_btn weui_btn_primary" value="提交" ng-click="addTravelTrade()">
+                         </div>
+                    </div>
+                </li>
+            </ul>
+            </form>
+        </article>
