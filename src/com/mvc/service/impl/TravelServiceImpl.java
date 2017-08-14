@@ -28,10 +28,15 @@ import com.mvc.service.TravelService;
 public class TravelServiceImpl implements TravelService{
 	@Autowired
 	TravelRepository travelRepository;
-	
+	//按出发日期查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls(String useDate) {
 		return travelRepository.findByUsertime(useDate);
+	}
+	//按成人票价查询旅游信息
+	@Override
+	public List<Travel> findTravelAlls1(String usePrice) {
+		return travelRepository.findByUserprice(usePrice);
 	}
 
 }

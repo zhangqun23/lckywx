@@ -22,5 +22,7 @@ import com.mvc.entiy.Travel;
 public interface TravelService {
 
 	List<Travel> findTravelAlls(String useDate);
-
+	List<Travel> findTravelAlls1(String usePrice);
+	
+	
 }
