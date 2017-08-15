@@ -45,6 +45,10 @@ public class RouteController {
 		return "busNeed/index";
 	}
 	
+	@RequestMapping("/toTraveInfoPage.do")
+	public String toTravelInfoPage() {
+		return "travelInfo/index";
+	}
 	
 	
 

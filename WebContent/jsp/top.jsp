@@ -3,6 +3,7 @@
 
 <head>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 <title>合同信息管理</title>
 <link href="${ctx}/css/fonts/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/font.css" rel="stylesheet" type="text/css" />
@@ -13,6 +14,7 @@
 <link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/pages/xunjia_wuliao_baojia.css" rel="stylesheet" type="text/css" />
+ <link rel="stylesheet" href="${ctx}/css/pages/xunjia_wuliao.css"/>
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
 
