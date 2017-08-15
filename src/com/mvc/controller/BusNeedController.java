@@ -34,7 +34,7 @@ public class BusNeedController {
 	BusNeedService busNeedService;
 
 	/**
-	 * 添加班车定制需求
+	 * 添加,修改班车定制需求
 	 * 
 	 * @param request
 	 * @param session
@@ -49,7 +49,7 @@ public class BusNeedController {
 			busNeed.setBune_gath_pla(jsonObject.getString("bune_gath_pla"));
 		}
 		if (jsonObject.containsKey("bune_gath_time")) {
-			SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("bune_gath_time"));
 			busNeed.setBune_gath_time(date);
 		}
