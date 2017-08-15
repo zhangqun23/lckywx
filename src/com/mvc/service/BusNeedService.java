@@ -13,7 +13,7 @@ import com.mvc.entiy.BusTrade;
 public interface BusNeedService {
 
 	// 添加,修改班车定制需求
-	boolean saveBusNeed(BusNeed busNeed);
+	BusNeed saveBusNeed(BusNeed busNeed);
 
 	// 查询班车定制需求
 	List<BusNeed> findBusNeedAlls(String useDate);

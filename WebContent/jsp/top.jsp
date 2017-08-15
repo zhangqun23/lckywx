@@ -3,6 +3,7 @@
 
 <head>
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 <title>合同信息管理</title>
 <link href="${ctx}/css/fonts/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/font.css" rel="stylesheet" type="text/css" />
@@ -10,9 +11,15 @@
 <link href="${ctx}/css/jquery-weui.min.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/mui.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/animate.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
+
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/css/pages/xunjia_wuliao_baojia.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/ad-list.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/order-list.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/branch.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/form-detail.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/info-detail.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/order-detail.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
 

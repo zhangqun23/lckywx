@@ -1,0 +1,103 @@
+ <article style="margin-top: 54px;">
+ 	<form ng-submit="addSmallGoods()" method="post" enctype="multipart/form-data"
+ 		style="overflow:hidden;">
+		<ul class="xunjia-box">
+			<li class="inner">
+				<div class="item-name">货物名称：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_name" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">货物重量：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_weight" >
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">始发地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_start" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">目的地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_end" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">发件人：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_sender" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">发件人联系方式：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_sender_tel" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">收件人：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_receiver" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">收件人联系方式：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_receiver_tel" required>
+					</div>
+				</div>
+			</li>
+			
+			<div style="width:127px;margin:auto;">
+				<input type="radio" name="smgo_sego" ng-model="GoLimit.smgo_sego" ng-value="0" checked="checked">自行送货
+				<input type="radio" name="smgo_sego" ng-model="GoLimit.smgo_sego" ng-value="1">上门取货
+				{{smgo_sego}}
+			</div>
+			
+			<li class="inner innerP">
+				<div class="item-name">备注：</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea type="text" ng-model="GoLimit.smgo_remark" ></textarea>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-value">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交" >
+					</div>
+ 				</div>
+			</li>
+			
+		</ul>
+		
+	</form>
+</article>
