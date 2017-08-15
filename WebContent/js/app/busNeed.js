@@ -81,7 +81,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addBusNeed = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'busNeed/addBusNeed.do#/busNeedInfo',
+			url : baseUrl + 'busNeed/addBusNeed.do',
 			data : data
 		});
 	};
@@ -110,14 +110,15 @@ app
 							busNeed.addBusNeed=function(){
 								var busLimit = JSON
 								.stringify(busNeed.BusLimit);
-								console.log("zhangqun"+busLimit);
-								
 								services.addBusNeed({
 									busNeed : busLimit
 								}).success(function(data) {
-									console.log("::::::::::::"+data);
-									if (data) {
+									 $location.path("/busNeedInfo");
+									if (data.result) {
 										alert("是");
+										busNeed.bNeed=data.result;
+										console.log("zq"+JSON
+												.stringify(data.result));
 									} else {
 										alert("否");
 									}
