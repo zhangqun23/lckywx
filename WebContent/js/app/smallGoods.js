@@ -67,6 +67,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/smallGoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoods.html',
 		controller : 'PlatformController'
+	}).when('/smallGoodsInfo', {
+		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsInfo.html',
+		controller : 'PlatformController'
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
@@ -91,6 +94,7 @@ app
 				'$location',
 				function($scope, services, $location) {
 					var smallGoods = $scope;
+					smallGoods.bb="das";
 					smallGoods.GoLimit={
 							smgo_name:"",
 							smgo_weight:"",
@@ -106,7 +110,7 @@ app
 					smallGoods.addSmallGoods=function(){
 						var goLimit = JSON
 						.stringify(smallGoods.GoLimit);
-						
+						console.log("wang123"+goLimit);
 						services.addSmallGoods({
 							goNeed : goLimit
 						}).success(function(data) {
@@ -116,8 +120,12 @@ app
 							} else {
 								alert("否");
 							}
+							console.log(data);
+						 	$location.path('/smallGoodsInfo');
+
 						});
 					}
+					
 					// 初始化
 					function initData() {
 						console.log("初始化页面信息");

@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.base.constants.CookieKeyConstants;
 import com.mvc.entiy.SmallGoods;
 import com.mvc.service.SmallGoodsService;
+import com.utils.CookieUtil;
 
 import net.sf.json.JSONObject;
 
@@ -40,8 +44,8 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/addSmallGoods.do")
-	public @ResponseBody String addBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("smallGoods"));
+	public @ResponseBody boolean addBusNeed(HttpServletRequest request, HttpSession session, HttpServletResponse res) throws ParseException {
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("goNeed"));
 		SmallGoods smallGoods = new SmallGoods();
 		if (jsonObject.containsKey("smgo_name")) {
 			smallGoods.setSmgo_name(jsonObject.getString("smgo_name"));
@@ -92,7 +96,8 @@ public class SmallGoodsController {
 		} else {
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 添加班车定制需求
 		}
-		return JSON.toJSONString(result);
+		
+		return result;
 	}
 
 	/**
