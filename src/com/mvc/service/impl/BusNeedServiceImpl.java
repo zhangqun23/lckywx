@@ -27,12 +27,12 @@ public class BusNeedServiceImpl implements BusNeedService {
 
 	//添加,修改班车定制需求
 	@Override
-	public boolean saveBusNeed(BusNeed busNeed) {
+	public BusNeed saveBusNeed(BusNeed busNeed) {
 		BusNeed result = busNeedRepository.saveAndFlush(busNeed);
 		if (result.getBune_id() != null)
-			return true;
+			return result;
 		else
-			return false;
+			return null;
 	}
 
 	//查询班车定制需求
