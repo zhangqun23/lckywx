@@ -25,6 +25,8 @@ private Float amgo_money;//交易金额
 private Date smgo_deal_time;//交易时间
 private Date smgo_send_time;//发件日期
 private String smgo_remark;//备注
+private Boolean smgo_sego;//是否取货
+private String smgo_add;//取货地址
 private Boolean is_delete;//是否删除
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -121,6 +123,18 @@ public Boolean getIs_delete() {
 }
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
+}
+public Boolean getSmgo_sego() {
+	return smgo_sego;
+}
+public void setSmgo_sego(Boolean smgo_sego) {
+	this.smgo_sego = smgo_sego;
+}
+public String getSmgo_add() {
+	return smgo_add;
+}
+public void setSmgo_add(String smgo_add) {
+	this.smgo_add = smgo_add;
 }
 
 
