@@ -1,4 +1,4 @@
-<article style="margin-top: 34px;">
+<!--<article style="margin-top: 34px">
  <form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data">
             <ul class="xunjia-box">
 			 <li class="inner">
@@ -18,7 +18,7 @@
                        
                     </div>
                 </li>
-                 <li class="inner">
+                <li class="inner">
                     <div class="item-name">出发时间：</div>
                     <div class="item-value">
                     <div class="input-wrap">
@@ -50,7 +50,7 @@
                     <div class="item-name">成人票价格：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_mprice" required></textarea>
+                           <input type="text"  ng-model="TradeLimit.travel_mprice" required>
                         </div>
                     </div>
                 </li>
@@ -58,7 +58,7 @@
                     <div class="item-name">儿童票价格：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_cprice"></textarea>
+                           <input type="text" ng-model="TradeLimit.travel_cprice" required>
                         </div>
                     </div>
                 </li>
@@ -66,7 +66,7 @@
                     <div class="item-name">联系电话：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_tel" required></textarea>
+                           <input type="text"  ng-model="TradeLimit.travel_tel" required>
                         </div>
                     </div>
                 </li>
@@ -74,7 +74,7 @@
                     <div class="item-name">游玩天数：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_days"></textarea>
+                           <input type="text" ng-model="TradeLimit.travel_days" required>
                         </div>
                     </div>
                 </li>
@@ -82,7 +82,7 @@
                     <div class="item-name">保险费：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_insurance" required></textarea>
+                           <input type="text"  ng-model="TradeLimit.travel_insurance" required>
                         </div>
                     </div>
                 </li>
@@ -90,7 +90,7 @@
                     <div class="item-name">折扣：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_discount"></textarea>
+                           <input type="text" ng-model="TradeLimit.travel_discount" required>
                         </div>
                     </div>
                 </li>
@@ -98,7 +98,7 @@
                     <div class="item-name">总人数：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_total_num" required></textarea>
+                           <input type="text"  ng-model="TradeLimit.travel_total_num" required>
                         </div>
                     </div>
                 </li>
@@ -106,7 +106,7 @@
                     <div class="item-name">剩余人数：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_left_num"></textarea>
+                           <input type="text" ng-model="TradeLimit.travel_left_num" required>
                         </div>
                     </div>
                 </li>
@@ -114,7 +114,7 @@
                     <div class="item-name">旅游承办公司：</div>
                     <div class="item-value">
                         <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_firm"></textarea>
+                           <input type="text" ng-model="TradeLimit.travel_firm" required>
                         </div>
                     </div>
                 </li>
@@ -126,12 +126,6 @@
                         </div>
                     </div>
                 </li>
-				<!-- <li class="inner">
-                    <div class="item-name">同意租赁条款：</div>
-                    <div class="item-value">
-                        <input type="checkbox"/>
-                    </div>
-                </li> -->
 				<li class="inner">
                     
                     <div class="item-value" style="margin-right:90px">
@@ -142,4 +136,141 @@
                 </li>
             </ul>
             </form>
-        </article>
+        </article> -->
+        
+        
+<article style="bottom: 54px">
+           <div class="weui_cells weui_cells_access">
+		    <div class="weui_cell" href="notice_detail.html">
+                <div class="weui_cell_bd weui_cell_primary">
+                  <div href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" >按时间</div>
+				   <div href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" >按价格</div>
+
+					
+               </div>
+              </div>
+                <div class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>主题：<input type="text" ng-model="TradeLimit.travel_title" required></label>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">成人票价格：<input type="text"  ng-model="TradeLimit.travel_mprice" required></span>
+                            <span class="require">出发地点：<input type="text" ng-model="TradeLimit.travel_location" required></span>
+                            <span class="result">活动状态：<label>进行中</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="require">联系方式：<input type="text"  ng-model="TradeLimit.travel_tel" required></span>
+                        </div>
+                        <div class="org">
+                            <span>活动内容：<input type="text" ng-model="TradeLimit.travel_content" required></span>
+                            <a href="WebContent/jsp/travelInfo/travelDetail.html"><label class="green">详情</label></a> <!-- 新添加的内容 -->
+                            <!-- <label class="green">详情</label> -->
+                        </div>
+                    </div>
+                </div>
+                 <div class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>主题：<input type="text" ng-model="TradeLimit.travel_title" required></label>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">成人票价格：<input type="text"  ng-model="TradeLimit.travel_mprice" required></span>
+                            <span class="require">出发地点：<input type="text" ng-model="TradeLimit.travel_location" required></span>
+                            <span class="result">活动状态：<label>进行中</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="require">联系方式：<input type="text"  ng-model="TradeLimit.travel_tel" required></span>
+                        </div>
+                        <div class="org">
+                            <span>活动内容：<input type="text" ng-model="TradeLimit.travel_content" required></span>
+                            <a href="WebContent/jsp/travelInfo/travelDetail.html"><label class="green">详情</label></a>
+                        </div>
+                    </div>
+                </div>
+               <div class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>主题：<input type="text" ng-model="TradeLimit.travel_title" required></label>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">成人票价格：<input type="text"  ng-model="TradeLimit.travel_mprice" required></span>
+                            <span class="require">出发地点：<input type="text" ng-model="TradeLimit.travel_location" required></span>
+                            <span class="result">活动状态：<label>进行中</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="require">联系方式：<input type="text"  ng-model="TradeLimit.travel_tel" required></span>
+                        </div>
+                        <div class="org">
+                            <span>活动内容：<input type="text" ng-model="TradeLimit.travel_content" required></span>
+                            <a href="WebContent/jsp/travelInfo/travelDetail.html"><label class="green">详情</label></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>主题：<input type="text" ng-model="TradeLimit.travel_title" required></label>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">成人票价格：<input type="text"  ng-model="TradeLimit.travel_mprice" required></span>
+                            <span class="require">出发地点：<input type="text" ng-model="TradeLimit.travel_location" required></span>
+                            <span class="result">活动状态：<label>进行中</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="require">联系方式：<input type="text"  ng-model="TradeLimit.travel_tel" required></span>
+                        </div>
+                        <div class="org">
+                            <span>活动内容：<input type="text" ng-model="TradeLimit.travel_content" required></span>
+                            <a href="WebContent/jsp/travelInfo/travelDetail.html"><label class="green">详情</label></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>主题：<input type="text" ng-model="TradeLimit.travel_title" required></label>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">成人票价格：<input type="text"  ng-model="TradeLimit.travel_mprice" required></span>
+                            <span class="require">出发地点：<input type="text" ng-model="TradeLimit.travel_location" required></span>
+                            <span class="result">活动状态：<label>进行中</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="require">联系方式：<input type="text"  ng-model="TradeLimit.travel_tel" required></span>
+                        </div>
+                        <div class="org">
+                            <span>活动内容：<input type="text" ng-model="TradeLimit.travel_content" required></span>
+                            <a href="WebContent/jsp/travelInfo/travelDetail.html"><label class="green">详情</label></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>主题：<input type="text" ng-model="TradeLimit.travel_title" required></label>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">成人票价格：<input type="text"  ng-model="TradeLimit.travel_mprice" required></span>
+                            <span class="require">出发地点：<input type="text" ng-model="TradeLimit.travel_location" required></span>
+                            <span class="result">活动状态：<label>进行中</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="require">联系方式：<input type="text"  ng-model="TradeLimit.travel_tel" required></span>
+                        </div>
+                        <div class="org">
+                            <span>活动内容：<input type="text" ng-model="TradeLimit.travel_content" required></span>
+                            <a href="WebContent/jsp/travelInfo/travelDetail.html"><label class="green">详情</label></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>        
+        
+        
+        
+        
+        
+        
+        
+        

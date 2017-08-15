@@ -74,7 +74,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
-	// zq获取做房用时列表A ？？？
+	// zq获取做房用时列表A
 	services.addtravelInfo = function(data) {
 		return $http({
 			method : 'post',
@@ -95,7 +95,7 @@ app
 						function($scope, services, $location) {
 							var travelInfo = $scope;
 							travelInfo.TravelLimit={
-									 travel_title :"", // 标题
+									 travel_title :"", // 标(主)题
 									 travel_content :"", // 活动描述
 									 travel_route :"", // 路线
 									 travel_mprice :"", // 成人票价格
