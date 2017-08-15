@@ -68,6 +68,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/busNeed', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeed.html',
 		controller : 'PlatformController'
+	}).when('/busNeedInfo', {
+		templateUrl : '/lckywx/jsp/busNeed/busNeedInfo.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -107,14 +110,15 @@ app
 							busNeed.addBusNeed=function(){
 								var busLimit = JSON
 								.stringify(busNeed.BusLimit);
-								console.log("zhangqun"+busLimit);
-								
 								services.addBusNeed({
 									busNeed : busLimit
 								}).success(function(data) {
-									console.log("::::::::::::"+data);
-									if (data) {
+									 $location.path("/busNeedInfo");
+									if (data.result) {
 										alert("是");
+										busNeed.bNeed=data.result;
+										console.log("zq"+JSON
+												.stringify(data.result));
 									} else {
 										alert("否");
 									}
