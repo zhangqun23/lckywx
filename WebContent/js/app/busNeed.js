@@ -68,6 +68,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/busNeed', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeed.html',
 		controller : 'PlatformController'
+	}).when('/busNeedInfo', {
+		templateUrl : '/lckywx/jsp/busNeed/busNeedInfo.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -78,7 +81,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addBusNeed = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'busNeed/addBusNeed.do',
+			url : baseUrl + 'busNeed/addBusNeed.do#/busNeedInfo',
 			data : data
 		});
 	};
