@@ -101,7 +101,9 @@ public class BusNeedController {
 		} else {
 			result = busNeedService.saveBusNeed(busNeed);// 添加班车定制需求
 		}
-		return JSON.toJSONString(result);
+		JSONObject limit=new JSONObject();
+		limit.put("result", result);
+		return limit.toString();
 	}
 
 	/**
