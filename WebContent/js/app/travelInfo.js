@@ -67,7 +67,7 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html',
-		controller : 'PlatformController'  // 在哪个控制层？？？
+		controller : 'PlatformController'  
 	})
 } ]);
 
