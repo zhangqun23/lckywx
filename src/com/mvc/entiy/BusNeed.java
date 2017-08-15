@@ -30,7 +30,7 @@ public class BusNeed implements Serializable {
 	private String bune_goal_pla;// 目的地点
 	private String bune_purp;// 包车用途
 	private String bune_remark;// 备注
-	private Boolean is_delete;// 是否删除
+	private Boolean is_delete;// 是否删除1表示未删除，0表示删除
 	private User user;// 微信用户
 
 	@Id

@@ -108,15 +108,15 @@ app
 								var busLimit = JSON
 								.stringify(busNeed.BusLimit);
 								console.log("zhangqun"+busLimit);
-								alert("进来了");
+								
 								services.addBusNeed({
 									busNeed : busLimit
 								}).success(function(data) {
-									
-									if (data.list.length) {
-										
+									console.log("::::::::::::"+data);
+									if (data) {
+										alert("是");
 									} else {
-										
+										alert("否");
 									}
 								});
 							}
@@ -129,7 +129,7 @@ app
 
 								} else if ($location.path().indexOf(
 										'/indexPlat') == 0) {
-									alert("进来了");
+									
 								} 
 							}
 							initData();
