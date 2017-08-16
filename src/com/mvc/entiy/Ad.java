@@ -108,3 +108,4 @@ public void setAd_content(String ad_content) {
 	this.ad_content = ad_content;
 }
 }
+
