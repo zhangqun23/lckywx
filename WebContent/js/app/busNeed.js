@@ -68,9 +68,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/busNeed', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeed.html',
 		controller : 'PlatformController'
-	}).when('/busNeedInfo', {
+	}).when('/busNeedInfo/:busneed', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedInfo.html',
-		controller : 'PlatformController'
+		controller : 'BusNeedInfoController'
 	})
 } ]);
 
@@ -113,29 +113,45 @@ app
 								services.addBusNeed({
 									busNeed : busLimit
 								}).success(function(data) {
-									 $location.path("/busNeedInfo");
+									
+									 $location.path("busNeedInfo/"+JSON.stringify(data.result));
 									if (data.result) {
 										alert("是");
-										busNeed.bNeed=data.result;
-										console.log("zq"+JSON
-												.stringify(data.result));
+										/*console.log("zq"+JSON
+												.stringify(data.result));*/
 									} else {
 										alert("否");
 									}
 								});
 							}
+							busNeed.toProducer = function () { 
+								$location.path("#/busNeedInfo");
+							};
 							// zq初始化
 							function initData() {
 								console.log("初始化页面信息");
 								
-								if ($location.path().indexOf('/workHouseForm') == 0) {
+								if ($location.path().indexOf('/busNeed') == 0) {
 									
 
 								} else if ($location.path().indexOf(
-										'/indexPlat') == 0) {
-									
+										'/busNeedInfo') == 0) {
+									var producerId = $stateParams.producerId;
+									alert(producerId);
 								} 
 							}
 							initData();
 						} ]);
+app
+.controller(
+		'BusNeedInfoController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location,$routeParams) {
+					console.log("zq123"+$routeParams.busneed);
+					$scope.BNeed=JSON.parse($routeParams.busneed);
+				} ]);
 
