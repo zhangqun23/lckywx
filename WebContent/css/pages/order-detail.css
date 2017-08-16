@@ -122,8 +122,8 @@
 
 
 article{
-	/* padding: 10px; */
-	/* background-color: #f1f1f1; */
+	padding: 10px;
+	background-color: #f1f1f1;
 }
 
 .order-tab{
@@ -151,7 +151,7 @@ article{
 	background-color: #0498a1;
 }
 
-.weui_cell{
+/* .weui_cell{
 	height: 2.5rem;
 	line-height: 2.5rem;
 	font-size: 0.7rem;
@@ -168,8 +168,8 @@ article{
 .weui_cell i{
 	color: #93929a;
 	font-size: 0.8rem;
-}
+} */
 
-.weui_cell_bd{
+.order_cell_bd{
 	padding: 0 15px;
 }

@@ -11,11 +11,11 @@
 .clearfix{height:1%;}
 .clearfix{display:block; overflow:hidden;}
 
-.weui_cells{
+.ad{
 	margin-top: 0;
 }
 
-.weui_cells:before{
+.ad:before{
 	border:0;
 }
 

@@ -72,6 +72,10 @@ app.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedInfo.html',
 		controller : 'BusNeedInfoController'
 	})
+	.when('/busNeedList', {
+		templateUrl : '/lckywx/jsp/busNeed/busNeedList.html',
+		controller : 'PlatformController'
+	})
 } ]);
 
 app.constant('baseUrl', '/lckywx/');
@@ -151,7 +155,33 @@ app
 				'$location',
 				'$routeParams',
 				function($scope, services, $location,$routeParams) {
-					console.log("zq123"+$routeParams.busneed);
+					
 					$scope.BNeed=JSON.parse($routeParams.busneed);
+				
 				} ]);
 
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		console.log(input);
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+
+		return type;
+	}
+});
+//时间的格式化的判断
+app.filter('isOrNotNull', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = input;
+		}else{
+			type="无";
+		}
+
+		return type;
+	}
+});
