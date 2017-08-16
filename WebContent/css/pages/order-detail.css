@@ -151,7 +151,7 @@ article{
 	background-color: #0498a1;
 }
 
-.weui_cell{
+/* .weui_cell{
 	height: 2.5rem;
 	line-height: 2.5rem;
 	font-size: 0.7rem;
@@ -168,7 +168,7 @@ article{
 .weui_cell i{
 	color: #93929a;
 	font-size: 0.8rem;
-}
+} */
 
 .order_cell_bd{
 	padding: 0 15px;

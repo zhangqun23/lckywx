@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${ctx}/css/mui.css" />
 <link rel="stylesheet" href="${ctx}/css/animate.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/order-list.css" />
-<%-- <link rel="stylesheet" href="${ctx}/css/pages/order-detail.css" /> --%>
+ <link rel="stylesheet" href="${ctx}/css/pages/order-detail.css" /> 
 <link rel="stylesheet" href="${ctx}/css/pages/ad-list.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/form-detail.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/info-detail.css" />
