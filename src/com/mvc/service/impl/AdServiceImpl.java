@@ -18,12 +18,12 @@ public class AdServiceImpl implements AdService {
 	AdRepository adRepository;
 
 	@Override
-	public boolean saveAd(Ad ad) {
+	public Ad saveAd(Ad ad) {
 		Ad result = adRepository.saveAndFlush(ad);
 		if (result.getAd_id() != null)
-			return true;
+			return result ;
 		else
-			return false;
+			return null ;
 	}
 
 }

@@ -10,5 +10,5 @@ import com.mvc.entiy.Ad;
  */
 public interface AdService {
 	//发布，修改广告信息
-	boolean saveAd (Ad ad);
+	Ad saveAd (Ad ad);
 }
