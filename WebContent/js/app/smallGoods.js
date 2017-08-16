@@ -146,11 +146,48 @@ app
 							smallGoods.smallGoodsList = data.list;
 						});
 					}
+					/*$("#smgo_sego").change(
+					function(){
+						var id = $("input[name='radio']:checked").val(); 
+						var smgoSego = $('#smgo_sego');
+						smgoSego.empty();
+						if(id==0){
+							console.log("进来了");
+							var $li = $("<li class='inner innerP'></li>");
+							var $divFir = $("<div class='item-name'></div>");
+							$divFir.html("取货地址：");
+							var $divSco = $("<div class='item-value'></div>");
+							var $divThi = $("<div class='p-wrap'></div>");
+							var $textarea = $("<textarea type='text' ng-model='GoLimit.smgo_add' ></textarea>");
+							$divThi.append($textarea);
+							$divSco.append($divThi);
+							$divFir.append($divSco);
+							$li.append($divFir);
+							smgoSego.append($li);
+						}
+					})*/
 					
-					function toProducer($scope, services, $location,$routeParams){
-						console.log("跳转后"+$routeParams.smallgoods);
-						$scope.SGInfo=$routeParams.smallgoods;
-					}
+					 $("input[name=radio]").each(function(){
+					        $(this).click(function(){
+					        	var smgoSego = $('#addSegoAdd');
+								smgoSego.empty();
+					            var discount = $(this).val();
+					            if(discount=="1"){
+					            	var $li = $("<li class='inner'></li>");
+									var $divFir = $("<div class='item-name' style='display:inline;'></div>");
+									$divFir.html("取货地址：");
+									var $divSco = $("<div class='item-value'></div>");
+									var $divThi = $("<div class='p-wrap'></div>");
+									var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");
+									$divThi.append($input);
+									$divSco.append($divThi);
+									$li.append($divFir);
+									$li.append($divSco);
+									smgoSego.append($li);
+					            }
+					        });
+					    });
+					
 					// 初始化
 					function initData() {
 						console.log("初始化页面信息");
