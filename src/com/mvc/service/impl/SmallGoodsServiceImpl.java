@@ -33,8 +33,8 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 
 	//查询小件货运信息
 	@Override
-	public List<SmallGoods> findSmallGoodsAlls(String endPlace ,Date sendTime) {
-		return smallGoodsRepository.findByTimeAndPlace(endPlace , sendTime);
+	public List<SmallGoods> findSmallGoodsAlls(String endPlace) {
+		return smallGoodsRepository.findByTimeAndPlace(endPlace);
 	}
 
 

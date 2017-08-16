@@ -67,6 +67,12 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/smallGoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoods.html',
 		controller : 'PlatformController'
+	}).when('/smallGoodsInfo/:smallgoods', {
+		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsInfo.html',
+		controller : 'SGInfoController'
+	}).when('/smallGoodsList', {
+		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsList.html',
+		controller : 'PlatformController'
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
@@ -76,6 +82,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'smallGoods/addSmallGoods.do',
+			data : data
+		});
+	};
+	services.selectSmallGoods = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'smallGoods/selectSmallGoods.do',
 			data : data
 		});
 	};
@@ -89,7 +102,8 @@ app
 				'$scope',
 				'services',
 				'$location',
-				function($scope, services, $location) {
+				'$routeParams',
+				function($scope, services, $location, $routeParams) {
 					var smallGoods = $scope;
 					smallGoods.GoLimit={
 							smgo_name:"",
@@ -103,10 +117,12 @@ app
 							smgo_sego:"0",
 							smgo_remark:""	
 					}
+					smallGoods.GolLimit={
+							smgo_select:""
+					}
 					smallGoods.addSmallGoods=function(){
 						var goLimit = JSON
 						.stringify(smallGoods.GoLimit);
-						
 						services.addSmallGoods({
 							goNeed : goLimit
 						}).success(function(data) {
@@ -116,20 +132,49 @@ app
 							} else {
 								alert("否");
 							}
+						 	$location.path('smallGoodsInfo/'+data);
+
 						});
+					}
+					
+					smallGoods.selectSmallGoods=function(){
+						var golLimit = JSON
+						.stringify(smallGoods.GolLimit);
+						services.selectSmallGoods({
+							golNeed : golLimit
+						}).success(function(data) {
+							smallGoods.smallGoodsList = data.list;
+						});
+					}
+					
+					function toProducer($scope, services, $location,$routeParams){
+						console.log("跳转后"+$routeParams.smallgoods);
+						$scope.SGInfo=$routeParams.smallgoods;
 					}
 					// 初始化
 					function initData() {
 						console.log("初始化页面信息");
 						
-						if ($location.path().indexOf('/smallGoods') == 0) {
-							
+						if ($location.path().indexOf('/smallGoods') == 0) {		
 
-						} else if ($location.path().indexOf(
-								'/indexPlat') == 0) {
-							
+						} else if ($location.path().indexOf('/smallGoodsInfo') == 0) {
+
 						} 
 					}
 					initData();
 				} ]);
+
+app
+.controller(
+		'SGInfoController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location,$routeParams) {
+					console.log("跳转后"+$routeParams.smallgoods);
+					$scope.SGInfo=$routeParams.smallgoods;
+				} ]);
+
 

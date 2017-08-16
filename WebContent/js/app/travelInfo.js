@@ -71,9 +71,11 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/travelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
-	})
-	.when('/travelInfoList', {
+	}).when('/travelInfoList', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoList.html',
+		controller : 'PlatformController'
+	}).when('/travelTrade', {
+		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
 		controller : 'PlatformController'
 	})
 } ]);
@@ -81,6 +83,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
+	
 	// zq获取做房用时列表A
 	services.addtravelInfo = function(data) {
 		return $http({
@@ -124,7 +127,7 @@ app
 									travelInfo : travelLimit
 								}).success(function(data) {
 									
-									$location.path("busNeedInfo/"+JSON.stringify(data.result));
+									$location.path("travelInfoDetail/"+JSON.stringify(data.result));
 									if (result.data) {
 										alert("是");
 									} else {
@@ -154,7 +157,7 @@ app
 
 app
 .controller(
-		'BusNeedInfoController',
+		'travelInfoDetailController',
 		[
 				'$scope',
 				'services',
@@ -162,7 +165,7 @@ app
 				'$routeParams',
 				function($scope, services, $location,$routeParams) {
 					
-					$scope.BNeed=JSON.parse($routeParams.busneed);
+					$scope.TInfo=JSON.parse($routeParams.travelInfo);
 				
 				} ]);
 
@@ -178,7 +181,7 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
-//时间的格式化的判断
+//旅游活动内容的格式化的判断
 app.filter('isOrNotNull', function() {
 	return function(input) {
 		var type = "";
