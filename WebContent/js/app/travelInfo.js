@@ -68,6 +68,13 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html',
 		controller : 'PlatformController'  
+	}).when('/travelInfoDetail/:travelInfo', {
+		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
+		controller : 'travelInfoDetailController'
+	})
+	.when('/travelInfoList', {
+		templateUrl : '/lckywx/jsp/travelInfo/travelInfoList.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -113,33 +120,78 @@ app
 							travelInfo.addtravelInfo=function(){
 								var travelLimit = JSON
 								.stringify(travelInfo.travelLimit);
-								console.log("bacon"+travelLimit);
-								
 								services.addtravelInfo({
 									travelInfo : travelLimit
 								}).success(function(data) {
-									console.log("::::::::::::"+data);
-									if (data) {
+									
+									$location.path("busNeedInfo/"+JSON.stringify(data.result));
+									if (result.data) {
 										alert("是");
 									} else {
 										alert("否");
 									}
 								});
 							}
+							travelInfo.toProducer = function () { 
+								$location.path("#/travelInfoDetail");
+							};
+							
 							// zq初始化
 							function initData() {
 								console.log("初始化页面信息");
 								
-								if ($location.path().indexOf('/workHouseForm') == 0) {
+								if ($location.path().indexOf('/travelInfo') == 0) {
 									
 
 								} else if ($location.path().indexOf(
-										'/indexPlat') == 0) {
-									
+										'/travelInfoDetail') == 0) {
+									var producerId = $stateParams.producerId;
+									alert(producerId);	
 								} 
 							}
 							initData();
 						} ]);
+
+app
+.controller(
+		'BusNeedInfoController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location,$routeParams) {
+					
+					$scope.BNeed=JSON.parse($routeParams.busneed);
+				
+				} ]);
+
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		console.log(input);
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+
+		return type;
+	}
+});
+//时间的格式化的判断
+app.filter('isOrNotNull', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = input;
+		}else{
+			type="无";
+		}
+
+		return type;
+	}
+});
+
 
 
 

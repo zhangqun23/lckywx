@@ -68,8 +68,12 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/busNeed', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeed.html',
 		controller : 'PlatformController'
-	}).when('/busNeedInfo', {
+	}).when('/busNeedInfo/:busneed', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedInfo.html',
+		controller : 'BusNeedInfoController'
+	})
+	.when('/busNeedList', {
+		templateUrl : '/lckywx/jsp/busNeed/busNeedList.html',
 		controller : 'PlatformController'
 	})
 } ]);
@@ -113,29 +117,73 @@ app
 								services.addBusNeed({
 									busNeed : busLimit
 								}).success(function(data) {
-									 $location.path("/busNeedInfo");
+									
+									 $location.path("busNeedInfo/"+JSON.stringify(data.result));
 									if (data.result) {
 										alert("是");
-										busNeed.bNeed=data.result;
-										console.log("zq"+JSON
-												.stringify(data.result));
+										/*console.log("zq"+JSON
+												.stringify(data.result));*/
 									} else {
 										alert("否");
 									}
 								});
 							}
+							busNeed.toProducer = function () { 
+								$location.path("#/busNeedInfo");
+							};
 							// zq初始化
 							function initData() {
 								console.log("初始化页面信息");
 								
-								if ($location.path().indexOf('/workHouseForm') == 0) {
+								if ($location.path().indexOf('/busNeed') == 0) {
 									
 
 								} else if ($location.path().indexOf(
-										'/indexPlat') == 0) {
-									
+										'/busNeedInfo') == 0) {
+									var producerId = $stateParams.producerId;
+									alert(producerId);
 								} 
 							}
 							initData();
 						} ]);
+app
+.controller(
+		'BusNeedInfoController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location,$routeParams) {
+					
+					$scope.BNeed=JSON.parse($routeParams.busneed);
+				
+				} ]);
+
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		console.log(input);
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+
+		return type;
+	}
+});
+//时间的格式化的判断
+app.filter('isOrNotNull', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = input;
+		}else{
+			type="无";
+		}
+
+		return type;
+	}
+});
+
 
