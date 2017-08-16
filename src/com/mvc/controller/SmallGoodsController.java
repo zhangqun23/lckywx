@@ -74,6 +74,9 @@ public class SmallGoodsController {
 		if (jsonObject.containsKey("amgo_money")) {
 			smallGoods.setAmgo_money(Float.parseFloat(jsonObject.getString("amgo_money")));
 		}
+		else{
+			smallGoods.setAmgo_money((float) 0.123);
+		}
 		if (jsonObject.containsKey("smgo_deal_time")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("smgo_deal_time"));

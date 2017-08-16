@@ -67,7 +67,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/smallGoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoods.html',
 		controller : 'PlatformController'
-	}).when('/smallGoodsInfo', {
+	}).when('/smallGoodsInfo/:smallgoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsInfo.html',
 		controller : 'PlatformController'
 	})
@@ -92,7 +92,8 @@ app
 				'$scope',
 				'services',
 				'$location',
-				function($scope, services, $location) {
+				'$routeParams',
+				function($scope, services, $location, $routeParams) {
 					var smallGoods = $scope;
 					smallGoods.bb="das";
 					smallGoods.GoLimit={
@@ -120,8 +121,9 @@ app
 							} else {
 								alert("否");
 							}
-							console.log(data);
-						 	$location.path('/smallGoodsInfo');
+//							$scope.SGoods=JSON.parse($routeParams.smallgoods);
+//							console.log($scope.SGoods);
+						 	$location.path('/smallGoodsInfo'+JSON.stringify(data));
 
 						});
 					}
