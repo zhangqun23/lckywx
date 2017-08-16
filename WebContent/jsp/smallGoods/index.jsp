@@ -6,7 +6,7 @@
 %>
 <jsp:include page="/jsp/top.jsp" />
 <section id="smallGoodsForm" ng-app="smallGoodsForm" >
-	<div ng-view ></div>
+	<div ng-view style="overflow-y:scroll;height:100%;" ></div>
 </section>
 <jsp:include page="/jsp/footer.jsp" />
 <script src="${ctx}/js/app/smallGoods.js"></script>
