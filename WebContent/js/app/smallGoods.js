@@ -143,7 +143,7 @@ app
 						services.selectSmallGoods({
 							golNeed : golLimit
 						}).success(function(data) {
-
+							smallGoods.smallGoodsList = data.list;
 						});
 					}
 					

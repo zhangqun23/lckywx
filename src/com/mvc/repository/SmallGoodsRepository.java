@@ -18,6 +18,6 @@ public interface SmallGoodsRepository extends JpaRepository<SmallGoods, Integer>
 	// 根据使用时间查询小件货运信息
 	//@Query("select b from BusNeed b where bune_gath_time = :bune_gath_time and is_delete=0 ")
 	//public List<SmallGoods> findByUsertime(@Param("bune_gath_time") String useDate);
-	@Query("select s from SmallGoods s where smgo_end = :endPlace and smgo_send_time = :sendTime and is_delete=0 ")
-	public List<SmallGoods> findByTimeAndPlace(@Param("endPlace") String endPlace,@Param("sendTime") Date sendTime);
+	@Query("select s from SmallGoods s where smgo_end = :endPlace and is_delete=1 ")
+	public List<SmallGoods> findByTimeAndPlace(@Param("endPlace") String endPlace);
 }

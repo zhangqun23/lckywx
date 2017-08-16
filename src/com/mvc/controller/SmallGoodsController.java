@@ -2,6 +2,7 @@ package com.mvc.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -113,13 +114,17 @@ public class SmallGoodsController {
 	 */
 	@RequestMapping(value = "/selectSmallGoods.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
-		JSONObject jsonObject = new JSONObject();
-		String endPlace = request.getParameter("endPlace");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date sendTime = sdf.parse(request.getParameter("sendTime"));
-		List<SmallGoods> list = smallGoodsService.findSmallGoodsAlls(endPlace ,sendTime);
-		jsonObject.put("list", list);
-		return jsonObject.toString();
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("golNeed"));
+		List<SmallGoods> list = new ArrayList<SmallGoods>();
+		if (jsonObject.containsKey("smgo_select")) {
+			list = smallGoodsService.findSmallGoodsAlls(jsonObject.getString("smgo_select"));
+		}
+		JSONObject jsonO = new JSONObject();
+//		String endPlace = request.getParameter("endPlace");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		Date sendTime = sdf.parse(request.getParameter("sendTime"));
+		jsonO.put("list", list);
+		return jsonO.toString();
 	}
 
 }

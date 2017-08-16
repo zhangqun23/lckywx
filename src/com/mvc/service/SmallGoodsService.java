@@ -15,6 +15,6 @@ public interface SmallGoodsService {
 	boolean saveSmallGoods(SmallGoods smallGodds);
 
 	// 查询小件货运信息 
-	List<SmallGoods> findSmallGoodsAlls(String endPlace, Date sendTime );
+	List<SmallGoods> findSmallGoodsAlls(String endPlace);
 
 }
