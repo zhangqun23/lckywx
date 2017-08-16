@@ -122,8 +122,8 @@
 
 
 article{
-	/* padding: 10px; */
-	/* background-color: #f1f1f1; */
+	padding: 10px;
+	background-color: #f1f1f1;
 }
 
 .order-tab{
@@ -170,6 +170,6 @@ article{
 	font-size: 0.8rem;
 }
 
-.weui_cell_bd{
+.order_cell_bd{
 	padding: 0 15px;
 }
