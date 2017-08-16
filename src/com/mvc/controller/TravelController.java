@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.mvc.entiy.BusNeed;
-import com.mvc.entiy.BusTrade;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.service.TravelService;
@@ -83,7 +81,7 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/TravelTrade.do")
+	@RequestMapping(value = "/travelTrade.do")
 	public @ResponseBody String addTravelTrade(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travelTrade"));
 		TravelTrade travelTrade = new TravelTrade();
@@ -102,7 +100,7 @@ public class TravelController {
 		Travel travel = new Travel();
 		travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
 		travelTrade.setTravel_id(travel);
-		boolean result;
+		List<TravelTrade> result;
 		if (jsonObject.containsKey("trtr_id")) {
 			travelTrade.setTrtr_id(Integer.valueOf(jsonObject.getString("trtr_id")));
 			result = travelService.saveTravelTrade(travelTrade);// 修改交易信息
