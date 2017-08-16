@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name="ad")
@@ -13,7 +17,7 @@ public class Ad {
 private Integer ad_id;//广告id，主键
 private Integer ad_type;//0招工，1旅游、2其他
 private Integer ad_state;//0代表未审核，1代表已审核
-private Integer user_id;//外键
+private User user;//外键
 private String ad_name;//联系人
 private String ad_tel;//联系方式
 private String ad_title;//广告名称
@@ -47,12 +51,13 @@ public void setAd_state(Integer ad_state) {
 	this.ad_state = ad_state;
 }
 
-@Column(name = "user_id")
-public Integer getUser_id() {
-	return user_id;
+@ManyToOne
+@JoinColumn(name="user_id")
+public User getUser() {
+	return user;
 }
-public void setUser_id(Integer user_id) {
-	this.user_id = user_id;
+public void setUser(User user) {
+	this.user = user;
 }
 
 @Column(name = "ad_name", length = 32)
