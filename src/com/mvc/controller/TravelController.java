@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.service.TravelService;
+import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 /**
@@ -27,7 +28,7 @@ import net.sf.json.JSONObject;
  *
  */
 @Controller
-@RequestMapping("/travel")
+@RequestMapping("/travelInfo")
 public class TravelController {
 	@Autowired
 	TravelService travelService;
@@ -42,10 +43,14 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/travelInfo.do")
+	@RequestMapping(value = "/addTravelInfo.do")
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		String useDate = request.getParameter("useDate");
+		
+		//测试1
+				System.out.println("测试1");
+		
 		List<Travel> list = travelService.findTravelAlls(useDate);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -64,6 +69,10 @@ public class TravelController {
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		String usePrice = request.getParameter("usePrice");
+		
+		//测试2
+				System.out.println("测试2");
+		
 		List<Travel> list = travelService.findTravelAlls1(usePrice);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -86,20 +95,31 @@ public class TravelController {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travelTrade"));
 		TravelTrade travelTrade = new TravelTrade();
 		if (jsonObject.containsKey("trtr_tel")) {
-			travelTrade.setTrtr_tel(jsonObject.getString("trtr_tel"));
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_tel"))){
+				travelTrade.setTrtr_tel(jsonObject.getString("trtr_tel"));
+			}	
 		}
 		if (jsonObject.containsKey("trtr_price")) {
-			travelTrade.setTrtr_price(Float.parseFloat(jsonObject.getString("trtr_price")));
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_price"))){
+				travelTrade.setTrtr_price(Float.parseFloat(jsonObject.getString("trtr_price")));
+			}		
 		}
 		if (jsonObject.containsKey("trtr_mnum")) {
-			travelTrade.setTrtr_mnum(Integer.valueOf(jsonObject.getString("trtr_mnum")));
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_mnum"))){
+				travelTrade.setTrtr_mnum(Integer.valueOf(jsonObject.getString("trtr_mnum")));
+			}
 		}
 		if (jsonObject.containsKey("trtr_cnum")) {
-			travelTrade.setTrtr_cnum(Integer.valueOf(jsonObject.getString("trtr_cnum")));
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_cnum"))){
+				travelTrade.setTrtr_cnum(Integer.valueOf(jsonObject.getString("trtr_cnum")));
+			}
 		}
 		Travel travel = new Travel();
 		travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
-		travelTrade.setTravel_id(travel);
+		
+		//测试3
+				System.out.println("测试3");
+		
 		List<TravelTrade> result;
 		if (jsonObject.containsKey("trtr_id")) {
 			travelTrade.setTrtr_id(Integer.valueOf(jsonObject.getString("trtr_id")));
