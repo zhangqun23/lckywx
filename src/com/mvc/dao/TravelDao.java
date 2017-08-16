@@ -7,6 +7,11 @@
  */
 package com.mvc.dao;
 
+import java.util.List;
+
+import com.mvc.entiy.Travel;
+import com.mvc.entiy.TravelTrade;
+
 /**
  * @ClassName: TravelDao
  * @Description: TODO
@@ -16,6 +21,8 @@ package com.mvc.dao;
  *
  */
 public interface TravelDao {
-	
+	List<Travel> findTravelAlls(String useDate);
+	List<Travel> findTravelAlls1(String usePrice);
+	List<TravelTrade> saveTravelTrade();
 
 }
