@@ -12,7 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.mvc.dao.TravelDao;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.repository.TravelRepository;
@@ -33,24 +33,28 @@ public class TravelServiceImpl implements TravelService{
 	TravelRepository travelRepository;
 	@Autowired
 	TravelTradeRepository travelTradeRepository;
+	@Autowired 
+	TravelDao travelDao;
 	//按出发日期查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls(String useDate) {
-		return travelRepository.findByUsertime(useDate);
+		List<Travel> listSource = travelDao.findTravelAlls(useDate);
+		return listSource;
 	}
 	//按成人票价查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls1(String usePrice) {
-		return travelRepository.findByUserprice(usePrice);
+		List<Travel> listSource = travelDao.findTravelAlls1(usePrice);
+		return listSource;
 	}
 	//旅游交易
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public boolean saveTravelTrade(TravelTrade travelTrade) {
-		TravelTrade result =travelTradeRepository.saveAndFlush(travelTrade);
-		if (result.getTrtr_id() != null)
-			return true;
-		else
-			return false;
+	public List saveTravelTrade(TravelTrade travelTrade) {
+		List<TravelTrade> result =travelDao.saveTravelTrade();
+		if (((TravelTrade) result).getTrtr_id() != null)
+			return result;
+		return result;
 	}
 
 }
