@@ -55,6 +55,11 @@ public class RouteController {
 		return "smallGoods/index";
 	}
 	
+	@RequestMapping("/toSmallGoodsListPage.do")
+	public String toSmallGoodsListPage() {
+		return "smallGoods/index";
+	}
+	
 	
 
 }
