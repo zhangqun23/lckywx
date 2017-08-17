@@ -65,6 +65,9 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
+	
+	//再添加一个路径
+	
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		
@@ -89,6 +92,7 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
+	
 	@RequestMapping(value = "/travelTrade.do")
 	public @ResponseBody String addTravelTrade(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travelTrade"));
