@@ -1,6 +1,8 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Ad;
 import com.mvc.entiy.User;
 import com.mvc.service.AdService;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
@@ -31,7 +34,7 @@ public class AdController {
 	 * 
 	 * @param request
 	 * @param session
-	 * @return
+	 * @return  ad对象
 	 * @throws ParseException
 	 * 
 	 * 
@@ -97,4 +100,27 @@ public class AdController {
 		return limit.toString(); 
 	}
 
+	/**
+	 * 广告查询
+	 * 
+	 * @param request
+	 * @param session
+	 * @return  list
+	 * 
+	 * 
+	 */
+	
+	@RequestMapping("/selectAdver.do")
+	public @ResponseBody String selectAdver(HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObject= JSONObject.fromObject(request.getParameter("adType"));
+		
+		String adType=jsonObject.getString("adType");
+		if (StringUtil.strIsNotEmpty(jsonObject.getString("adType"))){
+			List<AdType> list = adService.findAdTypeAlls();
+		}
+		return 
+	}
+		
+	
+	
 }
