@@ -23,9 +23,9 @@ import com.mvc.entiy.TravelTrade;
 public interface TravelService {
 
 	//按出发时间查询旅游信息
-	List<Travel> findTravelAlls(String useDate);
+	List<Travel> findTravelAlls();
 	//按成人票价格查询旅游信息
-	List<Travel> findTravelAlls1(String usePrice);
+	List<Travel> findTravelAlls1();
 	//添加旅游交易
 	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);
 	
