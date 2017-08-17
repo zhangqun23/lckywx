@@ -1,0 +1,71 @@
+<article style="margin-top: 55px;">
+
+	<ul class="order-tab clearfix">
+		<li class="green">需求信息</li>
+	</ul>
+	<ul class="order-box">
+		<li class="inner">
+			<div class="item-name">旅游信息编号：</div>
+			<div class="item-value">{{TInfo.travel_id}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">标题：</div>
+			<div class="item-value">{{TInfo.travel_title}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">总人数：</div>
+			<div class="item-value">{{TInfo.travel_total_num}}&nbsp;&nbsp;人</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">剩余人数：</div>
+			<div class="item-value">{{TInfo.travel_left_num}}&nbsp;&nbsp;人</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">游玩天数：</div>
+			<div class="item-value">{{TInfo.travel_days}}&nbsp;&nbsp;天</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">出发时间：</div>
+			<div class="item-value">{{TInfo.travel_stime | dateType}}</div>
+		</li>
+
+		<li class="inner">
+			<div class="item-name">出发地点：</div>
+			<div class="item-value">{{TInfo.travel_location}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">路线：</div>
+			<div class="item-value">{{TInfo.travel_route}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">成人票价格：</div>
+			<div class="item-value">{{TInfo.travel_mprice}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">儿童票价格：</div>
+			<div class="item-value">{{TInfo.travel_cprice}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">折扣：</div>
+			<div class="item-value">{{TInfo.travel_discount}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">联系电话：</div>
+			<div class="item-value">{{TInfo.travel_tel}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">保险费：</div>
+			<div class="item-value">{{TInfo.travel_insurance}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">活动描述：</div>
+			<div class="item-value">{{TInfo.travel_content |isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">旅游承办公司：</div>
+			<div class="item-value">{{TInfo.travel_firm}}</div>
+		</li>
+		<li class="inner no-padding"><a href="/lckywx/routeController/toTraveInfoDetailPage.do#/travelTrade">
+			class="weui_btn weui_btn_primary">预定旅游票</a></li>
+	</ul>
+</article>
