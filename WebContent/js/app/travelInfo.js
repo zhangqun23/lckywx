@@ -68,18 +68,25 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html',
 		controller : 'PlatformController'  
+	}).when('/travelInfoDetail/:travelInfo', {
+		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
+		controller : 'travelInfoDetailController'
+	}).when('/travelTrade', {
+		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
-	// zq获取做房用时列表A ？？？
-	services.addtravelInfo = function(data) {
+	
+	// zq获取做房用时列表A
+	services.addtravelInfo = function() {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travelInfo/addTravelInfo.do',
-			data : data
+			/*data : data*/
 		});
 	};
 	
@@ -95,7 +102,7 @@ app
 						function($scope, services, $location) {
 							var travelInfo = $scope;
 							travelInfo.TravelLimit={
-									 travel_title :"", // 标题
+									 travel_title :"", // 标(主)题
 									 travel_content :"", // 活动描述
 									 travel_route :"", // 路线
 									 travel_mprice :"", // 成人票价格
@@ -111,35 +118,80 @@ app
 									 travel_firm :"" // 旅游承办公司
 							}
 							travelInfo.addtravelInfo=function(){
-								var travelLimit = JSON
-								.stringify(travelInfo.travelLimit);
-								console.log("bacon"+travelLimit);
-								
-								services.addtravelInfo({
-									travelInfo : travelLimit
+								/*var travelLimit = JSON
+								.stringify(travelInfo.travelLimit);*/
+								services.addTravelInfo({
+									/*travelInfo : travelLimit*/
 								}).success(function(data) {
-									console.log("::::::::::::"+data);
-									if (data) {
+									console.log(data.list);
+									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
+									if (result.data) {
 										alert("是");
 									} else {
 										alert("否");
 									}
 								});
 							}
+							travelInfo.toProducer = function () { 
+								$location.path("#/travelInfoDetail");
+							};
+							
 							// zq初始化
 							function initData() {
 								console.log("初始化页面信息");
 								
-								if ($location.path().indexOf('/workHouseForm') == 0) {
+								if ($location.path().indexOf('/travelInfo') == 0) {
 									
 
 								} else if ($location.path().indexOf(
-										'/indexPlat') == 0) {
-									
+										'/travelInfoDetail') == 0) {
+									var producerId = $stateParams.producerId;
+									alert(producerId);	
 								} 
 							}
 							initData();
 						} ]);
+
+app
+.controller(
+		'travelInfoDetailController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location,$routeParams) {
+					
+					$scope.TInfo=JSON.parse($routeParams.travelInfo);
+				
+				} ]);
+
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		console.log(input);
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+
+		return type;
+	}
+});
+//旅游活动内容的格式化的判断
+app.filter('isOrNotNull', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = input;
+		}else{
+			type="无";
+		}
+
+		return type;
+	}
+});
+
 
 
 

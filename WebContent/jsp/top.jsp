@@ -20,7 +20,6 @@
 <link rel="stylesheet" href="${ctx}/css/pages/info-detail.css" />
  <link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
  <link href="${ctx}/css/pages/branch.css" rel="stylesheet" type="text/css" />
-
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
 

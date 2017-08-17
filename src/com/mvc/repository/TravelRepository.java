@@ -26,11 +26,6 @@ import com.mvc.entiy.Travel;
  *
  */
 public interface TravelRepository extends JpaRepository<Travel, Integer>{
-	//根据旅游时间查询旅游信息
-	@Query("select t from Travel t where travel_stime = :travel_stime and is_delete=0 ")
-	public List<Travel> findByUsertime(@Param("travel_stime") String useDate);
-	//travel_stime = useDate参数;
-	@Query("select p from Travel p where travel_mprice = :travel_mprice and is_delete=0 ")
-	public List<Travel> findByUserprice(@Param("travel_mprice") String usePrice);
+
 
 }

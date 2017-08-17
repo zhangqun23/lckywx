@@ -1,145 +1,141 @@
-<article style="margin-top: 34px;">
- <form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data">
-            <ul class="xunjia-box">
-			 <li class="inner">
-                    <div class="item-name">标题：</div>
-                    <div class="item-value">
-                     <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.travel_title" required>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner">
-                    <div class="item-name">路线：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.travel_route" required>
-                        </div>
-                       
-                    </div>
-                </li>
-                 <li class="inner">
-                    <div class="item-name">出发时间：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" name="startTime" ng-model="TradeLimit.travel_stime"
-						class="dfselect dateLayoutStyle" 
-						onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
-						
-                        </div>
-                    </div>
-                </li>
-                 <li class="inner">
-                    <div class="item-name">出发地点：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.travel_location" required>
-                        </div>
-                       
-                    </div>
-                </li>
-                <li class="inner">
-                    <div class="item-name">目的地点：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" ng-model="BusLimit.bune_goal_pla" required>
-                        </div>
-                    </div>
-                </li>
-                 <li class="inner innerP">
-                    <div class="item-name">成人票价格：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_mprice" required></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">儿童票价格：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_cprice"></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">联系电话：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_tel" required></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">游玩天数：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_days"></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">保险费：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_insurance" required></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">折扣：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_discount"></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">总人数：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea  ng-model="TradeLimit.travel_total_num" required></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">剩余人数：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_left_num"></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">旅游承办公司：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea ng-model="TradeLimit.travel_firm"></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner">
-                    <div class="item-name">活动描述：</div>
-                    <div class="item-value">
-                        <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.travel_content" required>
-                        </div>
-                    </div>
-                </li>
-				<!-- <li class="inner">
-                    <div class="item-name">同意租赁条款：</div>
-                    <div class="item-value">
-                        <input type="checkbox"/>
-                    </div>
-                </li> -->
-				<li class="inner">
-                    
-                    <div class="item-value" style="margin-right:90px">
-                         <div class="a-wrap">
-                           <input type="submit" class="weui_btn weui_btn_primary" value="提交" >
-                         </div>
-                    </div>
-                </li>
-            </ul>
-            </form>
-        </article>
+  <article style="margin-top: 54px;">
+     <div class="weui_cells weui_cells_access">
+		<a class="weui_cell" href="notice_detail.html">
+          <div class="weui_cell_bd weui_cell_primary">
+            <div href="javascript:;" class="weui_btn  weui_btn_primary" >按时间</div>
+ 			<div href="javascript:;" class="weui_btn  weui_btn_primary" >按价格</div>
+          </div>
+        </a>
+        <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <div class="wuliao-title">
+                      <label>主题：</label>
+                      <span>***村苹果采摘</span>
+                  </div>
+                  <div class="detail clearfix">
+                      <span class="date">价格：20元/人</span>
+                      <span class="require">地点：<label>***村***街</label></span>
+                      <span class="result">活动状态：<label>进行中</label></span>
+                  </div>
+   <div class="detail clearfix">
+                      <span class="date">联系人：张三</span>
+                      <span class="require">联系方式：<label>157********</label></span>
+                  </div>
+                  <div class="org">
+                      <span>活动内容：苹果成熟旺季，特邀广大朋友来到***村参加苹果采摘活动，活动火爆进行中，进园每人20元随便吃，出园带苹果20元/千克。</span>
+                      <a href="/lckywx/routeController/toTravelInfoDetailPage.do#/travelInfoDetail/:travelInfo">
+                      详情</a>
+                      
+                  </div>
+              </div>
+          </a>
+           <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <div class="wuliao-title">
+                      <label>主题：</label>
+                      <span>***村苹果采摘</span>
+                  </div>
+                  <div class="detail clearfix">
+                      <span class="date">价格：20元/人</span>
+                      <span class="require">地点：<label>***村***街</label></span>
+                      <span class="result">活动状态：<label>进行中</label></span>
+                  </div>
+   <div class="detail clearfix">
+                      <span class="date">联系人：张三</span>
+                      <span class="require">联系方式：<label>157********</label></span>
+                  </div>
+                  <div class="org">
+                      <span>活动内容：苹果成熟旺季，特邀广大朋友来到***村参加苹果采摘活动，活动火爆进行中，进园每人20元随便吃，出园带苹果20元/千克。</span>
+                      <label class="green">详情</label>
+                  </div>
+              </div>
+          </a>
+         <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <div class="wuliao-title">
+                      <label>主题：</label>
+                      <span>***村苹果采摘</span>
+                  </div>
+                  <div class="detail clearfix">
+                      <span class="date">价格：20元/人</span>
+                      <span class="require">地点：<label>***村***街</label></span>
+                      <span class="result">活动状态：<label>进行中</label></span>
+                  </div>
+   <div class="detail clearfix">
+                      <span class="date">联系人：张三</span>
+                      <span class="require">联系方式：<label>157********</label></span>
+                  </div>
+                  <div class="org">
+                      <span>活动内容：苹果成熟旺季，特邀广大朋友来到***村参加苹果采摘活动，活动火爆进行中，进园每人20元随便吃，出园带苹果20元/千克。</span>
+                      <label class="green">详情</label>
+                  </div>
+              </div>
+          </a>
+           <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <div class="wuliao-title">
+                      <label>主题：</label>
+                      <span>***村苹果采摘</span>
+                  </div>
+                  <div class="detail clearfix">
+                      <span class="date">价格：20元/人</span>
+                      <span class="require">地点：<label>***村***街</label></span>
+                      <span class="result">活动状态：<label>进行中</label></span>
+                  </div>
+   <div class="detail clearfix">
+                      <span class="date">联系人：张三</span>
+                      <span class="require">联系方式：<label>157********</label></span>
+                  </div>
+                  <div class="org">
+                      <span>活动内容：苹果成熟旺季，特邀广大朋友来到***村参加苹果采摘活动，活动火爆进行中，进园每人20元随便吃，出园带苹果20元/千克。</span>
+                      <label class="green">详情</label>
+                  </div>
+              </div>
+          </a>
+           <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <div class="wuliao-title">
+                      <label>主题：</label>
+                      <span>***村苹果采摘</span>
+                  </div>
+                  <div class="detail clearfix">
+                      <span class="date">价格：20元/人</span>
+                      <span class="require">地点：<label>***村***街</label></span>
+                      <span class="result">活动状态：<label>进行中</label></span>
+                  </div>
+   <div class="detail clearfix">
+                      <span class="date">联系人：张三</span>
+                      <span class="require">联系方式：<label>157********</label></span>
+                  </div>
+                  <div class="org">
+                      <span>活动内容：苹果成熟旺季，特邀广大朋友来到***村参加苹果采摘活动，活动火爆进行中，进园每人20元随便吃，出园带苹果20元/千克。</span>
+                      <label class="green">详情</label>
+                  </div>
+              </div>
+          </a>
+          <a class="weui_cell" href="javascript:;">
+              <div class="weui_cell_bd weui_cell_primary">
+                  <div class="wuliao-title">
+                      <label>主题：</label>
+                      <span>***村苹果采摘</span>
+                  </div>
+                  <div class="detail clearfix">
+                      <span class="date">价格：20元/人</span>
+                      <span class="require">地点：<label>***村***街</label></span>
+                      <span class="result">活动状态：<label>进行中</label></span>
+                  </div>
+   <div class="detail clearfix">
+                      <span class="date">联系人：张三</span>
+                      <span class="require">联系方式：<label>157********</label></span>
+                  </div>
+                  <div class="org">
+                      <span>活动内容：苹果成熟旺季，特邀广大朋友来到***村参加苹果采摘活动，活动火爆进行中，进园每人20元随便吃，出园带苹果20元/千克。</span>
+                      <label class="green">详情</label>
+                  </div>
+              </div>
+          </a>
+      </div>
+  </article>
+        
+        
+        

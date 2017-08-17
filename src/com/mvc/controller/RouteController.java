@@ -37,7 +37,7 @@ public class RouteController {
 
 	@RequestMapping("/toPlatformPage.do")
 	public String InvoiceReceivePage() {
-		return "platform/index";
+		return "platform/index"; 
 	}
 
 	@RequestMapping("/toBusNeedPage.do")
@@ -45,8 +45,13 @@ public class RouteController {
 		return "busNeed/index";
 	}
 	
-	@RequestMapping("/toTraveInfoPage.do")
-	public String toTravelInfoPage() {
+	@RequestMapping("/toTravelInfoPage.do")
+	public String totravellInfoPage() {
+		return "travelInfo/index";
+	}
+	
+	@RequestMapping("/toTravelInfoDetailPage.do")
+	public String totravelInfoDetailPage() {
 		return "travelInfo/index";
 	}
 	

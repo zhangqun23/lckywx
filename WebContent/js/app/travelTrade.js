@@ -67,7 +67,7 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelTrade', {
 		templateUrl : '/lckywx/jsp/travelTrade/travelTrade.html',
-		controller : 'PlatformController'  //????
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -78,7 +78,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addtravelTrade = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'travelTrade/addTravelTrade.do',  // addtravelTrade中的t是否大小写
+			url : baseUrl + 'travelTrade/addTravelTrade.do',
 			data : data
 		});
 	};
@@ -98,7 +98,7 @@ app
 									trtr_tel:"", //客户联系方式,
 									trtr_price:"", //交易额,
 									trtr_mnum:"", //购买的成人票数
-									trtr_mnum:"" //购买的成人票数
+									trtr_cnum:"" //购买的儿童票数
 							}
 							travelTrade.addTravelTrade=function(){
 								var tradeLimit = JSON
