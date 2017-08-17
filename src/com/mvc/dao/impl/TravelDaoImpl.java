@@ -7,6 +7,7 @@
  */
 package com.mvc.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -37,27 +38,31 @@ public class TravelDaoImpl implements TravelDao{
 	//按时间查询旅游信息
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> findTravelAlls(String useDate) {
+	public List<Travel> findTravelAlls() {
+		Date getDate = new Date();
+		
+		//测试4获取当前时间
+		System.out.println(getDate + "测试4 获取当前时间");
+		
+		     //转换getDate类型
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0";
-		//判断useDate是否为空
-		if (null != useDate) {
-			sql += "and (travel_stime like '%" + useDate + "%') ";
-		}
+		String sql = "select * from travel where travel_stime > getDate and is_delete = 0 ";
 		Query query = em.createNativeQuery(sql.toString());
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
 		}
+	
+	
 	 //按成人票价格查询旅游信息
 	@SuppressWarnings("unchecked")
-	public List<Travel> findTravelAlls1(String usePrice) {
+	public List<Travel> findTravelAlls1() {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0";
-		//判断useDate是否为空
-		if (null != usePrice) {
-			sql += "and (travel_mprice like '%" + usePrice + "%') ";
-		}
+		String sql = "select * from travel where is_delete=0 order by travel_mprice asc";
+		
+		//测试5 price
+		System.out.println("测试5 Price");
+		
 		Query query = em.createNativeQuery(sql.toString());
 		List<Travel> list = query.getResultList();
 		em.close();

@@ -37,14 +37,14 @@ public class TravelServiceImpl implements TravelService{
 	TravelDao travelDao;
 	//按出发日期查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls(String useDate) {
-		List<Travel> listSource = travelDao.findTravelAlls(useDate);
+	public List<Travel> findTravelAlls() {
+		List<Travel> listSource = travelDao.findTravelAlls();
 		return listSource;
 	}
 	//按成人票价查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls1(String usePrice) {
-		List<Travel> listSource = travelDao.findTravelAlls1(usePrice);
+	public List<Travel> findTravelAlls1() {
+		List<Travel> listSource = travelDao.findTravelAlls1();
 		return listSource;
 	}
 	//旅游交易
