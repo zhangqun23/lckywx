@@ -67,7 +67,7 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelTrade', {
 		templateUrl : '/lckywx/jsp/travelTrade/travelTrade.html',
-		controller : 'PlatformController'  //????
+		controller : 'PlatformController'
 	})
 } ]);
 
