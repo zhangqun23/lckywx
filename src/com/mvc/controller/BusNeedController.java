@@ -96,8 +96,9 @@ public class BusNeedController {
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
 				busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
-				result = busNeedService.saveBusNeed(busNeed);// 修改班车定制需求
+				
 			}
+			result = busNeedService.saveBusNeed(busNeed);// 修改班车定制需求
 		} else {
 			result = busNeedService.saveBusNeed(busNeed);// 添加班车定制需求
 		}
