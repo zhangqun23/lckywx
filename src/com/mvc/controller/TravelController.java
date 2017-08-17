@@ -78,6 +78,7 @@ public class TravelController {
 		return jsonObject.toString();
 	}
 	
+	
 	/**
 	 * 
 	 * 
@@ -130,4 +131,5 @@ public class TravelController {
 		return JSON.toJSONString(result);
 
 	}
+	
 }
