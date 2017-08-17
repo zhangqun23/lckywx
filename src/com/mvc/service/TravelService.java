@@ -27,7 +27,7 @@ public interface TravelService {
 	//按成人票价格查询旅游信息
 	List<Travel> findTravelAlls1(String usePrice);
 	//添加旅游交易
-	boolean saveTravelTrade(TravelTrade travelTrade);
+	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);
 	
 	
 }

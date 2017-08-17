@@ -1,0 +1,43 @@
+<article style="margin-top: 48px;">
+		<form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
+	    <ul class="form-box">
+	    
+			 <li style="border:groove;margin:2px;height:30px;">
+                    <input type="text" placeholder="按单号／日期模糊搜索" 
+                           style="height:25px;margin:auto;" ng-model="GolLimit.smgo_select" required>
+               </li>	
+               <li class="inner"> 
+                   <div class="item-value" style="margin-right:90px">
+                        <div class="a-wrap">
+				           <input type="submit" class="weui_btn weui_btn_primary" value="查询" >
+
+                        </div>
+                   </div>
+               </li>	
+               
+		</ul>
+	</form>
+	
+	
+	<form class="weui_cell" ng-repeat="smallGood in smallGoodsList">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="wuliao-title">
+                            <label>货物名称：</label>
+                            <span>{{smallGood.smgo_name}}</span>
+                        </div>
+                        <div class="detail clearfix">
+                            <span class="date">价格：</span>
+                            <span class="result">发件日期：<label>{{smallGood.smgo_send_time}}</label></span>
+                        </div>
+						   <div class="detail clearfix">
+                            <span class="date">收件人：{{smallGood.smgo_receiver}}</span>
+                            <span class="require">联系方式：<label>{{smallGood.smgo_receiver_tel}}</label></span>
+                        </div>
+                        <div class="org">
+                            <span>备注：{{smallGood.smgo_remark}}</span>
+                            <label class="green">详情</label>
+                        </div>
+                    </div>
+        </form>
+
+</article>

@@ -1753,3 +1753,7 @@ h2 {
 .tipLoading .tipimage{
 	margin-top:20%;
 }
+.x-scroll{
+	overflow-y:scroll;
+	height:100%;
+}

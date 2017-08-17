@@ -1,0 +1,117 @@
+ <article style="margin-top: 54px; ">
+ 	<form ng-submit="addSmallGoods()" method="post" enctype="multipart/form-data"
+ 		style="overflow:hidden;">
+		<ul class="form-box">
+			<li class="inner">
+				<div class="item-name">货物名称：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_name" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">货物重量：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_weight" >
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">始发地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_start" placeholder="洛川" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">目的地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_end" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">发件人：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_sender" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+                    <div class="item-name">出发时间：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                        <input type="text" ng-model="GoLimit.smgo_send_time"
+					class="dfselect dateLayoutStyle" 
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
+                        </div> 
+                    </div>
+            </li>
+			
+			<li class="inner">
+				<div class="item-name">发件人联系方式：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_sender_tel" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">收件人：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_receiver" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">收件人联系方式：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="GoLimit.smgo_receiver_tel" required>
+					</div>
+				</div>
+			</li>
+			
+			<div style="width:127px;margin:auto;" >
+				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="0" style="-webkit-appearance:radio;"><span>自行送货</span>
+				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="1" style="-webkit-appearance:radio;"><span>上门取货</span>
+			</div>
+			
+			<div id="addSegoAdd">
+
+			</div>
+			
+			<li class="inner innerP">
+				<div class="item-name">备注：</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea type="text" ng-model="GoLimit.smgo_remark" ></textarea>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-value" style="margin-right:90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交" >
+					</div>
+ 				</div>
+			</li>
+			
+		</ul>
+		
+	</form>
+</article>

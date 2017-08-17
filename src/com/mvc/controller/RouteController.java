@@ -50,6 +50,16 @@ public class RouteController {
 		return "travelInfo/index";
 	}
 	
+	@RequestMapping("/toSmallGoodsPage.do")
+	public String toSmallGoodsPage() {
+		return "smallGoods/index";
+	}
+	
+	@RequestMapping("/toSmallGoodsListPage.do")
+	public String toSmallGoodsListPage() {
+		return "smallGoods/index";
+	}
+	
 	
 
 }
