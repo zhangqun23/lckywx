@@ -3,7 +3,9 @@ package com.mvc.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -118,8 +120,12 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		String useDate = request.getParameter("useDate");
-		List<BusNeed> list = busNeedService.findBusNeedAlls(useDate);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");	
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
