@@ -71,9 +71,6 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/travelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
-	}).when('/travelInfoList', {
-		templateUrl : '/lckywx/jsp/travelInfo/travelInfoList.html',
-		controller : 'PlatformController'
 	}).when('/travelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
 		controller : 'PlatformController'
@@ -85,11 +82,11 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
 	// zq获取做房用时列表A
-	services.addtravelInfo = function(data) {
+	services.addtravelInfo = function() {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travelInfo/addTravelInfo.do',
-			data : data
+			/*data : data*/
 		});
 	};
 	
@@ -121,13 +118,13 @@ app
 									 travel_firm :"" // 旅游承办公司
 							}
 							travelInfo.addtravelInfo=function(){
-								var travelLimit = JSON
-								.stringify(travelInfo.travelLimit);
-								services.addtravelInfo({
-									travelInfo : travelLimit
+								/*var travelLimit = JSON
+								.stringify(travelInfo.travelLimit);*/
+								services.addTravelInfo({
+									/*travelInfo : travelLimit*/
 								}).success(function(data) {
-									
-									$location.path("travelInfoDetail/"+JSON.stringify(data.result));
+									console.log(data.list);
+									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
 									if (result.data) {
 										alert("是");
 									} else {
