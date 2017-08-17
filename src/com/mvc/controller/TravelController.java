@@ -46,12 +46,11 @@ public class TravelController {
 	@RequestMapping(value = "/addTravelInfo.do")
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		String useDate = request.getParameter("useDate");
 		
-		//测试1
+		        //测试1
 				System.out.println("测试1");
 		
-		List<Travel> list = travelService.findTravelAlls(useDate);
+		List<Travel> list = travelService.findTravelAlls();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
@@ -66,17 +65,20 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
+	
+	//再添加一个路径
+	
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		String usePrice = request.getParameter("usePrice");
 		
-		//测试2
+		        //测试2
 				System.out.println("测试2");
 		
-		List<Travel> list = travelService.findTravelAlls1(usePrice);
+		List<Travel> list = travelService.findTravelAlls1();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
+	
 	
 	/**
 	 * 
@@ -90,6 +92,7 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
+	
 	@RequestMapping(value = "/travelTrade.do")
 	public @ResponseBody String addTravelTrade(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travelTrade"));
@@ -117,8 +120,8 @@ public class TravelController {
 		Travel travel = new Travel();
 		travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
 		
-		//测试3
-				System.out.println("测试3");
+		        //测试3
+				System.out.println("测 试3");
 		
 		List<TravelTrade> result;
 		if (jsonObject.containsKey("trtr_id")) {
@@ -130,4 +133,5 @@ public class TravelController {
 		return JSON.toJSONString(result);
 
 	}
+	
 }
