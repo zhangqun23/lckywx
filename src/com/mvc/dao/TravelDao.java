@@ -21,8 +21,8 @@ import com.mvc.entiy.TravelTrade;
  *
  */
 public interface TravelDao {
-	List<Travel> findTravelAlls(String useDate);
-	List<Travel> findTravelAlls1(String usePrice);
+	List<Travel> findTravelAlls();
+	List<Travel> findTravelAlls1();
 	List<TravelTrade> saveTravelTrade();
 
 }

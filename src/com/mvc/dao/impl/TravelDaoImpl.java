@@ -7,6 +7,8 @@
  */
 package com.mvc.dao.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -37,27 +39,33 @@ public class TravelDaoImpl implements TravelDao{
 	//按时间查询旅游信息
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> findTravelAlls(String useDate) {
+	public List<Travel> findTravelAlls() {
+		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		System.out.println(getDate.format(new Date()));
+		
+		
+		//测试4获取当前时间
+		System.out.println(getDate + "测试4 获取当前时间");
+		
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0";
-		//判断useDate是否为空
-		if (null != useDate) {
-			sql += "and (travel_stime like '%" + useDate + "%') ";
-		}
+		//判断时间
+		String sql = "select * from travel where ('"+ getDate +"' between travel_stime and '2525-01-01 01:00:00') and is_delete = 0 order by travel_stime asc";
 		Query query = em.createNativeQuery(sql.toString());
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
 		}
+	
+	
 	 //按成人票价格查询旅游信息
 	@SuppressWarnings("unchecked")
-	public List<Travel> findTravelAlls1(String usePrice) {
+	public List<Travel> findTravelAlls1() {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0";
-		//判断useDate是否为空
-		if (null != usePrice) {
-			sql += "and (travel_mprice like '%" + usePrice + "%') ";
-		}
+		String sql = "select * from travel where is_delete=0 order by travel_mprice asc";
+		
+		//测试5 price
+		System.out.println("测试5 Price");
+		
 		Query query = em.createNativeQuery(sql.toString());
 		List<Travel> list = query.getResultList();
 		em.close();
@@ -68,7 +76,7 @@ public class TravelDaoImpl implements TravelDao{
 	@Override
 	public List<TravelTrade> saveTravelTrade() {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travelTrade where travel_id != null";
+		String sql = "select * from travel_trade where travel_id is not null";
 		Query query = em.createNativeQuery(sql.toString());
 		List<TravelTrade> list = query.getResultList();
 		em.close();

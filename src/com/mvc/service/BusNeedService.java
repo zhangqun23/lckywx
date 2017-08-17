@@ -1,6 +1,7 @@
 package com.mvc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
@@ -16,7 +17,7 @@ public interface BusNeedService {
 	BusNeed saveBusNeed(BusNeed busNeed);
 
 	// 查询班车定制需求
-	List<BusNeed> findBusNeedAlls(String useDate);
+	List<BusNeed> findBusNeedAlls(Map<String, Object> map);
 
 	// 添加,修改班车交易
 	boolean saveBusTrade(BusTrade busTrade);

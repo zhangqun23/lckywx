@@ -1,10 +1,12 @@
 package com.mvc.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mvc.dao.BusNeedDao;
 import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
 import com.mvc.repository.BusNeedRepository;
@@ -24,6 +26,8 @@ public class BusNeedServiceImpl implements BusNeedService {
 	BusNeedRepository busNeedRepository;
 	@Autowired
 	BusTradeRepository busTradeRepository;
+	@Autowired
+	BusNeedDao busNeedDao;
 
 	//添加,修改班车定制需求
 	@Override
@@ -37,8 +41,8 @@ public class BusNeedServiceImpl implements BusNeedService {
 
 	//查询班车定制需求
 	@Override
-	public List<BusNeed> findBusNeedAlls(String useDate) {
-		return busNeedRepository.findByUsertime(useDate);
+	public List<BusNeed> findBusNeedAlls(Map<String, Object> map) {
+		return busNeedDao.findByUsertime(map);
 	}
 
 	//添加,修改班车交易
