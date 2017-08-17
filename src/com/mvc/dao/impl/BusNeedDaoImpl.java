@@ -38,10 +38,10 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		EntityManager em=emf.createEntityManager(); 
 		String sql;
 		if(startDate==null || endDate==null ){
-			sql="select * from BusNeed where is_delete=1 order by bune_gath_time desc ";		
+			sql="select * from bus_need where is_delete=1 order by bune_gath_time desc ";		
 
 		}else {
-			sql="select * from BusNeed where is_delete=1 and "
+			sql="select * from bus_need where is_delete=1 and "
 					+ " bune_gath_time between '"+ startDate +"' and '"+ endDate +"' order by bune_gath_time desc ";		
 		}
 		Query query=em.createNativeQuery(sql,BusNeed.class);

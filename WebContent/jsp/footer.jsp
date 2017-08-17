@@ -7,3 +7,4 @@
 <script type="text/javascript" src="${ctx}/js/lib/angular/angular.js"></script>
 <script type="text/javascript" src="${ctx}/js/lib/angular/angular-route.js"></script>
 <script type="text/javascript" src="${ctx}/js/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx}/js/lib/jquery-weui.js"></script>
