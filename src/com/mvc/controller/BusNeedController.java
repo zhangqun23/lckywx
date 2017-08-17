@@ -3,7 +3,9 @@ package com.mvc.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -96,8 +98,9 @@ public class BusNeedController {
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
 				busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
-				result = busNeedService.saveBusNeed(busNeed);// 修改班车定制需求
+				
 			}
+			result = busNeedService.saveBusNeed(busNeed);// 修改班车定制需求
 		} else {
 			result = busNeedService.saveBusNeed(busNeed);// 添加班车定制需求
 		}
@@ -117,8 +120,12 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		String useDate = request.getParameter("useDate");
-		List<BusNeed> list = busNeedService.findBusNeedAlls(useDate);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");	
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
