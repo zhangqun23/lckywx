@@ -48,10 +48,10 @@ public class TravelServiceImpl implements TravelService{
 		return listSource;
 	}
 	//旅游交易
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings(value = { })
 	@Override
-	public List saveTravelTrade(TravelTrade travelTrade) {
-		List<TravelTrade> result =travelDao.saveTravelTrade();
+	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
+		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
 		if (((TravelTrade) result).getTrtr_id() != null)
 			return result;
 		return result;

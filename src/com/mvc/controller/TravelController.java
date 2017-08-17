@@ -43,7 +43,7 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/addTravelInfo.do")
+	@RequestMapping(value = "/addTravelInfo.do")   //selectTravelByTime
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		
@@ -65,6 +65,7 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
+	//selectTravelByPrice
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		
@@ -114,12 +115,18 @@ public class TravelController {
 			}
 		}
 		Travel travel = new Travel();
-		travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
+		if (jsonObject.containsKey("travel")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("travel"))) {
+				travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
+				travelTrade.setTravel_id(travel);
+			}
+		}
+		List<TravelTrade> result;
+		
 		
 		        //测试3
-				System.out.println("测 试3");
-		
-		List<TravelTrade> result;
+				System.out.println("测试3");
+	
 		if (jsonObject.containsKey("trtr_id")) {
 			travelTrade.setTrtr_id(Integer.valueOf(jsonObject.getString("trtr_id")));
 			result = travelService.saveTravelTrade(travelTrade);// 修改交易信息

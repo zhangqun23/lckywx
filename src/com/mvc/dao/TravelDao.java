@@ -23,6 +23,6 @@ import com.mvc.entiy.TravelTrade;
 public interface TravelDao {
 	List<Travel> findTravelAlls();
 	List<Travel> findTravelAlls1();
-	List<TravelTrade> saveTravelTrade();
+	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);
 
 }
