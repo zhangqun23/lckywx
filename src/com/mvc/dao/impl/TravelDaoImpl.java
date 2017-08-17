@@ -7,6 +7,7 @@
  */
 package com.mvc.dao.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -39,14 +40,16 @@ public class TravelDaoImpl implements TravelDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Travel> findTravelAlls() {
-		Date getDate = new Date();
+		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		System.out.println(getDate.format(new Date()));
+		
 		
 		//测试4获取当前时间
 		System.out.println(getDate + "测试4 获取当前时间");
 		
-		     //转换getDate类型
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where travel_stime > getDate and is_delete = 0 ";
+		//判断时间
+		String sql = "select * from travel where ('"+ getDate +"' between travel_stime and '2525-01-01 01:00:00') and is_delete = 0 order by travel_stime asc";
 		Query query = em.createNativeQuery(sql.toString());
 		List<Travel> list = query.getResultList();
 		em.close();
@@ -73,7 +76,7 @@ public class TravelDaoImpl implements TravelDao{
 	@Override
 	public List<TravelTrade> saveTravelTrade() {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travelTrade where travel_id != null";
+		String sql = "select * from travel_trade where travel_id is not null";
 		Query query = em.createNativeQuery(sql.toString());
 		List<TravelTrade> list = query.getResultList();
 		em.close();
