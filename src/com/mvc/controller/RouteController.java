@@ -60,6 +60,11 @@ public class RouteController {
 		return "smallGoods/index";
 	}
 	
+	@RequestMapping("/toSelectAdListPage.do")
+	public String toSelectAdListPage() {
+		return "adver/index";
+	}
+	
 	
 
 }
