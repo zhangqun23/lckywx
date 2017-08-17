@@ -23,7 +23,7 @@
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
 
-<body>
+<body class="bodyhe">
 	<header>
 		<div class="titlebar reverse">
 			<h1>洛川客运</h1>
