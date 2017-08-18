@@ -64,7 +64,10 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 } ]);
 //路由配置
 app.config([ '$routeProvider', function($routeProvider) {
-	$routeProvider.when('/selectAdver', {
+	$routeProvider.when('/addAdver', {
+		templateUrl : '/lckywx/jsp/adver/addAdver.html',
+		controller : 'PlatformController'
+	}).when('/selectAdver', {
 		templateUrl : '/lckywx/jsp/adver/selectAdver.html',
 		controller : 'PlatformController'
 	})
@@ -72,6 +75,13 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
+	services.addAdver = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/addAd.do',
+			data : data
+		});
+	};
 	services.selectAdver = function(data) {
 		return $http({
 			method : 'post',
@@ -93,13 +103,17 @@ app
 				function($scope, services, $location, $routeParams) {
 					var adver = $scope;
 					adver.ADLimit={
-						adverType:""
+						ad_type:"0",
+						ad_name:"",
+						ad_title:"",
+						ad_content:"",
+						ad_tel:"",
+						ad_remark:""
 					}
-					/*smallGoods.addSmallGoods=function(){
-						var goLimit = JSON
-						.stringify(smallGoods.GoLimit);
-						services.addSmallGoods({
-							goNeed : goLimit
+					adver.addAdver=function(){
+						var adLimit = JSON.stringify(adver.ADLimit);
+						services.addAdver({
+							ad : adLimit
 						}).success(function(data) {
 							console.log("::::::::::::"+data);
 							if (data) {
@@ -107,10 +121,10 @@ app
 							} else {
 								alert("否");
 							}
-						 	$location.path('smallGoodsInfo/'+data);
+						 	$location.path('selectAder/'+data);
 
 						});
-					}*/
+					}
 					adver.selectAdver=function(){
 						
 						services.selectAdver({

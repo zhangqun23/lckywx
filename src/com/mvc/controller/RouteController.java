@@ -70,6 +70,11 @@ public class RouteController {
 		return "adver/index";
 	}
 	
+	@RequestMapping("/toAddAdListPage.do")
+	public String toAddAdListPage() {
+		return "adver/index";
+	}
+	
 	
 
 }
