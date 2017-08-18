@@ -110,6 +110,9 @@ app
 						ad_tel:"",
 						ad_remark:""
 					}
+					adver.ADSLimit={
+						ad_type:"0"
+						}
 					adver.addAdver=function(){
 						var adLimit = JSON.stringify(adver.ADLimit);
 						services.addAdver({
@@ -126,9 +129,9 @@ app
 						});
 					}
 					adver.selectAdver=function(){
-						
+						var adLimit = JSON.stringify(adver.ADSLimit);
 						services.selectAdver({
-							adType : adver.ad_type	
+							adType : adLimit	
 						}).success(function(data) {
 							adver.adList = data.list;
 						});
@@ -143,7 +146,6 @@ app
 								
 							}).success(function(data) {
 								adver.adList = data.list;
-								console.log(adver.adList);
 							});
 						} 
 					}

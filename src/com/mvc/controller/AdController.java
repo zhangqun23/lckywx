@@ -79,6 +79,7 @@ public class AdController {
 				ad.setAd_content(jsonObject.getString("ad_content"));
 			}
 		}
+		ad.setIs_delete(true);
 		/*User user= new User();
 		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("user_id"))){
@@ -113,7 +114,7 @@ public class AdController {
 		List<Ad> list ;
 		if(request.getParameter("adType") != null){
 		adType= JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
-		list = adService.finAdByType(adType);
+		list = adService.finAdByType(Integer.parseInt(adType));
 		}else{
 			list = adService.finAdAlls();
 		}
