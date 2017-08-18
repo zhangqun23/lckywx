@@ -7,5 +7,7 @@ package com.mvc.dao;
  */
 
 public interface AdDao {
+	//删除广告根据广告id
+	Boolean deleteAd(Integer ad_id);
 
 }

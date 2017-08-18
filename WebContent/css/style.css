@@ -1759,5 +1759,6 @@ h2 {
 	width:100% !important;
 }
 .bodyhe{
+	min-width: 220px;
 	overflow-x:hidden !important;
 }
