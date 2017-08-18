@@ -1,8 +1,12 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.LifecycleListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +35,8 @@ public class AdController {
 	 * 
 	 * @param request
 	 * @param session
-	 * @return
+	 * @return  ad对象
 	 * @throws ParseException
-	 * 
-	 * 
 	 */
 	@RequestMapping("/addAd.do")
 	public @ResponseBody String addAd(HttpServletRequest request, HttpSession session) {
@@ -97,4 +99,40 @@ public class AdController {
 		return limit.toString(); 
 	}
 
+	/**
+	 * 广告查询
+	 * 根据类型查询 若为空则返回全部类型广告，否则返回相应类型广告
+	 * @param request
+	 * @param session
+	 * @return  list
+	 */
+	@RequestMapping("/selectAdver.do")
+	public @ResponseBody String selectAdver(HttpServletRequest request, HttpSession session){
+		String adType = request.getParameter("adType");
+		List<Ad> list ;
+		if (StringUtil.strIsNotEmpty(adType)) {
+			list = adService.finAdAlls();
+		}else{
+			list = adService.finAdByType(adType);
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	/**
+	 * 广告删除根据广告id
+	 * @param request
+	 * @return true false
+	 * 
+	 */
+	@RequestMapping("/deleteAd.do")
+	public @ResponseBody String deleteAd (HttpServletRequest request){
+		Integer ad_id = Integer.parseInt(request.getParameter("adId"));
+		Boolean flag = adService.deleteAd(ad_id);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("flag", flag);
+		return jsonObject.toString();
+	}
+	
+	
 }
