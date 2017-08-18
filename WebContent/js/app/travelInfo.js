@@ -65,13 +65,13 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 
 // 路由配置
 app.config([ '$routeProvider', function($routeProvider) {
-	$routeProvider.when('/travelInfo', {
-		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html',
-		controller : 'PlatformController'  
+	$routeProvider.when('/travelInfo', {  //页面初始为travelInfo时加载内容
+		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html', //显示的内容
+		controller : 'PlatformController'  //控制器
 	}).when('/travelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
-	}).when('/travelTrade', {
+	}).when('/travelTrade', {  //表示地址结尾为travelTrade时加载的内容
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
 		controller : 'PlatformController'
 	})
@@ -82,7 +82,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
 	// zq获取做房用时列表A
-	services.addtravelInfo = function() {
+	services.selectTravelInfo = function() {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travelInfo/addTravelInfo.do',
@@ -99,7 +99,7 @@ app
 						'$scope',
 						'services',
 						'$location',
-						function($scope, services, $location) {
+						function($scope, services, $location) { //页面控制函数
 							var travelInfo = $scope;
 							travelInfo.TravelLimit={
 									 travel_title :"", // 标(主)题
@@ -124,7 +124,21 @@ app
 									/*travelInfo : travelLimit*/
 								}).success(function(data) {
 									console.log(data.list);
-									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
+									$location.path("travelInfoDetail/"+JSON.stringify(data.list)); //此方法可改变location的地址
+									if (result.data) {
+										alert("是");
+									} else {
+										alert("否");
+									}
+								});
+							}
+							travelInfo.selectTravelInfo=function(){
+								/*var travelLimit = JSON
+								.stringify(travelInfo.travelLimit);*/
+								services.selectTravelInfo({
+									/*travelInfo : travelLimit*/
+								}).success(function(data) {
+									console.log(data.list);
 									if (result.data) {
 										alert("是");
 									} else {
@@ -141,8 +155,12 @@ app
 								console.log("初始化页面信息");
 								
 								if ($location.path().indexOf('/travelInfo') == 0) {
-									
-
+									console.log("进入到可旅游信息界面");
+									services.selectTravelInfo({
+										
+									}).success(function(data) {
+										travelInfo.travelList = data.list;
+									});
 								} else if ($location.path().indexOf(
 										'/travelInfoDetail') == 0) {
 									var producerId = $stateParams.producerId;
