@@ -128,7 +128,7 @@ app
 					adver.selectAdver=function(){
 						
 						services.selectAdver({
-							adType : "123"
+							adType : adver.ad_type	
 						}).success(function(data) {
 							adver.adList = data.list;
 						});
@@ -139,14 +139,12 @@ app
 						console.log("初始化页面信息");
 						
 						if ($location.path().indexOf('/selectAdver') == 0) {
-							console.log("进来了1");
 							services.selectAdver({
-								adType : "123"
+								
 							}).success(function(data) {
 								adver.adList = data.list;
+								console.log(adver.adList);
 							});
-
-
 						} 
 					}
 					initData();
