@@ -21,7 +21,7 @@ public class AdServiceImpl implements AdService {
 	@Autowired
 	AdRepository adRepository;
 	@Autowired
-	AdDao addao;
+	AdDao adDao;
 	//广告添加，修改
 	@Override
 	public Ad saveAd(Ad ad) {
@@ -44,7 +44,7 @@ public class AdServiceImpl implements AdService {
 	//删除广告根据广告id
 	@Override
 	public Boolean deleteAd(Integer ad_id) {
-		return addao.deleteAd(ad_id);
+		return adDao.deleteAd(ad_id);
 	}
 
 	
