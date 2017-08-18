@@ -29,7 +29,13 @@ public class LoginServiceImpl implements LoginService {
 		/** 解析xml数据 */
 		ReceiveXmlEntity xmlEntity = getMsgEntity(xml);
 		
-		String result = "这是来自小仙女的一条消息";
+		String result = "测试";
+		if("text".endsWith(xmlEntity.getMsgType())){  
+            result = "成功啦";  
+        }  
+		if("event".endsWith(xmlEntity.getMsgType())){  
+           result="事件处理函数";
+        }  
 		
 		result = formatXmlAnswer(xmlEntity.getFromUserName(), xmlEntity.getToUserName(), result);
 		
