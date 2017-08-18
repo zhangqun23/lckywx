@@ -38,7 +38,7 @@ public class AdServiceImpl implements AdService {
 	}
 	//返回相应类型广告
 	@Override
-	public List<Ad> finAdByType(String adType) {
+	public List<Ad> finAdByType(Integer adType) {
 			return adRepository.findAdByType(adType);
 	}
 	//删除广告根据广告id
