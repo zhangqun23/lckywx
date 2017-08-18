@@ -110,6 +110,9 @@ app
 						ad_tel:"",
 						ad_remark:""
 					}
+					adver.ADSLimit={
+						ad_type:"0"
+						}
 					adver.addAdver=function(){
 						var adLimit = JSON.stringify(adver.ADLimit);
 						services.addAdver({
@@ -126,9 +129,9 @@ app
 						});
 					}
 					adver.selectAdver=function(){
-						
+						var adLimit = JSON.stringify(adver.ADSLimit);
 						services.selectAdver({
-							adType : "123"
+							adType : adLimit	
 						}).success(function(data) {
 							adver.adList = data.list;
 						});
@@ -139,14 +142,11 @@ app
 						console.log("初始化页面信息");
 						
 						if ($location.path().indexOf('/selectAdver') == 0) {
-							console.log("进来了1");
 							services.selectAdver({
-								adType : "123"
+								
 							}).success(function(data) {
 								adver.adList = data.list;
 							});
-
-
 						} 
 					}
 					initData();
