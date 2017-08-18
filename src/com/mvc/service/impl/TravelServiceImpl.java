@@ -54,7 +54,7 @@ public class TravelServiceImpl implements TravelService{
 		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
 		if (((TravelTrade) result).getTrtr_id() != null)//强制转换result类型
 			return result;
-		return result;
+		return null;//这块可能有问题
 	}
 
 }
