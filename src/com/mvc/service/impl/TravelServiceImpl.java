@@ -38,23 +38,23 @@ public class TravelServiceImpl implements TravelService{
 	//按出发日期查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls() {
-		List<Travel> listSource = travelDao.findTravelAlls();
-		return listSource;
+		List<Travel> list = travelDao.findTravelAlls();
+		return list;
 	}
 	//按成人票价查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls1() {
-		List<Travel> listSource = travelDao.findTravelAlls1();
-		return listSource;
+		List<Travel> list = travelDao.findTravelAlls1();
+		return list;
 	}
 	//旅游交易
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings(value = { })
 	@Override
-	public List saveTravelTrade(TravelTrade travelTrade) {
-		List<TravelTrade> result =travelDao.saveTravelTrade();
-		if (((TravelTrade) result).getTrtr_id() != null)
+	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
+		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
+		if (((TravelTrade) result).getTrtr_id() != null)//强制转换result类型
 			return result;
-		return result;
+		return null;//这块可能有问题
 	}
 
 }
