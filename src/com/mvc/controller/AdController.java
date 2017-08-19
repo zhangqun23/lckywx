@@ -80,6 +80,7 @@ public class AdController {
 			}
 		}
 		ad.setIs_delete(true);
+		ad.setAd_state(0);
 		/*User user= new User();
 		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("user_id"))){
@@ -138,5 +139,21 @@ public class AdController {
 		return jsonObject.toString();
 	}
 	
+	/**
+	 * 根据id查找广告list
+	 * @param request
+	 * @return list
+	 * 
+	 * */
+	@RequestMapping("/selectAdverInfo.do")
+	public @ResponseBody String selectAdverInfo (HttpServletRequest request){
+		Ad list;
+		String adId = request.getParameter("ad_id");
+		list = adService.selectAdverInfo(adId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+		
+	}
 	
 }

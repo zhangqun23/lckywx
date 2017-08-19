@@ -70,6 +70,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/selectAdver', {
 		templateUrl : '/lckywx/jsp/adver/selectAdver.html',
 		controller : 'PlatformController'
+	}).when('/selectAdverInfo/:adid', {
+		templateUrl : '/lckywx/jsp/adver/selectAdverInfo.html',
+		controller : 'PlatformController'
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
@@ -89,9 +92,27 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	services.selectAdverInfo = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/selectAdverInfo.do',
+			data : data
+		});
+	};
 	
 	return services;
 } ]);
+app.filter('adFilter',function(){ 
+	return function(input){ 
+		if(input == ""){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
+	});
 app
 .controller(
 		'PlatformController',
@@ -133,6 +154,15 @@ app
 						services.selectAdver({
 							adType : adLimit	
 						}).success(function(data) {
+							adver.adList = data.list;
+						});
+					}
+					adver.selectAderInfo=function(adId){
+						$location.path('selectAdverInfo/'+adId);
+						services.selectAdverInfo({
+							ad_id : adId	
+						}).success(function(data) {
+							console.log(data);
 							adver.adList = data.list;
 						});
 					}
