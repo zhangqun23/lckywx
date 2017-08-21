@@ -82,11 +82,11 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
 	// zq获取做房用时列表A
-	services.selectTravelInfo = function() {
+	services.selectTravelInfo = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travelInfo/addTravelInfo.do',
-			/*data : data*/
+			data : data
 		});
 	};
 	
@@ -160,6 +160,7 @@ app
 										
 									}).success(function(data) {
 										travelInfo.travelList = data.list;
+										console.log(data.list); //返回的值为空？？？
 									});
 								} else if ($location.path().indexOf(
 										'/travelInfoDetail') == 0) {

@@ -54,6 +54,7 @@ public class LoginController {
 		
 		String sortString = "";
 		
+		//便于后台测试
 		if(nonce == null || timestamp == null){
 			nonce = "123";
 			timestamp = "456";
