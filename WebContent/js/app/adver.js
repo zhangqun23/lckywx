@@ -72,7 +72,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 		controller : 'PlatformController'
 	}).when('/selectAdverInfo/:adid', {
 		templateUrl : '/lckywx/jsp/adver/selectAdverInfo.html',
-		controller : 'PlatformController'
+		controller : 'SelectAdController'
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
@@ -159,12 +159,6 @@ app
 					}
 					adver.selectAderInfo=function(adId){
 						$location.path('selectAdverInfo/'+adId);
-						services.selectAdverInfo({
-							ad_id : adId	
-						}).success(function(data) {
-							console.log(data);
-							adver.adList = data.list;
-						});
 					}
 					
 					// 初始化
@@ -180,4 +174,21 @@ app
 						} 
 					}
 					initData();
+				} ]);
+
+app
+.controller(
+		'SelectAdController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location, $routeParams) {
+					services.selectAdverInfo({
+						ad_id : $routeParams.adid
+					}).success(function(data) {
+						$scope.adIList = data.list;
+						console.log($scope.adIList);
+					});
 				} ]);

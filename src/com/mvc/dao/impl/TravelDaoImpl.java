@@ -52,6 +52,7 @@ public class TravelDaoImpl implements TravelDao{
 		
 		
 		//判断时间
+
 		String sql = "select * from travel where ( travel_stime between '"+ getdate +"' and '2525-01-01 01:00:00') and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		List<Travel> list = query.getResultList();
