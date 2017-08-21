@@ -1,21 +1,7 @@
 
 <article style="margin-top: 45px;">
- <div class="weui_search_bar" id="search_bar">
-              <form class="weui_search_outer">
-                <div class="weui_search_inner">
-                  <i class="weui_icon_search"></i>
-                 
-			 <input type="text" name="startTime" id="search_input"   ng-model="BusLimit.bune_gath_time"
-						class="weui_search_input" 
-						onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
-						
-                  <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
-                </div>
-                
-              </form>
-             
-            </div>
-               <form ng-submit="addBusNeed()" method="post" enctype="multipart/form-data">
+ 
+       <!--         <form ng-submit="addBusNeed()" method="post" enctype="multipart/form-data">
                 
                  <div class="inner">
                   <div class="item-name" style="float:left">出发时间：</div>
@@ -26,16 +12,16 @@
 						
                 </div>
                
-              </form>
+              </form> -->
              <ul ng-repeat="bnl in busNeedList">  
               <li class="weui_cell" >
                     <div class="weui_cell_bd weui_cell_primary">
                         <div class="wuliao-title">
                             <label>需求编号：</label>
-                            <span>{{bnl.id}}</span>
+                            <span>{{bnl.bune_id}}</span>
                         </div>
                         <div class="detail clearfix">
-                            <span class="date">用车时间：{{bnl.bune_gath_time}}</span>
+                            <span class="date">用车时间：{{bnl.bune_gath_time.time | dateType}}</span>
                         </div>
 						   <div class="detail clearfix">
                             <span class="require">目的地点：<label>{{bnl.bune_goal_pla}}</label></span>
