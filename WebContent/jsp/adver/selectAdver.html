@@ -2,7 +2,7 @@
 		<form ng-submit="selectAdver()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
 	    <ul class="form-box">
 	    
-			 <li style="border:groove;margin:2px;height:30px;">
+			 <li style="border:groove;margin:2px;height:30px;"> 
                     <input type="text" placeholder="按广告类型模糊搜索" 
                            style="height:25px;margin:auto;" ng-model="ADSLimit.ad_type" required>
                </li>	
@@ -16,7 +16,7 @@
                
 		</ul>
 	</form>
-	
+	<!-- 缺少按时间和按照价格查询 -->
 	
 	<form class="weui_cell" ng-repeat="ad in adList">
                 <div class="weui_cell_bd weui_cell_primary">
