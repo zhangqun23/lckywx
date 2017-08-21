@@ -24,5 +24,6 @@ public interface TravelDao {
 	List<Travel> findTravelAlls();
 	List<Travel> findTravelAlls1();
 	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);
+	
 
 }

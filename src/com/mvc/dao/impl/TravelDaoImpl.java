@@ -43,6 +43,7 @@ public class TravelDaoImpl implements TravelDao{
 		EntityManager em = emf.createEntityManager();
 		
 		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String getdate = getDate.format(new Date());
 		System.out.println(getDate.format(new Date()));
 		
 		
@@ -51,8 +52,8 @@ public class TravelDaoImpl implements TravelDao{
 		
 		
 		//判断时间
-		String sql = "select * from travel where ('"+ getDate +"' between '1899-01-01 00:00:00' and travel_stime) and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
-		Query query = em.createNativeQuery(sql.toString());
+		String sql = "select * from travel where ( travel_stime between '"+ getdate +"' and '2525-01-01 01:00:00') and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;

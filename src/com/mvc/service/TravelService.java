@@ -8,6 +8,7 @@
 package com.mvc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
@@ -23,11 +24,12 @@ import com.mvc.entiy.TravelTrade;
 public interface TravelService {
 
 	//按出发时间查询旅游信息
-	List<Travel> findTravelAlls();
+	List<Travel> findTravelAlls(Map<String, Object> map);
 	//按成人票价格查询旅游信息
 	List<Travel> findTravelAlls1();
 	//添加旅游交易
 	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);
+
 	
 	
 }

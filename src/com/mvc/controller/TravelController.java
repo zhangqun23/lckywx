@@ -1,7 +1,9 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,11 +48,15 @@ public class TravelController {
 	@RequestMapping(value = "/addTravelInfo.do")   //selectTravelByTime
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+		String startTime = request.getParameter("travel_stime");
+		map.put("travel_stime", startTime);
 		
 		        //测试1
 				System.out.println("测试1");
 		
-		List<Travel> list = travelService.findTravelAlls();
+		List<Travel> list = travelService.findTravelAlls(map);
+		
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
