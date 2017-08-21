@@ -40,6 +40,8 @@ public class TravelDaoImpl implements TravelDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Travel> findTravelAlls() {
+		EntityManager em = emf.createEntityManager();
+		
 		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		System.out.println(getDate.format(new Date()));
 		
@@ -47,9 +49,9 @@ public class TravelDaoImpl implements TravelDao{
 		//测试4获取当前时间
 		System.out.println(getDate + "测试4 获取当前时间");
 		
-		EntityManager em = emf.createEntityManager();
+		
 		//判断时间
-		String sql = "select * from travel where ('"+ getDate +"' between travel_stime and '2525-01-01 01:00:00') and is_delete = 0 order by travel_stime asc";
+		String sql = "select * from travel where ('"+ getDate +"' between '1899-01-01 00:00:00' and travel_stime) and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
 		Query query = em.createNativeQuery(sql.toString());
 		List<Travel> list = query.getResultList();
 		em.close();
@@ -61,7 +63,7 @@ public class TravelDaoImpl implements TravelDao{
 	@SuppressWarnings("unchecked")
 	public List<Travel> findTravelAlls1() {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0 order by travel_mprice asc";
+		String sql = "select * from travel where is_delete=0 and travel_left_num > 0 order by travel_mprice asc";
 		
 		//测试5 price
 		System.out.println("测试5 Price");
@@ -73,8 +75,7 @@ public class TravelDaoImpl implements TravelDao{
 	}
 	//添加或修改交易信息
 	@SuppressWarnings("unchecked")
-	@Override
-	public List<TravelTrade> saveTravelTrade() {
+	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
 		EntityManager em = emf.createEntityManager();
 		String sql = "select * from travel_trade where travel_id is not null";
 		Query query = em.createNativeQuery(sql.toString());

@@ -47,11 +47,6 @@ public class AdController {
 			ad.setAd_type(Integer.parseInt(jsonObject.getString("ad_type")));
 			}
 		}
-		if (jsonObject.containsKey("ad_state")){
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_state"))){
-				ad.setAd_state(Integer.parseInt(jsonObject.getString("ad_state")));
-			}
-		}
 		if (jsonObject.containsKey("ad_name")){
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_name"))){
 				ad.setAd_name(jsonObject.getString("ad_name"));
@@ -67,14 +62,16 @@ public class AdController {
 				ad.setAd_title(jsonObject.getString("ad_title"));
 			}
 		}
-		if (jsonObject.containsKey("ad_pic_path")){
+	/*	if (jsonObject.containsKey("ad_pic_path")){
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_pic_path"))){
 				ad.setAd_pic_path(jsonObject.getString("ad_pic_path"));
 			}
-		}
+		}*/
 		if (jsonObject.containsKey("ad_remark")){
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_remark"))){
 				ad.setAd_remark(jsonObject.getString("ad_remark"));
+			}else{
+				ad.setAd_remark("");
 			}
 		}
 		if (jsonObject.containsKey("ad_content")){
@@ -82,9 +79,15 @@ public class AdController {
 				ad.setAd_content(jsonObject.getString("ad_content"));
 			}
 		}
-		User user= new User();
+		ad.setIs_delete(true);
+		ad.setAd_state(0);
+		/*User user= new User();
 		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
-		ad.setUser(user);
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("user_id"))){
+				ad.setUser(user);
+			}else{
+				return null;
+			}*/
 		Ad result = null;
 		if (jsonObject.containsKey("ad_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_id"))){
@@ -108,17 +111,19 @@ public class AdController {
 	 */
 	@RequestMapping("/selectAdver.do")
 	public @ResponseBody String selectAdver(HttpServletRequest request, HttpSession session){
-		String adType = request.getParameter("adType");
+		String adType;
 		List<Ad> list ;
-		if (StringUtil.strIsNotEmpty(adType)) {
-			list = adService.finAdAlls();
+		if(request.getParameter("adType") != null){
+		adType= JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
+		list = adService.finAdByType(Integer.parseInt(adType));
 		}else{
-			list = adService.finAdByType(adType);
+			list = adService.finAdAlls();
 		}
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
+
 	/**
 	 * 广告删除根据广告id
 	 * @param request
@@ -134,5 +139,21 @@ public class AdController {
 		return jsonObject.toString();
 	}
 	
+	/**
+	 * 根据id查找广告list
+	 * @param request
+	 * @return list
+	 * 
+	 * */
+	@RequestMapping("/selectAdverInfo.do")
+	public @ResponseBody String selectAdverInfo (HttpServletRequest request){
+		Ad list;
+		String adId = request.getParameter("ad_id");
+		list = adService.selectAdverInfo(adId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+		
+	}
 	
 }
