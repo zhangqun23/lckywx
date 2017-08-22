@@ -21,9 +21,7 @@ import com.mvc.entiy.TravelTrade;
  *
  */
 public interface TravelDao {
-	List<Travel> findTravelAlls();
-	List<Travel> findTravelAlls1();
-	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);
-	
-
+	List<Travel> findTravelAlls();//select by stime
+	List<Travel> findTravelAlls1();//select by price
+	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);//travel trade
 }

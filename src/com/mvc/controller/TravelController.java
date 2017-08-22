@@ -45,18 +45,13 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/addTravelInfo.do")   //selectTravelByTime
+	@RequestMapping(value = "/selectTravelByTime.do")   //select Travel By Time
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startTime = request.getParameter("travel_stime");
 		map.put("travel_stime", startTime);
-		
-		        //测试1
-				System.out.println("测试1");
-		
 		List<Travel> list = travelService.findTravelAlls(map);
-		
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
@@ -71,19 +66,16 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	//selectTravelByPrice
+	@RequestMapping(value = "/selectTravelByPrice.do")//select Travel By Price
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		
-		        //测试2
-				System.out.println("测试2");
-		
-		List<Travel> list = travelService.findTravelAlls1();
+		Map<String, Object> map = new HashMap<String, Object>();
+		String price = request.getParameter("travel_mprice");
+		map.put("travel_mprice", price);
+		List<Travel> list = travelService.findTravelAlls1(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-	
-	
 	/**
 	 * 
 	 * 
@@ -128,11 +120,6 @@ public class TravelController {
 			}
 		}
 		List<TravelTrade> result;
-		
-		
-		        //测试3
-				System.out.println("测试3");
-	
 		if (jsonObject.containsKey("trtr_id")) {
 			travelTrade.setTrtr_id(Integer.valueOf(jsonObject.getString("trtr_id")));
 			result = travelService.saveTravelTrade(travelTrade);// 修改交易信息
@@ -140,7 +127,6 @@ public class TravelController {
 			result = travelService.saveTravelTrade(travelTrade);// 添加交易信息
 		}
 		return JSON.toJSONString(result);
-
 	}
 	
 }

@@ -44,7 +44,7 @@ public class TravelServiceImpl implements TravelService{
 	}
 	//按成人票价查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls1() {
+	public List<Travel> findTravelAlls1(Map<String, Object> map) {
 		List<Travel> list = travelDao.findTravelAlls1();
 		return list;
 	}
