@@ -1,16 +1,21 @@
 <article style="margin-top: 55px;">
 
 	<ul class="order-tab clearfix">
-		<li class="green">需求信息</li>
+		<li class="green">旅游详情</li>
 	</ul>
 	<ul class="order-box">
-		<li class="inner">
-			<div class="item-name">旅游信息编号：</div>
-			<div class="item-value">TInfo.travel_id</div>
+	    <li class="inner">
+			<div class="item-name">旅游信息Id：</div>
+			<div class="item-value">{{travelInfo.travelList.travel_id|isOrNotNull}}</div>
 		</li>
+		
 		<li class="inner">
 			<div class="item-name">标题：</div>
 			<div class="item-value">{{TInfo.travel_title}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">路线：</div>
+			<div class="item-value">{{TInfo.travel_route}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">总人数：</div>
@@ -33,10 +38,7 @@
 			<div class="item-name">出发地点：</div>
 			<div class="item-value">{{TInfo.travel_location}}</div>
 		</li>
-		<li class="inner">
-			<div class="item-name">路线：</div>
-			<div class="item-value">{{TInfo.travel_route}}</div>
-		</li>
+		
 		<li class="inner">
 			<div class="item-name">成人票价格：</div>
 			<div class="item-value">{{TInfo.travel_mprice}}</div>
@@ -65,7 +67,7 @@
 			<div class="item-name">旅游承办公司：</div>
 			<div class="item-value">{{TInfo.travel_firm}}</div>
 		</li>
-		<li class="inner no-padding"><a href="/lckywx/routeController/toTravelInfoDetailPage.do#/travelTrade">
+		<li class="inner no-padding"><a href="/lckywx/routeController/toTravelInfoDetailPage.do#/travelTrade"
 			class="weui_btn weui_btn_primary">购票</a></li>
 	</ul>
 </article>
