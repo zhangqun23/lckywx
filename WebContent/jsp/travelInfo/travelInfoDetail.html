@@ -4,6 +4,10 @@
 		<li class="green">旅游详情</li>
 	</ul>
 	<ul class="order-box">
+	    <li class="inner">
+			<div class="item-name">旅游信息Id：</div>
+			<div class="item-value">{{travelInfo.travelList.travel_id|isOrNotNull}}</div>
+		</li>
 		
 		<li class="inner">
 			<div class="item-name">标题：</div>
@@ -63,7 +67,7 @@
 			<div class="item-name">旅游承办公司：</div>
 			<div class="item-value">{{TInfo.travel_firm}}</div>
 		</li>
-		<li class="inner no-padding"><a href="/lckywx/routeController/toTravelInfoDetailPage.do#/travelTrade">
+		<li class="inner no-padding"><a href="/lckywx/routeController/toTravelInfoDetailPage.do#/travelTrade"
 			class="weui_btn weui_btn_primary">购票</a></li>
 	</ul>
 </article>
