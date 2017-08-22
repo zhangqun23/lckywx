@@ -30,7 +30,6 @@ public class LoginServiceImpl implements LoginService {
 		} else {
 			
 		}*/
-		
 		switch(xmlEntity.getMsgType()){
 		case "event":
 			result = receiveEvent(xmlEntity.getEvent());
