@@ -43,7 +43,7 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/addTravelInfo.do")   //selectTravelByTime
+	@RequestMapping(value = "/selectTravelInfo.do")   //selectTravelByTime
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		

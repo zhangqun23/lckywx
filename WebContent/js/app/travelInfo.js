@@ -130,7 +130,7 @@ app
 									/*travelInfo : travelLimit*/
 								}).success(function(data) {
 									console.log(data.list);
-									$location.path("travelInfoDetail/"+JSON.stringify(data.list)); //此方法可改变location的地址
+									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
 									if (result.data) {
 										alert("是");
 									} else {
@@ -158,6 +158,7 @@ app
 							};
 							
 							travelInfo.selectTravelInfoDetail=function(travelId){//加上的旅游信息方法
+								console.log("wang123"+travelId);
 								$location.path('selectTravelInfoDetail/'+travelId);
 							}
 							
@@ -209,16 +210,15 @@ app.filter('dateType', function() {
 	}
 });
 //旅游活动内容的格式化的判断
-app.filter('isOrNotNull', function() {
-	return function(input) {
-		var type = "";
-		if (input) {
-			type = input;
-		}else{
-			type="无";
+app.filter('travelFilter',function(){ 
+	return function(input){ 
+		if(input == ""){
+			var input = "空";
+			return input; 		
 		}
-
-		return type;
+		else{
+			return input;
+		}
 	}
 });
 
