@@ -42,15 +42,9 @@ public class TravelDaoImpl implements TravelDao{
 		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String getdate = getDate.format(new Date());
 		//判断时间
-<<<<<<< HEAD
+
 		String sql = "select * from travel where ( travel_stime between '"+ getdate +"' and '2525-01-01 01:00:00') and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
-=======
-
-		String sql = "select * from travel where travel_stime  between '"+ getDate +"' and '1899-01-01 00:00:00' and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
-		Query query = em.createNativeQuery(sql.toString());
-
->>>>>>> 1bbdaf17166cc02f3721e8fbcacbce3d2dd96154
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
