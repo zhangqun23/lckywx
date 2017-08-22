@@ -53,9 +53,11 @@ public class TravelServiceImpl implements TravelService{
 	@Override
 	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
 		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
+		/**
 		if (((TravelTrade) result).getTrtr_id() != null)//强制转换result类型
-			return result;
-		return null;//这块可能有问题
+			return result;	
+		return null ;//这块可能有问题
+		*/
+		return result;	
 	}
-
 }

@@ -21,13 +21,10 @@ import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 /**
- * 
  * @ClassName: TravelController
  * @Description: TODO
  * @author ycj
  * @date 2017年8月14日 下午2:52:39 
- * 
- *
  */
 @Controller
 @RequestMapping("/travelInfo")
@@ -35,8 +32,6 @@ public class TravelController {
 	@Autowired
 	TravelService travelService;
 	/**
-	 * 
-	 * 
 	 *@Title: selectTravelByDate 
 	 *@Description: 按出发时间查询
 	 *@param @param request
@@ -49,15 +44,15 @@ public class TravelController {
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
+		/**
 		String startTime = request.getParameter("travel_stime");
-		map.put("travel_stime", startTime);
+		map.put("travel_stime", startTime);//映射，没有用到startTime
+		*/
 		List<Travel> list = travelService.findTravelAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 	/**
-	 * 
-	 * 
 	 *@Title: selectTravelByPrice 
 	 *@Description: 按成人票价查询
 	 *@param @param request
@@ -70,15 +65,15 @@ public class TravelController {
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
+		/**
 		String price = request.getParameter("travel_mprice");
 		map.put("travel_mprice", price);
+		*/
 		List<Travel> list = travelService.findTravelAlls1(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-	/**
-	 * 
-	 * 
+	/** 
 	 *@Title: addTravelTrade 
 	 *@Description: 旅游交易 traveltrade
 	 *@param @param request
@@ -127,6 +122,5 @@ public class TravelController {
 			result = travelService.saveTravelTrade(travelTrade);// 添加交易信息
 		}
 		return JSON.toJSONString(result);
-	}
-	
+	}	
 }
