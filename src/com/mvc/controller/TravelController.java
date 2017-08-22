@@ -1,9 +1,7 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,10 +19,13 @@ import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 /**
+ * 
  * @ClassName: TravelController
  * @Description: TODO
  * @author ycj
  * @date 2017年8月14日 下午2:52:39 
+ * 
+ *
  */
 @Controller
 @RequestMapping("/travelInfo")
@@ -32,6 +33,8 @@ public class TravelController {
 	@Autowired
 	TravelService travelService;
 	/**
+	 * 
+	 * 
 	 *@Title: selectTravelByDate 
 	 *@Description: 按出发时间查询
 	 *@param @param request
@@ -40,23 +43,20 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-<<<<<<< HEAD
 	@RequestMapping(value = "/selectTravelInfo.do")   //selectTravelByTime
-=======
-	@RequestMapping(value = "/selectTravelByTime.do")   //select Travel By Time
->>>>>>> f58eab0eb9410752a4063bcfa92f9643411ae286
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		Map<String, Object> map = new HashMap<String, Object>();
-		/**
-		String startTime = request.getParameter("travel_stime");
-		map.put("travel_stime", startTime);//映射，没有用到startTime
-		*/
-		List<Travel> list = travelService.findTravelAlls(map);
+		
+		        //测试1
+				System.out.println("测试1");
+		
+		List<Travel> list = travelService.findTravelAlls();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 	/**
+	 * 
+	 * 
 	 *@Title: selectTravelByPrice 
 	 *@Description: 按成人票价查询
 	 *@param @param request
@@ -65,19 +65,22 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/selectTravelByPrice.do")//select Travel By Price
+	//selectTravelByPrice
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		Map<String, Object> map = new HashMap<String, Object>();
-		/**
-		String price = request.getParameter("travel_mprice");
-		map.put("travel_mprice", price);
-		*/
-		List<Travel> list = travelService.findTravelAlls1(map);
+		
+		        //测试2
+				System.out.println("测试2");
+		
+		List<Travel> list = travelService.findTravelAlls1();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-	/** 
+	
+	
+	/**
+	 * 
+	 * 
 	 *@Title: addTravelTrade 
 	 *@Description: 旅游交易 traveltrade
 	 *@param @param request
@@ -119,6 +122,11 @@ public class TravelController {
 			}
 		}
 		List<TravelTrade> result;
+		
+		
+		        //测试3
+				System.out.println("测试3");
+	
 		if (jsonObject.containsKey("trtr_id")) {
 			travelTrade.setTrtr_id(Integer.valueOf(jsonObject.getString("trtr_id")));
 			result = travelService.saveTravelTrade(travelTrade);// 修改交易信息
@@ -126,5 +134,7 @@ public class TravelController {
 			result = travelService.saveTravelTrade(travelTrade);// 添加交易信息
 		}
 		return JSON.toJSONString(result);
-	}	
+
+	}
+	
 }
