@@ -8,32 +8,61 @@ import java.util.Iterator;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.service.LoginService;
-import com.mvc.dao.LoginDao;
 import com.mvc.entityReport.ReceiveXmlEntity;
 
 @Service("loginServiceImpl")
 public class LoginServiceImpl implements LoginService {
 	
-	@Autowired
-	LoginDao loginDao;
-	
 	public String wechatProcess(String xml){
+	
+			xml = "<xml><ToUserName><![CDATA[gh_680bdefc8c5d]]></ToUserName><FromUserName><![CDATA[oIDrpjqASyTPnxRmpS9O_ruZGsfk]]></FromUserName>";
+			xml = xml + "<CreateTime>1359028446</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content></xml>";
+			
+		String result = "";
 		
-		xml = "<xml><ToUserName><![CDATA[gh_680bdefc8c5d]]></ToUserName><FromUserName><![CDATA[oIDrpjqASyTPnxRmpS9O_ruZGsfk]]></FromUserName>";
-		xml = xml + "<CreateTime>1359028446</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content></xml>";
-		 
 		/** 解析xml数据 */
 		ReceiveXmlEntity xmlEntity = getMsgEntity(xml);
+		/*if(xmlEntity.getMsgType() == "event" && xmlEntity.getEvent() == "subscribe" || xmlEntity.getEvent() == "unsubscribe"){
+			//过滤关注和取消关注事件
+		} else {
+			
+		}*/
 		
-		String result = "这是来自小仙女的一条消息";
+		switch(xmlEntity.getMsgType()){
+		case "event":
+			result = receiveEvent(xmlEntity.getEvent());
+			result += xmlEntity.getFromUserName();
+			break;
+		case "text":
+			result = "这是一条文本消息";
+			break;
+		case "image":
+			result = "这是一张图片";
+			break;
+		case "location":
+			result = "您发送的是位置，经度为" + xmlEntity.getLocation_X() + ",纬度为" + xmlEntity.getLocation_Y() + ",位置为" + xmlEntity.getLabel();
+			break;
+		case "voice":
+			result = "这是一条语音消息";
+			break;
+		case "video":
+			result = "这是一个视频";
+			break;
+		case "link":
+			result = "这是一个链接";
+			break;
+		default :
+			result = "这是未知类型的消息";
+			break;
 		
-		result = formatXmlAnswer(xmlEntity.getFromUserName(), xmlEntity.getToUserName(), result);
+		}
 		
-		return result;
+		String resultend = formatXmlAnswer(xmlEntity.getFromUserName(), xmlEntity.getToUserName(), result);
+		
+		return resultend;
 	}
 	
 	public ReceiveXmlEntity getMsgEntity(String strXml){
@@ -92,6 +121,16 @@ public class LoginServiceImpl implements LoginService {
 		sb.append(content);
 		sb.append("]]></Content><FuncFlag>0</FuncFlag></xml>");
 		return sb.toString();
+	}
+	
+	public String receiveEvent(String object){
+		String result = "";
+		switch(object){
+		case ("subscribe"):
+			result = "欢迎关注洛川客运微信公众号，您的OpenId为";
+			break;
+		}
+		return result;
 	}
 
 }
