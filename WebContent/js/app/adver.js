@@ -76,7 +76,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
-app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
+app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {  //加上
 	var services = {};
 	services.addAdver = function(data) {
 		return $http({
@@ -92,7 +92,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	services.selectAdverInfo = function(data) {
+	services.selectAdverInfo = function(data) {    //加上
 		return $http({
 			method : 'post',
 			url : baseUrl + 'ad/selectAdverInfo.do',

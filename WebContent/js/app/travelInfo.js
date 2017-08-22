@@ -68,7 +68,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelInfo', {  //页面初始为travelInfo时加载内容
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html', //显示的内容
 		controller : 'PlatformController'  //控制器
-	}).when('/travelInfoDetail/:travelInfo', {
+	}).when('/selectTravelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
 	}).when('/travelTrade', {  //表示地址结尾为travelTrade时加载的内容
@@ -82,14 +82,20 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
 	// zq获取做房用时列表A
-	services.selectTravelInfo = function() {
+	services.selectTravelInfo = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'travelInfo/addTravelInfo.do',
-			/*data : data*/
+			url : baseUrl + 'travelInfo/selectTravelInfo.do',
+			data : data
 		});
 	};
-	
+	services.selectTravelInfoDetail = function(data) {    //加上的services方法
+		return $http({
+			method : 'post',
+			url : baseUrl + 'travelInfo/selectTravelInfoDetail.do',
+			data : data
+		});
+	};
 	return services;
 } ]);
 app
@@ -146,20 +152,26 @@ app
 									}
 								});
 							}
+			
 							travelInfo.toProducer = function () { 
 								$location.path("#/travelInfoDetail");
 							};
+							
+							travelInfo.selectTravelInfoDetail=function(travelId){//加上的旅游信息方法
+								$location.path('selectTravelInfoDetail/'+travelId);
+							}
 							
 							// zq初始化
 							function initData() {
 								console.log("初始化页面信息");
 								
 								if ($location.path().indexOf('/travelInfo') == 0) {
-									console.log("进入到可旅游信息界面");
+									console.log("进入到旅游信息界面");
 									services.selectTravelInfo({
 										
 									}).success(function(data) {
 										travelInfo.travelList = data.list;
+										console.log(data.list); 
 									});
 								} else if ($location.path().indexOf(
 										'/travelInfoDetail') == 0) {
