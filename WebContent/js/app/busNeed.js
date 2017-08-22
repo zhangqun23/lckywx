@@ -74,6 +74,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/busNeedList', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedList.html',
 		controller : 'PlatformController'
+	}).when('/busTradeList', {
+		templateUrl : '/lckywx/jsp/busNeed/busTradeList.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -96,7 +99,15 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-
+    //zq查询我的班车交易
+	services.selectBusTrades=function(data){
+		return $http({
+			method:'post',
+			url:baseUrl+'busNeed/selectBusTrades.do',
+			data:data
+			
+		});
+	};
 	return services;
 } ]);
 app.controller('PlatformController', [
@@ -125,15 +136,6 @@ app.controller('PlatformController', [
 
 							$location.path("busNeedInfo/"
 									+ JSON.stringify(data.result));
-							if (data.result) {
-								alert("是");
-								/*
-								 * console.log("zq"+JSON
-								 * .stringify(data.result));
-								 */
-							} else {
-								alert("否");
-							}
 						});
 			}
 			// zq查询班车需求列表
@@ -146,20 +148,30 @@ app.controller('PlatformController', [
 					busNeed.busNeedList = data.list;
 				});
 			}
+			//zq查询班车定制需求
+			busNeed.getBusNeedById=function(bun){
+				var ss=JSON.stringify(bun);
+				$location.path("busNeedInfo/"
+						+ JSON.stringify(bun));
+			}
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/busNeedIndex') == 0) {
 
 				} else if ($location.path().indexOf('/busNeedList') == 0) {
-					alert("jinlaile");
-					var startDate = "2017-01-12";
-					var endDate = "2017-08-12";
 					services.selectBusNeeds({
-						startDate : startDate,
-						endDate : endDate
+						startDate : $scope.startDate,
+						endDate : $scope.endDate
 					}).success(function(data) {
 						busNeed.busNeedList = data.list;
+					});
+				}else if ($location.path().indexOf('/busTradeList') == 0) {
+					services.selectBusTrades({
+						startDate : $scope.startDate,
+						endDate : $scope.endDate
+					}).success(function(data) {
+						busNeed.busTradeList = data.list;
 					});
 				}
 			}
@@ -175,7 +187,6 @@ app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 // 时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
-		console.log(input);
 		var type = "";
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
