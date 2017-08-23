@@ -34,6 +34,17 @@ public class TravelDaoImpl implements TravelDao{
 	@Autowired
 	@Qualifier("entityManagerFactory")
 	EntityManagerFactory emf;
+	//直接查询
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Travel> findTravelAlls0() {
+		EntityManager em = emf.createEntityManager();
+		String sql = "select * from travel ";
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
+		List<Travel> list = query.getResultList();
+		em.close();
+		return list;
+		}
 	//按时间查询旅游信息
 	@SuppressWarnings("unchecked")
 	@Override
@@ -42,7 +53,6 @@ public class TravelDaoImpl implements TravelDao{
 		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String getdate = getDate.format(new Date());
 		//判断时间
-
 		String sql = "select * from travel where ( travel_stime between '"+ getdate +"' and '2525-01-01 01:00:00') and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		List<Travel> list = query.getResultList();
