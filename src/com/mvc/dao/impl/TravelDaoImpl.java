@@ -39,6 +39,8 @@ public class TravelDaoImpl implements TravelDao{
 	@Override
 	public List<Travel> findTravelAlls0() {
 		EntityManager em = emf.createEntityManager();
+		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//日期格式
+		getDate.format(new Date());
 		String sql = "select * from travel ";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		List<Travel> list = query.getResultList();
@@ -64,7 +66,7 @@ public class TravelDaoImpl implements TravelDao{
 	public List<Travel> findTravelAlls1() {
 		EntityManager em = emf.createEntityManager();
 		String sql = "select * from travel where is_delete=0 and travel_left_num > 0 order by travel_mprice asc";
-		Query query = em.createNativeQuery(sql.toString());
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
@@ -74,7 +76,7 @@ public class TravelDaoImpl implements TravelDao{
 	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
 		EntityManager em = emf.createEntityManager();
 		String sql = "select * from travel_trade where travel_id is not null";
-		Query query = em.createNativeQuery(sql.toString());
+		Query query = em.createNativeQuery(sql.toString(),TravelTrade.class);
 		List<TravelTrade> list = query.getResultList();
 		em.close();
 		return list;
