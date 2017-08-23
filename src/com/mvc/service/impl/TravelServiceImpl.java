@@ -8,6 +8,7 @@
 package com.mvc.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,13 +38,13 @@ public class TravelServiceImpl implements TravelService{
 	TravelDao travelDao;
 	//按出发日期查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls() {
+	public List<Travel> findTravelAlls(Map<String, Object> map) {
 		List<Travel> list = travelDao.findTravelAlls();
 		return list;
 	}
 	//按成人票价查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls1() {
+	public List<Travel> findTravelAlls1(Map<String, Object> map) {
 		List<Travel> list = travelDao.findTravelAlls1();
 		return list;
 	}
@@ -52,9 +53,11 @@ public class TravelServiceImpl implements TravelService{
 	@Override
 	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
 		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
+		/**
 		if (((TravelTrade) result).getTrtr_id() != null)//强制转换result类型
-			return result;
-		return null;//这块可能有问题
+			return result;	
+		return null ;//这块可能有问题
+		*/
+		return result;	
 	}
-
 }
