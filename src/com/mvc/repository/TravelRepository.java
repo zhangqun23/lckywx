@@ -7,7 +7,13 @@
  */
 package com.mvc.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.Travel;
 
 
@@ -21,6 +27,6 @@ import com.mvc.entiy.Travel;
  *
  */
 public interface TravelRepository extends JpaRepository<Travel, Integer>{
-
-
+		@Query("select t from Travel t ")
+		public List<Travel> findTravelAlls0();
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,9 +34,20 @@ public class TravelController {
 	TravelService travelService;
 	
 	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
+
+/**
+	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) throws ParseException {
+		JSONObject jsonObject = new JSONObject();
+		Travel travel = new Travel();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(jsonObject.getString("travel_stime"));
+		travel.setTravel_stime(date);
+		*/
 	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
+		String startTime = request.getParameter("travel_stime");
+		map.put("travel_stime", startTime);
 		List<Travel> list = travelService.findTravelAlls0(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
