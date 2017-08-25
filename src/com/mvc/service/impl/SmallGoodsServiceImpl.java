@@ -1,6 +1,5 @@
 package com.mvc.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,14 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 
 	//查询小件货运信息
 	@Override
-	public List<SmallGoods> findSmallGoodsAlls(String endPlace) {
+	public List<SmallGoods> findSmallGoodsBy(String endPlace) {
 		return smallGoodsRepository.findByTimeAndPlace(endPlace);
+	}
+		
+	//查询小件货运信息
+	@Override
+	public List<SmallGoods> findSmallGoodsAlls() {
+		return smallGoodsRepository.findAllSmallGoods();
 	}
 
 

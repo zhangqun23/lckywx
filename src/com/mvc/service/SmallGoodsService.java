@@ -1,6 +1,5 @@
 package com.mvc.service;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -15,6 +14,9 @@ public interface SmallGoodsService {
 	boolean saveSmallGoods(SmallGoods smallGodds);
 
 	// 查询小件货运信息 
-	List<SmallGoods> findSmallGoodsAlls(String endPlace);
+	List<SmallGoods> findSmallGoodsBy(String endPlace);
+	
+	// 查询所有小件货运信息 
+	List<SmallGoods> findSmallGoodsAlls();
 
 }

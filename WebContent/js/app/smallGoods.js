@@ -146,26 +146,6 @@ app
 							smallGoods.smallGoodsList = data.list;
 						});
 					}
-					/*$("#smgo_sego").change(
-					function(){
-						var id = $("input[name='radio']:checked").val(); 
-						var smgoSego = $('#smgo_sego');
-						smgoSego.empty();
-						if(id==0){
-							console.log("进来了");
-							var $li = $("<li class='inner innerP'></li>");
-							var $divFir = $("<div class='item-name'></div>");
-							$divFir.html("取货地址：");
-							var $divSco = $("<div class='item-value'></div>");
-							var $divThi = $("<div class='p-wrap'></div>");
-							var $textarea = $("<textarea type='text' ng-model='GoLimit.smgo_add' ></textarea>");
-							$divThi.append($textarea);
-							$divSco.append($divThi);
-							$divFir.append($divSco);
-							$li.append($divFir);
-							smgoSego.append($li);
-						}
-					})*/
 					
 					 $("input[name=radio]").each(function(){
 					        $(this).click(function(){
@@ -192,9 +172,13 @@ app
 					function initData() {
 						console.log("初始化页面信息");
 						
-						if ($location.path().indexOf('/smallGoods') == 0) {		
-
-						} else if ($location.path().indexOf('/smallGoodsInfo') == 0) {
+						if ($location.path().indexOf('/smallGoodsList') == 0) {
+							services.selectSmallGoods({
+								
+							}).success(function(data) {
+								smallGoods.smallGoodsList = data.list;
+								console.log(smallGoods.sgList);
+							});
 
 						} 
 					}
