@@ -1,24 +1,28 @@
 <article style="margin-top: 48px;">
-		<form ng-submit="selectAdver()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
-	    <ul class="form-box">
+	<form ng-submit="selectAdver()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
+	   <ul class="form-box">
 	    
-			 <li style="border:groove;margin:2px;height:30px;"> 
-                    <input type="text" placeholder="按广告类型模糊搜索" 
+			<li style="border:groove;margin:2px;height:30px;"> 
+				<input type="text" placeholder="按广告类型模糊搜索" 
                            style="height:25px;margin:auto;" ng-model="ADSLimit.ad_type" required>
-               </li>	
-               <li class="inner"> 
-                   <div class="item-value" style="margin-right:90px">
-                        <div class="a-wrap">
-				           <input type="submit" class="weui_btn weui_btn_primary" value="查询" >
-                        </div>
-                   </div>
-               </li>	
+			</li>	
+			<li class="inner"> 
+				<div class="item-value" style="margin-right:90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="查询" >
+					</div>
+				</div>
+			</li>	
                
 		</ul>
 	</form>
-	<!-- 缺少按时间和按照价格查询 -->
-	
-	<form class="weui_cell" ng-repeat="ad in adList">
+    
+     <div ng-model="order" style="width:127px;margin:auto;" >
+		<input type="radio" name="radio" ng-model="order" value="ad_content" style="-webkit-appearance:radio;"><span>按名称</span>
+		<input type="radio" name="radio" ng-model="order" value="ad_name" style="-webkit-appearance:radio;"><span>按内容</span>
+	</div>
+               
+	<form class="weui_cell" ng-repeat="ad in adList | orderBy:order "> 
                 <div class="weui_cell_bd weui_cell_primary">
                     <div class="wuliao-title">
                         <label>广告名称：</label>
@@ -37,5 +41,6 @@
                     </div>
               </div>
        </form>
+       
 </article>
 

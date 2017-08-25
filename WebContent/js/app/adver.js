@@ -160,7 +160,6 @@ app
 					adver.selectAderInfo=function(adId){
 						$location.path('selectAdverInfo/'+adId);
 					}
-					
 					// 初始化
 					function initData() {
 						console.log("初始化页面信息");
