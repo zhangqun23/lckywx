@@ -1,8 +1,6 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +33,19 @@ public class TravelController {
 	TravelService travelService;
 	
 	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
+
+/**
 	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = new JSONObject();
 		Travel travel = new Travel();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(jsonObject.getString("travel_stime"));
 		travel.setTravel_stime(date);
+		*/
+
+	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObject = new JSONObject();
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Travel> list = travelService.findTravelAlls0(map);
 		jsonObject.put("list", list);
