@@ -31,6 +31,15 @@ import net.sf.json.JSONObject;
 public class TravelController {
 	@Autowired
 	TravelService travelService;
+	
+	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
+	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObject = new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Travel> list = travelService.findTravelAlls0(map);
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
 	/**
 	 *@Title: selectTravelByDate 
 	 *@Description: 按出发时间查询

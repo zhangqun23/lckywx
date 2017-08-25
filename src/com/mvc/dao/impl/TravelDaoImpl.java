@@ -34,6 +34,17 @@ public class TravelDaoImpl implements TravelDao{
 	@Autowired
 	@Qualifier("entityManagerFactory")
 	EntityManagerFactory emf;
+	//直接查询
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Travel> findTravelAlls0() {
+		EntityManager em = emf.createEntityManager();
+		String sql = "select * from travel ";
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
+		List<Travel> list = query.getResultList();
+		em.close();
+		return list;
+		}
 	//按时间查询旅游信息
 	@SuppressWarnings("unchecked")
 	@Override

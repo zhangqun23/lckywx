@@ -36,6 +36,12 @@ public class TravelServiceImpl implements TravelService{
 	TravelTradeRepository travelTradeRepository;
 	@Autowired 
 	TravelDao travelDao;
+	//
+	@Override
+	public List<Travel> findTravelAlls0(Map<String, Object> map) {
+		List<Travel> list = travelDao.findTravelAlls0();
+		return list;
+	}
 	//按出发日期查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls(Map<String, Object> map) {
