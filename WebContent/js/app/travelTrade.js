@@ -130,7 +130,18 @@ app
 							}
 							initData();
 						} ]);
-
+//旅游交易输入判断
+app.filter('trtrFilter',function(){ 
+	return function(input){ 
+		if(input == ""){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
+});
 
 
 

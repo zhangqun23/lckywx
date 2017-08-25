@@ -71,9 +71,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/selectTravelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
-	}).when('/travelTrade', {  //表示地址结尾为travelTrade时加载的内容
+	}).when('/travelTrade/:travelTradeInfo', {  //表示地址结尾为travelTrade时加载的内容
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
-		controller : 'PlatformController'
+		controller : 'travelTradeInfoController'
 	})
 } ]);
 
@@ -89,10 +89,10 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	services.selectTravelInfoDetail = function(data) {    //加上的services方法
+	services.getTravelInfo = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'travelInfo/selectTravelInfoDetail.do',
+			url : baseUrl + 'travelInfo/addTravelInfo.do',
 			data : data
 		});
 	};
@@ -130,7 +130,7 @@ app
 									/*travelInfo : travelLimit*/
 								}).success(function(data) {
 									console.log(data.list);
-									$location.path("travelInfoDetail/"+JSON.stringify(data.list)); //此方法可改变location的地址
+									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
 									if (result.data) {
 										alert("是");
 									} else {
@@ -157,9 +157,17 @@ app
 								$location.path("#/travelInfoDetail");
 							};
 							
-							travelInfo.selectTravelInfoDetail=function(travelId){//加上的旅游信息方法
-								$location.path('selectTravelInfoDetail/'+travelId);
+							travelInfo.selectTravelInfoDetail=function(TInfo){//加上的旅游信息方法
+								$location.path('selectTravelInfoDetail/'+ JSON.stringify(TInfo));
 							}
+							
+							travelInfo.getTravelInfoById=function(tri){ //获取旅游id
+//								console.log("进来了");
+								var ss=JSON.stringify(tri);
+								$location.path("travelTrade/"
+										+ JSON.stringify(ss));
+							}
+						
 							
 							// zq初始化
 							function initData() {
@@ -192,14 +200,46 @@ app
 				'$routeParams',
 				function($scope, services, $location,$routeParams) {
 					
-					$scope.TInfo=JSON.parse($routeParams.travelInfo);
-				
+//					$scope.TInfo=JSON.parse($routeParams.travelInfo);
+//					services.selectTravelInfo({
+//						travel_id : $routeParams.travelInfo
+//					}).success(function(data) {
+//						$scope.travelIList = data.list;
+//						console.log("我滴个娘啊，你弄啥嘞？？？");
+//						console.log($scope.travelIList);
+//					});
+					$scope.travelIList = JSON.parse($routeParams.travelInfo);
+				// 从后台传送过来的一个travelInfo的list，将其赋值给travelIList，
+			    // 不用再发送给services的方法中，原因是只访问后台一次就可以了。
+					$scope.getTravelInfoById=function(tri){ //获取旅游id
+						console.log("进来了");
+						var ss=JSON.stringify(tri);
+						$location.path("travelTrade/"
+								+ JSON.stringify(ss));
+					}
 				} ]);
+
+app
+.controller(
+		'travelTradeInfoController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location,$routeParams) {
+					
+					$scope.travelInfoList = JSON.parse($routeParams.travelTradeInfo);
+					console.log("bacon"+$scope.travelInfoList);
+					
+				}
+				
+				]);
 
 //时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
-		console.log(input);
+//		console.log(input);
 		var type = "";
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
@@ -209,16 +249,27 @@ app.filter('dateType', function() {
 	}
 });
 //旅游活动内容的格式化的判断
-app.filter('isOrNotNull', function() {
-	return function(input) {
-		var type = "";
-		if (input) {
-			type = input;
-		}else{
-			type="无";
+app.filter('travelFilter',function(){ 
+	return function(input){ 
+		if(input == ""){
+			var input = "空";
+			return input; 		
 		}
-
-		return type;
+		else{
+			return input;
+		}
+	}
+});
+//旅游交易输入判断
+app.filter('trtrFilter',function(){ 
+	return function(input){ 
+		if(input == ""){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
 	}
 });
 
