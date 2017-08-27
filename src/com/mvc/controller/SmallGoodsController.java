@@ -41,7 +41,7 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/addSmallGoods.do")
-	public @ResponseBody boolean addSmallGoods(HttpServletRequest request, HttpSession session, HttpServletResponse res) throws ParseException {
+	public @ResponseBody String addSmallGoods(HttpServletRequest request, HttpSession session, HttpServletResponse res) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("goNeed"));
 		SmallGoods smallGoods = new SmallGoods();
 		if (jsonObject.containsKey("smgo_name")) {
@@ -85,7 +85,7 @@ public class SmallGoodsController {
 		}		
 		smallGoods.setIs_delete(true);
 		
-		boolean result;
+		SmallGoods result;
 		if (jsonObject.containsKey("smgo_id")) {
 			smallGoods.setSmgo_id(Integer.valueOf(jsonObject.getString("smgo_id")));
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 修改班车定制需求
@@ -95,7 +95,9 @@ public class SmallGoodsController {
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 添加班车定制需求
 		}
 		
-		return result;
+		JSONObject limit=new JSONObject();
+		limit.put("result", result);
+		return limit.toString();
 	}
 
 	/**
@@ -114,6 +116,26 @@ public class SmallGoodsController {
 			list = smallGoodsService.findSmallGoodsBy(jsonObject.getString("smgo_select"));
 		}else{
 			list = smallGoodsService.findSmallGoodsAlls();
+		}
+		JSONObject jsonO = new JSONObject();
+		jsonO.put("list", list);
+		return jsonO.toString();
+	}
+	
+	/**
+	 * 查询小件货运信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/selectSmallGoodsInfo.do")
+	public @ResponseBody String selectSmallGoodsInfo(HttpServletRequest request, HttpSession session) throws ParseException {
+		SmallGoods list = null;
+		String smgo_id = request.getParameter("smgo_id");
+		if (smgo_id != null) {
+			list = smallGoodsService.findSmallGoodsById(smgo_id);
 		}
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("list", list);

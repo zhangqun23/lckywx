@@ -22,12 +22,12 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 
 	//添加,修改小件货运信息
 	@Override
-	public boolean saveSmallGoods(SmallGoods smallGoods) {
+	public SmallGoods saveSmallGoods(SmallGoods smallGoods) {
 		SmallGoods result = smallGoodsRepository.saveAndFlush(smallGoods);
 		if (result.getSmgo_id() != null)
-			return true;
+			return result;
 		else
-			return false;
+			return null;
 	}
 
 	//查询小件货运信息
@@ -40,6 +40,12 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 	@Override
 	public List<SmallGoods> findSmallGoodsAlls() {
 		return smallGoodsRepository.findAllSmallGoods();
+	}
+
+	//根据id查找小件货运信息
+	@Override
+	public SmallGoods findSmallGoodsById(String sgid) {
+		return smallGoodsRepository.findSmallGoodsById(Integer.parseInt(sgid));
 	}
 
 

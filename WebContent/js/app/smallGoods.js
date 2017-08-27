@@ -92,6 +92,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	services.selectSmallGoodsInfo = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'smallGoods/selectSmallGoodsInfo.do',
+			data : data
+		});
+	};
 	
 	return services;
 } ]);
@@ -126,13 +133,8 @@ app
 						services.addSmallGoods({
 							goNeed : goLimit
 						}).success(function(data) {
-							console.log("::::::::::::"+data);
-							if (data) {
-								alert("是");
-							} else {
-								alert("否");
-							}
-						 	$location.path('smallGoodsInfo/'+data);
+							
+						 	$location.path('smallGoodsInfo/'+data.result);
 
 						});
 					}
@@ -146,6 +148,15 @@ app
 							smallGoods.smallGoodsList = data.list;
 						});
 					}
+					
+					smallGoods.selectSmallGoodsInfo = function(smgo_id){
+						services.selectSmallGoodsInfo({
+							smgo_id : smgo_id
+						}).success(function(data) {
+						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.list));
+
+						});
+					};
 					
 					 $("input[name=radio]").each(function(){
 					        $(this).click(function(){
@@ -177,7 +188,6 @@ app
 								
 							}).success(function(data) {
 								smallGoods.smallGoodsList = data.list;
-								console.log(smallGoods.sgList);
 							});
 
 						} 
@@ -194,8 +204,27 @@ app
 				'$location',
 				'$routeParams',
 				function($scope, services, $location,$routeParams) {
-					console.log("跳转后"+$routeParams.smallgoods);
-					$scope.SGInfo=$routeParams.smallgoods;
+					$scope.sgIList=JSON.parse($routeParams.smallgoods);
 				} ]);
-
+app.filter('sgFilter',function(){ 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
+});
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+		return type;
+	}
+});
 

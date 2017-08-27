@@ -271,15 +271,6 @@ app.filter('trtrFilter',function(){
 		}
 	}
 });
-//float小数点后保留两位
-app.filter('floatSave2',function(){
-	return function(input){
-		if(input){
-			
-		}
-	}
-	
-});
 
 
 

@@ -21,4 +21,6 @@ public interface SmallGoodsRepository extends JpaRepository<SmallGoods, Integer>
 	public List<SmallGoods> findByTimeAndPlace(@Param("endPlace") String endPlace);
 	@Query("select s from SmallGoods s where is_delete=1 ")
 	public List<SmallGoods> findAllSmallGoods();
+	@Query("select s from SmallGoods s where smgo_id = :sgid and is_delete=1 ")
+	public SmallGoods findSmallGoodsById(@Param("sgid") Integer sgid);
 }
