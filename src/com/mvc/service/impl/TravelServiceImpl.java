@@ -7,11 +7,12 @@
  */
 package com.mvc.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.mvc.dao.TravelDao;
@@ -45,25 +46,36 @@ public class TravelServiceImpl implements TravelService{
 	//按出发日期查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls(Map<String, Object> map) {
-		List<Travel> list = travelDao.findTravelAlls();
+		List<Travel> list = travelDao.findTravelAlls(map);
 		return list;
 	}
 	//按成人票价查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls1(Map<String, Object> map) {
-		List<Travel> list = travelDao.findTravelAlls1();
+		List<Travel> list = travelDao.findTravelAlls1(map);
 		return list;
 	}
 	//旅游交易
-	@SuppressWarnings(value = { })
+	@SuppressWarnings("null")
 	@Override
 	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
-		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
-		/**
-		if (((TravelTrade) result).getTrtr_id() != null)//强制转换result类型
-			return result;	
-		return null ;//这块可能有问题
-		*/
-		return result;	
+		List<TravelTrade> list = travelDao.saveTravelTrade(travelTrade);
+		Travel travel = null;
+		Float trtrprice = travelTrade.getTrtr_price();
+		trtrprice = (travel.getTravel_discount() * 
+				((travelTrade.getTrtr_cnum() * travel.getTravel_mprice()) 
+				+ (travelTrade.getTrtr_mnum() * travel.getTravel_mprice())))
+				+ travel.getTravel_insurance();
+		travelTrade.setTrtr_price(Float.valueOf(trtrprice));
+	//	while (it.hasNext()) {
+    //	obj = (Object[]) it.next();
+	//  travelTrade = new TravelTrade();
+	//  travelTrade.setTrtr_tel(obj[0].toString());
+	//  travelTrade.setTrtr_mnum(obj[1].hashCode());
+    //  travelTrade.setTrtr_cnum(obj[2].hashCode());
+    //  String trtr_price = StringUtil.add(obj[1].toString(), obj[2].toString());
+    //  workHouse.setAvg_time_dust(Float.valueOf(avg_time_dust));
+		
+		return list;	
 	}
 }

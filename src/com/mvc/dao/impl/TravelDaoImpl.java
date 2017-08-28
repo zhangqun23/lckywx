@@ -36,9 +36,15 @@ public class TravelDaoImpl implements TravelDao{
 	@Qualifier("entityManagerFactory")
 	EntityManagerFactory emf;
 	//直接查询
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
 	public List<Travel> findTravelAlls0(Map<String, Object> map) {
+		
+		String startTime = null;
+		if ((String) map.get("travel_stime")!=null) {
+			startTime=(String) map.get("travel_stime");//开始时间
+		}
+		
 		EntityManager em = emf.createEntityManager();
 		String sql = "select * from travel ";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
@@ -49,7 +55,11 @@ public class TravelDaoImpl implements TravelDao{
 	//按时间查询旅游信息
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> findTravelAlls() {
+	public List<Travel> findTravelAlls(Map<String, Object> map) {
+		String startTime = null;
+		if ((String) map.get("travel_stime")!=null) {
+			startTime = (String) map.get("travel_stime");//开始时间
+		}
 		EntityManager em = emf.createEntityManager();
 		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String getdate = getDate.format(new Date());

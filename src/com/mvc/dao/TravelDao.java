@@ -22,9 +22,8 @@ import com.mvc.entiy.TravelTrade;
 public interface TravelDao {
 	
 
-	List<Travel> findTravelAlls1();//select by price
+	List<Travel> findTravelAlls1(Map<String, Object> map);//select by price
 	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);//travel trade
-	List<Travel> findTravelAlls();
 	List<Travel> findTravelAlls0(Map<String, Object> map);
-	
+	List<Travel> findTravelAlls(Map<String, Object> map);
 }
