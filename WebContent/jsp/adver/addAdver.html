@@ -1,0 +1,73 @@
+<article style="margin-top: 54px; ">
+ 	<form ng-submit="addAdver()" method="post" enctype="multipart/form-data">
+		<ul class="form-box">
+		
+			<li  class="inner">
+				<div class="item-name">广告类型：</div>
+				<div style="padding-left: 5px;padding-right: 15px;">
+					<select class="select-box" ng-model="ADLimit.ad_type" id="ad-type" required>
+						<option>请选择</option>
+						<option value="0">旅游</option>
+						<option value="1">招工</option>
+						<option value="2">其他</option>				
+					</select>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">广告名称：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="ADLimit.ad_title" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">联系人：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="ADLimit.ad_name" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">联系方式：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="ADLimit.ad_tel" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner innerP">
+				<div class="item-name">广告内容：</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea type="text" ng-model="ADLimit.ad_content" required></textarea>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner innerP">
+				<div class="item-name">广告备注：</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea type="text" ng-model="ADLimit.ad_remark" required></textarea>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-value" style="margin-right:90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交" >
+					</div>
+ 				</div>
+			</li>
+			
+		</ul>
+		
+	</form>
+</article>

@@ -1759,5 +1759,16 @@ h2 {
 	width:100% !important;
 }
 .bodyhe{
+	min-width: 220px;
 	overflow-x:hidden !important;
+}
+.select-box{
+	-webkit-appearance: none;
+	border: 1px solid #bebebe;
+	padding: 0.1rem;
+	line-height: 1.2rem;
+	width: 100%;
+	padding-left:10px;
+	border-radius: 3px
+	
 }

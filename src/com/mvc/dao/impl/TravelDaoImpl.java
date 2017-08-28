@@ -10,6 +10,7 @@ package com.mvc.dao.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,45 +29,44 @@ import com.mvc.entiy.TravelTrade;
  * @Description: TODO
  * @author ycj
  * @date 2017年8月14日 上午11:56:56 
- * 
- *
  */
 @Repository("travelDaoImpl")
 public class TravelDaoImpl implements TravelDao{
 	@Autowired
 	@Qualifier("entityManagerFactory")
 	EntityManagerFactory emf;
-	//按时间查询旅游信息
+	//直接查询
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> findTravelAlls() {
-		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		System.out.println(getDate.format(new Date()));
-		
-		
-		//测试4获取当前时间
-		System.out.println(getDate + "测试4 获取当前时间");
-		
+	public List<Travel> findTravelAlls0(Map<String, Object> map) {
 		EntityManager em = emf.createEntityManager();
-		//判断时间
-		String sql = "select * from travel where ('"+ getDate +"' between travel_stime and '2525-01-01 01:00:00') and is_delete = 0 order by travel_stime asc";
-		Query query = em.createNativeQuery(sql.toString());
+		String sql = "select * from travel ";
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
 		}
-	
-	
+	//按时间查询旅游信息
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Travel> findTravelAlls() {
+		EntityManager em = emf.createEntityManager();
+		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String getdate = getDate.format(new Date());
+		//判断时间
+		String sql = "select * from travel where ( travel_stime between '"+ getdate +"' and '2525-01-01 01:00:00') and is_delete = 0 and travel_left_num > 0 order by travel_stime asc";
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
+		List<Travel> list = query.getResultList();
+		em.close();
+		return list;
+		}
 	 //按成人票价格查询旅游信息
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<Travel> findTravelAlls1() {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0 order by travel_mprice asc";
-		
-		//测试5 price
-		System.out.println("测试5 Price");
-		
-		Query query = em.createNativeQuery(sql.toString());
+		String sql = "select * from travel where is_delete=0 and travel_left_num > 0 order by travel_mprice asc";
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
@@ -74,10 +74,10 @@ public class TravelDaoImpl implements TravelDao{
 	//添加或修改交易信息
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TravelTrade> saveTravelTrade() {
+	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel_trade where travel_id is not null";
-		Query query = em.createNativeQuery(sql.toString());
+		String sql = "select * from travel_trade where travel.travel_id=:travel_id";
+		Query query = em.createNativeQuery(sql.toString(),TravelTrade.class);
 		List<TravelTrade> list = query.getResultList();
 		em.close();
 		return list;

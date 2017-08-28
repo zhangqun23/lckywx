@@ -1,7 +1,9 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,22 +21,37 @@ import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 /**
- * 
  * @ClassName: TravelController
  * @Description: TODO
  * @author ycj
  * @date 2017年8月14日 下午2:52:39 
- * 
- *
  */
 @Controller
 @RequestMapping("/travelInfo")
 public class TravelController {
 	@Autowired
 	TravelService travelService;
+	
+	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
+
+/**
+	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) throws ParseException {
+		JSONObject jsonObject = new JSONObject();
+		Travel travel = new Travel();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(jsonObject.getString("travel_stime"));
+		travel.setTravel_stime(date);
+		*/
+	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObject = new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+		String startTime = request.getParameter("travel_stime");
+		map.put("travel_stime", startTime);
+		List<Travel> list = travelService.findTravelAlls0(map);
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
 	/**
-	 * 
-	 * 
 	 *@Title: selectTravelByDate 
 	 *@Description: 按出发时间查询
 	 *@param @param request
@@ -43,20 +60,19 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	@RequestMapping(value = "/addTravelInfo.do")
+	@RequestMapping(value = "/selectTravelByTime.do")   //select Travel By Time
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		
-		        //测试1
-				System.out.println("测试1");
-		
-		List<Travel> list = travelService.findTravelAlls();
+		Map<String, Object> map = new HashMap<String, Object>();
+		/**
+		String startTime = request.getParameter("travel_stime");
+		map.put("travel_stime", startTime);//映射，没有用到startTime
+		*/
+		List<Travel> list = travelService.findTravelAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 	/**
-	 * 
-	 * 
 	 *@Title: selectTravelByPrice 
 	 *@Description: 按成人票价查询
 	 *@param @param request
@@ -65,24 +81,19 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	
-	//再添加一个路径
-	
+	@RequestMapping(value = "/selectTravelByPrice.do")//select Travel By Price
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		
-		        //测试2
-				System.out.println("测试2");
-		
-		List<Travel> list = travelService.findTravelAlls1();
+		Map<String, Object> map = new HashMap<String, Object>();
+		/**
+		String price = request.getParameter("travel_mprice");
+		map.put("travel_mprice", price);
+		*/
+		List<Travel> list = travelService.findTravelAlls1(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-	
-	
-	/**
-	 * 
-	 * 
+	/** 
 	 *@Title: addTravelTrade 
 	 *@Description: 旅游交易 traveltrade
 	 *@param @param request
@@ -92,7 +103,6 @@ public class TravelController {
 	 *@return String
 	 *@throws
 	 */
-	
 	@RequestMapping(value = "/travelTrade.do")
 	public @ResponseBody String addTravelTrade(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travelTrade"));
@@ -118,11 +128,12 @@ public class TravelController {
 			}
 		}
 		Travel travel = new Travel();
-		travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
-		
-		        //测试3
-				System.out.println("测 试3");
-		
+		if (jsonObject.containsKey("travel")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("travel"))) {
+				travel.setTravel_id(Integer.parseInt(jsonObject.getJSONObject("travel").getString("travel_id")));
+				travelTrade.setTravel_id(travel);
+			}
+		}
 		List<TravelTrade> result;
 		if (jsonObject.containsKey("trtr_id")) {
 			travelTrade.setTrtr_id(Integer.valueOf(jsonObject.getString("trtr_id")));
@@ -131,7 +142,5 @@ public class TravelController {
 			result = travelService.saveTravelTrade(travelTrade);// 添加交易信息
 		}
 		return JSON.toJSONString(result);
-
-	}
-	
+	}	
 }

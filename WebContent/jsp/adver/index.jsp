@@ -5,11 +5,11 @@
 			+ path + "/";
 %>
 <jsp:include page="/jsp/top.jsp" />
-<section id="busNeedForm"  ng-app="busNeedForm" >
-	<div ng-view  class="yscroll"></div>
+<section id="adver" class="yscroll"  ng-app="adverForm" >
+	<div ng-view ></div>
 </section>
 <jsp:include page="/jsp/footer.jsp" />
-<script src="${ctx}/js/app/busNeed.js"></script>
-<script type="text/javascript" src="${ctx}/js/lib/My97DatePicker/WdatePicker.js"></script>
+<script src="${ctx}/js/app/adver.js"></script>
+
 </body>
 </html>

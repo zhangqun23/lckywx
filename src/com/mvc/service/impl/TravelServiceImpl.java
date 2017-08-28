@@ -8,8 +8,10 @@
 package com.mvc.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.mvc.dao.TravelDao;
@@ -35,26 +37,33 @@ public class TravelServiceImpl implements TravelService{
 	TravelTradeRepository travelTradeRepository;
 	@Autowired 
 	TravelDao travelDao;
+	//
+	@Override
+	public List<Travel> findTravelAlls0(Map<String, Object> map) {
+		return travelDao.findTravelAlls0(map);
+	}
 	//按出发日期查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls() {
-		List<Travel> listSource = travelDao.findTravelAlls();
-		return listSource;
+	public List<Travel> findTravelAlls(Map<String, Object> map) {
+		List<Travel> list = travelDao.findTravelAlls();
+		return list;
 	}
 	//按成人票价查询旅游信息
 	@Override
-	public List<Travel> findTravelAlls1() {
-		List<Travel> listSource = travelDao.findTravelAlls1();
-		return listSource;
+	public List<Travel> findTravelAlls1(Map<String, Object> map) {
+		List<Travel> list = travelDao.findTravelAlls1();
+		return list;
 	}
 	//旅游交易
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings(value = { })
 	@Override
-	public List saveTravelTrade(TravelTrade travelTrade) {
-		List<TravelTrade> result =travelDao.saveTravelTrade();
-		if (((TravelTrade) result).getTrtr_id() != null)
-			return result;
-		return result;
+	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
+		List<TravelTrade> result =travelDao.saveTravelTrade(travelTrade);
+		/**
+		if (((TravelTrade) result).getTrtr_id() != null)//强制转换result类型
+			return result;	
+		return null ;//这块可能有问题
+		*/
+		return result;	
 	}
-
 }
