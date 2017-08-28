@@ -162,7 +162,7 @@ app
 							}
 							
 							travelInfo.getTravelInfoById=function(tri){ //获取旅游id
-//								console.log("进来了");
+//								console.log("welcome");
 								var ss=JSON.stringify(tri);
 								$location.path("travelTrade/"
 										+ JSON.stringify(ss));
