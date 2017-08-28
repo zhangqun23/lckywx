@@ -21,7 +21,7 @@
                         <span class="date">成人票价：{{TInfo.travel_mprice}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">出发时间：{{TInfo.travel_stime}}</span>
+                        <span class="date">出发时间：{{TInfo.travel_stime.time|dateType}}</span>
                     </div>
                     <div class="detail clearfix">
                         <span class="date">剩余票数：{{TInfo.travel_left_num}}</span>

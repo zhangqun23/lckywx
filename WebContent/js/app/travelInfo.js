@@ -239,7 +239,6 @@ app
 //时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
-//		console.log(input);
 		var type = "";
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');

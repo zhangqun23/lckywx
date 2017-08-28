@@ -1,6 +1,5 @@
 package com.mvc.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +19,8 @@ public interface SmallGoodsRepository extends JpaRepository<SmallGoods, Integer>
 	//public List<SmallGoods> findByUsertime(@Param("bune_gath_time") String useDate);
 	@Query("select s from SmallGoods s where smgo_end = :endPlace and is_delete=1 ")
 	public List<SmallGoods> findByTimeAndPlace(@Param("endPlace") String endPlace);
+	@Query("select s from SmallGoods s where is_delete=1 ")
+	public List<SmallGoods> findAllSmallGoods();
+	@Query("select s from SmallGoods s where smgo_id = :sgid and is_delete=1 ")
+	public SmallGoods findSmallGoodsById(@Param("sgid") Integer sgid);
 }
