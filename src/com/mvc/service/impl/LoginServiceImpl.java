@@ -18,8 +18,8 @@ public class LoginServiceImpl implements LoginService {
 	
 	public String wechatProcess(String xml){
 	
-			xml = "<xml><ToUserName><![CDATA[gh_680bdefc8c5d]]></ToUserName><FromUserName><![CDATA[oIDrpjqASyTPnxRmpS9O_ruZGsfk]]></FromUserName>";
-			xml = xml + "<CreateTime>1359028446</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content></xml>";
+			/*xml = "<xml><ToUserName><![CDATA[gh_680bdefc8c5d]]></ToUserName><FromUserName><![CDATA[oIDrpjqASyTPnxRmpS9O_ruZGsfk]]></FromUserName>";
+			xml = xml + "<CreateTime>1359028446</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content></xml>";*/
 			
 		String result = "";
 		

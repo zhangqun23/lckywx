@@ -31,7 +31,7 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">出发时间：</div>
-			<div class="item-value">{{travelIList.travel_stime|dateType}}</div>
+			<div class="item-value">{{travelIList.travel_stime.time|dateType}}</div>
 		</li>
 
 		<li class="inner">
@@ -49,7 +49,7 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">折扣：</div>
-			<div class="item-value">{{travelIList.travel_discount|travelFilter}}</div>
+			<div class="item-value">{{travelIList.travel_discount|travelFilter|number:2}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">联系电话：</div>

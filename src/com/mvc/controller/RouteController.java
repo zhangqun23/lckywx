@@ -46,7 +46,7 @@ public class RouteController {
 	public String toSmallGoodsListPage() {
 		return "smallGoods/index";
 	}
-	
+
 	@RequestMapping("/toSelectAdListPage.do")
 	public String toSelectAdListPage() {
 		return "adver/index";

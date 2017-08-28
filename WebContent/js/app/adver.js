@@ -104,7 +104,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {  //加�
 } ]);
 app.filter('adFilter',function(){ 
 	return function(input){ 
-		if(input == ""){
+		if(input == ""|| input == null){
 			var input = "空";
 			return input; 		
 		}
@@ -132,9 +132,10 @@ app
 						ad_remark:""
 					}
 					adver.ADSLimit={
-						ad_type:"0"
+						ad_type:"请选择"
 						}
 					adver.addAdver=function(){
+						if(adver.ADSLimit.ad_type == "请选择"){ return alert("请输入广告类型！")}
 						var adLimit = JSON.stringify(adver.ADLimit);
 						services.addAdver({
 							ad : adLimit
@@ -150,6 +151,7 @@ app
 						});
 					}
 					adver.selectAdver=function(){
+						if(adver.ADSLimit.ad_type == "请选择"){ return alert("请输入广告类型！")}
 						var adLimit = JSON.stringify(adver.ADSLimit);
 						services.selectAdver({
 							adType : adLimit	
@@ -160,7 +162,6 @@ app
 					adver.selectAderInfo=function(adId){
 						$location.path('selectAdverInfo/'+adId);
 					}
-					
 					// 初始化
 					function initData() {
 						console.log("初始化页面信息");
@@ -189,6 +190,5 @@ app
 						ad_id : $routeParams.adid
 					}).success(function(data) {
 						$scope.adIList = data.list;
-						console.log($scope.adIList);
 					});
 				} ]);
