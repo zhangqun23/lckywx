@@ -15,15 +15,18 @@ import com.mvc.entiy.TravelTrade;
 
 /**
  * @ClassName: TravelDao
- * @Description: TODO
+ * @Description: 旅游信息查询
  * @author ycj
  * @date 2017年8月14日 上午11:56:15 
  */
 public interface TravelDao {
 	
 
-	List<Travel> findTravelAlls1(Map<String, Object> map);//select by price
-	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);//travel trade
-	List<Travel> findTravelAlls0(Map<String, Object> map);
-	List<Travel> findTravelAlls(Map<String, Object> map);
+	List<Travel> findTravelAlls1(Map<String, Object> map);//按成人票价格查询旅游信息
+	
+	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);//旅游交易信息
+	
+	List<Travel> findTravelAlls0(Map<String, Object> map);//旅游查询
+	
+	List<Travel> findTravelAlls(Map<String, Object> map);//按出发时间查询旅游信息
 }

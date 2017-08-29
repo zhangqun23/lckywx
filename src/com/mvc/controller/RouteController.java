@@ -22,13 +22,13 @@ public class RouteController extends HttpServlet {
 
 	@RequestMapping("/toPlatformPage.do")
 	public String InvoiceReceivePage() {
-		String str0 = getInitParameter("appid");
-		String code = getInitParameter("response_type");
-		System.out.println("慧敏君来了" + str0);
-		OpenidUtil.getOpenid(null, null, code);
-		User user = new User();
-		user.setUser_openId(OpenidUtil.getOpenid(null, null, code));
-		User result = userRepository.saveAndFlush(user);
+//		String str0 = getInitParameter("appid");
+//		String code = getInitParameter("response_type");
+//		System.out.println("慧敏君来了" + str0);
+//		OpenidUtil.getOpenid(null, null, code);
+//		User user = new User();
+//		user.setUser_openId(OpenidUtil.getOpenid(null, null, code));
+//		User result = userRepository.saveAndFlush(user);
 
 		return "platform/index";
 	}
