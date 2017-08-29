@@ -14,12 +14,12 @@ public interface SmallGoodsService {
 	SmallGoods saveSmallGoods(SmallGoods smallGodds);
 
 	// 查询小件货运信息 
-	List<SmallGoods> findSmallGoodsBy(String endPlace);
+	List<SmallGoods> findSmallGoodsBy(String endPlace, String openid);
 	
 	// 根据id查询小件货运信息 
 	SmallGoods findSmallGoodsById(String sgid);
 	
 	// 查询所有小件货运信息 
-	List<SmallGoods> findSmallGoodsAlls();
+	List<SmallGoods> findSmallGoodsAlls(String openid);
 
 }
