@@ -17,6 +17,10 @@ import com.utils.OpenidUtil;
 @Controller
 @RequestMapping("/routeController")
 public class RouteController extends HttpServlet {
+	/**
+	 * 
+	 */
+//	private static final long serialVersionUID = 1L;
 	@Autowired
 	UserRepository userRepository;
 

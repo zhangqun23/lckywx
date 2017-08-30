@@ -31,7 +31,7 @@
                         <span class="require">联系方式：<label>{{TInfo.travel_tel}}</label></span>
                     </div>
                     <div class="org">
-                        <span>活动描述：{{TInfo.travel_content}}</span>
+                        <span>活动描述：{{TInfo.travel_content|cutString}}</span>
                         <label class="green" ng-click="getTravelInfoById(TInfo)">购票</label>
                         <label class="green" ng-click="selectTravelInfoDetail(TInfo)">详情</label>
                         
