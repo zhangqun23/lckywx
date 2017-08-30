@@ -57,6 +57,11 @@ public class RouteController {
 		return "adver/index";
 	}
 	
+	@RequestMapping("/toMyTradePage.do")
+	public String toMyTradePage() {
+		return "myTrade/index";
+	}
+	
 	
 
 }

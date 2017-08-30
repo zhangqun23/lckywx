@@ -158,7 +158,7 @@ app.controller('PlatformController', [
 			function initData() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/busNeedIndex') == 0) {
-
+		
 				} else if ($location.path().indexOf('/busNeedList') == 0) {
 					services.selectBusNeeds({
 						startDate : $scope.startDate,

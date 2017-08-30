@@ -19,7 +19,7 @@ public class Ad {
 private Integer ad_id;//广告id，主键
 private Integer ad_type;//0招工，1旅游、2其他
 private Integer ad_state;//0代表未审核，1代表已审核
-private User user;//外键
+private String openid;//openid
 private String ad_name;//联系人
 private String ad_tel;//联系方式
 private String ad_title;//广告名称
@@ -27,7 +27,7 @@ private String ad_pic_path;//广告图片路径
 private String ad_remark;//广告备注
 private String ad_content;//广告内容
 private Boolean is_delete;// 是否删除1表示未删除，0表示删除
-
+private Date   ad_stime;//获取发布时的时间
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "ad_id",unique = true, nullable = false, length = 10)
@@ -54,13 +54,12 @@ public void setAd_state(Integer ad_state) {
 	this.ad_state = ad_state;
 }
 
-@ManyToOne
-@JoinColumn(name="user_id")
-public User getUser() {
-	return user;
+@Column(name="openid",length = 11)
+public String getOpenid() {
+	return openid;
 }
-public void setUser(User user) {
-	this.user = user;
+public void setOpenid(String openid) {
+	this.openid = openid;
 }
 
 @Column(name = "ad_name", length = 32)
@@ -115,6 +114,12 @@ public Boolean getIs_delete() {
 }
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
+}
+public Date getAd_stime() {
+	return ad_stime;
+}
+public void setAd_stime(Date ad_stime) {
+	this.ad_stime = ad_stime;
 }
 
 }

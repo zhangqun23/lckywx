@@ -1,21 +1,20 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Ad;
-import com.mvc.entiy.User;
 import com.mvc.service.AdService;
 import com.utils.StringUtil;
-
 import net.sf.json.JSONObject;
 
 /**
@@ -79,15 +78,12 @@ public class AdController {
 				ad.setAd_content(jsonObject.getString("ad_content"));
 			}
 		}
+		Date getDate = new Date();
+		ad.setAd_stime(getDate);
 		ad.setIs_delete(true);
 		ad.setAd_state(0);
-		/*User user= new User();
-		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("user_id"))){
-				ad.setUser(user);
-			}else{
-				return null;
-			}*/
+		String openid = SessionUtil.getOpenid(request);
+		ad.setOpenid(openid);
 		Ad result = null;
 		if (jsonObject.containsKey("ad_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_id"))){
