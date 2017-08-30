@@ -28,6 +28,8 @@ private String smgo_remark;//备注
 private Boolean smgo_sego;//是否取货
 private String smgo_add;//取货地址
 private Boolean is_delete;//是否删除
+private String openid;//微信用户唯一标示
+
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getSmgo_id() {
@@ -135,6 +137,12 @@ public String getSmgo_add() {
 }
 public void setSmgo_add(String smgo_add) {
 	this.smgo_add = smgo_add;
+}
+public String getOpenid() {
+	return openid;
+}
+public void setOpenid(String openid) {
+	this.openid = openid;
 }
 
 

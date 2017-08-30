@@ -134,7 +134,7 @@ app
 							goNeed : goLimit
 						}).success(function(data) {
 							
-						 	$location.path('smallGoodsInfo/'+data.result);
+						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.result));
 
 						});
 					}

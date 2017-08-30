@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mvc.entiy.SmallGoods;
 import com.mvc.service.SmallGoodsService;
+import com.utils.SessionUtil;
 
 import net.sf.json.JSONObject;
 
@@ -44,6 +45,8 @@ public class SmallGoodsController {
 	public @ResponseBody String addSmallGoods(HttpServletRequest request, HttpSession session, HttpServletResponse res) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("goNeed"));
 		SmallGoods smallGoods = new SmallGoods();
+		String openid = SessionUtil.getOpenid(request);
+		smallGoods.setOpenid(openid);
 		if (jsonObject.containsKey("smgo_name")) {
 			smallGoods.setSmgo_name(jsonObject.getString("smgo_name"));
 		}
@@ -110,12 +113,13 @@ public class SmallGoodsController {
 	 */
 	@RequestMapping(value = "/selectSmallGoods.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
+		String openid = SessionUtil.getOpenid(request);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("golNeed"));
 		List<SmallGoods> list = new ArrayList<SmallGoods>();
 		if (jsonObject.containsKey("smgo_select")) {
-			list = smallGoodsService.findSmallGoodsBy(jsonObject.getString("smgo_select"));
+			list = smallGoodsService.findSmallGoodsBy(jsonObject.getString("smgo_select"), openid);
 		}else{
-			list = smallGoodsService.findSmallGoodsAlls();
+			list = smallGoodsService.findSmallGoodsAlls(openid);
 		}
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("list", list);
