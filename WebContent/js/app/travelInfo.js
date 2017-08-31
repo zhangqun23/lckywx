@@ -271,14 +271,19 @@ app.filter('trtrFilter',function(){
 		}
 	}
 });
+
 //截取任务内容
 app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
-		if (input != "") {
-			var shortInput = input.substr(0, 8);
-			content = shortInput + "……";
-		}
+		if (input != "" || input.length() <= 2) {
+			return input;
+			/*var shortInput = input.substr(0, 2);
+			content = shortInput + "……";*/
+			} else if (input != "" || input.length() > 2) {
+				var shortInput = input.substr(0,2);
+				content = shortInput + "……";
+			}
 
 		return content;
 	}
