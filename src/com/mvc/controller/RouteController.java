@@ -1,12 +1,21 @@
 package com.mvc.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.mvc.entiy.User;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.mvc.repository.UserRepository;
-import com.utils.OpenidUtil;
+//import com.utils.OpenidUtil;
 
 /**
  * 路由跳转相关
@@ -14,6 +23,7 @@ import com.utils.OpenidUtil;
  * @author zq
  * @date 2017年8月9日
  */
+@SuppressWarnings("serial")
 @Controller
 @RequestMapping("/routeController")
 public class RouteController extends HttpServlet {
@@ -21,17 +31,32 @@ public class RouteController extends HttpServlet {
 	UserRepository userRepository;
 
 	@RequestMapping("/toPlatformPage.do")
-	public String InvoiceReceivePage() {
-		/*String str0 = getInitParameter("appid");
-		String code = getInitParameter("response_type");
-		System.out.println("慧敏君来了" + str0);
-		OpenidUtil.getOpenid(null, null, code);
-		User user = new User();
-		user.setUser_openId(OpenidUtil.getOpenid(null, null, code));
-		User result = userRepository.saveAndFlush(user);
-*/
+	public String InvoiceReceivePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException   {
+//		request.setCharacterEncoding("UTF-8");
+//		response.setCharacterEncoding("UTF-8");
+//
+//		String code = getInitParameter("code");
+//		String openid = OpenidUtil.getOpenid(null, null, code);
+		String openid = "wang123";
+		HttpSession session = getSession();
+		session.setAttribute("openid", openid);
+
+
 		return "platform/index";
 	}
+
+	  public static HttpSession getSession() { 
+          HttpSession session = null; 
+           try { 
+                session = getRequest().getSession(); 
+            } catch (Exception e) {} 
+              return session; 
+       } 
+	  
+	  public static HttpServletRequest getRequest() { 
+          ServletRequestAttributes attrs =(ServletRequestAttributes) RequestContextHolder.getRequestAttributes(); 
+          return attrs.getRequest(); 
+    }
 
 	@RequestMapping("/toBusNeedPage.do")
 	public String toBusNeedPage() {
