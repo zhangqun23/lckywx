@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.base.enums.IsDelete;
 import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
 import com.mvc.entiy.User;
@@ -199,7 +200,57 @@ public class BusNeedController {
 			}
 		} else {
 			result = busNeedService.saveBusTrade(busTrade);// 添加用户信息
-		}
-		return JSON.toJSONString(result);
+		}	
+		JSONObject limit=new JSONObject();
+		limit.put("result", result);
+		return limit.toString();
 	}
+	
+	/**
+	 * 删除班车定制需求
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/deleteBusNeed.do")
+	public @ResponseBody String deleteBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
+		JSONObject jsonObject = new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));	
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("busNeed_id", busNeed_id);
+		boolean out = busNeedService.deleteBusNeed(map);
+		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	/**
+	 * 查询我的交易
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/selectBusTrades.do")
+	public @ResponseBody String selectBusTrades(HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObject = new JSONObject();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));	
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");	
+		map.put("busNeed_id", busNeed_id);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);	
+		List<BusTrade> list = busNeedService.findBusTradeAlls(map);
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	
+	
 }

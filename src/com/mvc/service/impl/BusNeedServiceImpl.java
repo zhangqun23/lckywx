@@ -3,9 +3,13 @@ package com.mvc.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.base.enums.IsDelete;
 import com.mvc.dao.BusNeedDao;
 import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
@@ -13,13 +17,12 @@ import com.mvc.repository.BusNeedRepository;
 import com.mvc.repository.BusTradeRepository;
 import com.mvc.service.BusNeedService;
 
-
 /**
  * 班车
+ * 
  * @author wanghuimin
  * @date 2017年8月9日
  */
-
 @Service("busNeedServiceImpl")
 public class BusNeedServiceImpl implements BusNeedService {
 	@Autowired
@@ -29,7 +32,7 @@ public class BusNeedServiceImpl implements BusNeedService {
 	@Autowired
 	BusNeedDao busNeedDao;
 
-	//添加,修改班车定制需求
+	// 添加,修改班车定制需求
 	@Override
 	public BusNeed saveBusNeed(BusNeed busNeed) {
 		BusNeed result = busNeedRepository.saveAndFlush(busNeed);
@@ -39,20 +42,34 @@ public class BusNeedServiceImpl implements BusNeedService {
 			return null;
 	}
 
-	//查询班车定制需求
+	// 查询班车定制需求
 	@Override
 	public List<BusNeed> findBusNeedAlls(Map<String, Object> map) {
 		return busNeedDao.findByUsertime(map);
 	}
 
-	//添加,修改班车交易
+	// 添加,修改班车交易
 	@Override
 	public boolean saveBusTrade(BusTrade busTrade) {
-		BusTrade result =busTradeRepository.saveAndFlush(busTrade);
+		BusTrade result = busTradeRepository.saveAndFlush(busTrade);
 		if (result.getButr_id() != null)
 			return true;
 		else
 			return false;
+	}
+
+	// 删除班车定制需求
+	@Override
+	public boolean deleteBusNeed(Map<String, Object> map) {
+		Integer busNeed_id = (Integer) map.get("busNeed_id");
+		boolean out = busNeedDao.deleteBusNeed(busNeed_id);
+		return out;
+	}
+
+	//查询我的交易
+	@Override
+	public List<BusTrade> findBusTradeAlls(Map<String, Object> map) {
+		return busNeedDao.findBusTradeAlls(map);
 	}
 
 }
