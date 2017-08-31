@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.mvc.dao.TravelDao;
@@ -36,6 +37,11 @@ public class TravelServiceImpl implements TravelService{
 	TravelTradeRepository travelTradeRepository;
 	@Autowired 
 	TravelDao travelDao;
+	//
+	@Override
+	public List<Travel> findTravelAlls0(Map<String, Object> map) {
+		return travelDao.findTravelAlls0(map);
+	}
 	//按出发日期查询旅游信息
 	@Override
 	public List<Travel> findTravelAlls(Map<String, Object> map) {

@@ -92,6 +92,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	services.selectSmallGoodsInfo = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'smallGoods/selectSmallGoodsInfo.do',
+			data : data
+		});
+	};
 	
 	return services;
 } ]);
@@ -126,13 +133,8 @@ app
 						services.addSmallGoods({
 							goNeed : goLimit
 						}).success(function(data) {
-							console.log("::::::::::::"+data);
-							if (data) {
-								alert("是");
-							} else {
-								alert("否");
-							}
-						 	$location.path('smallGoodsInfo/'+data);
+							
+						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.result));
 
 						});
 					}
@@ -146,26 +148,15 @@ app
 							smallGoods.smallGoodsList = data.list;
 						});
 					}
-					/*$("#smgo_sego").change(
-					function(){
-						var id = $("input[name='radio']:checked").val(); 
-						var smgoSego = $('#smgo_sego');
-						smgoSego.empty();
-						if(id==0){
-							console.log("进来了");
-							var $li = $("<li class='inner innerP'></li>");
-							var $divFir = $("<div class='item-name'></div>");
-							$divFir.html("取货地址：");
-							var $divSco = $("<div class='item-value'></div>");
-							var $divThi = $("<div class='p-wrap'></div>");
-							var $textarea = $("<textarea type='text' ng-model='GoLimit.smgo_add' ></textarea>");
-							$divThi.append($textarea);
-							$divSco.append($divThi);
-							$divFir.append($divSco);
-							$li.append($divFir);
-							smgoSego.append($li);
-						}
-					})*/
+					
+					smallGoods.selectSmallGoodsInfo = function(smgo_id){
+						services.selectSmallGoodsInfo({
+							smgo_id : smgo_id
+						}).success(function(data) {
+						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.list));
+
+						});
+					};
 					
 					 $("input[name=radio]").each(function(){
 					        $(this).click(function(){
@@ -192,9 +183,12 @@ app
 					function initData() {
 						console.log("初始化页面信息");
 						
-						if ($location.path().indexOf('/smallGoods') == 0) {		
-
-						} else if ($location.path().indexOf('/smallGoodsInfo') == 0) {
+						if ($location.path().indexOf('/smallGoodsList') == 0) {
+							services.selectSmallGoods({
+								
+							}).success(function(data) {
+								smallGoods.smallGoodsList = data.list;
+							});
 
 						} 
 					}
@@ -210,8 +204,27 @@ app
 				'$location',
 				'$routeParams',
 				function($scope, services, $location,$routeParams) {
-					console.log("跳转后"+$routeParams.smallgoods);
-					$scope.SGInfo=$routeParams.smallgoods;
+					$scope.sgIList=JSON.parse($routeParams.smallgoods);
 				} ]);
-
+app.filter('sgFilter',function(){ 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
+});
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+		return type;
+	}
+});
 

@@ -22,4 +22,10 @@ public interface BusNeedService {
 	// 添加,修改班车交易
 	boolean saveBusTrade(BusTrade busTrade);
 
+	//删除班车定制需求
+	boolean deleteBusNeed(Map<String, Object> map);
+
+	//查询我的交易
+	List<BusTrade> findBusTradeAlls(Map<String, Object> map);
+
 }

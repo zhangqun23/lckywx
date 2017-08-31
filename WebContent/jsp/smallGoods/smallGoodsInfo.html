@@ -1,4 +1,54 @@
 <article style="margin-top: 54px;">
- 	<p>wang123</p>
- 	{{SGInfo}}
+ 	<ul class="order-tab clearfix">
+		<li class="green">小件货运信息</li>
+	</ul>
+	<ul class="order-box" >
+		<li class="inner">
+			<div class="item-name">订单编号：</div>
+			<div class="item-value">{{sgIList.smgo_id}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">货物名称：</div>
+			<div class="item-value">{{sgIList.smgo_name|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">货物重量：</div>
+			<div class="item-value">{{sgIList.smgo_weight|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">始发地：</div>
+			<div class="item-value">{{sgIList.smgo_start|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">目的地：</div>
+			<div class="item-value">{{sgIList.smgo_end|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">发件人：</div>
+			<div class="item-value">{{sgIList.smgo_sender|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">发件人联系方式：</div>
+			<div class="item-value">{{sgIList.smgo_sender_tel|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">收件人：</div>
+			<div class="item-value">{{sgIList.smgo_receiver|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">收件人联系方式：</div>
+			<div class="item-value">{{sgIList.smgo_receiver_tel|sgFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">发件日期：</div>
+			<div class="item-value">{{sgIList.smgo_send_time|sgFilter|dateType}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">备注：</div>
+			<div class="item-value">{{sgIList.smgo_remark|sgFilter}}</div>
+		</li>
+           <!-- <li class="inner no-padding">
+            <a href="javascript:;" class="weui_btn weui_btn_primary">确定交易</a>
+         </li> -->
+	</ul>
 </article>

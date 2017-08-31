@@ -1,6 +1,5 @@
 package com.mvc.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +22,30 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 
 	//添加,修改小件货运信息
 	@Override
-	public boolean saveSmallGoods(SmallGoods smallGoods) {
+	public SmallGoods saveSmallGoods(SmallGoods smallGoods) {
 		SmallGoods result = smallGoodsRepository.saveAndFlush(smallGoods);
 		if (result.getSmgo_id() != null)
-			return true;
+			return result;
 		else
-			return false;
+			return null;
 	}
 
 	//查询小件货运信息
 	@Override
-	public List<SmallGoods> findSmallGoodsAlls(String endPlace) {
-		return smallGoodsRepository.findByTimeAndPlace(endPlace);
+	public List<SmallGoods> findSmallGoodsBy(String endPlace, String openid) {
+		return smallGoodsRepository.findByTimeAndPlace(endPlace, openid);
+	}
+		
+	//查询小件货运信息
+	@Override
+	public List<SmallGoods> findSmallGoodsAlls(String openid) {
+		return smallGoodsRepository.findAllSmallGoods(openid);
+	}
+
+	//根据id查找小件货运信息
+	@Override
+	public SmallGoods findSmallGoodsById(String sgid) {
+		return smallGoodsRepository.findSmallGoodsById(Integer.parseInt(sgid));
 	}
 
 
