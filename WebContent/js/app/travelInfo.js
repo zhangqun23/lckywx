@@ -65,13 +65,13 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 
 // 路由配置
 app.config([ '$routeProvider', function($routeProvider) {
-	$routeProvider.when('/travelInfo', {  //页面初始为travelInfo时加载内容
-		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html', //显示的内容
-		controller : 'PlatformController'  //控制器
+	$routeProvider.when('/travelInfo', { // 页面初始为travelInfo时加载内容
+		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html', // 显示的内容
+		controller : 'PlatformController' // 控制器
 	}).when('/selectTravelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
-	}).when('/travelTrade/:travelTradeInfo', {  //表示地址结尾为travelTrade时加载的内容
+	}).when('/travelTrade/:travelTradeInfo', { // 表示地址结尾为travelTrade时加载的内容
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
 		controller : 'travelTradeInfoController'
 	})
@@ -80,7 +80,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
-	
+
 	// zq获取做房用时列表A
 	services.selectTravelInfo = function(data) {
 		return $http({
@@ -98,145 +98,123 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	};
 	return services;
 } ]);
-app
-		.controller(
-				'PlatformController',
-				[
-						'$scope',
-						'services',
-						'$location',
-						function($scope, services, $location) { //页面控制函数
-							var travelInfo = $scope;
-							travelInfo.TravelLimit={
-									 travel_title :"", // 标(主)题
-									 travel_content :"", // 活动描述
-									 travel_route :"", // 路线
-									 travel_mprice :"", // 成人票价格
-									 travel_cprice :"", // 儿童票价格
-									 travel_insurance :"", // 保险费
-									 travel_discount :"", // 折扣
-									 travel_stime :"", // 出发时间
-									 travel_location :"", // 出发地点
-									 travel_days :"", // 游玩天数
-									 travel_tel :"", // 联系电话
-									 travel_total_num :"", // 总人数
-									 travel_left_num :"", // 剩余人数
-									 travel_firm :"" // 旅游承办公司
+app.controller('PlatformController', [
+		'$scope',
+		'services',
+		'$location',
+		function($scope, services, $location) { // 页面控制函数
+			var travelInfo = $scope;
+			travelInfo.TravelLimit = {
+				travel_title : "", // 标(主)题
+				travel_content : "", // 活动描述
+				travel_route : "", // 路线
+				travel_mprice : "", // 成人票价格
+				travel_cprice : "", // 儿童票价格
+				travel_insurance : "", // 保险费
+				travel_discount : "", // 折扣
+				travel_stime : "", // 出发时间
+				travel_location : "", // 出发地点
+				travel_days : "", // 游玩天数
+				travel_tel : "", // 联系电话
+				travel_total_num : "", // 总人数
+				travel_left_num : "", // 剩余人数
+				travel_firm : "" // 旅游承办公司
+			}
+			travelInfo.addtravelInfo = function() {
+				/*
+				 * var travelLimit = JSON .stringify(travelInfo.travelLimit);
+				 */
+				services.addTravelInfo({
+				/* travelInfo : travelLimit */
+				}).success(
+						function(data) {
+							console.log(data.list);
+							$location.path("travelInfoDetail/"
+									+ JSON.stringify(data.list));
+							if (result.data) {
+								alert("是");
+							} else {
+								alert("否");
 							}
-							travelInfo.addtravelInfo=function(){
-								/*var travelLimit = JSON
-								.stringify(travelInfo.travelLimit);*/
-								services.addTravelInfo({
-									/*travelInfo : travelLimit*/
-								}).success(function(data) {
-									console.log(data.list);
-									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
-									if (result.data) {
-										alert("是");
-									} else {
-										alert("否");
-									}
-								});
-							}
-							travelInfo.selectTravelInfo=function(){
-								/*var travelLimit = JSON
-								.stringify(travelInfo.travelLimit);*/
-								services.selectTravelInfo({
-									/*travelInfo : travelLimit*/
-								}).success(function(data) {
-									console.log(data.list);
-									if (result.data) {
-										alert("是");
-									} else {
-										alert("否");
-									}
-								});
-							}
-			
-							travelInfo.toProducer = function () { 
-								$location.path("#/travelInfoDetail");
-							};
-							
-							travelInfo.selectTravelInfoDetail=function(TInfo){//加上的旅游信息方法
-								$location.path('selectTravelInfoDetail/'+ JSON.stringify(TInfo));
-							}
-							
-							travelInfo.getTravelInfoById=function(tri){ //获取旅游id
-//								console.log("进来了");
-								var ss=JSON.stringify(tri);
-								$location.path("travelTrade/"
-										+ JSON.stringify(ss));
-							}
-						
-							
-							// zq初始化
-							function initData() {
-								console.log("初始化页面信息");
-								
-								if ($location.path().indexOf('/travelInfo') == 0) {
-									console.log("进入到旅游信息界面");
-									services.selectTravelInfo({
-										
-									}).success(function(data) {
-										travelInfo.travelList = data.list;
-										console.log(data.list); 
-									});
-								} else if ($location.path().indexOf(
-										'/travelInfoDetail') == 0) {
-									var producerId = $stateParams.producerId;
-									alert(producerId);	
-								} 
-							}
-							initData();
-						} ]);
-
-app
-.controller(
-		'travelInfoDetailController',
-		[
-				'$scope',
-				'services',
-				'$location',
-				'$routeParams',
-				function($scope, services, $location,$routeParams) {
-					
-//					$scope.TInfo=JSON.parse($routeParams.travelInfo);
-//					services.selectTravelInfo({
-//						travel_id : $routeParams.travelInfo
-//					}).success(function(data) {
-//						$scope.travelIList = data.list;
-//						console.log("我滴个娘啊，你弄啥嘞？？？");
-//						console.log($scope.travelIList);
-//					});
-					$scope.travelIList = JSON.parse($routeParams.travelInfo);
-				// 从后台传送过来的一个travelInfo的list，将其赋值给travelIList，
-			    // 不用再发送给services的方法中，原因是只访问后台一次就可以了。
-					$scope.getTravelInfoById=function(tri){ //获取旅游id
-						console.log("进来了");
-						var ss=JSON.stringify(tri);
-						$location.path("travelTrade/"
-								+ JSON.stringify(ss));
+						});
+			}
+			travelInfo.selectTravelInfo = function() {
+				/*
+				 * var travelLimit = JSON .stringify(travelInfo.travelLimit);
+				 */
+				services.selectTravelInfo({
+				/* travelInfo : travelLimit */
+				}).success(function(data) {
+					console.log(data.list);
+					if (result.data) {
+						alert("是");
+					} else {
+						alert("否");
 					}
-				} ]);
+				});
+			}
 
-app
-.controller(
-		'travelTradeInfoController',
-		[
-				'$scope',
-				'services',
-				'$location',
-				'$routeParams',
-				function($scope, services, $location,$routeParams) {
-					
-					$scope.travelInfoList = JSON.parse($routeParams.travelTradeInfo);
-					console.log("bacon"+$scope.travelInfoList);
-					
+			travelInfo.toProducer = function() {
+				$location.path("#/travelInfoDetail");
+			};
+
+			travelInfo.selectTravelInfoDetail = function(TInfo) {// 加上的旅游信息方法
+				$location.path('selectTravelInfoDetail/'
+						+ JSON.stringify(TInfo));
+			}
+
+			travelInfo.getTravelInfoById = function(tri) { // 获取旅游id
+			// console.log("进来了");
+				var ss = JSON.stringify(tri);
+				$location.path("travelTrade/" + JSON.stringify(ss));
+			}
+
+			// zq初始化
+			function initData() {
+				console.log("初始化页面信息");
+
+				if ($location.path().indexOf('/travelInfo') == 0) {
+					console.log("进入到旅游信息界面");
+					services.selectTravelInfo({
+
+					}).success(function(data) {
+						travelInfo.travelList = data.list;
+						console.log(data.list);
+					});
+				} else if ($location.path().indexOf('/travelInfoDetail') == 0) {
+					var producerId = $stateParams.producerId;
+					alert(producerId);
 				}
-				
-				]);
+			}
+			initData();
+		} ]);
 
-//时间的格式化的判断
+app.controller('travelInfoDetailController', [ '$scope', 'services',
+		'$location', '$routeParams',
+		function($scope, services, $location, $routeParams) {
+
+			$scope.travelIList = JSON.parse($routeParams.travelInfo);
+			// 从后台传送过来的一个travelInfo的list，将其赋值给travelIList，
+			// 不用再发送给services的方法中，原因是只访问后台一次就可以了。
+			$scope.getTravelInfoById = function(tri) { // 获取旅游id
+				console.log("进来了");
+				var ss = JSON.stringify(tri);
+				$location.path("travelTrade/" + JSON.stringify(ss));
+			}
+		} ]);
+
+app.controller('travelTradeInfoController', [ '$scope', 'services',
+		'$location', '$routeParams',
+		function($scope, services, $location, $routeParams) {
+
+			$scope.travelInfoList = JSON.parse($routeParams.travelTradeInfo);
+			console.log("bacon" + $scope.travelInfoList);
+
+		}
+
+]);
+
+// 时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
 		var type = "";
@@ -247,32 +225,25 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
-//旅游活动内容的格式化的判断
-app.filter('travelFilter',function(){ 
-	return function(input){ 
-		if(input == ""){
+// 旅游活动内容的格式化的判断
+app.filter('travelFilter', function() {
+	return function(input) {
+		if (input == "") {
 			var input = "空";
-			return input; 		
-		}
-		else{
+			return input;
+		} else {
 			return input;
 		}
 	}
 });
-//旅游交易输入判断
-app.filter('trtrFilter',function(){ 
-	return function(input){ 
-		if(input == ""){
+// 旅游交易输入判断
+app.filter('trtrFilter', function() {
+	return function(input) {
+		if (input == "") {
 			var input = "空";
-			return input; 		
-		}
-		else{
+			return input;
+		} else {
 			return input;
 		}
 	}
 });
-
-
-
-
-

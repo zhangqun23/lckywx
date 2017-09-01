@@ -32,14 +32,14 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 
 	//查询小件货运信息
 	@Override
-	public List<SmallGoods> findSmallGoodsBy(String endPlace) {
-		return smallGoodsRepository.findByTimeAndPlace(endPlace);
+	public List<SmallGoods> findSmallGoodsBy(String endPlace, String openid) {
+		return smallGoodsRepository.findByTimeAndPlace(endPlace, openid);
 	}
 		
 	//查询小件货运信息
 	@Override
-	public List<SmallGoods> findSmallGoodsAlls() {
-		return smallGoodsRepository.findAllSmallGoods();
+	public List<SmallGoods> findSmallGoodsAlls(String openid) {
+		return smallGoodsRepository.findAllSmallGoods(openid);
 	}
 
 	//根据id查找小件货运信息
