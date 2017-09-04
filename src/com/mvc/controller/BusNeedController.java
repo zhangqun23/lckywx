@@ -21,6 +21,7 @@ import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
 import com.mvc.entiy.User;
 import com.mvc.service.BusNeedService;
+import com.utils.SessionUtil;
 import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
@@ -91,7 +92,8 @@ public class BusNeedController {
 				busNeed.setBune_time(Float.parseFloat(jsonObject.getString("bune_time")));
 			}
 		}
-		busNeed.setOpen_id("0");
+		String openid=SessionUtil.getOpenid(request);
+		busNeed.setOpen_id(openid);
 		busNeed.setIs_delete(true);
 		BusNeed result = null;
 		BusTrade result1=null;
@@ -128,11 +130,13 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
+		String openid=SessionUtil.getOpenid(request);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");	
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
+		map.put("openid", openid);
 		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -225,6 +229,7 @@ public class BusNeedController {
 	@RequestMapping(value = "/deleteBusNeed.do")
 	public @ResponseBody String deleteBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = new JSONObject();
+		String openid=SessionUtil.getOpenid(request);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
@@ -232,31 +237,30 @@ public class BusNeedController {
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		map.put("busNeed_id", busNeed_id);
+		map.put("openid", openid);
 		boolean out = busNeedService.deleteBusNeed(map);
 		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 	/**
-	 * 查询我的交易
+	 * 查看单个班车预定需求
 	 * 
 	 * @param request
 	 * @param session
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping(value = "/selectBusTrades.do")
+	@RequestMapping(value = "/selectBusNeedById.do")
 	public @ResponseBody String selectBusTrades(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));	
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");	
-		map.put("busNeed_id", busNeed_id);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);	
-		List<BusTrade> list = busNeedService.findBusTradeAlls(map);
-		jsonObject.put("list", list);
+		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));		
+		map.put("busNeed_id", busNeed_id);	
+		List<BusNeed> list_need = busNeedService.findBusNeedAll(map);
+		List<BusTrade> list_trade = busNeedService.findBusTradeAll(map);
+		jsonObject.put("list_need", list_need);
+		jsonObject.put("list_trade", list_trade);
 		return jsonObject.toString();
 	}
 	

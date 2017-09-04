@@ -16,6 +16,7 @@ public interface BusNeedService {
 
 	// 添加,修改班车定制需求
 	BusNeed saveBusNeed(BusNeed busNeed);
+
 	// 添加,修改班车定制需求的同时添加交易
 	BusTrade saveAndBusTrade(BusTrade result1);
 
@@ -28,7 +29,10 @@ public interface BusNeedService {
 	// 删除班车定制需求
 	boolean deleteBusNeed(Map<String, Object> map);
 
-	// 查询我的交易
-	List<BusTrade> findBusTradeAlls(Map<String, Object> map);
+	// 查看单个班车预定需求，班车定制表
+	List<BusNeed> findBusNeedAll(Map<String, Object> map);
+
+	// 查看单个班车预定需求，班车交易表
+	List<BusTrade> findBusTradeAll(Map<String, Object> map);
 
 }

@@ -77,15 +77,19 @@ public class BusNeedServiceImpl implements BusNeedService {
 		boolean out = false;
 		if(list!=null){
 			out = busNeedDao.deleteBusNeed(busNeed_id);
-		}
-		
+		}	
 		return out;
 	}
 
-	// 查询我的交易
+	// 查看单个班车预定需求，班车定制表
 	@Override
-	public List<BusTrade> findBusTradeAlls(Map<String, Object> map) {
-		return busNeedDao.findBusTradeAlls(map);
+	public List<BusNeed> findBusNeedAll(Map<String, Object> map) {
+		return busNeedDao.findByBusNeed_id(map);
 	}
 
+	// 查看单个班车预定需求，班车交易表
+	@Override
+	public List<BusTrade> findBusTradeAll(Map<String, Object> map) {
+		return busNeedDao.findBusTradeByBusNeed_id(map);
+	}
 }
