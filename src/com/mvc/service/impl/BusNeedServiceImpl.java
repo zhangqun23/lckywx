@@ -16,6 +16,7 @@ import com.mvc.entiy.BusTrade;
 import com.mvc.repository.BusNeedRepository;
 import com.mvc.repository.BusTradeRepository;
 import com.mvc.service.BusNeedService;
+import com.utils.StringUtil;
 
 /**
  * 班车
@@ -36,7 +37,17 @@ public class BusNeedServiceImpl implements BusNeedService {
 	@Override
 	public BusNeed saveBusNeed(BusNeed busNeed) {
 		BusNeed result = busNeedRepository.saveAndFlush(busNeed);
-		if (result.getBune_id() != null)
+		if (result.getBune_id() != null) {
+			return result;
+		} else
+			return null;
+	}
+
+	// 添加,修改班车定制需求的同时添加交易
+	@Override
+	public BusTrade saveAndBusTrade(BusTrade result1) {
+		BusTrade result = busTradeRepository.saveAndFlush(result1);
+		if (result.getButr_id() != null)
 			return result;
 		else
 			return null;
@@ -61,15 +72,24 @@ public class BusNeedServiceImpl implements BusNeedService {
 	// 删除班车定制需求
 	@Override
 	public boolean deleteBusNeed(Map<String, Object> map) {
+		List<BusTrade> list=busNeedDao.findBusTradeAlls(map);
 		Integer busNeed_id = (Integer) map.get("busNeed_id");
-		boolean out = busNeedDao.deleteBusNeed(busNeed_id);
+		boolean out = false;
+		if(list!=null){
+			out = busNeedDao.deleteBusNeed(busNeed_id);
+		}	
 		return out;
 	}
 
-	//查询我的交易
+	// 查看单个班车预定需求，班车定制表
 	@Override
-	public List<BusTrade> findBusTradeAlls(Map<String, Object> map) {
-		return busNeedDao.findBusTradeAlls(map);
+	public BusNeed findBusNeedAll(Map<String, Object> map) {
+		return busNeedDao.findByBusNeed_id(map);
 	}
 
+	// 查看单个班车预定需求，班车交易表
+	@Override
+	public BusTrade findBusTradeAll(Map<String, Object> map) {
+		return busNeedDao.findBusTradeByBusNeed_id(map);
+	}
 }
