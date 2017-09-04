@@ -117,7 +117,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 	//查看单个班车预定需求,班车定制表
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BusNeed> findByBusNeed_id(Map<String, Object> map) {
+	public BusNeed findByBusNeed_id(Map<String, Object> map) {
 		Integer busNeed_id = null;
 		if(map.get("busNeed_id")!=null){
 			busNeed_id=(Integer) map.get("busNeed_id");
@@ -127,7 +127,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 	
 		Query query=em.createNativeQuery(sql,BusNeed.class);
 		query.setParameter("bune_id", busNeed_id);
-		List<BusNeed> list=query.getResultList();
+		BusNeed list=(BusNeed) query.getSingleResult();
 		em.close();
 		return list;
 	}
@@ -135,7 +135,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 	//查看单个班车预定需求,班车交易表
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BusTrade> findBusTradeByBusNeed_id(Map<String, Object> map) {
+	public BusTrade findBusTradeByBusNeed_id(Map<String, Object> map) {
 		Integer busNeed_id = null;
 		if(map.get("busNeed_id")!=null){
 			busNeed_id=(Integer) map.get("busNeed_id");
@@ -145,9 +145,10 @@ public class BusNeedDaoImpl implements BusNeedDao {
 	
 		Query query=em.createNativeQuery(sql,BusTrade.class);
 		query.setParameter("bune_id", busNeed_id);
-		List<BusTrade> list=query.getResultList();
+		BusTrade result=(BusTrade) query.getSingleResult();
+		int in=query.getFirstResult();
 		em.close();
-		return list;
+		return result;
 	}
 
 }

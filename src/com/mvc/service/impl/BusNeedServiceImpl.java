@@ -83,13 +83,13 @@ public class BusNeedServiceImpl implements BusNeedService {
 
 	// 查看单个班车预定需求，班车定制表
 	@Override
-	public List<BusNeed> findBusNeedAll(Map<String, Object> map) {
+	public BusNeed findBusNeedAll(Map<String, Object> map) {
 		return busNeedDao.findByBusNeed_id(map);
 	}
 
 	// 查看单个班车预定需求，班车交易表
 	@Override
-	public List<BusTrade> findBusTradeAll(Map<String, Object> map) {
+	public BusTrade findBusTradeAll(Map<String, Object> map) {
 		return busNeedDao.findBusTradeByBusNeed_id(map);
 	}
 }

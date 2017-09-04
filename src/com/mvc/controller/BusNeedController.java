@@ -130,7 +130,8 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		String openid=SessionUtil.getOpenid(request);
+		//String openid=SessionUtil.getOpenid(request);
+		String openid="1";
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");	
@@ -257,10 +258,10 @@ public class BusNeedController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));		
 		map.put("busNeed_id", busNeed_id);	
-		List<BusNeed> list_need = busNeedService.findBusNeedAll(map);
-		List<BusTrade> list_trade = busNeedService.findBusTradeAll(map);
-		jsonObject.put("list_need", list_need);
-		jsonObject.put("list_trade", list_trade);
+		BusNeed busNeed = busNeedService.findBusNeedAll(map);
+		BusTrade busTrade = busNeedService.findBusTradeAll(map);
+		jsonObject.put("busNeed", busNeed);
+		jsonObject.put("busTrade", busTrade);
 		return jsonObject.toString();
 	}
 	

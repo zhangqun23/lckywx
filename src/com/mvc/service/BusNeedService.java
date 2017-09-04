@@ -30,9 +30,9 @@ public interface BusNeedService {
 	boolean deleteBusNeed(Map<String, Object> map);
 
 	// 查看单个班车预定需求，班车定制表
-	List<BusNeed> findBusNeedAll(Map<String, Object> map);
+	BusNeed findBusNeedAll(Map<String, Object> map);
 
 	// 查看单个班车预定需求，班车交易表
-	List<BusTrade> findBusTradeAll(Map<String, Object> map);
+	BusTrade findBusTradeAll(Map<String, Object> map);
 
 }

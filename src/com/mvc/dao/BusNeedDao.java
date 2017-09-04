@@ -23,9 +23,9 @@ public interface BusNeedDao {
 	List<BusTrade> findBusTradeAlls(Map<String, Object> map);
 
 	//查看单个班车预定需求，班车定制表
-	List<BusNeed> findByBusNeed_id(Map<String, Object> map);
+	BusNeed findByBusNeed_id(Map<String, Object> map);
 
 	//查看单个班车预定需求，班车交易表
-	List<BusTrade> findBusTradeByBusNeed_id(Map<String, Object> map);
+	BusTrade findBusTradeByBusNeed_id(Map<String, Object> map);
 
 }
