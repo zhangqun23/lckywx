@@ -67,9 +67,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/smallGoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoods.html',
 		controller : 'PlatformController'
-	}).when('/smallGoodsInfo/:smallgoods', {
+	}).when('/smallGoodsInfo', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsInfo.html',
-		controller : 'SGInfoController'
+		controller : 'PlatformController'
 	}).when('/smallGoodsList', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsList.html',
 		controller : 'PlatformController'
@@ -134,7 +134,7 @@ app
 							goNeed : goLimit
 						}).success(function(data) {
 							
-						 	$location.path('smallGoodsInfo/'+data.result);
+						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.result));
 
 						});
 					}
@@ -150,13 +150,21 @@ app
 					}
 					
 					smallGoods.selectSmallGoodsInfo = function(smgo_id){
+						sessionStorage.setItem("smallGoodsId",smgo_id);
+						
+						 	$location.path('smallGoodsInfo');
+
+						
+					};
+					function getSmallGoodsInfo(){
+						var id=sessionStorage.getItem("smallGoodsId");
 						services.selectSmallGoodsInfo({
-							smgo_id : smgo_id
+							smgo_id : id
 						}).success(function(data) {
-						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.list));
+							$scope.sgIList=data.list;
 
 						});
-					};
+					}
 					
 					 $("input[name=radio]").each(function(){
 					        $(this).click(function(){
@@ -190,7 +198,9 @@ app
 								smallGoods.smallGoodsList = data.list;
 							});
 
-						} 
+						} else if($location.path().indexOf('/smallGoodsInfo') == 0){
+							getSmallGoodsInfo();
+						}
 					}
 					initData();
 				} ]);
