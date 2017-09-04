@@ -33,19 +33,23 @@ public class BusNeedDaoImpl implements BusNeedDao {
 	public List<BusNeed> findByUsertime(Map<String, Object> map) {
 		String startDate = null;
 		String endDate = null;
+		String openid = null;
 		if ((String) map.get("startDate")!=null) {
 			startDate=(String) map.get("startDate");//开始时间
 		}
 		if ((String) map.get("endDate")!=null) {
 			endDate=(String) map.get("endDate");//结束时间
 		}
+		if ((String) map.get("openid")!=null) {
+			openid=(String) map.get("openid");//结束时间
+		}
 		EntityManager em=emf.createEntityManager(); 
 		String sql;
 		if(startDate==null || endDate==null ){
-			sql="select * from bus_need where is_delete=1 order by bune_gath_time desc ";		
+			sql="select * from bus_need where open_id='"+ openid +"' and is_delete=1 order by bune_gath_time desc ";		
 
 		}else {
-			sql="select * from bus_need where is_delete=1 and "
+			sql="select * from bus_need where open_id='"+ openid +"' and is_delete=1 and "
 					+ " bune_gath_time between '"+ startDate +"' and '"+ endDate +"' order by bune_gath_time desc ";		
 		}
 		Query query=em.createNativeQuery(sql,BusNeed.class);
@@ -73,18 +77,22 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		return true;
 	}
 
-	//查询我的交易
+	//查看单个班车预定需求
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BusTrade> findBusTradeAlls(Map<String, Object> map) {
 		String startDate = null;
 		String endDate = null;
 		Integer busNeed_id = null;
+		String openid = null;
 		if ((String) map.get("startDate")!=null) {
 			startDate=(String) map.get("startDate");//开始时间
 		}
 		if ((String) map.get("endDate")!=null) {
 			endDate=(String) map.get("endDate");//结束时间
+		}
+		if ((String) map.get("openid")!=null) {
+			openid=(String) map.get("openid");//结束时间
 		}
 		if(map.get("busNeed_id")!=null){
 			busNeed_id=(Integer) map.get("busNeed_id");
@@ -92,17 +100,55 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		EntityManager em=emf.createEntityManager(); 
 		String sql;
 		if(startDate==null || endDate==null ){
-			sql="select * from bus_trade where bune_id=:bune_id and is_delete=1 order by butr_time desc ";		
+			sql="select * from bus_trade where bune_id=:bune_id and open_id=:openid and is_delete=1 order by butr_time desc ";		
 
 		}else {
-			sql="select * from bus_trade where bune_id=:bune_id and is_delete=1 and "
+			sql="select * from bus_trade where bune_id=:bune_id and open_id=:openid and is_delete=1 and "
 					+ " butr_time between '"+ startDate +"' and '"+ endDate +"' order by butr_time desc ";		
 		}
-		Query query=em.createNativeQuery(sql,BusNeed.class);
+		Query query=em.createNativeQuery(sql,BusTrade.class);
 		query.setParameter("bune_id", busNeed_id);
+		query.setParameter("openid", openid);
 		List<BusTrade> list=query.getResultList();
 		em.close();
 		return list;
+	}
+
+	//查看单个班车预定需求,班车定制表
+	@SuppressWarnings("unchecked")
+	@Override
+	public BusNeed findByBusNeed_id(Map<String, Object> map) {
+		Integer busNeed_id = null;
+		if(map.get("busNeed_id")!=null){
+			busNeed_id=(Integer) map.get("busNeed_id");
+		}
+		EntityManager em=emf.createEntityManager(); 
+		String sql=	"select * from bus_need where bune_id=:busNeed_id and is_delete=1 ";
+	
+		Query query=em.createNativeQuery(sql,BusNeed.class);
+		query.setParameter("bune_id", busNeed_id);
+		BusNeed list=(BusNeed) query.getSingleResult();
+		em.close();
+		return list;
+	}
+
+	//查看单个班车预定需求,班车交易表
+	@SuppressWarnings("unchecked")
+	@Override
+	public BusTrade findBusTradeByBusNeed_id(Map<String, Object> map) {
+		Integer busNeed_id = null;
+		if(map.get("busNeed_id")!=null){
+			busNeed_id=(Integer) map.get("busNeed_id");
+		}
+		EntityManager em=emf.createEntityManager(); 
+		String sql=	"select * from bus_trade where bune_id=:busNeed_id and is_delete=1 ";
+	
+		Query query=em.createNativeQuery(sql,BusTrade.class);
+		query.setParameter("bune_id", busNeed_id);
+		BusTrade result=(BusTrade) query.getSingleResult();
+		int in=query.getFirstResult();
+		em.close();
+		return result;
 	}
 
 }
