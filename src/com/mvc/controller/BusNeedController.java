@@ -91,11 +91,10 @@ public class BusNeedController {
 				busNeed.setBune_time(Float.parseFloat(jsonObject.getString("bune_time")));
 			}
 		}
-		User user = new User();
-		user.setUser_id(1);
-		busNeed.setUser(user);
+		busNeed.setOpen_id("0");
 		busNeed.setIs_delete(true);
 		BusNeed result = null;
+		BusTrade result1=null;
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
 				busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
@@ -105,8 +104,16 @@ public class BusNeedController {
 		} else {
 			result = busNeedService.saveBusNeed(busNeed);// 添加班车定制需求
 		}
+		if(result!=null){	
+			BusNeed busAndNeed = new BusNeed();
+			busAndNeed.setBune_id(result.getBune_id());
+			result1.setBusNeed(busAndNeed);
+			result1 = busNeedService.saveAndBusTrade(result1);// 修改的同时添加班车交易
+		}		
+		
 		JSONObject limit=new JSONObject();
 		limit.put("result", result);
+		limit.put("result1", result1);
 		return limit.toString();
 	}
 
@@ -196,11 +203,12 @@ public class BusNeedController {
 		if (jsonObject.containsKey("butr_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_id"))) {
 				busTrade.setButr_id(Integer.valueOf(jsonObject.getString("butr_id")));
-				result = busNeedService.saveBusTrade(busTrade);// 修改用户信息
+				result = busNeedService.saveBusTrade(busTrade);// 修改班车交易
 			}
 		} else {
-			result = busNeedService.saveBusTrade(busTrade);// 添加用户信息
-		}	
+			result = busNeedService.saveBusTrade(busTrade);// 添加班车交易
+		}
+		
 		JSONObject limit=new JSONObject();
 		limit.put("result", result);
 		return limit.toString();
