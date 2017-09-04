@@ -62,14 +62,15 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 		$rootScope.$broadcast('reGetData');
 	});
 } ]);
+
 //路由配置
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/smallGoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoods.html',
 		controller : 'PlatformController'
-	}).when('/smallGoodsInfo/:smallgoods', {
+	}).when('/smallGoodsInfo', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsInfo.html',
-		controller : 'SGInfoController'
+		controller : 'PlatformController'
 	}).when('/smallGoodsList', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoodsList.html',
 		controller : 'PlatformController'
@@ -127,6 +128,7 @@ app
 					smallGoods.GolLimit={
 							smgo_select:""
 					}
+				    // 添加小件货运
 					smallGoods.addSmallGoods=function(){
 						var goLimit = JSON
 						.stringify(smallGoods.GoLimit);
@@ -139,24 +141,43 @@ app
 						});
 					}
 					
+					// 获取小件货运
 					smallGoods.selectSmallGoods=function(){
-						var golLimit = JSON
-						.stringify(smallGoods.GolLimit);
+						var golLimit = JSON.stringify(smallGoods.GolLimit);
 						services.selectSmallGoods({
 							golNeed : golLimit
 						}).success(function(data) {
-							smallGoods.smallGoodsList = data.list;
+							
+						smallGoods.smallGoodsList = data.list
 						});
 					}
 					
+					
 					smallGoods.selectSmallGoodsInfo = function(smgo_id){
+						sessionStorage.setItem("smallGoodsId",smgo_id);
+						
+						 	$location.path('smallGoodsInfo');
+					};
+					
+					
+					//获取小件货运信息    
+					function getSmallGoodsInfo() {
+						var id=sessionStorage.getItem("smallGoodsId");
 						services.selectSmallGoodsInfo({
-							smgo_id : smgo_id
+							smgo_id : id
 						}).success(function(data) {
-						 	$location.path('smallGoodsInfo/'+JSON.stringify(data.list));
+							$scope.sgIList=data.list;
 
 						});
 					};
+					
+					//点击“提交并返回货运列表”要跳转的页面
+					smallGoods.selectSmallGoods = function(smgo_select){
+						sessionStorage.setItem("smallGoods",smgo_select);
+						
+						 	$location.path('smallGoodsList');
+					};
+					
 					
 					 $("input[name=radio]").each(function(){
 					        $(this).click(function(){
@@ -184,13 +205,16 @@ app
 						console.log("初始化页面信息");
 						
 						if ($location.path().indexOf('/smallGoodsList') == 0) {
+							console.log("你弄啥嘞？");
 							services.selectSmallGoods({
 								
 							}).success(function(data) {
+								//console.log("123",data.list)
 								smallGoods.smallGoodsList = data.list;
 							});
-
-						} 
+						} else if($location.path().indexOf('/smallGoodsInfo') == 0){
+							getSmallGoodsInfo();
+						}
 					}
 					initData();
 				} ]);
@@ -206,6 +230,7 @@ app
 				function($scope, services, $location,$routeParams) {
 					$scope.sgIList=JSON.parse($routeParams.smallgoods);
 				} ]);
+
 app.filter('sgFilter',function(){ 
 	return function(input){ 
 		if(input == "" || input == null){

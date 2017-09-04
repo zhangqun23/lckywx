@@ -112,7 +112,7 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/selectSmallGoods.do")
-	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody String selectSmallGoods(HttpServletRequest request, HttpSession session) throws ParseException {
 		String openid = SessionUtil.getOpenid(request);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("golNeed"));
 		List<SmallGoods> list = new ArrayList<SmallGoods>();
