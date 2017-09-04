@@ -21,6 +21,7 @@ import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
 import com.mvc.entiy.User;
 import com.mvc.service.BusNeedService;
+import com.utils.SessionUtil;
 import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
@@ -91,11 +92,11 @@ public class BusNeedController {
 				busNeed.setBune_time(Float.parseFloat(jsonObject.getString("bune_time")));
 			}
 		}
-		User user = new User();
-		user.setUser_id(1);
-		busNeed.setUser(user);
+		String openid=SessionUtil.getOpenid(request);
+		busNeed.setOpen_id(openid);
 		busNeed.setIs_delete(true);
 		BusNeed result = null;
+		BusTrade result1=null;
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
 				busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
@@ -105,8 +106,16 @@ public class BusNeedController {
 		} else {
 			result = busNeedService.saveBusNeed(busNeed);// 添加班车定制需求
 		}
+		if(result!=null){	
+			BusNeed busAndNeed = new BusNeed();
+			busAndNeed.setBune_id(result.getBune_id());
+			result1.setBusNeed(busAndNeed);
+			result1 = busNeedService.saveAndBusTrade(result1);// 修改的同时添加班车交易
+		}		
+		
 		JSONObject limit=new JSONObject();
 		limit.put("result", result);
+		limit.put("result1", result1);
 		return limit.toString();
 	}
 
@@ -121,11 +130,14 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
+		//String openid=SessionUtil.getOpenid(request);
+		String openid="1";
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");	
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
+		map.put("openid", openid);
 		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -196,11 +208,12 @@ public class BusNeedController {
 		if (jsonObject.containsKey("butr_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_id"))) {
 				busTrade.setButr_id(Integer.valueOf(jsonObject.getString("butr_id")));
-				result = busNeedService.saveBusTrade(busTrade);// 修改用户信息
+				result = busNeedService.saveBusTrade(busTrade);// 修改班车交易
 			}
 		} else {
-			result = busNeedService.saveBusTrade(busTrade);// 添加用户信息
-		}	
+			result = busNeedService.saveBusTrade(busTrade);// 添加班车交易
+		}
+		
 		JSONObject limit=new JSONObject();
 		limit.put("result", result);
 		return limit.toString();
@@ -217,6 +230,7 @@ public class BusNeedController {
 	@RequestMapping(value = "/deleteBusNeed.do")
 	public @ResponseBody String deleteBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = new JSONObject();
+		String openid=SessionUtil.getOpenid(request);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
@@ -224,31 +238,30 @@ public class BusNeedController {
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		map.put("busNeed_id", busNeed_id);
+		map.put("openid", openid);
 		boolean out = busNeedService.deleteBusNeed(map);
 		List<BusNeed> list = busNeedService.findBusNeedAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 	/**
-	 * 查询我的交易
+	 * 查看单个班车预定需求
 	 * 
 	 * @param request
 	 * @param session
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping(value = "/selectBusTrades.do")
+	@RequestMapping(value = "/selectBusNeedById.do")
 	public @ResponseBody String selectBusTrades(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
-		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));	
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");	
-		map.put("busNeed_id", busNeed_id);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);	
-		List<BusTrade> list = busNeedService.findBusTradeAlls(map);
-		jsonObject.put("list", list);
+		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));		
+		map.put("busNeed_id", busNeed_id);	
+		BusNeed busNeed = busNeedService.findBusNeedAll(map);
+		BusTrade busTrade = busNeedService.findBusTradeAll(map);
+		jsonObject.put("busNeed", busNeed);
+		jsonObject.put("busTrade", busTrade);
 		return jsonObject.toString();
 	}
 	
