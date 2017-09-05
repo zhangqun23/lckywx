@@ -6,7 +6,7 @@
 %>
 <jsp:include page="/jsp/top.jsp" />
 <section id="adver" class="yscroll"  ng-app="adverForm" >
-	<div ng-view ></div>
+	<div ng-view  class="yscroll"></div>
 </section>
 <jsp:include page="/jsp/footer.jsp" />
 <script src="${ctx}/js/app/adver.js"></script>

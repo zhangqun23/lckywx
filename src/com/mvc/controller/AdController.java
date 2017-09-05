@@ -1,6 +1,7 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -156,12 +157,20 @@ public class AdController {
 	 * @return list
 	 */
 	@RequestMapping("/myPlace.do")
-	public @ResponseBody String myPlace (HttpServletRequest request){
+	public @ResponseBody String myPlace (HttpServletRequest request, HttpSession session){
 		String openId = SessionUtil.getOpenid(request);
-		List<Ad> list = adService.findMyPlaceAd(openId);
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("list", list);
-		return jsonObject.toString();
+		List<Ad> list = new ArrayList<Ad>();
+		if (request.getParameter("ad")!= null){
+			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("ad"));
+			String adType = jsonObject.getString("ad_type");
+			String adState = jsonObject.getString("ad_state");
+			list = adService.findMyPlaceAd(Integer.parseInt(adType),Integer.parseInt(adState),openId);
+		}else{
+			list = adService.findMyPlaceAdAll(openId);
+		}	 
+		JSONObject jsonO = new JSONObject();
+		jsonO.put("list", list);
+		return jsonO.toString();
 	}
 	
 }

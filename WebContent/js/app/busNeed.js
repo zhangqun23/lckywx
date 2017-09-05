@@ -67,23 +67,23 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/busNeedIndex', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeed.html',
-		controller : 'PlatformController'
-	}).when('/busNeedInfo/:busneed', {
+		controller : 'BusNeedInfoController'
+	}).when('/busNeedInfo', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedInfo.html',
 		controller : 'BusNeedInfoController'
 	}).when('/busNeedList', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedList.html',
-		controller : 'PlatformController'
+		controller : 'BusNeedInfoController'
 	}).when('/busTradeList', {
 		templateUrl : '/lckywx/jsp/busNeed/busTradeList.html',
-		controller : 'PlatformController'
+		controller : 'BusNeedInfoController'
 	})
 } ]);
 
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
-	// zq获取做房用时列表A
+	// zq添加班车定制需求
 	services.addBusNeed = function(data) {
 		return $http({
 			method : 'post',
@@ -91,7 +91,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	// zq查询班车定制需求
+	// zq查询班车定制需求列表
 	services.selectBusNeeds = function(data) {
 		return $http({
 			method : 'post',
@@ -99,21 +99,18 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-    //zq查询我的班车交易
-	services.selectBusTrades=function(data){
+
+	// zq根据班车预订Id查询班车定制详情
+	services.selectBusNeedById = function(data) {
 		return $http({
-			method:'post',
-			url:baseUrl+'busNeed/selectBusTrades.do',
-			data:data
-			
+			method : 'post',
+			url : baseUrl + 'busNeed/selectBusNeedById.do',
+			data : data
 		});
-	};
+	}
 	return services;
 } ]);
-app.controller('PlatformController', [
-		'$scope',
-		'services',
-		'$location',
+app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 		function($scope, services, $location) {
 			var busNeed = $scope;
 			busNeed.BusLimit = {
@@ -126,21 +123,18 @@ app.controller('PlatformController', [
 				bune_purp : "",
 				bune_remark : ""
 			}
-			// zq添加包车需求
+			// zq添加班车需求
 			busNeed.addBusNeed = function() {
 				var busLimit = JSON.stringify(busNeed.BusLimit);
 				services.addBusNeed({
 					busNeed : busLimit
-				}).success(
-						function(data) {
-
-							$location.path("busNeedInfo/"
-									+ JSON.stringify(data.result));
-						});
+				}).success(function(data) {
+					sessionStorage.setItem("busNeedId", data.result.bune_id);
+					$location.path("busNeedInfo");
+				});
 			}
 			// zq查询班车需求列表
 			busNeed.selectBusNeeds = function() {
-				
 				services.selectBusNeeds({
 					startDate : busNeed.startDate,
 					endDate : busNeed.endDate
@@ -148,40 +142,33 @@ app.controller('PlatformController', [
 					busNeed.busNeedList = data.list;
 				});
 			}
-			//zq查询班车定制需求
-			busNeed.getBusNeedById=function(bun){
-				var ss=JSON.stringify(bun);
-				$location.path("busNeedInfo/"
-						+ JSON.stringify(bun));
+			// zq查询班车定制需求
+			busNeed.getBusNeedById = function(bunId) {
+				sessionStorage.setItem("busNeedId", bunId);
+				$location.path("busNeedInfo");
+			}
+			// 根据ID获取班车定需求
+			busNeed.selectBusNeedById = function(bunId) {
+				services.selectBusNeedById({
+					busNeed_id : bunId
+				}).success(function(data) {
+					busNeed.BNeed = data.busNeed;
+				});
 			}
 			// zq初始化
-			function initData() {
+			function initPage() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/busNeedIndex') == 0) {
 		
 				} else if ($location.path().indexOf('/busNeedList') == 0) {
-					services.selectBusNeeds({
-						startDate : $scope.startDate,
-						endDate : $scope.endDate
-					}).success(function(data) {
-						busNeed.busNeedList = data.list;
-					});
-				}else if ($location.path().indexOf('/busTradeList') == 0) {
-					services.selectBusTrades({
-						startDate : $scope.startDate,
-						endDate : $scope.endDate
-					}).success(function(data) {
-						busNeed.busTradeList = data.list;
-					});
+					alert("fsd");
+					busNeed.selectBusNeeds();
+				} else if ($location.path().indexOf('/busNeedInfo') == 0) {
+					var busNeedId = sessionStorage.getItem("busNeedId");
+					busNeed.selectBusNeedById(busNeedId);
 				}
 			}
-			initData();
-		} ]);
-app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
-		'$routeParams', function($scope, services, $location, $routeParams) {
-
-			$scope.BNeed = JSON.parse($routeParams.busneed);
-
+			initPage();
 		} ]);
 
 // 时间的格式化的判断
@@ -208,5 +195,3 @@ app.filter('isOrNotNull', function() {
 		return type;
 	}
 });
-
-

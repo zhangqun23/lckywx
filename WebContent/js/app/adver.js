@@ -102,26 +102,18 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
+	// 新加内容（ghl）
 	services.myPlace = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'ad/myPlace.do',// 新加内容（ghl）
-		 data : data
+			url : baseUrl + 'ad/myPlace.do',
+			data : data
 		})
 	}
 
 	return services;
 } ]);
-app.filter('adFilter', function() {
-	return function(input) {
-		if (input == "" || input == null) {
-			var input = "空";
-			return input;
-		} else {
-			return input;
-		}
-	}
-});
+
 app.controller('PlatformController', [ '$scope', 'services', '$location',
 		'$routeParams', function($scope, services, $location, $routeParams) {
 			var adver = $scope;
@@ -136,7 +128,12 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			adver.ADSLimit = {
 				ad_type : "请选择"
 			}
-			//添加广告
+			// 我的发布查询
+			adver.ADOLimit = {
+				ad_type : "请选择",
+				ad_state : "1"
+			}
+			// 添加广告
 			adver.addAdver = function() {
 				var adLimit = JSON.stringify(adver.ADLimit);
 				if (adver.ADLimit.ad_type == "请选择") {
@@ -155,7 +152,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 
 				});
 			}
-			//根据类型查询广告
+			// 根据类型查询广告
 			adver.selectAdver = function() {
 				var adLimit = JSON.stringify(adver.ADSLimit);
 				if (adver.ADSLimit.ad_type == "请选择") {
@@ -167,11 +164,15 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					adver.adList = data.list;
 				});
 			}
-			//根据openId查询广告
+			// 根据openId查询广告
 			adver.myPlace = function() {
-			
+				var adLimit = JSON.stringify(adver.ADOLimit);
+				console.log(adLimit);
+				if (adver.ADOLimit.ad_type == "请选择") {
+					alert("请输入广告类型！")
+				}
 				services.myPlace({
-					//adType : adLimit
+					ad : adLimit
 				}).success(function(data) {
 					adver.adList = data.list;
 				});
@@ -182,7 +183,6 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			// 初始化
 			function initData() {
 				console.log("初始化页面信息");
-
 				if ($location.path().indexOf('/selectAdver') == 0) {
 					services.selectAdver({
 
@@ -190,7 +190,10 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 						adver.adList = data.list;
 					});
 				} else if ($location.path().indexOf('/myPlace') == 0) {
-					adver.myPlace({}).success(function(data){
+					alert("ssdfs")
+					services.myPlace({
+						
+					}).success(function(data){
 						adver.adList = data.list;
 					});
 				}
@@ -206,3 +209,13 @@ app.controller('SelectAdController', [ '$scope', 'services', '$location',
 				$scope.adIList = data.list;
 			});
 		} ]);
+app.filter('adFilter', function() {
+	return function(input) {
+		if (input == "" || input == null) {
+			var input = "空";
+			return input;
+		} else {
+			return input;
+		}
+	}
+});
