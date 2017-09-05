@@ -159,7 +159,7 @@ app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 			function initPage() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/busNeedIndex') == 0) {
-
+		
 				} else if ($location.path().indexOf('/busNeedList') == 0) {
 					alert("fsd");
 					busNeed.selectBusNeeds();

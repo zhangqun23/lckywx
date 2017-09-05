@@ -1,21 +1,20 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.apache.catalina.LifecycleListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Ad;
-import com.mvc.entiy.User;
 import com.mvc.service.AdService;
+import com.utils.SessionUtil;
 import com.utils.StringUtil;
-
 import net.sf.json.JSONObject;
 
 /**
@@ -79,15 +78,12 @@ public class AdController {
 				ad.setAd_content(jsonObject.getString("ad_content"));
 			}
 		}
+		Date getDate = new Date();
+		ad.setAd_stime(getDate);
 		ad.setIs_delete(true);
 		ad.setAd_state(0);
-		/*User user= new User();
-		user.setUser_id(Integer.parseInt(jsonObject.getJSONObject("user").getString("user_id")));
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("user_id"))){
-				ad.setUser(user);
-			}else{
-				return null;
-			}*/
+		String openid = SessionUtil.getOpenid(request);
+		ad.setOpen_id(openid);
 		Ad result = null;
 		if (jsonObject.containsKey("ad_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_id"))){
@@ -154,6 +150,27 @@ public class AdController {
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 		
+	}
+	/**
+	 * 根据openId查找广告
+	 * @param request
+	 * @return list
+	 */
+	@RequestMapping("/myPlace.do")
+	public @ResponseBody String myPlace (HttpServletRequest request, HttpSession session){
+		String openId = SessionUtil.getOpenid(request);
+		List<Ad> list = new ArrayList<Ad>();
+		if (request.getParameter("ad")!= null){
+			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("ad"));
+			String adType = jsonObject.getString("ad_type");
+			String adState = jsonObject.getString("ad_state");
+			list = adService.findMyPlaceAd(Integer.parseInt(adType),Integer.parseInt(adState),openId);
+		}else{
+			list = adService.findMyPlaceAdAll(openId);
+		}	 
+		JSONObject jsonO = new JSONObject();
+		jsonO.put("list", list);
+		return jsonO.toString();
 	}
 	
 }

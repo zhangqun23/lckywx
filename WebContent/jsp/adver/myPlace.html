@@ -1,0 +1,55 @@
+<!-- 新加内容 -->
+<article style="margin-top: 80px;">
+	<form ng-submit="myPlace()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
+	   <ul class="form-box">
+			<li>
+				<div>
+					<select class="select-box" ng-model="ADOLimit.ad_type" id="ad-type" required>
+						<option>请选择</option>
+						<option value="0">旅游</option>
+						<option value="1">招工</option>
+						<option value="2">其他</option>				
+					</select>
+				</div>
+			</li>	
+			<li>
+				<div>
+					<select class="select-box" ng-model="ADOLimit.ad_state" id="ad-state" required>
+						<option value="0">待审核</option>
+						<option value="1">已审核</option>			
+					</select>
+				</div>
+			</li>
+			<li class="inner"> 
+				<div class="item-value" style="margin-right:90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="查询" >
+					</div>
+				</div>
+			</li>	
+               
+		</ul>
+	</form>
+     <br/>
+		<form class="weui_cell" ng-repeat="ad in adList | orderBy:order "> 
+                <div class="weui_cell_bd weui_cell_primary">
+                    <div class="wuliao-title">
+                        <label>广告名称：</label>
+                        <span>{{ad.ad_title}}</span>
+                    </div>
+                    <div class="detail clearfix">
+                        <span class="date">广告内容：{{ad.ad_content}}</span>
+                    </div>
+		   		<div class="detail clearfix">
+                        <span class="date">联系人：{{ad.ad_name}}</span>
+                        <span class="require">联系方式：<label>{{ad.ad_tel}}</label></span>
+                    </div>
+                    <div class="org">
+                        <span>备注：{{ad.ad_remark}}</span>
+                        <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
+                    </div>
+              </div>
+       </form>
+       
+</article>
+

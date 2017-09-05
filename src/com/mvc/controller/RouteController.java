@@ -46,6 +46,7 @@ public class RouteController extends HttpServlet {
 		session.setAttribute("openid", openid);
 
 
+
 		return "platform/index";
 	}
 
@@ -96,5 +97,14 @@ public class RouteController extends HttpServlet {
 	public String toAddAdListPage() {
 		return "adver/index";
 	}
+
+	
+	@RequestMapping("/toMyTradePage.do")
+	public String toMyTradePage() {
+		return "myTrade/index";
+	}
+	
+	
+
 
 }
