@@ -42,6 +42,7 @@ public class RouteController extends HttpServlet {
 		session.setAttribute("openid", openid);
 
 
+
 		return "platform/index";
 	}
 
