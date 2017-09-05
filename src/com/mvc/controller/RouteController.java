@@ -94,4 +94,13 @@ public class RouteController extends HttpServlet {
 		return "adver/index";
 	}
 
+	
+	@RequestMapping("/toMyTradePage.do")
+	public String toMyTradePage() {
+		return "myTrade/index";
+	}
+	
+	
+
+
 }
