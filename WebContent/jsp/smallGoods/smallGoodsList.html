@@ -2,16 +2,13 @@
 		<form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
 
 		<div class="inner" >
-			<!-- <div class="item-name" style="float: left">出发时间：</div> -->
-
-			<input type="text" name="startTime" style="width:25%;margin-left:10px;float: left"
-				ng-model="startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+			<input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
-				required><div style="float: left;margin-right:10px">—</div><!-- <br>
-			<div class="item-name" >出发时间：</div> -->
-
-			<input type="text" name="endtTime" style="width:25%;float: left"
-				ng-model="endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				required><div style="float: left;margin-right:10px">-</div>
+				
+			<input type="text" name="GotLimit.endtTime" style="width:25%;float: left"
+				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
 		</div>
@@ -19,7 +16,6 @@
 			<span><input type="submit" class="weui_btn weui_btn_primary" value="查询">
 		</div>
 	</form>
-	
 	
 	
 	<form class="weui_cell" ng-repeat="smallGood in smallGoodsList">

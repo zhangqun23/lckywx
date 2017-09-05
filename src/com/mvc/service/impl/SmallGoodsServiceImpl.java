@@ -1,5 +1,6 @@
 package com.mvc.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mvc.entiy.SmallGoods;
 import com.mvc.repository.SmallGoodsRepository;
 import com.mvc.service.SmallGoodsService;
+import com.mysql.fabric.xmlrpc.base.Data;
 
 /**
  * 小件货运
@@ -32,8 +34,8 @@ public class SmallGoodsServiceImpl implements SmallGoodsService {
 
 	//查询小件货运信息
 	@Override
-	public List<SmallGoods> findSmallGoodsBy(String endPlace, String openid) {
-		return smallGoodsRepository.findByTimeAndPlace(endPlace, openid);
+	public List<SmallGoods> findSmallGoodsBy(Date startDate, Date endDate, String openid) {
+		return smallGoodsRepository.findByTimeAndPlace(startDate, endDate, openid);
 	}
 		
 	//查询小件货运信息
