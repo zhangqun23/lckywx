@@ -31,17 +31,18 @@ import net.sf.json.JSONObject;
 public class TravelController {
 	@Autowired
 	TravelService travelService;
-	
+	/**
+	 * 
+	 * 
+	 *@Title: selectTravel 
+	 *@Description: 旅游查询
+	 *@param @param request
+	 *@param @param session
+	 *@param @return
+	 *@return String
+	 *@throws
+	 */
 	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
-
-/**
-	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) throws ParseException {
-		JSONObject jsonObject = new JSONObject();
-		Travel travel = new Travel();
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = sdf.parse(jsonObject.getString("travel_stime"));
-		travel.setTravel_stime(date);
-		*/
 	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -64,10 +65,6 @@ public class TravelController {
 	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
-		/**
-		String startTime = request.getParameter("travel_stime");
-		map.put("travel_stime", startTime);//映射，没有用到startTime
-		*/
 		List<Travel> list = travelService.findTravelAlls(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -85,10 +82,6 @@ public class TravelController {
 	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> map = new HashMap<String, Object>();
-		/**
-		String price = request.getParameter("travel_mprice");
-		map.put("travel_mprice", price);
-		*/
 		List<Travel> list = travelService.findTravelAlls1(map);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
