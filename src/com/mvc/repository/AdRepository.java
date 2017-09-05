@@ -16,4 +16,7 @@ public interface AdRepository extends JpaRepository<Ad, Integer>{
 	//根据id返回广告
 	@Query("select t from Ad t where ad_id = :adId and is_delete=1")
 	public Ad findAdById(@Param("adId") int adid);
+	//根据openId查找广告
+	@Query("select o from Ad o where open_id = :open_id and is_delete=1")
+	public List<Ad> findMyPlaceAd(@Param("open_id") String  openid);
 }

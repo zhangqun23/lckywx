@@ -19,7 +19,7 @@ public class Ad {
 private Integer ad_id;//广告id，主键
 private Integer ad_type;//0招工，1旅游、2其他
 private Integer ad_state;//0代表未审核，1代表已审核
-private String openid;//openid
+private String open_id;//openid
 private String ad_name;//联系人
 private String ad_tel;//联系方式
 private String ad_title;//广告名称
@@ -54,18 +54,19 @@ public void setAd_state(Integer ad_state) {
 	this.ad_state = ad_state;
 }
 
-@Column(name="openid",length = 11)
-public String getOpenid() {
-	return openid;
+@Column(name="open_id",length = 128)
+public String getOpen_id() {
+	return open_id;
 }
-public void setOpenid(String openid) {
-	this.openid = openid;
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
 }
 
 @Column(name = "ad_name", length = 32)
 public String getAd_name() {
 	return ad_name;
 }
+
 public void setAd_name(String ad_name) {
 	this.ad_name = ad_name;
 }

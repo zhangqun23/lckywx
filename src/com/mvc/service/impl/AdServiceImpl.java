@@ -52,6 +52,10 @@ public class AdServiceImpl implements AdService {
 		int adid = Integer.parseInt(adId);
 		return adRepository.findAdById(adid);
 	}
+	@Override
+	public List<Ad> findMyPlaceAd(String openId) {
+		return adRepository.findMyPlaceAd(openId);
+	}
 
 	
 

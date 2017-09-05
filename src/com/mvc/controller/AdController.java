@@ -6,14 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.apache.catalina.manager.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Ad;
 import com.mvc.service.AdService;
+import com.utils.SessionUtil;
 import com.utils.StringUtil;
 import net.sf.json.JSONObject;
 
@@ -83,7 +82,7 @@ public class AdController {
 		ad.setIs_delete(true);
 		ad.setAd_state(0);
 		String openid = SessionUtil.getOpenid(request);
-		ad.setOpenid(openid);
+		ad.setOpen_id(openid);
 		Ad result = null;
 		if (jsonObject.containsKey("ad_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_id"))){
@@ -150,6 +149,19 @@ public class AdController {
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 		
+	}
+	/**
+	 * 根据openId查找广告
+	 * @param request
+	 * @return list
+	 */
+	@RequestMapping("/myPlace.do")
+	public @ResponseBody String myPlace (HttpServletRequest request){
+		String openId = SessionUtil.getOpenid(request);
+		List<Ad> list = adService.findMyPlaceAd(openId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
 	}
 	
 }

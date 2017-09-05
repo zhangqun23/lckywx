@@ -91,7 +91,7 @@ public class RouteController extends HttpServlet {
 	public String toAddAdListPage() {
 		return "adver/index";
 	}
-<<<<<<< HEAD
+
 	
 	@RequestMapping("/toMyTradePage.do")
 	public String toMyTradePage() {
@@ -99,7 +99,6 @@ public class RouteController extends HttpServlet {
 	}
 	
 	
-=======
->>>>>>> 1031876adadd8b6fe880b2087d965146fd1be368
+
 
 }
