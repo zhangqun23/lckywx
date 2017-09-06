@@ -5,7 +5,6 @@ import java.util.List;
 
 
 import com.mvc.entiy.SmallGoods;
-import com.mysql.fabric.xmlrpc.base.Data;;
 /**
  * 小件货运
  * @author lijing
