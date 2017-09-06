@@ -27,6 +27,10 @@ import com.mvc.repository.UserRepository;
 @Controller
 @RequestMapping("/routeController")
 public class RouteController extends HttpServlet {
+	/**
+	 * 
+	 */
+//	private static final long serialVersionUID = 1L;
 	@Autowired
 	UserRepository userRepository;
 

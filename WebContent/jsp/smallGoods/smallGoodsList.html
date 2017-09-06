@@ -1,21 +1,20 @@
 <article style="margin-top: 48px;">
-		<form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
-	    <ul class="form-box">
-	    
-			 <li style="border:groove;margin:2px;height:30px;">
-                    <input type="text" placeholder="按单号／日期模糊搜索" 
-                           style="height:25px;margin:auto;" ng-model="GolLimit.smgo_select" required>
-               </li>	
-               <li class="inner"> 
-                   <div class="item-value" style="margin-right:90px">
-                        <div class="a-wrap">
-				           <input type="submit" class="weui_btn weui_btn_primary" value="查询" >
+		<form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
 
-                        </div>
-                   </div>
-               </li>	
-               
-		</ul>
+		<div class="inner" >
+			<input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required><div style="float: left;margin-right:10px">-</div>
+				
+			<input type="text" name="GotLimit.endtTime" style="width:25%;float: left"
+				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required>
+		</div>
+		<div class="org">
+			<span><input type="submit" class="weui_btn weui_btn_primary" value="查询">
+		</div>
 	</form>
 	
 	
@@ -27,7 +26,7 @@
                         </div>
                         <div class="detail clearfix">
                             <span class="date">价格：</span>
-                            <span class="result">发件日期：<label>{{smallGood.smgo_send_time}}</label></span>
+                            <span class="date">发件日期：<label>{{smallGood.smgo_send_time.time|dateType}}</label></span>
                         </div>
 						   <div class="detail clearfix">
                             <span class="date">收件人：{{smallGood.smgo_receiver}}</span>

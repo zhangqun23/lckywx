@@ -98,6 +98,75 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	};
 	return services;
 } ]);
+
+/*app
+		.controller(
+				'PlatformController',
+				[
+						'$scope',
+						'services',
+						'$location',
+						function($scope, services, $location) { //页面控制函数
+							var travelInfo = $scope;
+							travelInfo.TravelLimit={
+									 travel_title :"", // 标(主)题
+									 travel_content :"", // 活动描述
+									 travel_route :"", // 路线
+									 travel_mprice :"", // 成人票价格
+									 travel_cprice :"", // 儿童票价格
+									 travel_insurance :"", // 保险费
+									 travel_discount :"", // 折扣
+									 travel_stime :"", // 出发时间
+									 travel_location :"", // 出发地点
+									 travel_days :"", // 游玩天数
+									 travel_tel :"", // 联系电话
+									 travel_total_num :"", // 总人数
+									 travel_left_num :"", // 剩余人数
+									 travel_firm :"" // 旅游承办公司
+							}
+							travelInfo.addtravelInfo=function(){
+								var travelLimit = JSON
+								.stringify(travelInfo.travelLimit);
+								services.addTravelInfo({
+									travelInfo : travelLimit
+								}).success(function(data) {
+									console.log(data.list);
+									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
+									if (result.data) {
+										alert("是");
+									} else {
+										alert("否");
+									}
+								});
+							}
+							travelInfo.selectTravelInfo=function(){
+								var travelLimit = JSON
+								.stringify(travelInfo.travelLimit);
+								services.selectTravelInfo({
+									travelInfo : travelLimit
+								}).success(function(data) {
+									console.log(data.list);
+									if (result.data) {
+										alert("是");
+									} else {
+										alert("否");
+									}
+								});
+							}
+			
+							travelInfo.toProducer = function () { 
+								$location.path("#/travelInfoDetail");
+							};
+							
+							travelInfo.selectTravelInfoDetail=function(TInfo){//加上的旅游信息方法
+								$location.path('selectTravelInfoDetail/'+ JSON.stringify(TInfo));
+							}
+							
+							travelInfo.getTravelInfoById=function(tri){ //获取旅游id
+//								console.log("welcome");
+								var ss=JSON.stringify(tri);
+								$location.path("travelTrade/"
+										+ JSON.stringify(ss));*/
 app.controller('PlatformController', [
 		'$scope',
 		'services',
@@ -247,3 +316,17 @@ app.filter('trtrFilter', function() {
 		}
 	}
 });
+
+//截取任务内容
+app.filter('cutString', function() {
+	return function(input) {
+		var content = "";
+		if (input != "") {
+			var shortInput = input.substr(0, 2);
+			content = shortInput + "……";
+			}
+		return content;	
+	}
+});
+
+

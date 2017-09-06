@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.SmallGoods;
 import com.mvc.service.SmallGoodsService;
 import com.utils.SessionUtil;
+import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -112,12 +113,24 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/selectSmallGoods.do")
-	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody String selectSmallGoods(HttpServletRequest request, HttpSession session) throws ParseException {
 		String openid = SessionUtil.getOpenid(request);
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("golNeed"));
 		List<SmallGoods> list = new ArrayList<SmallGoods>();
-		if (jsonObject.containsKey("smgo_select")) {
-			list = smallGoodsService.findSmallGoodsBy(jsonObject.getString("smgo_select"), openid);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+	    
+		if(request.getParameter("gotNeed") != null) {
+			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
+			String startDate = "";
+			String endDate = "";
+			if (jsonObject.containsKey("startDate")) {
+				startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
+			}
+			if (jsonObject.containsKey("endDate")) {
+				endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
+			}
+			Date date1 = sdf.parse(startDate);
+			Date date2 = sdf.parse(endDate);
+			list = smallGoodsService.findSmallGoodsBy(date1, date2, openid);
 		}else{
 			list = smallGoodsService.findSmallGoodsAlls(openid);
 		}
