@@ -161,7 +161,6 @@ app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 				if ($location.path().indexOf('/busNeedIndex') == 0) {
 
 				} else if ($location.path().indexOf('/busNeedList') == 0) {
-					alert("fsd");
 					busNeed.selectBusNeeds();
 				} else if ($location.path().indexOf('/busNeedInfo') == 0) {
 					var busNeedId = sessionStorage.getItem("busNeedId");
