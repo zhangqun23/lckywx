@@ -1,9 +1,10 @@
 package com.mvc.service;
 
+import java.util.Date;
 import java.util.List;
 
 
-import com.mvc.entiy.SmallGoods;;
+import com.mvc.entiy.SmallGoods;
 /**
  * 小件货运
  * @author lijing
@@ -14,7 +15,7 @@ public interface SmallGoodsService {
 	SmallGoods saveSmallGoods(SmallGoods smallGodds);
 
 	// 查询小件货运信息 
-	List<SmallGoods> findSmallGoodsBy(String endPlace, String openid);
+	List<SmallGoods> findSmallGoodsBy(Date date1, Date date2, String openid);
 	
 	// 根据id查询小件货运信息 
 	SmallGoods findSmallGoodsById(String sgid);

@@ -26,5 +26,10 @@ public interface AdService {
 	
 	//根据id查找广告
 	Ad selectAdverInfo(String adId);
+	//根据openId查找广告
+	List<Ad> findMyPlaceAd(Integer adType, Integer adState, String openId);
+	List<Ad> findMyPlaceAdAll(String openId);
+	
+
 
 }
