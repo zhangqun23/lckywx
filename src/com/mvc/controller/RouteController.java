@@ -27,6 +27,10 @@ import com.mvc.repository.UserRepository;
 @Controller
 @RequestMapping("/routeController")
 public class RouteController extends HttpServlet {
+	/**
+	 * 
+	 */
+//	private static final long serialVersionUID = 1L;
 	@Autowired
 	UserRepository userRepository;
 
@@ -40,6 +44,7 @@ public class RouteController extends HttpServlet {
 		String openid = "wang123";
 		HttpSession session = getSession();
 		session.setAttribute("openid", openid);
+
 
 
 		return "platform/index";
@@ -92,5 +97,14 @@ public class RouteController extends HttpServlet {
 	public String toAddAdListPage() {
 		return "adver/index";
 	}
+
+	
+	@RequestMapping("/toMyTradePage.do")
+	public String toMyTradePage() {
+		return "myTrade/index";
+	}
+	
+	
+
 
 }
