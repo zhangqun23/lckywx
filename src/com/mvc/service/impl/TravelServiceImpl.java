@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.mvc.dao.TravelDao;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
+import com.mvc.repository.TravelRepository;
 import com.mvc.service.TravelService;
 
 /**
@@ -30,34 +31,25 @@ import com.mvc.service.TravelService;
 public class TravelServiceImpl implements TravelService{
 	@Autowired 
 	TravelDao travelDao;
+	@Autowired
+	TravelRepository travelRepository;
 	//旅游查询
 	@Override
-	public List<Travel> findTravelAlls0(Map<String, Object> map) {
-		return travelDao.findTravelAlls0(map);
+	public List<Travel> findTravelAlls() {
+		return travelDao.findTravelAlls();
 	}
-	//按出发日期查询旅游信息
-	@Override
-	public List<Travel> findTravelAlls(Map<String, Object> map) {
-		List<Travel> list = travelDao.findTravelAlls(map);
-		return list;
-	}
-	//按成人票价查询旅游信息
-	@Override
-	public List<Travel> findTravelAlls1(Map<String, Object> map) {
-		List<Travel> list = travelDao.findTravelAlls1(map);
-		return list;
-	}
+
 	//旅游交易
 	@Override
 	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
 		List<TravelTrade> list = travelDao.saveTravelTrade(travelTrade);
-		Travel travel = new Travel();
 		Float trtrprice = travelTrade.getTrtr_price();
-		//trtrprice = (travel.getTravel_discount() * 
-		//		((travelTrade.getTrtr_cnum() * travel.getTravel_mprice()) 
-		//		+ (travelTrade.getTrtr_mnum() * travel.getTravel_mprice())))
-		//		+ travel.getTravel_insurance();
 		travelTrade.setTrtr_price(Float.valueOf(trtrprice));
 		return list;	
+	}
+	//根据id查找travel
+	@Override
+	public Travel findTravelById(String travelid) {
+		return travelRepository.findTravelById(Integer.parseInt(travelid));
 	}
 }

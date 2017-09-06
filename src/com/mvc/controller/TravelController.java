@@ -43,49 +43,22 @@ public class TravelController {
 	 *@throws
 	 */
 	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
-	public @ResponseBody String selectTravel(HttpServletRequest request, HttpSession session) {
+	public @ResponseBody String selectTravelAll(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		Map<String, Object> map = new HashMap<String, Object>();
-		String startTime = request.getParameter("travel_stime");
-		map.put("travel_stime", startTime);
-		List<Travel> list = travelService.findTravelAlls0(map);
+		List<Travel> list = travelService.findTravelAlls();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-	/**
-	 *@Title: selectTravelByDate 
-	 *@Description: 按出发时间查询
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
-	@RequestMapping(value = "/selectTravelByTime.do")   //select Travel By Time
-	public @ResponseBody String selectTravelByDate(HttpServletRequest request, HttpSession session) {
+	
+	@RequestMapping("/selectTravelInfoById.do")
+	public @ResponseBody String selectTravelInfoById(HttpServletRequest request, HttpSession session) {
+		String Travel_id = request.getParameter("travel_id_select");
 		JSONObject jsonObject = new JSONObject();
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Travel> list = travelService.findTravelAlls(map);
+		Travel list = travelService.findTravelById(Travel_id);
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-	/**
-	 *@Title: selectTravelByPrice 
-	 *@Description: 按成人票价查询
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
-	@RequestMapping(value = "/selectTravelByPrice.do")//select Travel By Price
-	public @ResponseBody String selectTravelByPrice(HttpServletRequest request, HttpSession session) {
-		JSONObject jsonObject = new JSONObject();
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Travel> list = travelService.findTravelAlls1(map);
-		jsonObject.put("list", list);
-		return jsonObject.toString();
-	}
+
 	/** 
 	 *@Title: addTravelTrade 
 	 *@Description: 旅游交易 traveltrade
@@ -135,5 +108,5 @@ public class TravelController {
 			result = travelService.saveTravelTrade(travelTrade);// 添加交易信息
 		}
 		return JSON.toJSONString(result);
-	}	
+	}
 }

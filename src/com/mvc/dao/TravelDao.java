@@ -26,7 +26,7 @@ public interface TravelDao {
 	
 	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);//旅游交易信息
 	
-	List<Travel> findTravelAlls0(Map<String, Object> map);//旅游查询
+	List<Travel> findTravelAlls();//旅游查询
 	
 	List<Travel> findTravelAlls(Map<String, Object> map);//按出发时间查询旅游信息
 }
