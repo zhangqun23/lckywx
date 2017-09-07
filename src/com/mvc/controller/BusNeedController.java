@@ -100,7 +100,6 @@ public class BusNeedController {
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
 				busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
-				
 			}
 			result = busNeedService.saveBusNeed(busNeed);// 修改班车定制需求
 		} else {
@@ -112,7 +111,6 @@ public class BusNeedController {
 			result1.setBusNeed(busAndNeed);
 			result1 = busNeedService.saveAndBusTrade(result1);// 修改的同时添加班车交易
 		}		
-		
 		JSONObject limit=new JSONObject();
 		limit.put("result", result);
 		limit.put("result1", result1);
