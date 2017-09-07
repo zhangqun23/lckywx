@@ -21,7 +21,7 @@
                         <span class="date">成人票价：{{TInfo.travel_mprice}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">出发时间：{{TInfo.travel_stime.time|dateType}}</span>
+                        <span class="date">出发时间：{{TInfo.travel_stime.time | dateType}}</span>
                     </div>
                     <div class="detail clearfix">
                         <span class="date">剩余票数：{{TInfo.travel_left_num}}</span>
@@ -31,9 +31,9 @@
                         <span class="require">联系方式：<label>{{TInfo.travel_tel}}</label></span>
                     </div>
                     <div class="org">
-                        <span>活动描述：{{TInfo.travel_content}}</span>
-                        <label class="green" ng-click="getTravelInfoById(TInfo)">购票</label>
-                        <label class="green" ng-click="selectTravelInfoDetail(TInfo)">详情</label>
+                        <span>活动描述：{{TInfo.travel_content|cutString}}</span>
+                        <label class="green" ng-click="getTravelInfoById(TInfo.travel_id)">购票</label>
+                        <label class="green" ng-click="selectTravelInfoDetail(TInfo.travel_id)">详情</label>
                         
                     </div>
               </div>
