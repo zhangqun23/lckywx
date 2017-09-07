@@ -32,8 +32,8 @@
                     </div>
                     <div class="org">
                         <span>活动描述：{{TInfo.travel_content|cutString}}</span>
-                        <label class="green" ng-click="getTravelInfoById(TInfo)">购票</label>
-                        <label class="green" ng-click="selectTravelInfoDetail(TInfo)">详情</label>
+                        <label class="green" ng-click="getTravelInfoById(TInfo.travel_id)">购票</label>
+                        <label class="green" ng-click="selectTravelInfoDetail(TInfo.travel_id)">详情</label>
                         
                     </div>
               </div>

@@ -38,7 +38,7 @@ public class TravelDaoImpl implements TravelDao{
 	//直接查询
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> findTravelAlls0(Map<String, Object> map) {	
+	public List<Travel> findTravelAlls() {	
 		EntityManager em = emf.createEntityManager();
 		String sql = "select * from travel ";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应

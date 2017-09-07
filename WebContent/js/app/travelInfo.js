@@ -71,9 +71,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/selectTravelInfoDetail/:travelInfo', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
 		controller : 'travelInfoDetailController'
-	}).when('/travelTrade/:travelTradeInfo', { // 表示地址结尾为travelTrade时加载的内容
+	}).when('/travelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
-		controller : 'travelTradeInfoController'
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -81,7 +81,6 @@ app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 
-	// zq获取做房用时列表A
 	services.selectTravelInfo = function(data) {
 		return $http({
 			method : 'post',
@@ -89,84 +88,18 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	services.getTravelInfo = function(data) {
+	
+	services.selectTravelInfoById = function(data){
 		return $http({
-			method : 'post',
-			url : baseUrl + 'travelInfo/addTravelInfo.do',
+			method : 'post' ,
+			url : baseUrl + 'travelInfo/selectTravelInfoById.do',
 			data : data
 		});
 	};
+
 	return services;
 } ]);
 
-/*app
-		.controller(
-				'PlatformController',
-				[
-						'$scope',
-						'services',
-						'$location',
-						function($scope, services, $location) { //页面控制函数
-							var travelInfo = $scope;
-							travelInfo.TravelLimit={
-									 travel_title :"", // 标(主)题
-									 travel_content :"", // 活动描述
-									 travel_route :"", // 路线
-									 travel_mprice :"", // 成人票价格
-									 travel_cprice :"", // 儿童票价格
-									 travel_insurance :"", // 保险费
-									 travel_discount :"", // 折扣
-									 travel_stime :"", // 出发时间
-									 travel_location :"", // 出发地点
-									 travel_days :"", // 游玩天数
-									 travel_tel :"", // 联系电话
-									 travel_total_num :"", // 总人数
-									 travel_left_num :"", // 剩余人数
-									 travel_firm :"" // 旅游承办公司
-							}
-							travelInfo.addtravelInfo=function(){
-								var travelLimit = JSON
-								.stringify(travelInfo.travelLimit);
-								services.addTravelInfo({
-									travelInfo : travelLimit
-								}).success(function(data) {
-									console.log(data.list);
-									$location.path("travelInfoDetail/"+JSON.stringify(data.list));
-									if (result.data) {
-										alert("是");
-									} else {
-										alert("否");
-									}
-								});
-							}
-							travelInfo.selectTravelInfo=function(){
-								var travelLimit = JSON
-								.stringify(travelInfo.travelLimit);
-								services.selectTravelInfo({
-									travelInfo : travelLimit
-								}).success(function(data) {
-									console.log(data.list);
-									if (result.data) {
-										alert("是");
-									} else {
-										alert("否");
-									}
-								});
-							}
-			
-							travelInfo.toProducer = function () { 
-								$location.path("#/travelInfoDetail");
-							};
-							
-							travelInfo.selectTravelInfoDetail=function(TInfo){//加上的旅游信息方法
-								$location.path('selectTravelInfoDetail/'+ JSON.stringify(TInfo));
-							}
-							
-							travelInfo.getTravelInfoById=function(tri){ //获取旅游id
-//								console.log("welcome");
-								var ss=JSON.stringify(tri);
-								$location.path("travelTrade/"
-										+ JSON.stringify(ss));*/
 app.controller('PlatformController', [
 		'$scope',
 		'services',
@@ -208,11 +141,8 @@ app.controller('PlatformController', [
 						});
 			}
 			travelInfo.selectTravelInfo = function() {
-				/*
-				 * var travelLimit = JSON .stringify(travelInfo.travelLimit);
-				 */
 				services.selectTravelInfo({
-				/* travelInfo : travelLimit */
+
 				}).success(function(data) {
 					console.log(data.list);
 					if (result.data) {
@@ -232,10 +162,9 @@ app.controller('PlatformController', [
 						+ JSON.stringify(TInfo));
 			}
 
-			travelInfo.getTravelInfoById = function(tri) { // 获取旅游id
-			// console.log("进来了");
-				var ss = JSON.stringify(tri);
-				$location.path("travelTrade/" + JSON.stringify(ss));
+			travelInfo.getTravelInfoById = function(travel_id) {
+				sessionStorage.setItem("travel_id_select",travel_id);
+				$location.path("travelTrade/");
 			}
 
 			// zq初始化
@@ -253,35 +182,17 @@ app.controller('PlatformController', [
 				} else if ($location.path().indexOf('/travelInfoDetail') == 0) {
 					var producerId = $stateParams.producerId;
 					alert(producerId);
+				} else if($location.path().indexOf('/travelTrade') ==0){
+					services.selectTravelInfoById({
+						travel_id_select : sessionStorage.getItem("travel_id_select")
+					}).success(function(data){
+						$scope.TInfo = data.list
+					});
+					
 				}
 			}
 			initData();
 		} ]);
-
-app.controller('travelInfoDetailController', [ '$scope', 'services',
-		'$location', '$routeParams',
-		function($scope, services, $location, $routeParams) {
-
-			$scope.travelIList = JSON.parse($routeParams.travelInfo);
-			// 从后台传送过来的一个travelInfo的list，将其赋值给travelIList，
-			// 不用再发送给services的方法中，原因是只访问后台一次就可以了。
-			$scope.getTravelInfoById = function(tri) { // 获取旅游id
-				console.log("进来了");
-				var ss = JSON.stringify(tri);
-				$location.path("travelTrade/" + JSON.stringify(ss));
-			}
-		} ]);
-
-app.controller('travelTradeInfoController', [ '$scope', 'services',
-		'$location', '$routeParams',
-		function($scope, services, $location, $routeParams) {
-
-			$scope.travelInfoList = JSON.parse($routeParams.travelTradeInfo);
-			console.log("bacon" + $scope.travelInfoList);
-
-		}
-
-]);
 
 // 时间的格式化的判断
 app.filter('dateType', function() {
