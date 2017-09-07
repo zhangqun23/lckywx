@@ -81,7 +81,7 @@ public class AdController {
 		Date getDate = new Date();
 		ad.setAd_stime(getDate);
 		ad.setIs_delete(true);
-		ad.setAd_state(0);
+		ad.setAd_state(1);
 		String openid = SessionUtil.getOpenid(request);
 		ad.setOpen_id(openid);
 		Ad result = null;
@@ -128,6 +128,7 @@ public class AdController {
 	 */
 	@RequestMapping("/deleteAd.do")
 	public @ResponseBody String deleteAd (HttpServletRequest request){
+		System.out.println("nihao");
 		Integer ad_id = Integer.parseInt(request.getParameter("adId"));
 		Boolean flag = adService.deleteAd(ad_id);
 		JSONObject jsonObject = new JSONObject();

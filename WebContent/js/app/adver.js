@@ -108,8 +108,15 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			method : 'post',
 			url : baseUrl + 'ad/myPlace.do',
 			data : data
-		})
-	}
+		});
+	};
+/*	service.deleteAd =  function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/deleteAd.do',
+			data : data
+		});
+	};*/
 
 	return services;
 } ]);
@@ -148,7 +155,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					} else {
 						alert("否");
 					}
-					$location.path('selectAder/' + data);
+					$location.path('myPlace/');
 
 				});
 			}
@@ -167,7 +174,6 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			// 根据openId查询广告
 			adver.myPlace = function() {
 				var adLimit = JSON.stringify(adver.ADOLimit);
-				console.log(adLimit);
 				if (adver.ADOLimit.ad_type == "请选择") {
 					alert("请输入广告类型！")
 				}
@@ -177,9 +183,20 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					adver.adList = data.list;
 				});
 			}
+			//根据Id查询广告内容
 			adver.selectAderInfo = function(adId) {
 				$location.path('selectAdverInfo/' + adId);
 			}
+			//删除广告
+			/*adver.deleteAd = function (){
+				alert("sfsdfsd");
+				service.deleteAd({
+					adId : $routeParams.adid
+				}).success(function(data){
+					alert("shanchuchenggong");
+				});
+				
+			}*/
 			// 初始化
 			function initData() {
 				console.log("初始化页面信息");
@@ -190,7 +207,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 						adver.adList = data.list;
 					});
 				} else if ($location.path().indexOf('/myPlace') == 0) {
-					alert("ssdfs")
+					alert("dsfa")
 					services.myPlace({
 						
 					}).success(function(data){
