@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.mvc.entiy.Ad;
 
+import net.sf.json.JSONObject;
+
 /**
  * 
  * 广告
@@ -25,6 +27,8 @@ public interface AdService {
 	//根据openId查找广告
 	List<Ad> findMyPlaceAd(Integer adType, Integer adState, String openId);
 	List<Ad> findMyPlaceAdAll(String openId);
+	//修改广告
+	Ad saveAdRpeat(JSONObject jsonObject, Integer adId);
 	
 
 

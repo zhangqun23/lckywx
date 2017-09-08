@@ -84,6 +84,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加上
 	var services = {};
+	//添加广告的后台方法
 	services.addAdver = function(data) {
 		return $http({
 			method : 'post',
@@ -91,6 +92,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
+	//根据type查询广告的后台方法
 	services.selectAdver = function(data) {
 		return $http({
 			method : 'post',
@@ -98,6 +100,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
+	//根据Id查询广告的后台方法
 	services.selectAdverInfo = function(data) { // 加上
 		return $http({
 			method : 'post',
@@ -105,7 +108,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
-	// 新加内容（ghl）
+	//我的发布广告查询的后台方法
 	services.myPlace = function(data) {
 		return $http({
 			method : 'post',
@@ -113,6 +116,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
+	//删除广告的后台方法
 	services.deleteAd =  function(data){
 		return $http({
 			method : 'post',
@@ -120,7 +124,14 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
-
+	//修改广告的后台方法
+	services.modifyAd =  function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/modifyAd.do',
+			data : data
+		});
+	};
 	return services;
 } ]);
 
@@ -138,7 +149,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			adver.ADSLimit = {
 				ad_type : "请选择"
 			}
-			// 我的发布查询
+			// 我的发布查询条件
 			adver.ADOLimit = {
 				ad_type : "请选择",
 				ad_state : "1"
@@ -202,11 +213,22 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					return null;
 				}	
 			}  
-			//修改广告
-			adver.modifyAdver = function (adId){
+			//根据id的到ad信息用来修改广告
+			adver.getAdById = function (adId){
 				sessionStorage.setItem("adId",adId);
 				$location.path('updateAd/');
 			}
+			//修改广告
+			adver.modifyAd = function() {
+				alert("修改")
+				var adLimit = JSON.stringify(adver.ADLimit);
+				services.modifyAd({
+					ad : adLimit,
+					ad_id : sessionStorage.getItem("adId")
+				}).success(function(data) {
+					$location.path('myPlace/');
+				});
+			 }
 			//初始化
 			function initData() {
 				console.log("初始化页面信息");
@@ -228,7 +250,6 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 						ad_id : adId
 					}).success(function(data) {
 						$scope.ADLimit = data.list;
-						
 					});
 				}
 			}
