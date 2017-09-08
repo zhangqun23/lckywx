@@ -25,9 +25,9 @@ public class AdDaoImpl implements AdDao {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			String selectSql = "update a_d ad set ad.is_delete=0 where ad.ad_id=:ad_id";
+			Integer adid = ad_id;
+			String selectSql = "update ad set ad.is_delete=0 where ad.ad_id = "+ adid;
 			Query query =  em.createNativeQuery(selectSql);
-			query.setParameter("ad_id",ad_id);
 			query.executeUpdate();
 			em.flush();
 			em.getTransaction().commit();

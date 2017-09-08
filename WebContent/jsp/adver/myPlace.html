@@ -46,8 +46,9 @@
                     </div>
                     <div class="org">
                         <span>备注：{{ad.ad_remark}}</span>
-                        <label class="green" ng-click="deleteAd()">删除</label>
                         <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
+                        <label class="green" ng-click="deleteAd(ad.ad_id,ad.ad_title)">删除</label>
+                        <label class="green" ng-click="modifyAdver(ad.ad_id)">修改</label>  
                     </div>
                     
               </div>
