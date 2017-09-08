@@ -84,7 +84,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addTruckDriver = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'truckDriver/addTruckDriver.do',
+			url : baseUrl + 'truckLoad/addTruckDriver.do',
 			data : data
 		});
 	};
@@ -92,7 +92,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addTruckSend = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'truckSend/addTruckSend.do',
+			url : baseUrl + 'truckLoad/addTruckSend.do',
 			data : data
 		});
 	};
@@ -100,7 +100,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addTruckNeed = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'truckNeed/addTruckNeed.do',
+			url : baseUrl + 'truckLoad/addTruckNeed.do',
 			data : data
 		});
 	};
@@ -113,9 +113,8 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
          var truckDrSdNd = $scope;
              truckDrSdNd.truckLimit = {
                  trck_load : "",
-                 is_freeze : ""
-             }                   
-             //private Integer is_freeze;//0代表未冷冻，1代表冷冻
+                 is_freeze : ""  // 0代表未冷冻，1代表冷冻
+             }
              
              // pg添加车主+货车信息
              truckDrSdNd.driverLimit = {
@@ -152,11 +151,11 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  trne_remark : "",
                  is_freeze : ""
              }
-             // pg添加货车+货车的信息
+             // pg添加货车+司机的信息
              truckDriver.addtruckDriver = function() {
             	 console.log("你太调皮了");
-                 var truckLimit = JSON.stringify(truckDriver.truckLimit);
-                 var driverLimit = JSON.stringify(truckDriver.driverLimit);
+                 var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
+                 var driverLimit = JSON.stringify(truckDrSdNd.trseLimit);
                      services.addtruckDriver({
                     	 truckInfo : truckLimit,
                     	 driverInfo : driverLimit
@@ -166,16 +165,37 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                          $location.path("truckDriver");
                      });
              }
-            
+             // pg添加货主需求信息
+             truckDriver.addTruckSend = function() {
+            	 console.log("你太调皮了");
+                 var truckLimit = JSON.stringify(truckDrSdNd.trseLimit);
+                     services.addTruckSend({
+                    	 trneInfo : trseLimit
+                     }).success(function(data) {
+                         sessionStorage.setItem("trseId", data.result.trse_id);
+                         $location.path("truckSend");
+                     });
+             }
+             // pg添加发货需求信息
+             truckDriver.addTruckNeed = function() {
+            	 console.log("你太调皮了");
+                 var truckLimit = JSON.stringify(truckDrSdNd.trneLimit);
+                     services.addTruckNeed({
+                    	 trneInfo : trneLimit
+                     }).success(function(data) {
+                         sessionStorage.setItem("trneId", data.result.trne_id);
+                         $location.path("truckNeed");
+                     });
+             }
              
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");
                  if ($location.path().indexOf('/truckDriver') == 0) {
                                   		
-                 } else if ($location.path().indexOf('/truckNeed') == 0) {
-
                  } else if ($location.path().indexOf('/truckSend') == 0) {
+
+                 } else if ($location.path().indexOf('/truckNeed') == 0) {
                  
                  }
              }
