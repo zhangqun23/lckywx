@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.entiy.Driver;
 import com.mvc.entiy.Truck;
+import com.mvc.entiy.Truck_need;
+import com.mvc.entiy.Truck_send;
 import com.mvc.repository.DriverRepository;
+import com.mvc.repository.TruckNeedRepository;
 import com.mvc.repository.TruckRepository;
+import com.mvc.repository.TruckSendRepository;
 import com.mvc.service.TruckDriverService;
 
 /**
@@ -20,6 +24,10 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	DriverRepository driverRepository;
 	@Autowired
 	TruckRepository truckRepository;
+	@Autowired
+	TruckSendRepository truckSendRepository;
+	@Autowired
+	TruckNeedRepository truckNeedRepository;
 	//添加货车车主基本信息
 	@Override
 	public Driver addDriver(Driver driver) {
@@ -39,7 +47,26 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 		}else{
 			return null;
 		}
-		
 	}
-
+	//添加货车主录入信息
+	@Override
+	public Truck_send addTruckSend(Truck_send truckSend) {
+		Truck_send result = truckSendRepository.saveAndFlush(truckSend);
+		if(result.getTrse_id()!=null){
+			return result;
+		}else{
+			return null;
+		}
+	}
+	//货主信息录入
+	@Override
+	public Truck_need addTruckNeed(Truck_need truckNeed) {
+		Truck_need result = truckNeedRepository.saveAndFlush(truckNeed);
+		if (result.getTrne_id()!=null) {
+			return result;
+		}else{
+			return null;
+		}
+	}
+	
 }

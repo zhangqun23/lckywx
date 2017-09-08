@@ -76,6 +76,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/myPlace', {
 		templateUrl : '/lckywx/jsp/adver/myPlace.html', // 新加内容（ghl）
 		controller : 'PlatformController'
+	}).when('/updateAd',{
+		templateUrl : '/lckywx/jsp/adver/updateAd.html',
+		controller : 'PlatformController'
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
@@ -110,13 +113,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
-/*	service.deleteAd =  function(data){
+	services.deleteAd =  function(data){
 		return $http({
 			method : 'post',
 			url : baseUrl + 'ad/deleteAd.do',
 			data : data
 		});
-	};*/
+	};
 
 	return services;
 } ]);
@@ -188,16 +191,23 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				$location.path('selectAdverInfo/' + adId);
 			}
 			//删除广告
-			/*adver.deleteAd = function (){
-				alert("sfsdfsd");
-				service.deleteAd({
-					adId : $routeParams.adid
-				}).success(function(data){
-					alert("shanchuchenggong");
-				});
-				
-			}*/
-			// 初始化
+			adver.deleteAd = function (ad_id,ad_title){
+				if(confirm("确定删除此广告<"+ad_title+">")){
+					services.deleteAd({
+						adId : ad_id
+					}).success(function(data){
+						$location.path('myPlace/');
+					});
+				}else{
+					return null;
+				}	
+			}  
+			//修改广告
+			adver.modifyAdver = function (adId){
+				sessionStorage.setItem("adId",adId);
+				$location.path('updateAd/');
+			}
+			//初始化
 			function initData() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/selectAdver') == 0) {
@@ -207,11 +217,18 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 						adver.adList = data.list;
 					});
 				} else if ($location.path().indexOf('/myPlace') == 0) {
-					alert("dsfa")
 					services.myPlace({
 						
 					}).success(function(data){
 						adver.adList = data.list;
+					});
+				}else if ($location.path().indexOf('/updateAd') == 0) {
+					var adId=sessionStorage.getItem("adId");
+					services.selectAdverInfo({
+						ad_id : adId
+					}).success(function(data) {
+						$scope.ADLimit = data.list;
+						
 					});
 				}
 			}

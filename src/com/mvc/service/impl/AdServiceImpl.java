@@ -61,8 +61,4 @@ public class AdServiceImpl implements AdService {
 	public List<Ad> findMyPlaceAdAll(String openId) {	
 		return adRepository.findMyPlaceAdAll(openId);
 	}
-
-	
-	
-
 }
