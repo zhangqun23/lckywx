@@ -8,7 +8,6 @@
 package com.mvc.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
@@ -22,8 +21,11 @@ import com.mvc.entiy.TravelTrade;
 public interface TravelService {
 	List<Travel> findTravelAlls();//直接查询
 	
-	List<TravelTrade> saveTravelTrade(TravelTrade travelTrade);//旅游交易
+	TravelTrade saveTravelTrade(TravelTrade travelTrade);//旅游交易
 	
 	//根据id查找travel
 	Travel findTravelById(String travelid);
+
+	//更新剩余票数
+	void updateTravel(String travel_id, Integer total_num);
 }
