@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -215,6 +219,38 @@ public class TruckDriverController {
 	
 	/**
 	 * 货主查询车辆根据目的地，出发时间
-	 * 
+	 * @param request
+	 * return list
 	 */
+	@RequestMapping("")
+	public @ResponseBody String aa (HttpServletRequest request){
+		String trse_eplace = request.getParameter(""); 
+		String startTime  = request.getParameter("");
+		String endTime = request.getParameter("");
+		Map<String, Object>map = new HashMap<String,Object>();
+		map.put("trse_eplace", trse_eplace);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		List<Truck_send> list = truckDriverService.findTruckSend(map);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	/**
+	 * 车主查询货源根据始发地、目的地，出发时间
+	 */
+	@RequestMapping("")
+	public @ResponseBody String bb (HttpServletRequest request){
+		String trne_eplace = request.getParameter(""); 
+		String startTime  = request.getParameter("");
+		String endTime = request.getParameter("");
+		Map<String, Object>map = new HashMap<String,Object>();
+		map.put("trne_eplace", trne_eplace);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		List<Truck_need> list = truckDriverService.findTruckNeed(map);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
 }
