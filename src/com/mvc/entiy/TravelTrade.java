@@ -16,12 +16,14 @@ import javax.persistence.Table;
 @Table(name="travel_trade")
 public class TravelTrade {
 private Integer trtr_id;//交易ID
+private String trtr_num;//商户订单号
 private String trtr_tel;//客户联系方式
 private Float trtr_price;//交易额
 private Integer trtr_mnum;//购买的成人票数
 private Integer trtr_cnum;//购买的儿童票数
 private Travel travel_id;//外键
-private User user_id;//外键
+private Integer is_state;//付款状态
+private String open_id;//外键
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTrtr_id() {
@@ -66,12 +68,22 @@ public Travel getTravel_id() {
 public void setTravel_id(Travel travel_id) {
 	this.travel_id = travel_id;
 }
-@ManyToOne
-@JoinColumn(name="user_id")
-public User getUser_id() {
-	return user_id;
+public String getOpen_id() {
+	return open_id;
 }
-public void setUser_id(User user_id) {
-	this.user_id = user_id;
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
+}
+public String getTrtr_num() {
+	return trtr_num;
+}
+public void setTrtr_num(String trtr_num) {
+	this.trtr_num = trtr_num;
+}
+public Integer getIs_state() {
+	return is_state;
+}
+public void setIs_state(Integer is_state) {
+	this.is_state = is_state;
 }
 }

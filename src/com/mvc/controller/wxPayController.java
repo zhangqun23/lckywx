@@ -30,16 +30,27 @@ public class wxPayController {
 	public @ResponseBody String jspay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("payNeed"));
-		String travelid = jsonObject.getString("travelid");
-		String trtr_mnum = jsonObject.getString("trtr_mnum");
-		String trtr_cnum = jsonObject.getString("trtr_cnum");
+		String travelid = request.getParameter("travelid");
+		Integer trtr_mnum = Integer.parseInt(jsonObject.getString("trtr_mnum"));
+		Integer trtr_cnum = Integer.parseInt(jsonObject.getString("trtr_cnum"));
 		Travel travel = travelService.findTravelById(travelid);
+		
+		JSONObject json = new JSONObject();
+		if(trtr_mnum+trtr_cnum>travel.getTravel_left_num()){
+			String e = "剩余票数不足";
+			json.put("e", e);
+			return json.toString();
+		}
 		String attach = travel.getTravel_title();
 		Float mprice = travel.getTravel_mprice();
 		Float cprice = travel.getTravel_cprice();
-		float total_fee = Integer.parseInt(trtr_mnum)*mprice+Integer.parseInt(trtr_cnum)*cprice;
+		String out_trade_no = wxPayUtil.getTradeNo();
+		float total_fee = trtr_mnum*mprice+trtr_cnum*cprice;
+		json.put("total_fee", total_fee);
+		json.put("out_trade_no", out_trade_no);
+		return json.toString();
 		
-		String openid = SessionUtil.getOpenid(request);
+/*		String openid = SessionUtil.getOpenid(request);
 		String out_trade_no = wxPayUtil.getTradeNo();
 		String nonce_str = wxPayUtil.create_nonce_str();
 		//获取沙箱秘钥，沙箱测试说明：金额必须为101；之后使用的key值都为沙箱秘钥；前台js调用接口不能成功，会显示缺少参数total_fee
@@ -94,8 +105,10 @@ public class wxPayController {
 		json.put("pg", prepay_id);
 		json.put("signType", wxPayConstants.SIGNTYPE);
 		json.put("paySign", paySign);
+		json.put("out_trade_no",out_trade_no);
+		json.put("total_fee",total_fee);
 		System.out.println(json.toString());
-		return json.toString();
+		return json.toString();*/
 	}
 	
 		

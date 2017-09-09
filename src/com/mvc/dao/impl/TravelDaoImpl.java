@@ -75,15 +75,4 @@ public class TravelDaoImpl implements TravelDao{
 		em.close();
 		return list;
 	}
-	//添加或修改交易信息
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
-		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel_trade where travel.travel_id=:travel_id";
-		Query query = em.createNativeQuery(sql.toString(),TravelTrade.class);
-		List<TravelTrade> list = query.getResultList();
-		em.close();
-		return list;
-	}
 }
