@@ -1,14 +1,11 @@
 package com.mvc.entiy;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +24,7 @@ private Date trne_time;//需求时间
 private Integer trne_check;//0代表未审核，1代表已审核
 private String trne_remark;//备注
 private Integer is_freeze;//0代表未冰冻，1代表冰冻
-private User user;//外键
+private String open_id; //openid
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -119,13 +116,12 @@ public Integer getIs_freeze() {
 public void setIs_freeze(Integer is_freeze) {
 	this.is_freeze = is_freeze;
 }
+@Column(name = "open_id",length = 128)
+public String getOpen_id() {
+	return open_id;
+}
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
+}
 
-@ManyToOne
-@JoinColumn(name="user_id")
-public User getUser() {
-	return user;
-}
-public void setUser(User user) {
-	this.user = user;
-}
 }

@@ -76,11 +76,15 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/myPlace', {
 		templateUrl : '/lckywx/jsp/adver/myPlace.html', // 新加内容（ghl）
 		controller : 'PlatformController'
+	}).when('/updateAd',{
+		templateUrl : '/lckywx/jsp/adver/updateAd.html',
+		controller : 'PlatformController'
 	})
 } ]);
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加上
 	var services = {};
+	//添加广告的后台方法
 	services.addAdver = function(data) {
 		return $http({
 			method : 'post',
@@ -88,6 +92,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
+	//根据type查询广告的后台方法
 	services.selectAdver = function(data) {
 		return $http({
 			method : 'post',
@@ -95,6 +100,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
+	//根据Id查询广告的后台方法
 	services.selectAdverInfo = function(data) { // 加上
 		return $http({
 			method : 'post',
@@ -102,15 +108,30 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) { // 加�
 			data : data
 		});
 	};
-	// 新加内容（ghl）
+	//我的发布广告查询的后台方法
 	services.myPlace = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'ad/myPlace.do',
 			data : data
-		})
-	}
-
+		});
+	};
+	//删除广告的后台方法
+	services.deleteAd =  function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/deleteAd.do',
+			data : data
+		});
+	};
+	//修改广告的后台方法
+	services.modifyAd =  function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/modifyAd.do',
+			data : data
+		});
+	};
 	return services;
 } ]);
 
@@ -128,7 +149,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			adver.ADSLimit = {
 				ad_type : "请选择"
 			}
-			// 我的发布查询
+			// 我的发布查询条件
 			adver.ADOLimit = {
 				ad_type : "请选择",
 				ad_state : "1"
@@ -148,7 +169,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					} else {
 						alert("否");
 					}
-					$location.path('selectAder/' + data);
+					$location.path('myPlace/');
 
 				});
 			}
@@ -167,7 +188,6 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			// 根据openId查询广告
 			adver.myPlace = function() {
 				var adLimit = JSON.stringify(adver.ADOLimit);
-				console.log(adLimit);
 				if (adver.ADOLimit.ad_type == "请选择") {
 					alert("请输入广告类型！")
 				}
@@ -177,10 +197,39 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					adver.adList = data.list;
 				});
 			}
+			//根据Id查询广告内容
 			adver.selectAderInfo = function(adId) {
 				$location.path('selectAdverInfo/' + adId);
 			}
-			// 初始化
+			//删除广告
+			adver.deleteAd = function (ad_id,ad_title){
+				if(confirm("确定删除此广告<"+ad_title+">")){
+					services.deleteAd({
+						adId : ad_id
+					}).success(function(data){
+						$location.path('myPlace/');
+					});
+				}else{
+					return null;
+				}	
+			}  
+			//根据id的到ad信息用来修改广告
+			adver.getAdById = function (adId){
+				sessionStorage.setItem("adId",adId);
+				$location.path('updateAd/');
+			}
+			//修改广告
+			adver.modifyAd = function() {
+				alert("修改")
+				var adLimit = JSON.stringify(adver.ADLimit);
+				services.modifyAd({
+					ad : adLimit,
+					ad_id : sessionStorage.getItem("adId")
+				}).success(function(data) {
+					$location.path('myPlace/');
+				});
+			 }
+			//初始化
 			function initData() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/selectAdver') == 0) {
@@ -190,11 +239,17 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 						adver.adList = data.list;
 					});
 				} else if ($location.path().indexOf('/myPlace') == 0) {
-					alert("ssdfs")
 					services.myPlace({
 						
 					}).success(function(data){
 						adver.adList = data.list;
+					});
+				}else if ($location.path().indexOf('/updateAd') == 0) {
+					var adId=sessionStorage.getItem("adId");
+					services.selectAdverInfo({
+						ad_id : adId
+					}).success(function(data) {
+						$scope.ADLimit = data.list;
 					});
 				}
 			}

@@ -28,6 +28,7 @@ private String ad_remark;//广告备注
 private String ad_content;//广告内容
 private Boolean is_delete;// 是否删除1表示未删除，0表示删除
 private Date   ad_stime;//获取发布时的时间
+private Date   ad_etime;//广告截止时间
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "ad_id",unique = true, nullable = false, length = 10)
@@ -122,6 +123,13 @@ public Date getAd_stime() {
 public void setAd_stime(Date ad_stime) {
 	this.ad_stime = ad_stime;
 }
+public Date getAd_etime() {
+	return ad_etime;
+}
+public void setAd_etime(Date ad_etime) {
+	this.ad_etime = ad_etime;
+}
+
 
 }
 
