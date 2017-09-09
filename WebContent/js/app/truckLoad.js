@@ -66,13 +66,13 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 //路由配置
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/truckDriver', {
-		templateUrl : '/lckywx/jsp/truckDriver/truckDriver.html',
+		templateUrl : '/lckywx/jsp/truckLoad/truckDriver.html',
 		controller : 'TruckLoadController'
 	}).when('/truckNeed', {
-		templateUrl : '/lckywx/jsp/truckNeed/truckNeed.html',
+		templateUrl : '/lckywx/jsp/truckLoad/truckNeed.html',
 		controller : 'TruckLoadController'
 	}).when('/truckSend', {
-		templateUrl : '/lckywx/jsp/truckSend/truckSend.html',
+		templateUrl : '/lckywx/jsp/truckLoad/truckSend.html',
 		controller : 'TruckLoadController'
 	})		
 } ]);
@@ -81,7 +81,7 @@ app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
-	services.addTruckDriver = function(data) {
+	services.addtruckDriver = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckDriver.do',
@@ -89,7 +89,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	//添加货车货运信息
-	services.addTruckSend = function(data) {
+	services.addtruckSend = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckSend.do',
@@ -97,7 +97,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	//添加货车货运信息
-	services.addTruckNeed = function(data) {
+	services.addtruckNeed = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckNeed.do',
@@ -114,8 +114,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              truckDrSdNd.truckLimit = {
                  trck_load : "",
                  is_freeze : ""  // 0代表未冷冻，1代表冷冻
-             }
-             
+             }             
              // pg添加车主+货车信息
              truckDrSdNd.driverLimit = {
             	 driver_name : "",
@@ -138,8 +137,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  trse_eplace : "",
                  trse_price : "",
                  trse_time : ""
-             } 
-                 
+             }                
              truckDrSdNd.trneLimit = {
                  trne_name : "",
                  trne_tel : "",
@@ -152,10 +150,13 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  is_freeze : ""
              }
              // pg添加货车+司机的信息
-             truckDriver.addtruckDriver = function() {
+             truckDrSdNd.addtruckDriver = function() {
             	 console.log("你太调皮了");
+            	 alert("sdfsd")
                  var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
-                 var driverLimit = JSON.stringify(truckDrSdNd.trseLimit);
+                 var driverLimit = JSON.stringify(truckDrSdNd.driverLimit);
+                 console.log(truckLimit);
+                 console.log(driverLimit);
                      services.addtruckDriver({
                     	 truckInfo : truckLimit,
                     	 driverInfo : driverLimit
@@ -166,7 +167,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                      });
              }
              // pg添加货主需求信息
-             truckDriver.addTruckSend = function() {
+             truckDrSdNd.addtruckSend = function() {
             	 console.log("你太调皮了");
                  var truckLimit = JSON.stringify(truckDrSdNd.trseLimit);
                      services.addTruckSend({
@@ -177,7 +178,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                      });
              }
              // pg添加发货需求信息
-             truckDriver.addTruckNeed = function() {
+             truckDrSdNd.addtruckNeed = function() {
             	 console.log("你太调皮了");
                  var truckLimit = JSON.stringify(truckDrSdNd.trneLimit);
                      services.addTruckNeed({
@@ -192,7 +193,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              function initPage() {
                  console.log("初始化页面信息");
                  if ($location.path().indexOf('/truckDriver') == 0) {
-                                  		
+                       alert("初始化")           		
                  } else if ($location.path().indexOf('/truckSend') == 0) {
 
                  } else if ($location.path().indexOf('/truckNeed') == 0) {

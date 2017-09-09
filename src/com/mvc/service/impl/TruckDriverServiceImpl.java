@@ -1,8 +1,12 @@
 package com.mvc.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mvc.dao.TruckDriverDao;
 import com.mvc.entiy.Driver;
 import com.mvc.entiy.Truck;
 import com.mvc.entiy.Truck_need;
@@ -28,6 +32,9 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	TruckSendRepository truckSendRepository;
 	@Autowired
 	TruckNeedRepository truckNeedRepository;
+	@Autowired
+	TruckDriverDao truckDriverDao;
+	
 	//添加货车车主基本信息
 	@Override
 	public Driver addDriver(Driver driver) {
@@ -67,6 +74,16 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 		}else{
 			return null;
 		}
+	}
+	//货主查询车辆根据目的地，出发时间
+	@Override
+	public List<Truck_send> findTruckSend(Map<String, Object> map) {
+		return truckDriverDao.finByUsertime(map);
+	}
+	//车主查询货源根据始发地、目的地，出发时间
+	@Override
+	public List<Truck_need> findTruckNeed(Map<String, Object> map) {
+		return truckDriverDao.findByUsertime(map);
 	}
 	
 }

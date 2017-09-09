@@ -221,7 +221,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			//修改广告
 			adver.modifyAd = function() {
 				alert("修改")
-				var adLimit = JSON.stringify(adver.ADLimit);
+				var adLimit = JSON.stringify(adver.ADQLimit);
 				services.modifyAd({
 					ad : adLimit,
 					ad_id : sessionStorage.getItem("adId")
@@ -249,7 +249,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					services.selectAdverInfo({
 						ad_id : adId
 					}).success(function(data) {
-						$scope.ADLimit = data.list;
+						$scope.ADQLimit = data.list;
 					});
 				}
 			}
