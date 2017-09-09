@@ -1,4 +1,4 @@
-package com.base.constants;
+package com.mvc.constants;
 
 /**
  * 微信支付相关常量，做到开箱即用 

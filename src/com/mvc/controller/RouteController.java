@@ -104,6 +104,10 @@ public class RouteController extends HttpServlet {
 		return "myTrade/index";
 	}
 	
+	@RequestMapping("/toTruckDriverPage.do")
+	public String toTruckDriverPage() {
+		return "truckDriver/index";
+	}
 	
 
 
