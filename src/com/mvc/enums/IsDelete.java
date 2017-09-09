@@ -1,4 +1,4 @@
-package com.base.enums;
+package com.mvc.enums;
 
 /**
  * 合同类型

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.base.enums.IsDelete;
+import com.mvc.enums.IsDelete;
 import com.mvc.dao.BusNeedDao;
 import com.mvc.entiy.BusNeed;
 import com.mvc.entiy.BusTrade;
