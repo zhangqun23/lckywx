@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Ad;
+import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
@@ -80,23 +81,33 @@ public class AdController {
 		}
 		Date getDate = new Date();
 		ad.setAd_stime(getDate);
-		ad.setIs_delete(true);
+		ad.setIs_delete(true);	
 		ad.setAd_state(1);
 		String openid = SessionUtil.getOpenid(request);
 		ad.setOpen_id(openid);
-		Ad result = null;
-		if (jsonObject.containsKey("ad_id")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_id"))){
-				ad.setAd_id(Integer.valueOf(jsonObject.getString("ad_id")));
-				result = adService.saveAd(ad);// 修改广告	
-			}
-		} else {
-			result = adService.saveAd(ad);// 添加广告
-		}
+		Ad result = adService.saveAd(ad);	
 		JSONObject limit = new JSONObject();
 		limit.put("result", result);
 		return limit.toString(); 
 	}
+	/**
+	 * 添加，修改广告
+	 * 
+	 * @param request
+	 * @param session
+	 * @return  ad对象
+	 * @throws ParseException
+	 */
+	@RequestMapping("/modifyAd.do")
+	public @ResponseBody String modifyAd(HttpServletRequest request, HttpSession session) {
+		Integer adId = Integer.parseInt(request.getParameter("ad_id"));
+		JSONObject jsonObject= JSONObject.fromObject(request.getParameter("ad"));
+		Ad result = adService.saveAdRpeat(jsonObject,adId);
+		JSONObject limit = new JSONObject();
+		limit.put("result", result);
+		return limit.toString();	
+	}
+	
 
 	/**
 	 * 广告查询

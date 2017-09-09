@@ -9,6 +9,9 @@ import com.mvc.dao.AdDao;
 import com.mvc.entiy.Ad;
 import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
+import com.utils.StringUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 广告
@@ -30,6 +33,60 @@ public class AdServiceImpl implements AdService {
 			return result ;
 		else
 			return null ;
+	}
+	//修改广告
+	@Override
+	public Ad saveAdRpeat(JSONObject jsonObject, Integer adId) {
+		Ad ad = adRepository.findAdById(adId);
+		if (ad!=null) {
+			try {
+				if (jsonObject.containsKey("ad_type")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_type"))){
+					ad.setAd_type(Integer.parseInt(jsonObject.getString("ad_type")));
+					}
+				}
+				if (jsonObject.containsKey("ad_name")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_name"))){
+						ad.setAd_name(jsonObject.getString("ad_name"));
+					}
+				}
+				if (jsonObject.containsKey("ad_tel")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_tel"))){
+						ad.setAd_tel(jsonObject.getString("ad_tel"));
+					}	
+				}
+				if (jsonObject.containsKey("ad_title")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_title"))){
+						ad.setAd_title(jsonObject.getString("ad_title"));
+					}
+				}
+			/*	if (jsonObject.containsKey("ad_pic_path")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_pic_path"))){
+						ad.setAd_pic_path(jsonObject.getString("ad_pic_path"));
+					}
+				}*/
+				if (jsonObject.containsKey("ad_remark")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_remark"))){
+						ad.setAd_remark(jsonObject.getString("ad_remark"));
+					}else{
+						ad.setAd_remark("");
+					}
+				}
+				if (jsonObject.containsKey("ad_content")){
+					if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_content"))){
+						ad.setAd_content(jsonObject.getString("ad_content"));
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		ad = adRepository.saveAndFlush(ad);
+		if (ad.getAd_id()!=null) {
+			return ad;
+		}else{
+			return null;
+		}
 	}
 	//类型为空返回全部广告
 	@Override
@@ -61,8 +118,5 @@ public class AdServiceImpl implements AdService {
 	public List<Ad> findMyPlaceAdAll(String openId) {	
 		return adRepository.findMyPlaceAdAll(openId);
 	}
-
-	
-	
 
 }
