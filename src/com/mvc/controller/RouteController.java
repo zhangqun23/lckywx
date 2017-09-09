@@ -98,7 +98,6 @@ public class RouteController extends HttpServlet {
 		return "adver/index";
 	}
 
-	
 	@RequestMapping("/toMyTradePage.do")
 	public String toMyTradePage() {
 		return "myTrade/index";
@@ -106,7 +105,7 @@ public class RouteController extends HttpServlet {
 	
 	@RequestMapping("/toTruckDriverPage.do")
 	public String toTruckDriverPage() {
-		return "truckDriver/index";
+		return "truckLoad/index";
 	}
 	
 

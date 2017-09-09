@@ -114,7 +114,7 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/addTruckSend.do")
 	public @ResponseBody String addTruckSend (HttpServletRequest request) throws ParseException{
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter(""));
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trneInfo"));
 		Truck_send truckSend = new Truck_send();
 		if (jsonObject.containsKey("trse_left_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_left_load"))) {
@@ -159,7 +159,7 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/addTruckNeed.do")
 	public @ResponseBody String addTruckNeed (HttpServletRequest request ) throws ParseException{
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("truckNeed"));
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trneInfo"));
 		Truck_need truckNeed = new Truck_need();
 		if (jsonObject.containsKey("trne_name")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trne_name"))) {
@@ -222,11 +222,11 @@ public class TruckDriverController {
 	 * @param request
 	 * return list
 	 */
-	@RequestMapping("")
+	@RequestMapping("/aa.do")
 	public @ResponseBody String aa (HttpServletRequest request){
-		String trse_eplace = request.getParameter(""); 
-		String startTime  = request.getParameter("");
-		String endTime = request.getParameter("");
+		String trse_eplace = request.getParameter("g"); 
+		String startTime  = request.getParameter("h");
+		String endTime = request.getParameter("l");
 		Map<String, Object>map = new HashMap<String,Object>();
 		map.put("trse_eplace", trse_eplace);
 		map.put("startTime", startTime);
@@ -239,11 +239,11 @@ public class TruckDriverController {
 	/**
 	 * 车主查询货源根据始发地、目的地，出发时间
 	 */
-	@RequestMapping("")
+	@RequestMapping("/bb.do")
 	public @ResponseBody String bb (HttpServletRequest request){
-		String trne_eplace = request.getParameter(""); 
-		String startTime  = request.getParameter("");
-		String endTime = request.getParameter("");
+		String trne_eplace = request.getParameter("g"); 
+		String startTime  = request.getParameter("h");
+		String endTime = request.getParameter("l");
 		Map<String, Object>map = new HashMap<String,Object>();
 		map.put("trne_eplace", trne_eplace);
 		map.put("startTime", startTime);
