@@ -65,7 +65,10 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 
 //路由配置
 app.config([ '$routeProvider', function($routeProvider) {
-	$routeProvider.when('/truckDriver', {
+	$routeProvider.when('/truckGoods', {
+		templateUrl : '/lckywx/jsp/truckLoad/truckGoods.html',
+		controller : 'TruckLoadController'
+	}).when('/truckDriver', {
 		templateUrl : '/lckywx/jsp/truckLoad/truckDriver.html',
 		controller : 'TruckLoadController'
 	}).when('/truckNeed', {
@@ -197,6 +200,8 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 
                  } else if ($location.path().indexOf('/truckNeed') == 0) {
                 
+                 }else if ($location.path().indexOf('/truckGoods') == 0) {
+              
                  }
              }
               initPage();
