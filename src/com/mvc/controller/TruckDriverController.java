@@ -100,6 +100,10 @@ public class TruckDriverController {
 		truck.setTrck_check(0);
 		Driver result = truckDriverService.addDriver(driver);
 		truck.setDriver(result);
+		truck.setTrck_score("0");
+		truck.setTrck_num(1);
+		//String openId = SessionUtil.getOpenid(request);
+		//truck.setOpen_id(openId);
 		Truck limint = truckDriverService.addTruck(truck);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
@@ -114,7 +118,7 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/addTruckSend.do")
 	public @ResponseBody String addTruckSend (HttpServletRequest request) throws ParseException{
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trneInfo"));
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trseInfo"));
 		Truck_send truckSend = new Truck_send();
 		if (jsonObject.containsKey("trse_left_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_left_load"))) {
@@ -143,14 +147,13 @@ public class TruckDriverController {
 				truckSend.setTrse_time(date);
 			}
 		}
-		Truck truck = new Truck();
-		truck.setTrck_id(Integer.parseInt(request.getParameter("trck_id")));
-		truckSend.setTruck(truck);
+		String  openId = SessionUtil.getOpenid(request);
+		truckSend.setTruck(truckDriverService.findTruck(openId));
 		Truck_send result = truckDriverService.addTruckSend(truckSend);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		return jsonO.toString();
-	}
+	} 
 	/**
 	 * 添加货主基本需求信息
 	 * @param request
@@ -216,7 +219,8 @@ public class TruckDriverController {
 		jsonO.put("result", result);
 		return jsonO.toString();
 	}
-	
+
+
 	/**
 	 * 货主查询车辆根据目的地，出发时间
 	 * @param request

@@ -2,6 +2,8 @@ package com.mvc.entiy;
 
 
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="truck")
-public class Truck {
+public class Truck implements Serializable {
+private static final long serialVersionUID = 1L;
 private Integer trck_id;//货车id，主键
 private Float trck_load;//货车载重，以吨为单位
 private Integer is_freeze;//0代表未冷冻，1代表冷冻
@@ -22,7 +25,7 @@ private Integer trck_num;//交易次数
 private String trck_score;//评分
 private Integer trck_check;//0代表未通过审核，1代表已通过审核
 private Driver driver;//外键
-
+private String open_id; //openid
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "trck_id",unique = true, nullable = false, length = 11)
@@ -78,7 +81,17 @@ public void setTrck_check(Integer trck_check) {
 public Driver getDriver() {
 	return driver;
 }
+
+@Column(name = "open_id",length = 128)
 public void setDriver(Driver driver) {
 	this.driver = driver;
 }
+public String getOpen_id() {
+	return open_id;
+}
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
+}
+
+
 }
