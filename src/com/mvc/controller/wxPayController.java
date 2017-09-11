@@ -17,6 +17,7 @@ import com.mvc.entiy.Travel;
 import com.mvc.service.TravelService;
 import com.utils.HttpKit;
 import com.utils.SessionUtil;
+import com.utils.StringUtil;
 import com.utils.wxPayUtil;
 
 @Controller
@@ -25,14 +26,25 @@ public class wxPayController {
 	
 	@Autowired
 	TravelService travelService;
-
-	@RequestMapping("/requestPay.do")
-	public @ResponseBody String jspay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
+	
+	@RequestMapping("/travelPay.do")
+	public @ResponseBody String travelPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("payNeed"));
 		String travelid = request.getParameter("travelid");
-		Integer trtr_mnum = Integer.parseInt(jsonObject.getString("trtr_mnum"));
-		Integer trtr_cnum = Integer.parseInt(jsonObject.getString("trtr_cnum"));
+		Integer trtr_mnum = 0;
+		Integer trtr_cnum = 0;
+		if (jsonObject.containsKey("trtr_mnum")) {
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_mnum"))){
+				trtr_mnum = Integer.parseInt(jsonObject.getString("trtr_mnum"));
+			}
+		}
+		if (jsonObject.containsKey("trtr_cnum")) {
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_cnum"))){
+				trtr_cnum = Integer.parseInt(jsonObject.getString("trtr_cnum"));
+			}
+		}
+
 		Travel travel = travelService.findTravelById(travelid);
 		
 		JSONObject json = new JSONObject();
@@ -46,9 +58,19 @@ public class wxPayController {
 		Float cprice = travel.getTravel_cprice();
 		String out_trade_no = wxPayUtil.getTradeNo();
 		float total_fee = trtr_mnum*mprice+trtr_cnum*cprice;
+		Map<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("attach", attach);
+		paraMap.put("total_fee", String.valueOf(total_fee*100));
+		paraMap.put("body", wxPayConstants.TRAVELBODY);
+		String result = jspay(paraMap, request, responest);
 		json.put("total_fee", total_fee);
 		json.put("out_trade_no", out_trade_no);
 		return json.toString();
+	}
+
+	@RequestMapping("/requestPay.do")
+	public @ResponseBody String jspay(Map paraMap, HttpServletRequest request, HttpServletResponse responest) throws Exception{
+		return null;
 		
 /*		String openid = SessionUtil.getOpenid(request);
 		String out_trade_no = wxPayUtil.getTradeNo();
