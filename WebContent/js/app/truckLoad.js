@@ -80,8 +80,8 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
-	
-	services.addtruckDriver = function(data) {
+	//添加司机货车信息
+	services.addTruckDriver = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckDriver.do',
@@ -89,7 +89,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	//添加货车货运信息
-	services.addtruckSend = function(data) {
+	services.addTruckSend = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckSend.do',
@@ -97,7 +97,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	//添加货车货运信息
-	services.addtruckNeed = function(data) {
+	services.addTruckNeed = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckNeed.do',
@@ -113,7 +113,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
          var truckDrSdNd = $scope;
              truckDrSdNd.truckLimit = {
                  trck_load : "",
-                 is_freeze : ""  // 0代表未冷冻，1代表冷冻
+                 is_freeze : "0"  // 0代表未冷冻，1代表冷冻
              }             
              // pg添加车主+货车信息
              truckDrSdNd.driverLimit = {
@@ -133,7 +133,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              
              truckDrSdNd.trseLimit = {
                  trse_left_load : "",
-                 trse_splace : "",
+                 trse_splace : "洛川",
                  trse_eplace : "",
                  trse_price : "",
                  trse_time : ""
@@ -143,21 +143,19 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  trne_tel : "",
                  trne_type : "",
                  trne_weight : "",
-                 trne_splace : "",
+                 trne_splace : "洛川",
                  trne_eplace : "",
                  trne_time : "",
                  trne_remark : "",
-                 is_freeze : ""
+                 is_freeze : "0"
              }
              // pg添加货车+司机的信息
-             truckDrSdNd.addtruckDriver = function() {
+             truckDrSdNd.addTruckDriver = function() {
             	 console.log("你太调皮了");
-            	 alert("sdfsd")
                  var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
                  var driverLimit = JSON.stringify(truckDrSdNd.driverLimit);
-                 console.log(truckLimit);
-                 console.log(driverLimit);
-                     services.addtruckDriver({
+                 console.log(truckLimit)
+                     services.addTruckDriver({
                     	 truckInfo : truckLimit,
                     	 driverInfo : driverLimit
                      }).success(function(data) {
@@ -167,22 +165,23 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                      });
              }
              // pg添加货主需求信息
-             truckDrSdNd.addtruckSend = function() {
+             truckDrSdNd.addTruckSend = function() {
             	 console.log("你太调皮了");
                  var truckLimit = JSON.stringify(truckDrSdNd.trseLimit);
+                 console.log(truckLimit);
                      services.addTruckSend({
-                    	 trneInfo : trseLimit
+                    	 trseInfo : truckLimit
                      }).success(function(data) {
                          sessionStorage.setItem("trseId", data.result.trse_id);
                          $location.path("truckSend");
                      });
              }
              // pg添加发货需求信息
-             truckDrSdNd.addtruckNeed = function() {
+             truckDrSdNd.addTruckNeed = function() {
             	 console.log("你太调皮了");
                  var truckLimit = JSON.stringify(truckDrSdNd.trneLimit);
                      services.addTruckNeed({
-                    	 trneInfo : trneLimit
+                    	 trneInfo : truckLimit
                      }).success(function(data) {
                          sessionStorage.setItem("trneId", data.result.trne_id);
                          $location.path("truckNeed");
@@ -193,11 +192,11 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              function initPage() {
                  console.log("初始化页面信息");
                  if ($location.path().indexOf('/truckDriver') == 0) {
-                       alert("初始化")           		
+                	 
                  } else if ($location.path().indexOf('/truckSend') == 0) {
 
                  } else if ($location.path().indexOf('/truckNeed') == 0) {
-                 
+                
                  }
              }
               initPage();

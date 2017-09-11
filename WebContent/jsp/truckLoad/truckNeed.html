@@ -42,7 +42,7 @@
 				<div class="item-name">始发地：</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="trneLimit.trne_splace" placeholder="洛川" required>
+						<input type="text" ng-model="trneLimit.trne_splace"  required>
 					</div>
 				</div>
 			</li>
@@ -57,14 +57,16 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">需求时间：</div>
-				<div class="item-value">
-					<div class="input-wrap">
-						<input type="text" ng-model="trneLimit.trne_time" required>
-					</div>
-				</div>
-			</li>
-			
+                    <div class="item-name">需求时间：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                        <input type="text" ng-model="trneLimit.trne_time"
+					class="dfselect dateLayoutStyle" 
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
+                        </div> 
+                    </div>
+            </li>
+            
 			<div style="width:127px;margin:auto;" >
 				<input type="radio" name="radio" ng-model="trneLimit.is_freeze" ng-value="0" style="-webkit-appearance:radio;"><span>不冰冻</span>
 				<input type="radio" name="radio" ng-model="trneLimit.is_freeze" ng-value="1" style="-webkit-appearance:radio;"><span>冰冻</span>

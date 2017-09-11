@@ -85,5 +85,11 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	public List<Truck_need> findTruckNeed(Map<String, Object> map) {
 		return truckDriverDao.findByUsertime(map);
 	}
+	//根据openid查询truck对象
+	@Override
+	public Truck findTruck(String openId) {
+		return truckRepository.findTruck(openId);
+	}
+
 	
 }
