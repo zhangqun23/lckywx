@@ -100,7 +100,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	services.addTravelTrade = function(data){
 		return $http({
 			method : 'post' ,
-			url : baseUrl + 'pay/requestPay.do',
+			url : baseUrl + 'pay/travelPay.do',
 			data : data
 		});
 	}
@@ -196,16 +196,7 @@ app.controller('PlatformController', [
 					travelid : travel_id
 				}).success( function(data){
 					if (data.e != null){alert(data.e)}
-					else{
-						services.saveTravelTrade({
-				    		   tradeNeed : payLimit,
-				    		   out_trade_no : data.out_trade_no,
-				    		   total_fee : data.total_fee,
-				    		   travelidbuy : sessionStorage.getItem("travel_id_buy")
-				    	   }).success(function (data){
-				    		   alert("成功保存")
-					})
-					}
+
 				})
 			}
 				

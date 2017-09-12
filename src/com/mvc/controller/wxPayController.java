@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.sf.json.JSONObject;
 import com.base.constants.wxPayConstants;
 import com.mvc.entiy.Travel;
+import com.mvc.entiy.TravelTrade;
 import com.mvc.service.TravelService;
-import com.utils.HttpKit;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
 import com.utils.wxPayUtil;
@@ -26,14 +26,16 @@ public class wxPayController {
 	
 	@Autowired
 	TravelService travelService;
-	
+
 	@RequestMapping("/travelPay.do")
 	public @ResponseBody String travelPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		
+		String openid = SessionUtil.getOpenid(request);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("payNeed"));
 		String travelid = request.getParameter("travelid");
 		Integer trtr_mnum = 0;
 		Integer trtr_cnum = 0;
+		String trtr_tel = null;
 		if (jsonObject.containsKey("trtr_mnum")) {
 			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_mnum"))){
 				trtr_mnum = Integer.parseInt(jsonObject.getString("trtr_mnum"));
@@ -43,6 +45,11 @@ public class wxPayController {
 			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_cnum"))){
 				trtr_cnum = Integer.parseInt(jsonObject.getString("trtr_cnum"));
 			}
+		}
+		if (jsonObject.containsKey("trtr_tel")) {
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_tel"))){
+				trtr_tel = jsonObject.getString("trtr_tel");
+			}	
 		}
 
 		Travel travel = travelService.findTravelById(travelid);
@@ -58,6 +65,17 @@ public class wxPayController {
 		Float cprice = travel.getTravel_cprice();
 		String out_trade_no = wxPayUtil.getTradeNo();
 		float total_fee = trtr_mnum*mprice+trtr_cnum*cprice;
+		
+		TravelTrade travelTrade = new TravelTrade();;
+		travelTrade.setTravel_id(travel);
+		travelTrade.setTrtr_cnum(trtr_cnum);
+		travelTrade.setTrtr_mnum(trtr_mnum);
+		travelTrade.setTrtr_price(total_fee);
+		travelTrade.setTrtr_tel(trtr_tel);
+		travelTrade.setTrtr_num(out_trade_no);
+		travelTrade.setOpen_id(openid);
+		travelService.saveTravelTrade(travelTrade);
+		
 		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("attach", attach);
 		paraMap.put("total_fee", String.valueOf(total_fee*100));
