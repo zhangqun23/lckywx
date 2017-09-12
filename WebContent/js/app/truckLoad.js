@@ -107,6 +107,22 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	//获取货车信息
+	services.selectTruckInfo = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectTruckInfo.do',
+			data : data
+		});
+	};
+	//获取货物信息
+	services.selectGoodsInfo = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectGoodsInfo.do',
+			data : data
+		});
+	};
 
 	return services;
 } ]);
@@ -152,6 +168,14 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  trne_remark : "",
                  is_freeze : "0"
              }
+             truckDrSdNd.gotLimit={
+				 startDate:"",
+				 endDate:""
+				}
+             truckDrSdNd.gotLimits={
+    				 startDate:"",
+    				 endDate:""
+    				}
              // pg添加货车+司机的信息
              truckDrSdNd.addTruckDriver = function() {
             	 console.log("你太调皮了");
@@ -190,7 +214,22 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                          $location.path("truckNeed");
                      });
              }
-             
+             // 查询货车需求信息
+             truckDrSdNd.selectTruckInfo = function() {
+ 				services.selectTruckInfo({
+ 					trk: gotLimit
+ 				}).success(function(data) {
+ 					truckDrSdNd.truckInfoList = data.list;
+ 				});
+ 			}
+             // 查询货车需求信息
+             truckDrSdNd.selectGoodsInfo = function() {
+ 				services.selectGoodsInfo({
+ 					goods: gotLimits
+ 				}).success(function(data) {
+ 					truckDrSdNd.goodsInfoList = data.list;
+ 				});
+ 			}
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");
