@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,6 +100,10 @@ public class TruckDriverController {
 		truck.setTrck_check(0);
 		Driver result = truckDriverService.addDriver(driver);
 		truck.setDriver(result);
+		truck.setTrck_score("0");
+		truck.setTrck_num(1);
+		//String openId = SessionUtil.getOpenid(request);
+		//truck.setOpen_id(openId);
 		Truck limint = truckDriverService.addTruck(truck);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
@@ -110,7 +118,7 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/addTruckSend.do")
 	public @ResponseBody String addTruckSend (HttpServletRequest request) throws ParseException{
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter(""));
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trseInfo"));
 		Truck_send truckSend = new Truck_send();
 		if (jsonObject.containsKey("trse_left_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_left_load"))) {
@@ -139,14 +147,13 @@ public class TruckDriverController {
 				truckSend.setTrse_time(date);
 			}
 		}
-		Truck truck = new Truck();
-		truck.setTrck_id(Integer.parseInt(request.getParameter("trck_id")));
-		truckSend.setTruck(truck);
+		String  openId = SessionUtil.getOpenid(request);
+		truckSend.setTruck(truckDriverService.findTruck(openId));
 		Truck_send result = truckDriverService.addTruckSend(truckSend);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		return jsonO.toString();
-	}
+	} 
 	/**
 	 * 添加货主基本需求信息
 	 * @param request
@@ -155,7 +162,7 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/addTruckNeed.do")
 	public @ResponseBody String addTruckNeed (HttpServletRequest request ) throws ParseException{
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("truckNeed"));
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trneInfo"));
 		Truck_need truckNeed = new Truck_need();
 		if (jsonObject.containsKey("trne_name")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trne_name"))) {
@@ -212,9 +219,42 @@ public class TruckDriverController {
 		jsonO.put("result", result);
 		return jsonO.toString();
 	}
-	
+
+
 	/**
 	 * 货主查询车辆根据目的地，出发时间
-	 * 
+	 * @param request
+	 * return list
 	 */
+	@RequestMapping("/aa.do")
+	public @ResponseBody String aa (HttpServletRequest request){
+		String trse_eplace = request.getParameter("g"); 
+		String startTime  = request.getParameter("h");
+		String endTime = request.getParameter("l");
+		Map<String, Object>map = new HashMap<String,Object>();
+		map.put("trse_eplace", trse_eplace);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		List<Truck_send> list = truckDriverService.findTruckSend(map);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	/**
+	 * 车主查询货源根据始发地、目的地，出发时间
+	 */
+	@RequestMapping("/bb.do")
+	public @ResponseBody String bb (HttpServletRequest request){
+		String trne_eplace = request.getParameter("g"); 
+		String startTime  = request.getParameter("h");
+		String endTime = request.getParameter("l");
+		Map<String, Object>map = new HashMap<String,Object>();
+		map.put("trne_eplace", trne_eplace);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		List<Truck_need> list = truckDriverService.findTruckNeed(map);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
 }

@@ -1,5 +1,8 @@
 package com.mvc.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.mvc.entiy.Driver;
 import com.mvc.entiy.Truck;
 import com.mvc.entiy.Truck_need;
@@ -19,4 +22,11 @@ public interface TruckDriverService {
 	Truck_send addTruckSend(Truck_send truckSend);
 	//货主信息录入
 	Truck_need addTruckNeed(Truck_need truckNeed);
+	//货主查询车辆根据目的地，出发时间
+	List<Truck_send> findTruckSend(Map<String, Object> map);
+	//车主查询货源根据始发地、目的地，出发时间
+	List<Truck_need> findTruckNeed(Map<String, Object> map);
+	//根据openid查询truck对象
+	Truck findTruck(String openId);
+
 }

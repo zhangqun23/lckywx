@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.sf.json.JSONObject;
-import com.base.constants.wxPayConstants;
+import com.mvc.constants.wxPayConstants;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.service.TravelService;

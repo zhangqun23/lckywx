@@ -1,15 +1,10 @@
 package com.mvc.repository;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import com.mvc.entiy.Truck;
 
-/**
- * 零担货运
- * @author ghl
- * @date   2017年9月6日
- */
-
-public interface TruckRepository extends JpaRepository< Truck, Integer>{
-
+public interface TruckRepository extends JpaRepository<Truck, Integer> {
+	@Query("select t from Truck t where open_id = :openid ")
+	public Truck findTruck(@Param("openid") String openId);
 }
