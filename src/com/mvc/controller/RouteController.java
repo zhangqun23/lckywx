@@ -122,7 +122,10 @@ public class RouteController extends HttpServlet {
 	public String toTruckNeedPage() {
 		return "truckLoad/index";
 	}
-	
+	@RequestMapping("/toSelectTruckGoodsPage.do")
+	public String toSelectTruckGoodsPage() {
+		return "truckLoad/index";
+	}
 
 
 }
