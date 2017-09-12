@@ -114,6 +114,7 @@ public void setAd_content(String ad_content) {
 public Boolean getIs_delete() {
 	return is_delete;
 }
+
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
@@ -123,6 +124,7 @@ public Date getAd_stime() {
 public void setAd_stime(Date ad_stime) {
 	this.ad_stime = ad_stime;
 }
+
 public Date getAd_etime() {
 	return ad_etime;
 }

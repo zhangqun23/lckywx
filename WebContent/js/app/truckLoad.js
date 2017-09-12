@@ -77,6 +77,15 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/truckSend', {
 		templateUrl : '/lckywx/jsp/truckLoad/truckSend.html',
 		controller : 'TruckLoadController'
+	}).when('/selectTruckGoods', {
+		templateUrl : '/lckywx/jsp/truckLoad/selectTruckGoods.html',
+		controller : 'TruckLoadController'
+	}).when('/selectTruckNeed', {
+		templateUrl : '/lckywx/jsp/truckLoad/selectTruckNeed.html',
+		controller : 'TruckLoadController'
+	}).when('/selectTruckSend', {
+		templateUrl : '/lckywx/jsp/truckLoad/selectTruckSend.html',
+		controller : 'TruckLoadController'
 	})		
 } ]);
 
@@ -104,6 +113,21 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/addTruckNeed.do',
+			data : data
+		});
+	};
+	//车主查询货主信息
+	services.selectTruckNeed =  function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectTruckNeed.do',
+			data : data
+		});
+	};
+	services.selectTruckSend = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectTruckSend.do',
 			data : data
 		});
 	};
@@ -190,7 +214,26 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                          $location.path("truckNeed");
                      });
              }
-             
+             //车主查询货主信息
+             truckDrSdNd.selectTruckNeed = function() {                //和html中方法名字对应
+            	 services.selectTruckNeed({
+            		 startTime : truckDrSdNd.startTime,
+            		 endTime : truckDrSdNd.endTime,
+            		 trne_eplace : truckDrSdNd.trne_eplace
+            	 }).sucess(function(data){
+            		 truckDrSdNd.selectTruckNeedList = data.list;//和html中ng-model对应
+            	 });
+             }
+             //货主查询车主信息
+             truckDrSdNd.selectTruckSend = function() {                //和html中方法名字对应
+            	 services.selectTruckSend({
+            		 startTime : truckDrSdNd.startTime,
+            		 endTime : truckDrSdNd.endTime,
+            		 trse_eplace : truckDrSdNd.trse_eplace
+            	 }).sucess(function(data){
+            		 truckDrSdNd.selectTruckSendList = data.list;//和html中ng-model对应
+            	 });
+             }
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");
@@ -200,9 +243,11 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 
                  } else if ($location.path().indexOf('/truckNeed') == 0) {
                 
-                 }else if ($location.path().indexOf('/truckGoods') == 0) {
-              
-                 }
+                 }else if ($location.path().indexOf('/selectTruckNeed') == 0) {
+                	 
+                 }else if ($location.path().indexOf('/selectTruckSend') == 0) {
+                	 
+                 } 
              }
               initPage();
           } ]);
