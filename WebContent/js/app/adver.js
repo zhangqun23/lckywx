@@ -144,7 +144,8 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				ad_title : "",
 				ad_content : "",
 				ad_tel : "",
-				ad_remark : ""
+				ad_remark : "",
+				ad_etime : ""
 			}
 			adver.ADSLimit = {
 				ad_type : "请选择"
@@ -165,7 +166,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				}).success(function(data) {
 					console.log("::::::::::::" + data);
 					if (data) {
-						alert("是");
+						alert("添加成功");
 					} else {
 						alert("否");
 					}
@@ -221,7 +222,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			//修改广告
 			adver.modifyAd = function() {
 				alert("修改")
-				var adLimit = JSON.stringify(adver.ADLimit);
+				var adLimit = JSON.stringify(adver.ADQLimit);
 				services.modifyAd({
 					ad : adLimit,
 					ad_id : sessionStorage.getItem("adId")
@@ -249,7 +250,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					services.selectAdverInfo({
 						ad_id : adId
 					}).success(function(data) {
-						$scope.ADLimit = data.list;
+						$scope.ADQLimit = data.list;
 					});
 				}
 			}

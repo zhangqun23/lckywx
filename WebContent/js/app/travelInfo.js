@@ -68,10 +68,10 @@ app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/travelInfo', { // 页面初始为travelInfo时加载内容
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfo.html', // 显示的内容
 		controller : 'PlatformController' // 控制器
-	}).when('/selectTravelInfoDetail/:travelInfo', {
+	}).when('/getTravelInfoDetail', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelInfoDetail.html',
-		controller : 'travelInfoDetailController'
-	}).when('/travelTrade', {
+		controller : 'PlatformController'
+	}).when('/getTravelTravelDetail', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
 		controller : 'PlatformController'
 	})
@@ -96,6 +96,22 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	
+	services.addTravelTrade = function(data){
+		return $http({
+			method : 'post' ,
+			url : baseUrl + 'pay/travelPay.do',
+			data : data
+		});
+	}
+	
+	services.saveTravelTrade = function(data){
+		return $http({
+			method : 'post' ,
+			url : baseUrl + 'travelInfo/saveTravelTrade.do',
+			data : data
+		});
+	}
 
 	return services;
 } ]);
@@ -106,66 +122,84 @@ app.controller('PlatformController', [
 		'$location',
 		function($scope, services, $location) { // 页面控制函数
 			var travelInfo = $scope;
-			travelInfo.TravelLimit = {
-				travel_title : "", // 标(主)题
-				travel_content : "", // 活动描述
-				travel_route : "", // 路线
-				travel_mprice : "", // 成人票价格
-				travel_cprice : "", // 儿童票价格
-				travel_insurance : "", // 保险费
-				travel_discount : "", // 折扣
-				travel_stime : "", // 出发时间
-				travel_location : "", // 出发地点
-				travel_days : "", // 游玩天数
-				travel_tel : "", // 联系电话
-				travel_total_num : "", // 总人数
-				travel_left_num : "", // 剩余人数
-				travel_firm : "" // 旅游承办公司
+			travelInfo.TradeLimit = {
+					trtr_tel:"",
+					trtr_mnum:"",
+					trtr_cnum:""
 			}
-			travelInfo.addtravelInfo = function() {
-				/*
-				 * var travelLimit = JSON .stringify(travelInfo.travelLimit);
-				 */
-				services.addTravelInfo({
-				/* travelInfo : travelLimit */
-				}).success(
-						function(data) {
-							console.log(data.list);
-							$location.path("travelInfoDetail/"
-									+ JSON.stringify(data.list));
-							if (result.data) {
-								alert("是");
-							} else {
-								alert("否");
-							}
-						});
+			
+			travelInfo.getTravelTradeById = function(travel_id){
+				sessionStorage.setItem("travel_id_buy",travel_id);
+				$location.path("getTravelTravelDetail/");
 			}
-			travelInfo.selectTravelInfo = function() {
-				services.selectTravelInfo({
-
-				}).success(function(data) {
-					console.log(data.list);
-					if (result.data) {
-						alert("是");
-					} else {
-						alert("否");
-					}
-				});
-			}
-
-			travelInfo.toProducer = function() {
-				$location.path("#/travelInfoDetail");
-			};
-
-			travelInfo.selectTravelInfoDetail = function(TInfo) {// 加上的旅游信息方法
-				$location.path('selectTravelInfoDetail/'
-						+ JSON.stringify(TInfo));
-			}
-
+			
 			travelInfo.getTravelInfoById = function(travel_id) {
 				sessionStorage.setItem("travel_id_select",travel_id);
-				$location.path("travelTrade/");
+				$location.path("getTravelInfoDetail/");
 			}
+			
+/*			travelInfo.addTravelTrade = function(){
+				var payLimit = JSON.stringify(travelInfo.TradeLimit);
+				var travel_id = sessionStorage.getItem("travel_id_buy");
+				services.addTravelTrade({
+					payNeed : payLimit,
+					travelid : travel_id
+				}).success(function onBridgeReady(data){
+		            	var tt=JSON.parse(data);
+						   WeixinJSBridge.invoke(
+							'getBrandWCPayRequest', {
+							    "appId":tt.appId,     //公众号名称，由商户传入     
+							    "timeStamp":tt.timeStamp,//时间戳，自1970年以来的秒数     
+							    "nonceStr":tt.nonceStr, //随机串     
+							    "package":"prepay_id="+tt.pg,
+							    "signType":"MD5",//微信签名方式：     
+							    "paySign":tt.paySign //微信签名 
+						   },
+						   function(res){
+							// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 
+						       if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+						    	   services.saveTravelTrade({
+						    		   tradeNeed : payLimit,
+						    		   out_trade_no : tt.out_trade_no,
+						    		   total_fee : tt.total_fee,
+						    		   travelidbuy : sessionStorage.getItem("travel_id_buy")
+						    	   }).success(function (data){
+						    		   
+						    	   })
+						       }
+						   else if(res.err_msg == "get_brand_wcpay_request:fail"){
+							   alert("没有成功fail")
+						   }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+							   alert("没有成功cancel")
+							           }
+								})
+						   if (typeof WeixinJSBridge == "undefined"){
+						   if( document.addEventListener ){
+						       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+						   }else if (document.attachEvent){
+						       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+						   document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+						   }
+						}else{
+						   onBridgeReady();
+						}
+		            
+				})
+				
+			}*/
+			
+			travelInfo.addTravelTrade = function(){
+				var payLimit = JSON.stringify(travelInfo.TradeLimit);
+				var travel_id = sessionStorage.getItem("travel_id_buy");
+				services.addTravelTrade({
+					payNeed : payLimit,
+					travelid : travel_id
+				}).success( function(data){
+					if (data.e != null){alert(data.e)}
+
+				})
+			}
+				
 
 			// zq初始化
 			function initData() {
@@ -177,18 +211,13 @@ app.controller('PlatformController', [
 
 					}).success(function(data) {
 						travelInfo.travelList = data.list;
-						console.log(data.list);
 					});
-				} else if ($location.path().indexOf('/travelInfoDetail') == 0) {
-					var producerId = $stateParams.producerId;
-					alert(producerId);
-				} else if($location.path().indexOf('/travelTrade') ==0){
+				} else if($location.path().indexOf('/getTravelInfoDetail') ==0){
 					services.selectTravelInfoById({
 						travel_id_select : sessionStorage.getItem("travel_id_select")
 					}).success(function(data){
 						$scope.TInfo = data.list
 					});
-					
 				}
 			}
 			initData();

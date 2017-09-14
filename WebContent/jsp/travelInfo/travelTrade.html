@@ -1,48 +1,42 @@
 <article style="margin-top: 54px;">
- <form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data">
-            <ul class="form-box">
-            
-			   <li class="inner">
-                    <div class="item-name">客户电话：</div>
-                    <div class="item-value">
-                     <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.trtr_tel" required>
-                        </div>
-                    </div>
-               </li>
-               <li class="inner">
+<form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data"
+ 		style="overflow:hidden;">
+ 	<div>
+		<ul class="form-box">
+
+			<li class="inner">
+				<div class="item-name">客户电话：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="TradeLimit.trtr_tel" required>
+					</div>
+				</div>
+			</li>
+			<li class="inner">
                     <div class="item-name">购买的成人票数：</div>
                     <div class="item-value">
                     <div class="input-wrap">
                             <input type="text" ng-model="TradeLimit.trtr_mnum" required>
                         </div>                
                     </div>
-                </li>
-                <li class="inner">
+			</li>
+			<li class="inner">
                     <div class="item-name">购买的儿童票数：</div>
                     <div class="item-value">
                     <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.trtr_cnum" required>
+                            <input type="text" ng-model="TradeLimit.trtr_cnum">
                         </div>       
                     </div>
-                </li>
-                
-                <li class="inner">
-                    <div class="item-name">交易额：</div>
-                    <div class="item-value">
-                        <div class="input-wrap">
-                            <input type="text" ng-model="TradeLimit.trtr_price" required>
-                        </div>
-                    </div>
-                </li>
-				<li class="inner">
+			</li>
+			<li class="inner">
                     <div class="item-value" style="margin-right:90px">
                          <div class="a-wrap">
                            <input type="submit" class="weui_btn weui_btn_primary" value="提交">
                          </div>
                          </div>
  				    </div>
-                </li>
+			</li>
             </ul>
-            </form>
+   </div>
+   </form>
         </article>

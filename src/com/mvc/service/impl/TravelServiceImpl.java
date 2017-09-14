@@ -8,15 +8,16 @@
 package com.mvc.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.dao.TravelDao;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.repository.TravelRepository;
+import com.mvc.repository.TravelTradeRepository;
 import com.mvc.service.TravelService;
 
 /**
@@ -27,12 +28,15 @@ import com.mvc.service.TravelService;
  * 
  *
  */
+@Transactional
 @Service("travelServiceImpl")
 public class TravelServiceImpl implements TravelService{
 	@Autowired 
 	TravelDao travelDao;
 	@Autowired
 	TravelRepository travelRepository;
+	@Autowired
+	TravelTradeRepository travelTradeRepository;
 	//旅游查询
 	@Override
 	public List<Travel> findTravelAlls() {
@@ -41,15 +45,22 @@ public class TravelServiceImpl implements TravelService{
 
 	//旅游交易
 	@Override
-	public List<TravelTrade> saveTravelTrade(TravelTrade travelTrade) {
-		List<TravelTrade> list = travelDao.saveTravelTrade(travelTrade);
-		Float trtrprice = travelTrade.getTrtr_price();
-		travelTrade.setTrtr_price(Float.valueOf(trtrprice));
-		return list;	
+	public TravelTrade saveTravelTrade(TravelTrade travelTrade) {
+		TravelTrade result = travelTradeRepository.saveAndFlush(travelTrade);
+		return result;
 	}
+
 	//根据id查找travel
 	@Override
 	public Travel findTravelById(String travelid) {
 		return travelRepository.findTravelById(Integer.parseInt(travelid));
+	}
+
+	@Override
+	public void updateTravel(String travel_id, Integer total_num) {
+		Travel travel = travelRepository.findTravelById(Integer.parseInt(travel_id));
+		Integer left_num = travel.getTravel_left_num() - total_num;
+		travelRepository.updateTravel(left_num, Integer.parseInt(travel_id));
+		
 	}
 }

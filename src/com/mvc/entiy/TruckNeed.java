@@ -1,5 +1,6 @@
 package com.mvc.entiy;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="truck_need")
-public class TruckNeed {
+public class TruckNeed implements Serializable{
+
+private static final long serialVersionUID = 1L;
+
 private Integer trne_id;//货车需求id，主键
 private String trne_name;//联系人
 private String trne_tel;//联系电话

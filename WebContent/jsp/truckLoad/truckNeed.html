@@ -1,0 +1,94 @@
+<article style="margin-top: 54px; ">
+ 	<form ng-submit="addTruckNeed()" method="post" enctype="multipart/form-data"
+ 		style="overflow:hidden;">
+		<ul class="form-box">
+			<li class="inner">
+				<div class="item-name">货主姓名：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trneLimit.trne_name" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">联系电话：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trneLimit.trne_tel" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">货物类型：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trneLimit.trne_type" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">货物重量：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trneLimit.trne_weight" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">始发地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trneLimit.trne_splace"  required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">目的地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trneLimit.trne_eplace" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+                    <div class="item-name">需求时间：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                        <input type="text" ng-model="trneLimit.trne_time"
+					class="dfselect dateLayoutStyle" 
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
+                        </div> 
+                    </div>
+            </li>
+            
+			<div style="width:127px;margin:auto;" >
+				<input type="radio" name="radio" ng-model="trneLimit.is_freeze" ng-value="0" style="-webkit-appearance:radio;"><span>不冰冻</span>
+				<input type="radio" name="radio" ng-model="trneLimit.is_freeze" ng-value="1" style="-webkit-appearance:radio;"><span>冰冻</span>
+			</div>
+			
+			<li class="inner innerP">
+				<div class="item-name">备注：</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea type="text" ng-model="trneLimit.trne_remark" required></textarea>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-value" style="margin-right:90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交">
+					</div>
+ 				</div>
+			</li>
+		</ul>
+		
+	</form>
+</article>

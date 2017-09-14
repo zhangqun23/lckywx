@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.sf.json.JSONObject;
-import com.base.constants.wxPayConstants;
+import com.mvc.constants.wxPayConstants;
 import com.mvc.entiy.Travel;
+import com.mvc.entiy.TravelTrade;
 import com.mvc.service.TravelService;
-import com.utils.HttpKit;
 import com.utils.SessionUtil;
+import com.utils.StringUtil;
 import com.utils.wxPayUtil;
 
 @Controller
@@ -26,20 +27,70 @@ public class wxPayController {
 	@Autowired
 	TravelService travelService;
 
-	@RequestMapping("/requestPay.do")
-	public @ResponseBody String jspay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
+	@RequestMapping("/travelPay.do")
+	public @ResponseBody String travelPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		
+		String openid = SessionUtil.getOpenid(request);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("payNeed"));
-		String travelid = jsonObject.getString("travelid");
-		String trtr_mnum = jsonObject.getString("trtr_mnum");
-		String trtr_cnum = jsonObject.getString("trtr_cnum");
+		String travelid = request.getParameter("travelid");
+		Integer trtr_mnum = 0;
+		Integer trtr_cnum = 0;
+		String trtr_tel = null;
+		if (jsonObject.containsKey("trtr_mnum")) {
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_mnum"))){
+				trtr_mnum = Integer.parseInt(jsonObject.getString("trtr_mnum"));
+			}
+		}
+		if (jsonObject.containsKey("trtr_cnum")) {
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_cnum"))){
+				trtr_cnum = Integer.parseInt(jsonObject.getString("trtr_cnum"));
+			}
+		}
+		if (jsonObject.containsKey("trtr_tel")) {
+			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_tel"))){
+				trtr_tel = jsonObject.getString("trtr_tel");
+			}	
+		}
+
 		Travel travel = travelService.findTravelById(travelid);
+		
+		JSONObject json = new JSONObject();
+		if(trtr_mnum+trtr_cnum>travel.getTravel_left_num()){
+			String e = "剩余票数不足";
+			json.put("e", e);
+			return json.toString();
+		}
 		String attach = travel.getTravel_title();
 		Float mprice = travel.getTravel_mprice();
 		Float cprice = travel.getTravel_cprice();
-		float total_fee = Integer.parseInt(trtr_mnum)*mprice+Integer.parseInt(trtr_cnum)*cprice;
+		String out_trade_no = wxPayUtil.getTradeNo();
+		float total_fee = trtr_mnum*mprice+trtr_cnum*cprice;
 		
-		String openid = SessionUtil.getOpenid(request);
+		TravelTrade travelTrade = new TravelTrade();;
+		travelTrade.setTravel_id(travel);
+		travelTrade.setTrtr_cnum(trtr_cnum);
+		travelTrade.setTrtr_mnum(trtr_mnum);
+		travelTrade.setTrtr_price(total_fee);
+		travelTrade.setTrtr_tel(trtr_tel);
+		travelTrade.setTrtr_num(out_trade_no);
+		travelTrade.setOpen_id(openid);
+		travelService.saveTravelTrade(travelTrade);
+		
+		Map<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("attach", attach);
+		paraMap.put("total_fee", String.valueOf(total_fee*100));
+		paraMap.put("body", wxPayConstants.TRAVELBODY);
+		String result = jspay(paraMap, request, responest);
+		json.put("total_fee", total_fee);
+		json.put("out_trade_no", out_trade_no);
+		return json.toString();
+	}
+
+	@RequestMapping("/requestPay.do")
+	public @ResponseBody String jspay(Map paraMap, HttpServletRequest request, HttpServletResponse responest) throws Exception{
+		return null;
+		
+/*		String openid = SessionUtil.getOpenid(request);
 		String out_trade_no = wxPayUtil.getTradeNo();
 		String nonce_str = wxPayUtil.create_nonce_str();
 		//获取沙箱秘钥，沙箱测试说明：金额必须为101；之后使用的key值都为沙箱秘钥；前台js调用接口不能成功，会显示缺少参数total_fee
@@ -94,8 +145,10 @@ public class wxPayController {
 		json.put("pg", prepay_id);
 		json.put("signType", wxPayConstants.SIGNTYPE);
 		json.put("paySign", paySign);
+		json.put("out_trade_no",out_trade_no);
+		json.put("total_fee",total_fee);
 		System.out.println(json.toString());
-		return json.toString();
+		return json.toString();*/
 	}
 	
 		
