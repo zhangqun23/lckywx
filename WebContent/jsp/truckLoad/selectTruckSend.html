@@ -1,19 +1,19 @@
 <article style="margin-top: 60px;" >
-	<form ng-submit="selectTruckInfo()" method="post" enctype="multipart/form-data">
+	<form ng-submit="selectTruckSend()" method="post" enctype="multipart/form-data">
 
 		<div class="inner" >
 			<input type="text" name="startTime" style="width:25%;margin-left:10px;float: left"
-				ng-model="gotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				ng-model="startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required><div style="float: left;margin-right:10px">—</div>
 
 			<input type="text" name="endTime" style="width:25%;float: left"
-				ng-model="gotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				ng-model="endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
 				
 			<input type="text" name="trse_eplace" style="width:25%;float: left"
-				ng-model="trseLimit.trse_eplace" class="dfselect dateLayoutStyle" placeHolder="目的地"
+				ng-model="trse_eplace" class="dfselect dateLayoutStyle" placeHolder="目的地"
 				required>	
 		</div>
 		<div class="org">
@@ -21,7 +21,7 @@
 		</div>
 	</form>
 	<br/>
-	<ul ng-repeat="trckInfo in truckInfoList">
+	<ul ng-repeat="trckInfo in selectTruckSendList">
 		<li class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary">
 				<div class="wuliao-title">

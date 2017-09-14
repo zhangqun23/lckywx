@@ -226,11 +226,11 @@ public class TruckDriverController {
 	 * @param request
 	 * return list
 	 */
-	@RequestMapping("/aa.do")
+	@RequestMapping("/selectTruckSend.do")
 	public @ResponseBody String aa (HttpServletRequest request){
-		String trse_eplace = request.getParameter("g"); 
-		String startTime  = request.getParameter("h");
-		String endTime = request.getParameter("l");
+		String trse_eplace = request.getParameter("trse_eplace"); 
+		String startTime  = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
 		Map<String, Object>map = new HashMap<String,Object>();
 		map.put("trse_eplace", trse_eplace);
 		map.put("startTime", startTime);
@@ -243,11 +243,11 @@ public class TruckDriverController {
 	/**
 	 * 车主查询货源根据始发地、目的地，出发时间
 	 */
-	@RequestMapping("/bb.do")
+	@RequestMapping("/selectTruckNeed.do")
 	public @ResponseBody String bb (HttpServletRequest request){
-		String trne_eplace = request.getParameter("g"); 
-		String startTime  = request.getParameter("h");
-		String endTime = request.getParameter("l");
+		String trne_eplace = request.getParameter("trne_eplace"); 
+		String startTime  = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
 		Map<String, Object>map = new HashMap<String,Object>();
 		map.put("trne_eplace", trne_eplace);
 		map.put("startTime", startTime);

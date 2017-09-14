@@ -1,6 +1,8 @@
 package com.mvc.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +41,7 @@ public class AdController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("/addAd.do")
-	public @ResponseBody String addAd(HttpServletRequest request, HttpSession session) {
+	public @ResponseBody String addAd(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject= JSONObject.fromObject(request.getParameter("ad"));
 		Ad ad= new  Ad();
 		if (jsonObject.containsKey("ad_type")){
@@ -60,6 +62,13 @@ public class AdController {
 		if (jsonObject.containsKey("ad_title")){
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_title"))){
 				ad.setAd_title(jsonObject.getString("ad_title"));
+			}
+		}
+		if (jsonObject.containsKey("ad_etime")){
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("ad_etime"))){
+				Date date = format.parse(jsonObject.getString("ad_etime"));
+				ad.setAd_etime(date);
 			}
 		}
 	/*	if (jsonObject.containsKey("ad_pic_path")){

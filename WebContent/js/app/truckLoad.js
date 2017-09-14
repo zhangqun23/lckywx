@@ -77,6 +77,15 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/truckSend', {
 		templateUrl : '/lckywx/jsp/truckLoad/truckSend.html',
 		controller : 'TruckLoadController'
+	}).when('/selectTruckGoods', {
+		templateUrl : '/lckywx/jsp/truckLoad/selectTruckGoods.html',
+		controller : 'TruckLoadController'
+	}).when('/selectTruckNeed', {
+		templateUrl : '/lckywx/jsp/truckLoad/selectTruckNeed.html',
+		controller : 'TruckLoadController'
+	}).when('/selectTruckSend', {
+		templateUrl : '/lckywx/jsp/truckLoad/selectTruckSend.html',
+		controller : 'TruckLoadController'
 	})		
 } ]);
 
@@ -107,19 +116,18 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	//获取货车信息
-	services.selectTruckInfo = function(data) {
+	//车主查询货主信息
+	services.selectTruckNeed =  function(data){
 		return $http({
 			method : 'post',
-			url : baseUrl + 'truckLoad/selectTruckInfo.do',
+			url : baseUrl + 'truckLoad/selectTruckNeed.do',
 			data : data
 		});
 	};
-	//获取货物信息
-	services.selectGoodsInfo = function(data) {
+	services.selectTruckSend = function(data){
 		return $http({
 			method : 'post',
-			url : baseUrl + 'truckLoad/selectGoodsInfo.do',
+			url : baseUrl + 'truckLoad/selectTruckSend.do',
 			data : data
 		});
 	};
@@ -168,14 +176,14 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  trne_remark : "",
                  is_freeze : "0"
              }
-             truckDrSdNd.gotLimit={
+            /* truckDrSdNd.gotLimit={
 				 startDate:"",
 				 endDate:""
 				}
              truckDrSdNd.gotLimits={
     				 startDate:"",
     				 endDate:""
-    				}
+    				}*/
              // pg添加货车+司机的信息
              truckDrSdNd.addTruckDriver = function() {
             	 console.log("你太调皮了");
@@ -214,22 +222,26 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                          $location.path("truckNeed");
                      });
              }
-             // 查询货车需求信息
-             truckDrSdNd.selectTruckInfo = function() {
- 				services.selectTruckInfo({
- 					trk: gotLimit
- 				}).success(function(data) {
- 					truckDrSdNd.truckInfoList = data.list;
- 				});
- 			}
-             // 查询货车需求信息
-             truckDrSdNd.selectGoodsInfo = function() {
- 				services.selectGoodsInfo({
- 					goods: gotLimits
- 				}).success(function(data) {
- 					truckDrSdNd.goodsInfoList = data.list;
- 				});
- 			}
+             //车主查询货主信息
+             truckDrSdNd.selectTruckNeed = function() {                //和html中方法名字对应
+            	 services.selectTruckNeed({
+            		 startTime : truckDrSdNd.startTime,
+            		 endTime : truckDrSdNd.endTime,
+            		 trne_eplace : truckDrSdNd.trne_eplace
+            	 }).sucess(function(data){
+            		 truckDrSdNd.selectTruckNeedList = data.list;//和html中ng-model对应
+            	 });
+             }
+             //货主查询车主信息
+             truckDrSdNd.selectTruckSend = function() {                //和html中方法名字对应
+            	 services.selectTruckSend({
+            		 startTime : truckDrSdNd.startTime,
+            		 endTime : truckDrSdNd.endTime,
+            		 trse_eplace : truckDrSdNd.trse_eplace
+            	 }).sucess(function(data){
+            		 truckDrSdNd.selectTruckSendList = data.list;//和html中ng-model对应
+            	 });
+             }
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");
@@ -239,9 +251,11 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 
                  } else if ($location.path().indexOf('/truckNeed') == 0) {
                 
-                 }else if ($location.path().indexOf('/truckGoods') == 0) {
-              
-                 }
+                 }else if ($location.path().indexOf('/selectTruckNeed') == 0) {
+                	 
+                 }else if ($location.path().indexOf('/selectTruckSend') == 0) {
+                	 
+                 } 
              }
               initPage();
           } ]);
