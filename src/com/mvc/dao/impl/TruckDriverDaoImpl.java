@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TruckDriverDao;
-import com.mvc.entiy.Truck_need;
-import com.mvc.entiy.Truck_send;
+import com.mvc.entiy.TruckNeed;
+import com.mvc.entiy.TruckSend;
 
 /**
  * 零担货运
@@ -28,7 +28,7 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 	
 	//货主查询车辆根据目的地，出发时间
 	@Override
-	public List<Truck_send> finByUsertime(Map<String, Object> map) {
+	public List<TruckSend> finByUsertime(Map<String, Object> map) {
 		String trse_eplace = null;
 		String startTime = null;
 		String endTime = null;
@@ -50,14 +50,14 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 			 selectSql = "select * from truck_send where trse_eplace='"+ trse_eplace +"'  "
 				 		+ "and trse_time between '"+ startTime +"' and '"+ endTime +"' order by trse_time desc ";
 		}
-		 Query query = em.createNativeQuery(selectSql, Truck_send.class);
-		 List<Truck_send> list = query.getResultList();
+		 Query query = em.createNativeQuery(selectSql, TruckSend.class);
+		 List<TruckSend> list = query.getResultList();
 		 em.close();
 		return list;
 	}
 	//车主查询货源根据始发地、目的地，出发时间
 	@Override
-	public List<Truck_need> findByUsertime(Map<String, Object> map) {
+	public List<TruckNeed> findByUsertime(Map<String, Object> map) {
 		String trne_eplace = null;
 		String startTime = null;
 		String endTime = null;
@@ -79,8 +79,8 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 			 selectSql = "select * from truck_need where trne_eplace='"+ trne_eplace +"'  "
 				 		+ "and trne_time between '"+ startTime +"' and '"+ endTime +"' order by trne_time desc ";
 		}
-		 Query query = em.createNativeQuery(selectSql, Truck_need.class);
-		 List<Truck_need> list = query.getResultList();
+		 Query query = em.createNativeQuery(selectSql, TruckNeed.class);
+		 List<TruckNeed> list = query.getResultList();
 		 em.close();
 		return list;
 	}
