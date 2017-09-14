@@ -86,6 +86,15 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/selectTruckSend', {
 		templateUrl : '/lckywx/jsp/truckLoad/selectTruckSend.html',
 		controller : 'TruckLoadController'
+	}).when('/truckSendInfo', {
+		templateUrl : '/lckywx/jsp/truckLoad/truckSendInfo.html',
+		controller : 'TruckLoadController'
+	}).when('/truckNeedInfo', {
+		templateUrl : '/lckywx/jsp/truckLoad/truckNeedInfo.html',
+		controller : 'TruckLoadController'
+	}).when('/modifyTruckSend', {
+		templateUrl : '/lckywx/jsp/truckLoad/modifyTruckSend.html',
+		controller : 'TruckLoadController'
 	})		
 } ]);
 
@@ -131,7 +140,27 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-
+	services.selectTruckSendById = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl +'truckLoad/selectTruckSendById.do',
+			data : data
+		});
+	};
+	services.selectTruckNeedById = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectTruckNeedById.do',
+			data : data
+		})
+	}
+	services.modifyTruckSend = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/modifyTruckSend.do',
+			data : data
+		})
+	}
 	return services;
 } ]);
 
@@ -215,41 +244,95 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                      });
              }
              //车主查询货主信息
-             truckDrSdNd.selectTruckNeed = function() {                //和html中方法名字对应
+             truckDrSdNd.selectTruckNeed = function() {               
             	 services.selectTruckNeed({
             		 startTime : truckDrSdNd.startTime,
             		 endTime : truckDrSdNd.endTime,
             		 trne_eplace : truckDrSdNd.trne_eplace
-            	 }).sucess(function(data){
-            		 truckDrSdNd.selectTruckNeedList = data.list;//和html中ng-model对应
+            	 }).success(function(data){
+            		 truckDrSdNd.selectTruckNeedList = data.list;
             	 });
              }
              //货主查询车主信息
-             truckDrSdNd.selectTruckSend = function() {                //和html中方法名字对应
+             truckDrSdNd.selectTruckSend = function() {               
             	 services.selectTruckSend({
             		 startTime : truckDrSdNd.startTime,
             		 endTime : truckDrSdNd.endTime,
             		 trse_eplace : truckDrSdNd.trse_eplace
-            	 }).sucess(function(data){
-            		 truckDrSdNd.selectTruckSendList = data.list;//和html中ng-model对应
+            	 }).success(function(data){
+            		 truckDrSdNd.selectTruckSendList = data.list;
+            		 $location.path("selectTruckSend");
+            		
             	 });
+             }
+             //根据trse_id获得车主信息(先获得Id后查询)
+             truckDrSdNd.getTruckSendById = function (trse_id){           	 
+            	 sessionStorage.setItem("trse_id",trse_id);
+            	 $location.path('truckSendInfo');
+             }
+             truckDrSdNd.selectTruckSendById = function (trse_id){          
+            	 services.selectTruckSendById({
+            		 trse_id : trse_id
+            	 }).success(function(data){
+            		 truckDrSdNd.selectTruckSendByIdList = data.truckSend;
+            	 })
+             }
+             //根据trne_id获得货主信息(先获得Id后查询)
+             truckDrSdNd.getTruckNeedById = function (trne_id){
+            	 sessionStorage.setItem("trne_id",trne_id);
+            	 $location.path('truckNeedInfo');
+             }
+             truckDrSdNd.selectTruckNeedById = function (trne_id){
+            	 services.selectTruckNeedById({
+            		 trne_id : trne_id
+            	 }).success(function(data){
+            		 truckDrSdNd.selectTruckNeedByIdList = data.truckNeed;
+            	 })
+             }
+             //根据trse_id获得车主信息(修改用)
+             truckDrSdNd.getModifyTruckSend = function (trse_id){
+            	 sessionStorage.setItem("trse_id",trse_id);
+            	 $location.path('modifyTruckSend');
+             }
+             truckDrSdNd.modifyTruckSend = function (){
+            	 var truckSend = JSON.stringify(truckDrSdNd.selectTruckSendByIdList);//修改部分只将前台写完，后台没写
+            	 services.modifyTruckSend({
+            		 truckSend : truckSend,
+            		 trse_id : sessionStorage.getItem("trse_id")
+            	 }).success(function(data){
+            		 truckDrSdNd.modifyTruckSendList = data.list;
+            	 })
              }
              // 零担货运页面初始化
              function initPage() {
-                 console.log("初始化页面信息");
+                 console.log("初始化页面信息");             
                  if ($location.path().indexOf('/truckDriver') == 0) {
                 	 
-                 } else if ($location.path().indexOf('/truckSend') == 0) {
-
-                 } else if ($location.path().indexOf('/truckNeed') == 0) {
-                
                  }else if ($location.path().indexOf('/selectTruckNeed') == 0) {
                 	 
                  }else if ($location.path().indexOf('/selectTruckSend') == 0) {
-                	 
-                 } 
+                	 		
+                 }else if($location.path().indexOf('/truckNeedInfo')== 0){
+                	 var trne_id = sessionStorage.getItem("trne_id");
+                	 truckDrSdNd.selectTruckNeedById(trne_id);
+                 } else if ($location.path().indexOf('/truckSendInfo') == 0) {                
+                	 var trse_id = sessionStorage.getItem("trse_id");                	
+                	 truckDrSdNd.selectTruckSendById(trse_id);
+                 }else if ($location.path().indexOf('/modifyTruckSend') == 0){
+                	 var trse_id = sessionStorage.getItem("trse_id");
+                	 truckDrSdNd.selectTruckSendById(trse_id);
+                 }
              }
               initPage();
           } ]);
 
-
+//时间的格式化的判断
+app.filter('dateType', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+		return type;
+	}
+});

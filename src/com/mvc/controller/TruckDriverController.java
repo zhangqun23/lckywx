@@ -225,13 +225,10 @@ public class TruckDriverController {
 	/**
 	 * 货主查询车辆根据目的地，出发时间
 	 * @param request
-<<<<<<< HEAD
-=======
 	 * return list
->>>>>>> 01bb7865aca71038a690b841b9ac39738b770089
 	 */
 	@RequestMapping("/selectTruckSend.do")
-	public @ResponseBody String aa (HttpServletRequest request){
+	public @ResponseBody String selectTruckSend (HttpServletRequest request){
 		String trse_eplace = request.getParameter("trse_eplace"); 
 		String startTime  = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
@@ -248,7 +245,7 @@ public class TruckDriverController {
 	 * 车主查询货源根据始发地、目的地，出发时间
 	 */
 	@RequestMapping("/selectTruckNeed.do")
-	public @ResponseBody String bb (HttpServletRequest request){
+	public @ResponseBody String selectTruckNeed (HttpServletRequest request){
 		String trne_eplace = request.getParameter("trne_eplace"); 
 		String startTime  = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
@@ -259,6 +256,28 @@ public class TruckDriverController {
 		List<TruckNeed> list = truckDriverService.findTruckNeed(map);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据truckSendId查询truckSend详情
+	 */
+	@RequestMapping("/selectTruckSendById.do")
+	public @ResponseBody String selectTruckSendById (HttpServletRequest request){
+		Integer trseId = Integer.parseInt(request.getParameter("trse_id"));
+		TruckSend truckSend =  ((TruckDriverService) truckDriverService).findTruckSendInfo(trseId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("truckSend", truckSend);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据truckNeedId查询truckNeed详情
+	 */
+	@RequestMapping("/selectTruckNeedById.do")
+	public @ResponseBody String selectTruckNeedById (HttpServletRequest request){
+		Integer trneId = Integer.parseInt(request.getParameter("trne_id"));
+		TruckNeed truckNeed = truckDriverService.findTruckNeedInfo(trneId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("truckNeed", truckNeed);
 		return jsonObject.toString();
 	}
 }

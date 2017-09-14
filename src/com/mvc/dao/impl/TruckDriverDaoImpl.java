@@ -44,8 +44,11 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 		EntityManager em = emf.createEntityManager();
 		String selectSql = null;
 		 if (startTime==null || endTime==null) {
-			 selectSql = "select * from truck_send where trse_eplace='"+ trse_eplace +"' and is_delete=1 "
-			 		+ "and trse_time between '"+ startTime +"' and '"+ endTime +"' order by trse_time desc ";
+			 selectSql = "select * from truck_send where trse_eplace='"+ trse_eplace +"' order by trse_time desc  ";
+			 		
+		}else{
+			 selectSql = "select * from truck_send where trse_eplace='"+ trse_eplace +"'  "
+				 		+ "and trse_time between '"+ startTime +"' and '"+ endTime +"' order by trse_time desc ";
 		}
 		 Query query = em.createNativeQuery(selectSql, TruckSend.class);
 		 List<TruckSend> list = query.getResultList();
@@ -70,8 +73,11 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 		EntityManager em = emf.createEntityManager();
 		String selectSql = null;
 		 if (startTime==null || endTime==null) {
-			 selectSql = "select * from truck_need where trne_eplace='"+ trne_eplace +"' and is_delete=1 "
-			 		+ "and trne_time between '"+ startTime +"' and '"+ endTime +"' order by trne_time desc ";
+			 selectSql = "select * from truck_need where trne_eplace='"+ trne_eplace +"' order by trne_time desc ";
+			 		
+		}else {
+			 selectSql = "select * from truck_need where trne_eplace='"+ trne_eplace +"'  "
+				 		+ "and trne_time between '"+ startTime +"' and '"+ endTime +"' order by trne_time desc ";
 		}
 		 Query query = em.createNativeQuery(selectSql, TruckNeed.class);
 		 List<TruckNeed> list = query.getResultList();
