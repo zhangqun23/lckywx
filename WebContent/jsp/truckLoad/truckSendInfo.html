@@ -1,0 +1,30 @@
+<article style="margin-top: 55px;">
+
+	<ul class="order-tab clearfix">
+		<li class="green">需求信息</li>
+	</ul>
+	<ul class="order-box">
+		<li class="inner">
+			<div class="item-name">剩余载重：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_left_load}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">始发地：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_splace}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">目的地：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_eplace}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">价格：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_price}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">出发时间：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_time.time | dateType}}</div>
+		</li>
+
+	</ul>
+
+</article>

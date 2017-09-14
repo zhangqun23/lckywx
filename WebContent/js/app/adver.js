@@ -219,7 +219,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				sessionStorage.setItem("adId",adId);
 				$location.path('updateAd/');
 			}
-			//修改广告
+				//修改广告
 			adver.modifyAd = function() {
 				alert("修改")
 				var adLimit = JSON.stringify(adver.ADQLimit);

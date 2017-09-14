@@ -28,5 +28,9 @@ public interface TruckDriverService {
 	List<Truck_need> findTruckNeed(Map<String, Object> map);
 	//根据openid查询truck对象
 	Truck findTruck(String openId);
+	//根据truckSendId查询truckSend详情
+	Truck_send findTruckSendInfo(Integer trseId);
+	//根据truckNeedId查询truckNeed详情
+	Truck_need findTruckNeedInfo(Integer trneId);
 
 }
