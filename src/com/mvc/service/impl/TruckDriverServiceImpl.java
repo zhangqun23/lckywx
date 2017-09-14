@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.entiy.Driver;
 import com.mvc.entiy.Truck;
-import com.mvc.entiy.Truck_need;
-import com.mvc.entiy.Truck_send;
+import com.mvc.entiy.TruckNeed;
+import com.mvc.entiy.TruckSend;
 import com.mvc.repository.DriverRepository;
 import com.mvc.repository.TruckNeedRepository;
 import com.mvc.repository.TruckRepository;
@@ -50,8 +50,8 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	}
 	//添加货车主录入信息
 	@Override
-	public Truck_send addTruckSend(Truck_send truckSend) {
-		Truck_send result = truckSendRepository.saveAndFlush(truckSend);
+	public TruckSend addTruckSend(TruckSend truckSend) {
+		TruckSend result = truckSendRepository.saveAndFlush(truckSend);
 		if(result.getTrse_id()!=null){
 			return result;
 		}else{
@@ -60,8 +60,8 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	}
 	//货主信息录入
 	@Override
-	public Truck_need addTruckNeed(Truck_need truckNeed) {
-		Truck_need result = truckNeedRepository.saveAndFlush(truckNeed);
+	public TruckNeed addTruckNeed(TruckNeed truckNeed) {
+		TruckNeed result = truckNeedRepository.saveAndFlush(truckNeed);
 		if (result.getTrne_id()!=null) {
 			return result;
 		}else{

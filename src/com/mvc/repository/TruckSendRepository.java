@@ -2,8 +2,8 @@ package com.mvc.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.mvc.entiy.Truck_send;
+import com.mvc.entiy.TruckSend;
 
-public interface TruckSendRepository extends JpaRepository<Truck_send, Integer> {
+public interface TruckSendRepository extends JpaRepository<TruckSend, Integer> {
 
 }

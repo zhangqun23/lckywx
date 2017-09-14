@@ -2,8 +2,8 @@ package com.mvc.service;
 
 import com.mvc.entiy.Driver;
 import com.mvc.entiy.Truck;
-import com.mvc.entiy.Truck_need;
-import com.mvc.entiy.Truck_send;
+import com.mvc.entiy.TruckNeed;
+import com.mvc.entiy.TruckSend;
 
 /**
  * 零担货运
@@ -16,7 +16,7 @@ public interface TruckDriverService {
 	//添加货车基本信息
 	Truck addTruck(Truck truck);
 	//添加货车主录入信息
-	Truck_send addTruckSend(Truck_send truckSend);
+	TruckSend addTruckSend(TruckSend truckSend);
 	//货主信息录入
-	Truck_need addTruckNeed(Truck_need truckNeed);
+	TruckNeed addTruckNeed(TruckNeed truckNeed);
 }
