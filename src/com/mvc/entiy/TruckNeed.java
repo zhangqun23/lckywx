@@ -13,9 +13,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="truck_need")
-public class Truck_need implements Serializable{
+public class TruckNeed implements Serializable{
 
 private static final long serialVersionUID = 1L;
+
 private Integer trne_id;//货车需求id，主键
 private String trne_name;//联系人
 private String trne_tel;//联系电话
@@ -87,14 +88,6 @@ public void setTrne_eplace(String trne_eplace) {
 	this.trne_eplace = trne_eplace;
 }
 
-@Temporal(TemporalType.TIMESTAMP)
-@Column(name = "trck_time")
-public Date trne_time() {
-	return trne_time;
-}
-public void setTrne_time(Date trne_time) {
-	this.trne_time = trne_time;
-}
 
 @Column(columnDefinition = "INT not null default 0")
 public Integer getTrne_check() {
@@ -126,5 +119,12 @@ public String getOpen_id() {
 public void setOpen_id(String open_id) {
 	this.open_id = open_id;
 }
+public Date getTrne_time() {
+	return trne_time;
+}
+public void setTrne_time(Date trne_time) {
+	this.trne_time = trne_time;
+}
+
 
 }

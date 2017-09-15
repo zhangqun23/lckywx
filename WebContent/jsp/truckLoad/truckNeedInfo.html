@@ -1,0 +1,59 @@
+<article style="margin-top: 55px;">
+
+	<ul class="order-tab clearfix">
+		<li class="green">需求信息</li>
+	</ul>
+	<ul class="order-box">
+		<li class="inner">
+			<div class="item-name">联系人：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_name}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">联系电话：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_tel}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">货物类型：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_type}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">货物重量：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_weight}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">始发地：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_splace}}</div>
+		</li>
+		
+		<li class="inner">
+			<div class="item-name">目的地：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_eplace}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">需求时间：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_time.time|dateType}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">价格：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trse_price}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">出发时间：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trse_time.time|dateType}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">是否冰冻：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.is_freeze}}</div>
+		</li>
+				<li class="inner">
+			<div class="item-name">审核状态：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_check}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">备注：</div>
+			<div class="item-value">{{selectTruckNeedByIdList.trne_remark}}</div>
+		</li>
+
+	</ul>
+
+</article>

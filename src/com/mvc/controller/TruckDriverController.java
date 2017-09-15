@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Driver;
 import com.mvc.entiy.Truck;
-import com.mvc.entiy.Truck_need;
-import com.mvc.entiy.Truck_send;
+import com.mvc.entiy.TruckNeed;
+import com.mvc.entiy.TruckSend;
 import com.mvc.service.TruckDriverService;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
@@ -119,7 +119,7 @@ public class TruckDriverController {
 	@RequestMapping("/addTruckSend.do")
 	public @ResponseBody String addTruckSend (HttpServletRequest request) throws ParseException{
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trseInfo"));
-		Truck_send truckSend = new Truck_send();
+		TruckSend truckSend = new TruckSend();
 		if (jsonObject.containsKey("trse_left_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_left_load"))) {
 				truckSend.setTrse_left_load(Float.parseFloat(jsonObject.getString("trse_left_load")));
@@ -149,7 +149,7 @@ public class TruckDriverController {
 		}
 		String  openId = SessionUtil.getOpenid(request);
 		truckSend.setTruck(truckDriverService.findTruck(openId));
-		Truck_send result = truckDriverService.addTruckSend(truckSend);
+		TruckSend result = truckDriverService.addTruckSend(truckSend);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		return jsonO.toString();
@@ -162,8 +162,9 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/addTruckNeed.do")
 	public @ResponseBody String addTruckNeed (HttpServletRequest request ) throws ParseException{
+
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trneInfo"));
-		Truck_need truckNeed = new Truck_need();
+		TruckNeed truckNeed = new TruckNeed();
 		if (jsonObject.containsKey("trne_name")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trne_name"))) {
 				truckNeed.setTrne_name(jsonObject.getString("trne_name"));
@@ -214,7 +215,7 @@ public class TruckDriverController {
 		}
 		String openId = SessionUtil.getOpenid(request);
 		truckNeed.setOpen_id(openId);
-		Truck_need result = truckDriverService.addTruckNeed(truckNeed);
+		TruckNeed result = truckDriverService.addTruckNeed(truckNeed);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		return jsonO.toString();
@@ -226,16 +227,16 @@ public class TruckDriverController {
 	 * @param request
 	 * return list
 	 */
-	@RequestMapping("/aa.do")
-	public @ResponseBody String aa (HttpServletRequest request){
-		String trse_eplace = request.getParameter("g"); 
-		String startTime  = request.getParameter("h");
-		String endTime = request.getParameter("l");
+	@RequestMapping("/selectTruckSend.do")
+	public @ResponseBody String selectTruckSend (HttpServletRequest request){
+		String trse_eplace = request.getParameter("trse_eplace"); 
+		String startTime  = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
 		Map<String, Object>map = new HashMap<String,Object>();
 		map.put("trse_eplace", trse_eplace);
 		map.put("startTime", startTime);
 		map.put("endTime", endTime);
-		List<Truck_send> list = truckDriverService.findTruckSend(map);
+		List<TruckSend> list = truckDriverService.findTruckSend(map);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -243,18 +244,40 @@ public class TruckDriverController {
 	/**
 	 * 车主查询货源根据始发地、目的地，出发时间
 	 */
-	@RequestMapping("/bb.do")
-	public @ResponseBody String bb (HttpServletRequest request){
-		String trne_eplace = request.getParameter("g"); 
-		String startTime  = request.getParameter("h");
-		String endTime = request.getParameter("l");
+	@RequestMapping("/selectTruckNeed.do")
+	public @ResponseBody String selectTruckNeed (HttpServletRequest request){
+		String trne_eplace = request.getParameter("trne_eplace"); 
+		String startTime  = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
 		Map<String, Object>map = new HashMap<String,Object>();
 		map.put("trne_eplace", trne_eplace);
 		map.put("startTime", startTime);
 		map.put("endTime", endTime);
-		List<Truck_need> list = truckDriverService.findTruckNeed(map);
+		List<TruckNeed> list = truckDriverService.findTruckNeed(map);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据truckSendId查询truckSend详情
+	 */
+	@RequestMapping("/selectTruckSendById.do")
+	public @ResponseBody String selectTruckSendById (HttpServletRequest request){
+		Integer trseId = Integer.parseInt(request.getParameter("trse_id"));
+		TruckSend truckSend =  ((TruckDriverService) truckDriverService).findTruckSendInfo(trseId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("truckSend", truckSend);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据truckNeedId查询truckNeed详情
+	 */
+	@RequestMapping("/selectTruckNeedById.do")
+	public @ResponseBody String selectTruckNeedById (HttpServletRequest request){
+		Integer trneId = Integer.parseInt(request.getParameter("trne_id"));
+		TruckNeed truckNeed = truckDriverService.findTruckNeedInfo(trneId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("truckNeed", truckNeed);
 		return jsonObject.toString();
 	}
 }

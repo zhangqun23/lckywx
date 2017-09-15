@@ -1,0 +1,62 @@
+<article style="margin-top: 54px; ">
+ 	<form ng-submit="modifyTruckSend()" method="post" enctype="multipart/form-data"
+ 		style="overflow:hidden;">
+		<ul class="form-box">
+			<li class="inner">
+				<div class="item-name">剩余载重：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="selectTruckNeedByIdList.trse_left_load" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">始发地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="selectTruckNeedByIdList.trse_splace" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">目的地：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="selectTruckNeedByIdList.trse_eplace" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+				<div class="item-name">价格：</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="selectTruckNeedByIdList.trse_price" required>
+					</div>
+				</div>
+			</li>
+			
+			<li class="inner">
+                    <div class="item-name">出发时间：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                        <input type="text" ng-model="selectTruckNeedByIdList.trse_time"
+					class="dfselect dateLayoutStyle" 
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
+                        </div> 
+                    </div>
+            </li>
+			
+			<li class="inner">
+				<div class="item-value" style="margin-right:90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交">
+					</div>
+ 				</div>
+			</li>
+		</ul>
+		
+	</form>
+</article>	

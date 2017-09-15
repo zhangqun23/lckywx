@@ -82,10 +82,10 @@ public Driver getDriver() {
 	return driver;
 }
 
-@Column(name = "open_id",length = 128)
 public void setDriver(Driver driver) {
 	this.driver = driver;
 }
+@Column(name = "open_id",length = 128)
 public String getOpen_id() {
 	return open_id;
 }
