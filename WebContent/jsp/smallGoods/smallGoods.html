@@ -1,9 +1,9 @@
- <article style="margin-top: 54px; ">
+<article style="margin-top: 54px; ">
  	<form ng-submit="addSmallGoods()" method="post" enctype="multipart/form-data"
  		style="overflow:hidden;">
 		<ul class="form-box">
 			<li class="inner">
-				<div class="item-name">璐х墿鍚嶇О锛�</div>
+				<div class="item-name">货物名称：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_name">
@@ -12,7 +12,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">璐х墿閲嶉噺锛�</div>
+				<div class="item-name">货物重量：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_weight" >
@@ -21,16 +21,16 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">濮嬪彂鍦帮細</div>
+				<div class="item-name">始发地：</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_start" placeholder="娲涘窛" required>
+						<input type="text" ng-model="GoLimit.smgo_start" placeholder="洛川" required>
 					</div>
 				</div>
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">鐩殑鍦帮細</div>
+				<div class="item-name">目的地：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_end" required>
@@ -39,7 +39,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">鍙戜欢浜猴細</div>
+				<div class="item-name">发件人：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_sender" required>
@@ -48,7 +48,7 @@
 			</li>
 			
 			<li class="inner">
-                    <div class="item-name">鍑哄彂鏃堕棿锛�</div>
+                    <div class="item-name">出发时间：</div>
                     <div class="item-value">
                     <div class="input-wrap">
                         <input type="text" ng-model="GoLimit.smgo_send_time"
@@ -59,7 +59,7 @@
             </li>
 			
 			<li class="inner">
-				<div class="item-name">鍙戜欢浜鸿仈绯绘柟寮忥細</div>
+				<div class="item-name">发件人联系方式：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_sender_tel" required>
@@ -68,7 +68,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">鏀朵欢浜猴細</div>
+				<div class="item-name">收件人：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_receiver" required>
@@ -77,7 +77,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">鏀朵欢浜鸿仈绯绘柟寮忥細</div>
+				<div class="item-name">收件人联系方式：</div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_receiver_tel" required>
@@ -86,8 +86,8 @@
 			</li>
 			
 			<div style="width:127px;margin:auto;" >
-				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="0" style="-webkit-appearance:radio;"><span>鑷閫佽揣</span>
-				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="1" style="-webkit-appearance:radio;"><span>涓婇棬鍙栬揣</span>
+				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="0" style="-webkit-appearance:radio;"><span>自行送货</span>
+				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="1" style="-webkit-appearance:radio;"><span>上门取货</span>
 			</div>
 			
 			<div id="addSegoAdd">
@@ -95,7 +95,7 @@
 			</div>
 			
 			<li class="inner innerP">
-				<div class="item-name">澶囨敞锛�</div>
+				<div class="item-name">备注：</div>
 				<div class="item-value">
 					<div class="p-wrap">
 						<textarea type="text" ng-model="GoLimit.smgo_remark" ></textarea>
@@ -106,7 +106,7 @@
 			<li class="inner">
 				<div class="item-value" style="margin-right:90px">
 					<div class="a-wrap">
-						<input type="submit" class="weui_btn weui_btn_primary" value="鎻愪氦骞惰繑鍥炶揣杩愯鎯�">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交并返回货运详情">
 					</div>
  				</div>
 			</li>

@@ -223,23 +223,23 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                      });
              }
              //车主查询货主信息
-             truckDrSdNd.selectTruckNeed = function() {                //和html中方法名字对应
+             truckDrSdNd.selectTruckNeed = function() {    
             	 services.selectTruckNeed({
             		 startTime : truckDrSdNd.startTime,
             		 endTime : truckDrSdNd.endTime,
             		 trne_eplace : truckDrSdNd.trne_eplace
             	 }).sucess(function(data){
-            		 truckDrSdNd.selectTruckNeedList = data.list;//和html中ng-model对应
+            		 truckDrSdNd.selectTruckNeedList = data.list;
             	 });
              }
              //货主查询车主信息
-             truckDrSdNd.selectTruckSend = function() {                //和html中方法名字对应
+             truckDrSdNd.selectTruckSend = function() { 
             	 services.selectTruckSend({
             		 startTime : truckDrSdNd.startTime,
             		 endTime : truckDrSdNd.endTime,
             		 trse_eplace : truckDrSdNd.trse_eplace
             	 }).sucess(function(data){
-            		 truckDrSdNd.selectTruckSendList = data.list;//和html中ng-model对应
+            		 truckDrSdNd.selectTruckSendList = data.list;
             	 });
              }
              // 零担货运页面初始化
@@ -251,9 +251,9 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 
                  } else if ($location.path().indexOf('/truckNeed') == 0) {
                 
-                 }else if ($location.path().indexOf('/selectTruckNeed') == 0) {
+                 } else if ($location.path().indexOf('/selectTruckNeed') == 0) {
                 	 
-                 }else if ($location.path().indexOf('/selectTruckSend') == 0) {
+                 } else if ($location.path().indexOf('/selectTruckSend') == 0) {
                 	 
                  } 
              }
