@@ -5,7 +5,7 @@
 			+ path + "/";
 %>
 <jsp:include page="/jsp/top.jsp" />
-<section id="travelInfoForm" ng-app="travelInfoForm" >
+<section id="travelInfoForm" class="yscroll" ng-app="travelInfoForm" >
 	<div ng-view ></div>
 </section>
 <jsp:include page="/jsp/footer.jsp" />

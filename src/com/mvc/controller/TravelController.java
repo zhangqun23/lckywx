@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.service.TravelService;
+import com.utils.Pager;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
 
@@ -42,7 +43,9 @@ public class TravelController {
 	@RequestMapping(value = "/selectTravelInfo.do")   //select Travel 
 	public @ResponseBody String selectTravelAll(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		List<Travel> list = travelService.findTravelAlls();
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		List<Travel> list = travelService.findTravelAlls(pager.getOffset(), pager.getLimit());
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
@@ -93,5 +96,15 @@ public class TravelController {
 		TravelTrade temp = travelService.saveTravelTrade(travelTrade);
 		
 		return temp.toString();
+	}
+	
+	//根据OPENID查找旅游信息
+	@RequestMapping("/selectMyTravelInfoByOId.do")
+	public @ResponseBody String selectMyTravelInfoByOId(HttpServletRequest request, HttpSession session){
+		JSONObject jsonObject = new JSONObject();
+		String openid = SessionUtil.getOpenid(request);
+		List<Travel> list = travelService.selectMyTravelInfoByOId(openid);
+		jsonObject.put("list", list);
+		return jsonObject.toString();
 	}
 }

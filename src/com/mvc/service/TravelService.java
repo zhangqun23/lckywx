@@ -19,7 +19,7 @@ import com.mvc.entiy.TravelTrade;
  * @date 2017年8月14日 上午11:49:16 
  */
 public interface TravelService {
-	List<Travel> findTravelAlls();//直接查询
+	List<Travel> findTravelAlls(Integer offset, Integer limit);//直接查询
 	
 	TravelTrade saveTravelTrade(TravelTrade travelTrade);//旅游交易
 	
@@ -28,4 +28,7 @@ public interface TravelService {
 
 	//更新剩余票数
 	void updateTravel(String travel_id, Integer total_num);
+
+	//根据openid查找旅游信息
+	List<Travel> selectMyTravelInfoByOId(String openid);
 }
