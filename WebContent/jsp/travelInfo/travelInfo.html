@@ -8,8 +8,8 @@
 	    <input type="radio" name="radio" ng-model="order" value="travel_mprice" style="-webkit-appearance:radio;"><span>按价格</span>
 	</div>
 	
-	<form class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order">
-                <div class="weui_cell_bd weui_cell_primary">
+	<div class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order" id="travelInfoAdd">
+                    <div class="weui_cell_bd weui_cell_primary">
                     <div class="wuliao-title">
                         <label>主题：</label>
                         <span>{{TInfo.travel_title}}</span>
@@ -26,7 +26,7 @@
                     <div class="detail clearfix">
                         <span class="date">剩余票数：{{TInfo.travel_left_num}}</span>
                     </div>
-		   		<div class="detail clearfix">
+		   			<div class="detail clearfix">
                         <span class="date">承办公司：{{TInfo.travel_firm}}</span>
                         <span class="require">联系方式：<label>{{TInfo.travel_tel}}</label></span>
                     </div>
@@ -37,7 +37,8 @@
                         
                     </div>
               </div>
-       </form>
+       </div>
+       <div class="limitHint" style="display:hidden">没有更多了！</div>
 </article>
         
         
