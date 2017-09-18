@@ -8,7 +8,11 @@
 	    <input type="radio" name="radio" ng-model="order" value="travel_mprice" style="-webkit-appearance:radio;"><span>按价格</span>
 	</div>
 	
-	<div class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order" id="travelInfoAdd">
+	<div ng-model="order">
+		<input type="button" value="按时间进行排序"  ng-model="order">
+	</div>
+	
+	<div class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order :desc" id="travelInfoAdd">
                     <div class="weui_cell_bd weui_cell_primary">
                     <div class="wuliao-title">
                         <label>主题：</label>
@@ -38,7 +42,7 @@
                     </div>
               </div>
        </div>
-       <div class="limitHint" style="display:hidden">没有更多了！</div>
+       <div class="limitHint">没有更多了！</div>
 </article>
         
         
