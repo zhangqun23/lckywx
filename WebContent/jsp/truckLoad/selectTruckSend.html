@@ -3,12 +3,12 @@
 
 		<div class="inner" >
 			<input type="text" name="startTime" style="width:25%;margin-left:10px;float: left"
-				ng-model="startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				ng-model="startTime" class="dfselect dateLayoutStyle" placeHolder="起始时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required><div style="float: left;margin-right:10px">—</div>
 
 			<input type="text" name="endTime" style="width:25%;float: left"
-				ng-model="endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				ng-model="endTime" class="dfselect dateLayoutStyle" placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
 				
@@ -41,6 +41,10 @@
 				</div>
 				<div class="detail clearfix">
 					<span class="require">出发时间：<label>{{trckInfo.trse_time}}</label></span>
+				</div>
+				<div class="org">
+					<span >出发时间：{{trckInfo.trse_time.time|dateType}}</span>
+					<label class = "green" ng-click = "getTruckSendById(trckInfo.trse_id)">详情 </label>
 				</div>
 			</div>
 		</li>
