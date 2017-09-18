@@ -39,8 +39,8 @@ public class TravelServiceImpl implements TravelService{
 	TravelTradeRepository travelTradeRepository;
 	//旅游查询
 	@Override
-	public List<Travel> findTravelAlls() {
-		return travelDao.findTravelAlls();
+	public List<Travel> findTravelAlls(Integer offset, Integer limit) {
+		return travelDao.findTravelAlls(offset, limit);
 	}
 
 	//旅游交易
@@ -62,5 +62,11 @@ public class TravelServiceImpl implements TravelService{
 		Integer left_num = travel.getTravel_left_num() - total_num;
 		travelRepository.updateTravel(left_num, Integer.parseInt(travel_id));
 		
+	}
+
+	//根据openid查找旅游信息
+	@Override
+	public List<Travel> selectMyTravelInfoByOId(String openid) {
+		return travelDao.selectMyTravelInfoByOId(openid);
 	}
 }

@@ -11,13 +11,13 @@
 				ng-model="endTime" class="dfselect dateLayoutStyle" placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
-				
-			<input type="text" name="trse_eplace" style="width:25%;float: left"
+			<br/>	
+			<input type="text" name="trse_eplace" style="width:25%;float: left;margin-left:10px;margin-top:20px;"
 				ng-model="trse_eplace" class="dfselect dateLayoutStyle" placeHolder="目的地"
 				required>	
 		</div>
 		<div class="org">
-			<span><input type="submit" class="weui_btn weui_btn_primary" value="查询">
+			<span><input type="submit" class="weui_btn weui_btn_primary" style = "margin-top:20px;"value="查询">
 		</div>
 	</form>
 	<br/>
@@ -58,7 +58,7 @@
 		$(this).find(".tip-text").hide();
 		$(this).find(".chosen").show();
 		$(".box").addClass("choose");
-		$("footer").show();
+		$("footer").show();2
 	});
 
 	$(".button").click(function() {

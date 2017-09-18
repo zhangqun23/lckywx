@@ -74,6 +74,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/getTravelTravelDetail', {
 		templateUrl : '/lckywx/jsp/travelInfo/travelTrade.html',
 		controller : 'PlatformController'
+	}).when('/myTravelTrade', {
+		templateUrl : '/lckywx/jsp/travelInfo/myTravelTrade.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -109,6 +112,14 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		return $http({
 			method : 'post' ,
 			url : baseUrl + 'travelInfo/saveTravelTrade.do',
+			data : data
+		});
+	}
+	
+	services.selectMyTravelInfoByOId = function(data){
+		return $http({
+			method : 'post' ,
+			url : baseUrl + 'travelInfo/selectMyTravelInfoByOId.do',
 			data : data
 		});
 	}
@@ -199,24 +210,108 @@ app.controller('PlatformController', [
 
 				})
 			}
-				
+			
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scroll = 0;
+				//判断哪个浏览器
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scroll = $(".yscroll").scrollTop();  
+				} else if (document.body) {
+					scroll = $(".yscroll").scrollTop(); 
+				}
+				return scroll; 
+			};
+			
+		    //获取当前可视范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0; 
+				//判断哪个浏览器
+				if (document.body.clientHeight && document.documentElement.clientHeight) { 
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight); 
+				} else { 
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight); 
+				}
+		    	return clientHeight; 
+		   };
 
+		   //获取文档完整的高度 
+		   function getScrollHeight() {
+			   var aaheight = $(".yscroll")[0].scrollHeight;
+			   return Math.max($(".yscroll")[0].scrollHeight, document.documentElement.scrollHeight); 
+		   }
+
+		   function openScroll(getDate, config){
+				var config = config ? config : {};
+				var counter = 1;/*计数器*/
+
+				/*第一次加载页面*/
+				getDate(config, counter);
+				
+				/*通过自动监听滚动事件加载更多,可选支持*/
+				config.isEnd = false; /*结束标志*/
+				config.isAjax = false; /*防止滚动过快，服务端没来得及响应造成多次请求*/
+				var t = 0;
+				var p = 0;
+				$("section").scroll(function(){
+		        	 /*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/
+		        	if(config.isEnd == true || config.isAjax == true){
+		          		return;
+		        	}
+		        	/*判断向上滚动或向下滚动*/
+		        	p = getScrollTop()
+		        	if(t <= p){
+		        		t = p;
+			        	/*当滚动到底部时， 加载新内容*/
+			        	if (getScrollHeight()-(t + getClientHeight())<50) {
+			        		counter ++;
+			        		getDate && getDate(config, counter);
+			        	}
+		        	}
+				});
+		   }
+		   
+			function getDate(config, counter, list){
+				config.isAjax = true;
+				services.selectTravelInfo({
+					page : counter
+				}).success(function(data) {
+					if(!travelInfo.travelList){
+						travelInfo.travelList = [];
+					}
+					travelInfo.travelList = travelInfo.travelList.concat(data.list);
+					console.log(data.list);
+					config.isAjax = false;
+					if(data.list == ![]){
+						config.isEnd = true;
+					}
+				});
+			}
+		
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
 
 				if ($location.path().indexOf('/travelInfo') == 0) {
 					console.log("进入到旅游信息界面");
-					services.selectTravelInfo({
+					/*services.selectTravelInfo({
 
 					}).success(function(data) {
 						travelInfo.travelList = data.list;
-					});
+					});*/
+					openScroll(getDate, {});
 				} else if($location.path().indexOf('/getTravelInfoDetail') ==0){
 					services.selectTravelInfoById({
 						travel_id_select : sessionStorage.getItem("travel_id_select")
 					}).success(function(data){
 						$scope.TInfo = data.list
+					});
+				} else if ($location.path().indexOf('/myTravelTrade') == 0){
+					services.selectMyTravelInfoByOId({
+						
+					}).success(function(data){
+						$scope.MTTInfo = data.list
+						console.log(data.list);
 					});
 				}
 			}
