@@ -153,14 +153,14 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			url : baseUrl + 'truckLoad/selectTruckNeedById.do',
 			data : data
 		})
-	}
+	};
 	services.modifyTruckSend = function(data){
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/modifyTruckSend.do',
 			data : data
 		})
-	}
+	};
 	return services;
 } ]);
 
@@ -185,8 +185,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              /*
                 private Integer driver_id;//司机ID,主键
                 private Integer is_audit;//0代表未审核，1代表已审核
-              */
-             
+              */             
              truckDrSdNd.trseLimit = {
                  trse_left_load : "",
                  trse_splace : "洛川",
@@ -205,6 +204,14 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  trne_remark : "",
                  is_freeze : "0"
              }
+            /* truckDrSdNd.gotLimit={
+				 startDate:"",
+				 endDate:""
+				}
+             truckDrSdNd.gotLimits={
+    				 startDate:"",
+    				 endDate:""
+    				}*/
              // pg添加货车+司机的信息
              truckDrSdNd.addTruckDriver = function() {
             	 console.log("你太调皮了");
@@ -261,8 +268,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 trse_eplace : truckDrSdNd.trse_eplace
             	 }).success(function(data){
             		 truckDrSdNd.selectTruckSendList = data.list;
-            		 $location.path("selectTruckSend");
-            		
+            		 $location.path("selectTruckSend");         
             	 });
              }
              //根据trse_id获得车主信息(先获得Id后查询)
@@ -275,7 +281,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 trse_id : trse_id
             	 }).success(function(data){
             		 truckDrSdNd.selectTruckSendByIdList = data.truckSend;
-            	 })
+            	 });
              }
              //根据trne_id获得货主信息(先获得Id后查询)
              truckDrSdNd.getTruckNeedById = function (trne_id){
@@ -287,7 +293,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 trne_id : trne_id
             	 }).success(function(data){
             		 truckDrSdNd.selectTruckNeedByIdList = data.truckNeed;
-            	 })
+            	 });
              }
              //根据trse_id获得车主信息(修改用)
              truckDrSdNd.getModifyTruckSend = function (trse_id){
@@ -301,24 +307,27 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 trse_id : sessionStorage.getItem("trse_id")
             	 }).success(function(data){
             		 truckDrSdNd.modifyTruckSendList = data.list;
-            	 })
+            	 });
              }
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");             
                  if ($location.path().indexOf('/truckDriver') == 0) {
+                 } else if ($location.path().indexOf('/truckSend') == 0) {
+
+                 } else if ($location.path().indexOf('/truckNeed') == 0) {
+                
+                 } else if ($location.path().indexOf('/selectTruckNeed') == 0) {
                 	 
-                 }else if ($location.path().indexOf('/selectTruckNeed') == 0) {
-                	 
-                 }else if ($location.path().indexOf('/selectTruckSend') == 0) {
+                 } else if ($location.path().indexOf('/selectTruckSend') == 0) {
                 	 		
-                 }else if($location.path().indexOf('/truckNeedInfo')== 0){
+                 } else if($location.path().indexOf('/truckNeedInfo')== 0){
                 	 var trne_id = sessionStorage.getItem("trne_id");
                 	 truckDrSdNd.selectTruckNeedById(trne_id);
                  } else if ($location.path().indexOf('/truckSendInfo') == 0) {                
                 	 var trse_id = sessionStorage.getItem("trse_id");                	
                 	 truckDrSdNd.selectTruckSendById(trse_id);
-                 }else if ($location.path().indexOf('/modifyTruckSend') == 0){
+                 } else if ($location.path().indexOf('/modifyTruckSend') == 0){
                 	 var trse_id = sessionStorage.getItem("trse_id");
                 	 truckDrSdNd.selectTruckSendById(trse_id);
                  }

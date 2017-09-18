@@ -39,11 +39,13 @@
 				<div class="detail clearfix">
 					<span class="require">价格：<label>{{trckInfo.trse_price}}</label></span>
 				</div>
+				<div class="detail clearfix">
+					<span class="require">出发时间：<label>{{trckInfo.trse_time}}</label></span>
+				</div>
 				<div class="org">
 					<span >出发时间：{{trckInfo.trse_time.time|dateType}}</span>
 					<label class = "green" ng-click = "getTruckSendById(trckInfo.trse_id)">详情 </label>
 				</div>
-				
 			</div>
 		</li>
 
