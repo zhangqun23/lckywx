@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -26,7 +24,7 @@ private String ad_title;//广告名称
 private String ad_pic_path;//广告图片路径
 private String ad_remark;//广告备注
 private String ad_content;//广告内容
-private Boolean is_delete;// 是否删除1表示未删除，0表示删除
+private Boolean is_delete;// 是否删除0表示未删除，1表示删除
 private Date   ad_stime;//获取发布时的时间
 private Date   ad_etime;//广告截止时间
 @Id

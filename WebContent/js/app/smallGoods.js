@@ -123,15 +123,27 @@ app
 							smgo_receiver:"",
 							smgo_receiver_tel:"",
 							smgo_sego:"0",
-							smgo_remark:""	
+							smgo_remark:"",
+							smgo_send_time:""
 					}
 					
 					smallGoods.GotLimit={
 							startDate:"",
 							endDate:""
 					}
+					function compareDateTime(startDate, endDate) {
+						var date1 = new Date(startDate);
+						var date2 = new Date(endDate);
+						if (date2.getTime() < date1.getTime()) {
+							return true;
+						} else {
+							return false;
+						}
+					}
 				    // 添加小件货运
 					smallGoods.addSmallGoods=function() {
+						var myDate = new Date();
+						if(compareDateTime(myDate.toLocaleDateString(),smallGoods.GoLimit.smgo_send_time)){ return alert("选择时间")}
 						var goLimit = JSON.stringify(smallGoods.GoLimit);
 						services.addSmallGoods({
 							goNeed : goLimit

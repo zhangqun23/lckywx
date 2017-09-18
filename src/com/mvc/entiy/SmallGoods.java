@@ -29,6 +29,8 @@ private Boolean smgo_sego;//是否取货
 private String smgo_add;//取货地址
 private Boolean is_delete;//是否删除
 private String openid;//微信用户唯一标示
+private Date edit_time;//补录时间
+private Float edit_price;//补录金额
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -138,11 +140,24 @@ public String getSmgo_add() {
 public void setSmgo_add(String smgo_add) {
 	this.smgo_add = smgo_add;
 }
+@Column(name="open_id",length = 128)
 public String getOpenid() {
 	return openid;
 }
 public void setOpenid(String openid) {
 	this.openid = openid;
+}
+public Date getEdit_time() {
+	return edit_time;
+}
+public void setEdit_time(Date edit_time) {
+	this.edit_time = edit_time;
+}
+public Float getEdit_price() {
+	return edit_price;
+}
+public void setEdit_price(Float edit_price) {
+	this.edit_price = edit_price;
 }
 
 

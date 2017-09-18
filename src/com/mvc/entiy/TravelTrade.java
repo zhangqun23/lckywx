@@ -24,6 +24,7 @@ private Integer trtr_cnum;//购买的儿童票数
 private Travel travel_id;//外键
 private Integer is_state;//付款状态
 private String open_id;//外键
+private Float travel_discount;//折扣
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTrtr_id() {
@@ -85,5 +86,12 @@ public Integer getIs_state() {
 }
 public void setIs_state(Integer is_state) {
 	this.is_state = is_state;
+}
+@Column(columnDefinition = "float(10,2) not null default '0.00'")
+public Float getTravel_discount() {
+	return travel_discount;
+}
+public void setTravel_discount(Float travel_discount) {
+	this.travel_discount = travel_discount;
 }
 }
