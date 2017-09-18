@@ -1,0 +1,47 @@
+
+ <header >
+            <div class="titlebar reverse">
+                <h1>通告</h1>
+            </div>
+            <ul class="tabbar animate-slide width-full" data-col="4" id="tabbar">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                    <label class="tab-label">系统公告</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                    <label class="tab-label">询价公告</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive3]" ng-click="changeBar(3)">
+                    <label class="tab-label">招标公告</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive4]" ng-click="changeBar(4)">
+                    <label class="tab-label">竞价公告</label>
+                </li>
+                <hr>
+            </ul>
+        </header>
+        <article style="margin-top: 100x;">
+            <ul ng-repeat="bnl in busNeedList">
+		<li class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<div class="wuliao-title">
+					<label>需求编号：</label> <span>{{bnl.bune_id}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">用车时间：{{bnl.bune_gath_time.time |
+						dateType}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">目的地点：<label>{{bnl.bune_goal_pla}}</label></span>
+					<span class="result">交易状态：<label>进行中</label></span>
+				</div>
+
+				<div class="org">
+					<span>包车用途：{{bnl.bune_purp}}</span> <label class="green"
+						ng-click="getBusNeedById(bnl.bune_id)">详情</label>
+				</div>
+			</div>
+		</li>
+
+	</ul>
+	
+        </article>
