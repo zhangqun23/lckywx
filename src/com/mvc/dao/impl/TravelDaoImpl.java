@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TravelDao;
 import com.mvc.entiy.Travel;
-import com.mvc.entiy.TravelTrade;
 
 /**
  * @ClassName: TravelDaoImpl
@@ -38,10 +37,12 @@ public class TravelDaoImpl implements TravelDao{
 	//直接查询
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> findTravelAlls() {	
+	public List<Travel> findTravelAlls(Integer offset, Integer limit) {	
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel ";
+		String sql = "select * from travel limit :offset, :end";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
+		query.setParameter("offset", offset);
+		query.setParameter("end", limit);
 		List<Travel> list = query.getResultList();
 		em.close();
 		return list;
@@ -72,6 +73,18 @@ public class TravelDaoImpl implements TravelDao{
 		String sql = "select * from travel where is_delete=0 and travel_left_num > 0 order by travel_mprice asc";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);
 		List<Travel> list = query.getResultList();
+		em.close();
+		return list;
+	}
+	
+	//根据openid查找旅游信息
+	@Override
+	public List<Travel> selectMyTravelInfoByOId(String openid) {
+		EntityManager em = emf.createEntityManager();
+		String sql = "select * from travel t left join travel_trade tt on tt.travel_id = t.travel_id where tt.is_state = 0 and tt.open_id = '" +openid+ "'";
+		
+		Query query = em.createNativeQuery(sql.toString(),Travel.class);
+		List<Travel> list =  query.getResultList();
 		em.close();
 		return list;
 	}
