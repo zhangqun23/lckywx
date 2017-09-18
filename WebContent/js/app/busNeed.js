@@ -78,6 +78,10 @@ app.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : '/lckywx/jsp/busNeed/busTradeList.html',
 		controller : 'BusNeedInfoController'
 	})
+	.when('/busNeedTest', {
+		templateUrl : '/lckywx/jsp/busNeed/busNeedTest.html',
+		controller : 'BusNeedInfoController'
+	})
 } ]);
 
 app.constant('baseUrl', '/lckywx/');
@@ -155,6 +159,44 @@ app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 					busNeed.BNeed = data.busNeed;
 				});
 			}
+			//修改分栏
+			busNeed.changeBar=function(state){
+				switch(state){
+				case 1:
+					busNeed.show={
+						isActive1:true,
+						isActive2:false,
+						isActive3:false,
+						isActive4:false
+				}
+					
+					break;
+				case 2:
+					busNeed.show={
+						isActive1:false,
+						isActive2:true,
+						isActive3:false,
+						isActive4:false
+				}
+					break;
+				case  3:
+					busNeed.show={
+						isActive1:false,
+						isActive2:false,
+						isActive3:true,
+						isActive4:false
+				}
+					break;
+				case  4:
+					busNeed.show={
+						isActive1:false,
+						isActive2:false,
+						isActive3:false,
+						isActive4:true
+				}
+					break;
+				}
+			}
 			// zq初始化
 			function initPage() {
 				console.log("初始化页面信息");
@@ -165,6 +207,13 @@ app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 				} else if ($location.path().indexOf('/busNeedInfo') == 0) {
 					var busNeedId = sessionStorage.getItem("busNeedId");
 					busNeed.selectBusNeedById(busNeedId);
+				}else if ($location.path().indexOf('/busNeedTest') == 0) {
+					busNeed.show={
+							isActive1:true,
+							isActive1:false,
+							isActive1:false,
+							isActive1:false
+					}
 				}
 			}
 			initPage();
