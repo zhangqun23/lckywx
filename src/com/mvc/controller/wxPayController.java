@@ -67,13 +67,15 @@ public class wxPayController {
 		float total_fee = trtr_mnum*mprice+trtr_cnum*cprice;
 		
 		TravelTrade travelTrade = new TravelTrade();;
-		travelTrade.setTravel_id(travel);
+		travelTrade.setTravel(travel);
 		travelTrade.setTrtr_cnum(trtr_cnum);
 		travelTrade.setTrtr_mnum(trtr_mnum);
 		travelTrade.setTrtr_price(total_fee);
 		travelTrade.setTrtr_tel(trtr_tel);
 		travelTrade.setTrtr_num(out_trade_no);
 		travelTrade.setOpen_id(openid);
+		travelTrade.setTrade_discount(travel.getTravel_discount());
+		travelTrade.setIs_state(1);
 		travelService.saveTravelTrade(travelTrade);
 		
 		Map<String, String> paraMap = new HashMap<String, String>();

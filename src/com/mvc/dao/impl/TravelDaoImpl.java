@@ -39,7 +39,7 @@ public class TravelDaoImpl implements TravelDao{
 	@Override
 	public List<Travel> findTravelAlls(Integer offset, Integer limit) {	
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel limit :offset, :end";
+		String sql = "select * from travel where is_delete=0 limit :offset, :end";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
@@ -78,13 +78,18 @@ public class TravelDaoImpl implements TravelDao{
 	}
 	
 	//根据openid查找旅游信息
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Travel> selectMyTravelInfoByOId(String openid) {
+	public List<Object> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state) {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel t left join travel_trade tt on tt.travel_id = t.travel_id where tt.is_state = 0 and tt.open_id = '" +openid+ "'";
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from travel t left join travel_trade tt on tt.travel = t.travel_id where tt.is_state = '" + state + "' ");
+		sql.append(" and tt.open_id = '" +openid+ "' limit :offset, :end");
 		
-		Query query = em.createNativeQuery(sql.toString(),Travel.class);
-		List<Travel> list =  query.getResultList();
+		Query query = em.createNativeQuery(sql.toString());
+		query.setParameter("offset", offset);
+		query.setParameter("end", limit);
+		List<Object> list =  query.getResultList();
 		em.close();
 		return list;
 	}

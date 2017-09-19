@@ -1,6 +1,8 @@
 package com.mvc.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,7 +94,7 @@ public class TravelController {
 		travelTrade.setIs_state(0);
 		Travel travel = new Travel();
 		travel.setTravel_id(Integer.parseInt(travel_id));
-		travelTrade.setTravel_id(travel);
+		travelTrade.setTravel(travel);
 		TravelTrade temp = travelService.saveTravelTrade(travelTrade);
 		
 		return temp.toString();
@@ -102,9 +104,16 @@ public class TravelController {
 	@RequestMapping("/selectMyTravelInfoByOId.do")
 	public @ResponseBody String selectMyTravelInfoByOId(HttpServletRequest request, HttpSession session){
 		JSONObject jsonObject = new JSONObject();
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
 		String openid = SessionUtil.getOpenid(request);
-		List<Travel> list = travelService.selectMyTravelInfoByOId(openid);
-		jsonObject.put("list", list);
+		String state = request.getParameter("state");
+		Map list = travelService.selectMyTravelInfoByOId(openid,pager.getOffset(), pager.getLimit(), state);
+		if(list.size() != 0){
+			jsonObject.put("list", list);
+		}else{
+			jsonObject.put("list", null);
+		}
 		return jsonObject.toString();
 	}
 }
