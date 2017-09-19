@@ -181,13 +181,10 @@ public class AdController {
 	public @ResponseBody String myPlace (HttpServletRequest request, HttpSession session){
 		String openId = SessionUtil.getOpenid(request);
 		List<Ad> list = new ArrayList<Ad>();
-		if (request.getParameter("ad")!= null){
-			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("ad"));
-			String adType = jsonObject.getString("ad_type");
+		if (request.getParameter("ad_state")!= null){
+			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("ad_state"));
 			String adState = jsonObject.getString("ad_state");
-			list = adService.findMyPlaceAd(Integer.parseInt(adType),Integer.parseInt(adState),openId);
-		}else{
-			list = adService.findMyPlaceAdAll(openId);
+			list = adService.findMyPlaceAd(Integer.parseInt(adState),openId);
 		}	 
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("list", list);

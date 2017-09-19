@@ -139,7 +139,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 		'$routeParams', function($scope, services, $location, $routeParams) {
 			var adver = $scope;
 			adver.ADLimit = {
-				ad_type : "请选择",
+				ad_type : "广告类型",
 				ad_name : "",
 				ad_title : "",
 				ad_content : "",
@@ -148,17 +148,24 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				ad_etime : ""
 			}
 			adver.ADSLimit = {
-				ad_type : "请选择"
+				ad_type : "广告类型"
 			}
-			// 我的发布查询条件
-			adver.ADOLimit = {
-				ad_type : "请选择",
-				ad_state : "1"
-			}
+			//比较输入时间与当前时间的大小
+ 			function compareDateTime(starTime,endTime){
+ 				var date1 = new Date(starTime);
+ 				var date2 = new Date(endTime);
+ 				if(date1.getTime()>date2.getTime()){
+ 					return true;
+ 				}else{
+ 					return false;
+ 				}
+ 			}
 			// 添加广告
 			adver.addAdver = function() {
+				var myDate = new Date();
+				if(compareDateTime(myDate.toLocaleDateString(),adver.ADLimit.ad_etime)){return alert("请填写正确时间")}
 				var adLimit = JSON.stringify(adver.ADLimit);
-				if (adver.ADLimit.ad_type == "请选择") {
+				if (adver.ADLimit.ad_type == "广告类型") {
 					return alert("请输入广告类型！")
 				}
 				services.addAdver({
@@ -186,14 +193,10 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					adver.adList = data.list;
 				});
 			}
-			// 根据openId查询广告
-			adver.myPlace = function() {
-				var adLimit = JSON.stringify(adver.ADOLimit);
-				if (adver.ADOLimit.ad_type == "请选择") {
-					alert("请输入广告类型！")
-				}
+			// 根据openId,state查询我的发布   广告
+			adver.myPlace = function(state) {
 				services.myPlace({
-					ad : adLimit
+					ad_state : state
 				}).success(function(data) {
 					adver.adList = data.list;
 				});
@@ -230,16 +233,56 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					$location.path('myPlace/');
 				});
 			 }
+			//修改分栏
+			adver.changeBar=function(state){
+				switch(state){
+				case 0:
+					adver.myPlace(state);
+					adver.show={
+						isActive0:true,
+						isActive1:false,
+						isActive2:false,
+				}
+					break;
+				case 1:
+					adver.myPlace(state);
+					adver.show={
+						isActive0:false,
+						isActive1:true,
+						isActive2:false,
+				}
+					break;
+				case  2:
+					adver.myPlace(state);
+					adver.show={
+						isActive0:false,
+						isActive1:false,
+						isActive2:true,						
+				}
+					break;
+				}
+			}
 			//初始化
 			function initData() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/selectAdver') == 0) {
+					adver.show={
+							isActive0:true,
+							isActive1:false,
+							isActive2:false,
+					}
 					services.selectAdver({
 
 					}).success(function(data) {
 						adver.adList = data.list;
 					});
 				} else if ($location.path().indexOf('/myPlace') == 0) {
+					adver.myPlace("0");
+					adver.show={
+							isActive0:true,
+							isActive1:false,
+							isActive2:false,
+					}
 					services.myPlace({
 						
 					}).success(function(data){

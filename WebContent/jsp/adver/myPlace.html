@@ -1,38 +1,25 @@
-<!-- 新加内容 -->
-<article style="margin-top: 80px;">
-	<form ng-submit="myPlace()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
-	   <ul class="form-box">
-			<li>
-				<div>
-					<select class="select-box" ng-model="ADOLimit.ad_type" id="ad-type" required>
-						<option>请选择</option>
-						<option value="0">旅游</option>
-						<option value="1">招工</option>
-						<option value="2">其他</option>				
-					</select>
-				</div>
-			</li>	
-			<li>
-				<div>
-					<select class="select-box" ng-model="ADOLimit.ad_state" id="ad-state" required>
-						<option value="0">待审核</option>
-						<option value="1">已审核</option>			
-					</select>
-				</div>
-			</li>
-			<li class="inner"> 
-				<div class="item-value" style="margin-right:90px">
-					<div class="a-wrap">
-						<input type="submit" class="weui_btn weui_btn_primary" value="查询" >
-					</div>
-				</div>
-			</li>	
-               
-		</ul>
-	</form>
-     <br/>
-		<form class="weui_cell" ng-repeat="ad in adList | orderBy:order "> 
-                <div class="weui_cell_bd weui_cell_primary">
+ <header >
+            <div class="titlebar reverse">
+                <h1>我的发布</h1>
+            </div>
+            <ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changeBar(0)">
+                    <label class="tab-label">未审核</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                    <label class="tab-label">已审核</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                    <label class="tab-label">已驳回</label>
+                </li>
+                <hr>
+            </ul>
+</header>
+
+<article style="margin-top: 100px;">
+	    <ul ng-repeat="ad in adList">
+		<li class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary"> 
                     <div class="wuliao-title">
                         <label>广告名称：</label>
                         <span>{{ad.ad_title}}</span>
@@ -46,13 +33,13 @@
                     </div>
                     <div class="org">
                         <span>备注：{{ad.ad_remark}}</span>
-                        <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
-                        <label class="green" ng-click="deleteAd(ad.ad_id,ad.ad_title)">删除</label>
+                        <label class="green" ng-click="deleteAd(ad.ad_id,ad.ad_title)">删除</label>                     
                         <label class="green" ng-click="getAdById(ad.ad_id)">修改</label>  
+                         <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
                     </div>
-                    
               </div>
-       </form>
-       
+		</li>
+	</ul>                 
 </article>
+
 

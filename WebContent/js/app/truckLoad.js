@@ -212,9 +212,20 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
     				 startDate:"",
     				 endDate:""
     				}*/
+ 			function compareDateTime(starTime,endTime){
+ 				var date1 = new Date(starTime);
+ 				var date2 = new Date(endTime);
+ 				if(date1.getTime()<date2.getTime()){
+ 					return true;
+ 				}else{
+ 					return false;
+ 				}
+ 			}
              // pg添加货车+司机的信息
              truckDrSdNd.addTruckDriver = function() {
             	 console.log("你太调皮了");
+ 				var myDate = new Date();
+				if(compareDateTime(mtDate.toLocaleDateString(),driverLimit.driver_license_starttime)){return alert("请填写正确时间")}
                  var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
                  var driverLimit = JSON.stringify(truckDrSdNd.driverLimit);
                  console.log(truckLimit)

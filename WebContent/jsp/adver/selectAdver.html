@@ -1,33 +1,24 @@
-<article style="margin-top: 48px;">
-	<form ng-submit="selectAdver()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
-	   <ul class="form-box">
-			<li>
-				<div>
-					<select class="select-box" ng-model="ADSLimit.ad_type" id="ad-type" required>
-						<option>请选择</option>
-						<option value="0">旅游</option>
-						<option value="1">招工</option>
-						<option value="2">其他</option>				
-					</select>
-				</div>
-			</li>	
-			<li class="inner"> 
-				<div class="item-value" style="margin-right:90px">
-					<div class="a-wrap">
-						<input type="submit" class="weui_btn weui_btn_primary" value="查询" >
-					</div>
-				</div>
-			</li>	
-               
-		</ul>
-	</form>
-    
-     <div ng-model="order" style="width:127px;margin:auto;" >
-		<input type="radio" name="radio" ng-model="order" value="ad_content" style="-webkit-appearance:radio;"><span>按名称</span>
-		<input type="radio" name="radio" ng-model="order" value="ad_name" style="-webkit-appearance:radio;"><span>按内容</span>
-	</div>
-               
-	<form class="weui_cell" ng-repeat="ad in adList | orderBy:order "> 
+ <header >
+            <div class="titlebar reverse">
+                <h1>广告查询</h1>
+            </div>
+            <ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changeBar(0)">
+                    <label class="tab-label">旅游</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                    <label class="tab-label">招工</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                    <label class="tab-label">其他</label>
+                </li>
+                <hr>
+            </ul>
+</header>
+
+<article style="margin-top: 100px;">
+	    <ul ng-repeat="ad in adList">
+		<li class="weui_cell">
                 <div class="weui_cell_bd weui_cell_primary">
                     <div class="wuliao-title">
                         <label>广告名称：</label>
@@ -45,7 +36,7 @@
                         <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
                     </div>
               </div>
-       </form>
-       
+		</li>
+	</ul>                 
 </article>
 

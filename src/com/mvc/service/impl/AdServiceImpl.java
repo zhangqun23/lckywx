@@ -111,12 +111,8 @@ public class AdServiceImpl implements AdService {
 	}
 	//根据openId，adType，adState查询广告
 	@Override
-	public List<Ad> findMyPlaceAd(Integer adType, Integer adState, String openId) {
-		return adRepository.findMyPlaceAd(adType,adState,openId);
-	}
-	@Override
-	public List<Ad> findMyPlaceAdAll(String openId) {	
-		return adRepository.findMyPlaceAdAll(openId);
+	public List<Ad> findMyPlaceAd(Integer adState, String openId) {
+		return adRepository.findMyPlaceAd(adState,openId);
 	}
 
 }
