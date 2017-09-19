@@ -1,6 +1,5 @@
 <article style="margin-top: 48px;">
-		<form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
-
+    <form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
 		<div class="inner" >
 			<input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
 				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
@@ -15,27 +14,26 @@
 		<div class="org">
 			<span><input type="submit" class="weui_btn weui_btn_primary" value="查询">
 		</div>
-	</form>
-	
+	</form>	
 	
 	<form class="weui_cell" ng-repeat="smallGood in smallGoodsList">
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <div class="wuliao-title">
-                            <label>货物名称：</label>
-                            <span>{{smallGood.smgo_name}}</span>
-                        </div>
-                        <div class="detail clearfix">
-                            <span class="date">价格：</span>
-                            <span class="date">发件日期：<label>{{smallGood.smgo_send_time.time|dateType}}</label></span>
-                        </div>
-						   <div class="detail clearfix">
-                            <span class="date">收件人：{{smallGood.smgo_receiver}}</span>
-                            <span class="require">联系方式：<label>{{smallGood.smgo_receiver_tel}}</label></span>
-                        </div>
-                        <div class="org">
-                            <span>备注：{{smallGood.smgo_remark}}</span>
-                            <label class="green" ng-click="selectSmallGoodsInfo(smallGood.smgo_id)">详情</label>
-                        </div>
-                    </div>
-        </form>
+         <div class="weui_cell_bd weui_cell_primary">
+              <div class="wuliao-title">
+                   <label>货物名称：</label>
+                       <span>{{smallGood.smgo_name}}</span>
+              </div>
+              <div class="detail clearfix">
+                   <span class="date">价格：</span>
+                   <span class="date">发件日期：<label>{{smallGood.smgo_send_time.time|dateType}}</label></span>
+              </div>
+			  <div class="detail clearfix">
+                   <span class="date">收件人：{{smallGood.smgo_receiver}}</span>
+                   <span class="require">联系方式：<label>{{smallGood.smgo_receiver_tel}}</label></span>
+              </div>
+              <div class="org">
+                   <span>备注：{{smallGood.smgo_remark}}</span>
+                   <label class="green" ng-click="selectSmallGoodsInfo(smallGood.smgo_id)">详情</label>
+              </div>
+          </div>
+    </form>
 </article>
