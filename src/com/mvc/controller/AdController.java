@@ -90,8 +90,8 @@ public class AdController {
 		}
 		Date getDate = new Date();
 		ad.setAd_stime(getDate);
-		ad.setIs_delete(true);	
-		ad.setAd_state(1);
+		ad.setIs_delete(false);	
+		ad.setAd_state(0);
 		String openid = SessionUtil.getOpenid(request);
 		ad.setOpen_id(openid);
 		Ad result = adService.saveAd(ad);	
@@ -128,18 +128,13 @@ public class AdController {
 	@RequestMapping("/selectAdver.do")
 	public @ResponseBody String selectAdver(HttpServletRequest request, HttpSession session){
 		String adType;
-		List<Ad> list ;
-		if(request.getParameter("adType") != null){
-		adType= JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
-		list = adService.finAdByType(Integer.parseInt(adType));
-		}else{
-			list = adService.finAdAlls();
-		}
+		List<Ad> list ;	
+		adType= request.getParameter("adType");
+		list = adService.finAdByType(Integer.parseInt(adType));		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
-
 	/**
 	 * 广告删除根据广告id
 	 * @param request
@@ -181,11 +176,8 @@ public class AdController {
 	public @ResponseBody String myPlace (HttpServletRequest request, HttpSession session){
 		String openId = SessionUtil.getOpenid(request);
 		List<Ad> list = new ArrayList<Ad>();
-		if (request.getParameter("ad_state")!= null){
-			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("ad_state"));
-			String adState = jsonObject.getString("ad_state");
-			list = adService.findMyPlaceAd(Integer.parseInt(adState),openId);
-		}	 
+		String adState = request.getParameter("ad_state");
+		list = adService.findMyPlaceAd(Integer.parseInt(adState),openId);
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("list", list);
 		return jsonO.toString();

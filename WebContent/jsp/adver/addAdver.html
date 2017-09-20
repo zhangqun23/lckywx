@@ -3,7 +3,7 @@
 		<ul class="form-box">
 		
 			<li  class="inner">
-				<div class="item-name">广告类型：</div>
+				<div class="item-name">广告类型<span style="color:red">*</span></div>
 				<div style="padding-left: 5px;padding-right: 15px;">
 					<select class="select-box" ng-model="ADLimit.ad_type" id="ad-type" required>
 						<option>广告类型</option>
@@ -15,7 +15,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">广告名称：</div><span style="color:red">*</span>
+				<div class="item-name">广告名称<span style="color:red">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="ADLimit.ad_title" required>
@@ -24,7 +24,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">联系人：</div>
+				<div class="item-name">联系人<span style="color:red">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="ADLimit.ad_name" required>
@@ -33,7 +33,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">联系方式：</div>
+				<div class="item-name">联系方式<span style="color:red">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="ADLimit.ad_tel" required>
@@ -42,7 +42,7 @@
 			</li>
 			
 			<li class="inner">
-                    <div class="item-name">截止日期：</div>
+                    <div class="item-name">截止日期<span style="color:red">*</span></div>
                     <div class="item-value">
                     <div class="input-wrap">
                         <input type="text" ng-model="ADLimit.ad_etime"
@@ -53,7 +53,7 @@
             </li>
 			
 			<li class="inner innerP">
-				<div class="item-name">广告内容：</div>
+				<div class="item-name">广告内容<span style="color:red">*</span></div>
 				<div class="item-value">
 					<div class="p-wrap">
 						<textarea type="text" ng-model="ADLimit.ad_content" required></textarea>
@@ -65,7 +65,7 @@
 				<div class="item-name">广告备注：</div>
 				<div class="item-value">
 					<div class="p-wrap">
-						<textarea type="text" ng-model="ADLimit.ad_remark" required></textarea>
+						<textarea type="text" ng-model="ADLimit.ad_remark" ></textarea>
 					</div>
 				</div>
 			</li>

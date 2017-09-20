@@ -22,19 +22,19 @@
                 <div class="weui_cell_bd weui_cell_primary"> 
                     <div class="wuliao-title">
                         <label>广告名称：</label>
-                        <span>{{ad.ad_title}}</span>
+                        <span>{{ad.ad_title|adFilter}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">广告内容：{{ad.ad_content}}</span>
+                        <span class="date">广告内容：{{ad.ad_content|adFilter}}</span>
                     </div>
 		   		<div class="detail clearfix">
-                        <span class="date">联系人：{{ad.ad_name}}</span>
-                        <span class="require">联系方式：<label>{{ad.ad_tel}}</label></span>
+                        <span class="date">联系人：{{ad.ad_name|adFilter}}</span>
+                        <span class="require">联系方式：<label>{{ad.ad_tel|adFilter}}</label></span>
                     </div>
                     <div class="org">
                         <span>备注：{{ad.ad_remark}}</span>
                         <label class="green" ng-click="deleteAd(ad.ad_id,ad.ad_title)">删除</label>                     
-                        <label class="green" ng-click="getAdById(ad.ad_id)">修改</label>  
+                        <label class="green" ng-click="getAdById(ad.ad_id)"  ng-show='flag'>修改</label>  
                          <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
                     </div>
               </div>

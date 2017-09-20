@@ -3,13 +3,13 @@
                 <h1>广告查询</h1>
             </div>
             <ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changeBar(0)">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="change(0)">
                     <label class="tab-label">旅游</label>
                 </li>
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="change(1)">
                     <label class="tab-label">招工</label>
                 </li>
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="change(2)">
                     <label class="tab-label">其他</label>
                 </li>
                 <hr>
@@ -22,14 +22,14 @@
                 <div class="weui_cell_bd weui_cell_primary">
                     <div class="wuliao-title">
                         <label>广告名称：</label>
-                        <span>{{ad.ad_title}}</span>
+                        <span>{{ad.ad_title|adFilter}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">广告内容：{{ad.ad_content}}</span>
+                        <span class="date">广告内容：{{ad.ad_content|adFilter}}</span>
                     </div>
 		   		<div class="detail clearfix">
-                        <span class="date">联系人：{{ad.ad_name}}</span>
-                        <span class="require">联系方式：<label>{{ad.ad_tel}}</label></span>
+                        <span class="date">联系人：{{ad.ad_name|adFilter}}</span>
+                        <span class="require">联系方式：<label>{{ad.ad_tel|adFilter}}</label></span>
                     </div>
                     <div class="org">
                         <span>备注：{{ad.ad_remark}}</span>

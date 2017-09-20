@@ -147,9 +147,6 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				ad_remark : "",
 				ad_etime : ""
 			}
-			adver.ADSLimit = {
-				ad_type : "广告类型"
-			}
 			//比较输入时间与当前时间的大小
  			function compareDateTime(starTime,endTime){
  				var date1 = new Date(starTime);
@@ -182,11 +179,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				});
 			}
 			// 根据类型查询广告
-			adver.selectAdver = function() {
-				var adLimit = JSON.stringify(adver.ADSLimit);
-				if (adver.ADSLimit.ad_type == "请选择") {
-					return alert("请输入广告类型！")
-				}
+			adver.selectAdver = function(adLimit) {
 				services.selectAdver({
 					adType : adLimit
 				}).success(function(data) {
@@ -236,16 +229,48 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			//修改分栏
 			adver.changeBar=function(state){
 				switch(state){
-				case 0:
-					adver.myPlace(state);
+				case 0:					
+					adver.myPlace("0");					
 					adver.show={
 						isActive0:true,
 						isActive1:false,
 						isActive2:false,
-				}
+				};
+					adver.flag=true;					
 					break;
 				case 1:
-					adver.myPlace(state);
+					adver.myPlace("1");
+					adver.show={
+						isActive0:false,
+						isActive1:true,
+						isActive2:false,
+				};
+					adver.flag=false;
+					break;
+				case  2:
+					adver.myPlace("2");
+					adver.show={
+						isActive0:false,
+						isActive1:false,
+						isActive2:true,						
+				};
+					adver.flag=true;
+					break;
+				}
+			}
+			//修改广告查询分栏
+			adver.change=function(state){
+				switch(state){
+				case 0:					
+					adver.selectAdver("0");					
+					adver.show={
+						isActive0:true,
+						isActive1:false,
+						isActive2:false,
+				}					
+					break;
+				case 1:
+					adver.selectAdver("1");
 					adver.show={
 						isActive0:false,
 						isActive1:true,
@@ -253,7 +278,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 				}
 					break;
 				case  2:
-					adver.myPlace(state);
+					adver.selectAdver("2");
 					adver.show={
 						isActive0:false,
 						isActive1:false,
@@ -266,28 +291,20 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			function initData() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/selectAdver') == 0) {
+					adver.selectAdver("0");	
 					adver.show={
 							isActive0:true,
 							isActive1:false,
 							isActive2:false,
 					}
-					services.selectAdver({
-
-					}).success(function(data) {
-						adver.adList = data.list;
-					});
 				} else if ($location.path().indexOf('/myPlace') == 0) {
 					adver.myPlace("0");
 					adver.show={
 							isActive0:true,
 							isActive1:false,
 							isActive2:false,
-					}
-					services.myPlace({
-						
-					}).success(function(data){
-						adver.adList = data.list;
-					});
+					};
+					adver.flag=true;
 				}else if ($location.path().indexOf('/updateAd') == 0) {
 					var adId=sessionStorage.getItem("adId");
 					services.selectAdverInfo({

@@ -77,6 +77,7 @@ public class AdServiceImpl implements AdService {
 						ad.setAd_content(jsonObject.getString("ad_content"));
 					}
 				}
+				ad.setAd_state(0);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -87,11 +88,6 @@ public class AdServiceImpl implements AdService {
 		}else{
 			return null;
 		}
-	}
-	//类型为空返回全部广告
-	@Override
-	public List<Ad> finAdAlls() {
-		return adRepository.findAlls();
 	}
 	//返回相应类型广告
 	@Override

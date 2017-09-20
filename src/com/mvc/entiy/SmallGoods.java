@@ -1,5 +1,6 @@
 package com.mvc.entiy;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="small_goods")
-public class SmallGoods {
+public class SmallGoods implements Serializable {
+
+private static final long serialVersionUID = 1L;
 private Integer smgo_id;//主键
 private String  smgo_name;//货物名称
 private Float smgo_weight;//重量
