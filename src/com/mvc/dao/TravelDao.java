@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.mvc.entiy.Travel;
-import com.mvc.entiy.TravelTrade;
 
 /**
  * @ClassName: TravelDao
@@ -28,5 +27,5 @@ public interface TravelDao {
 	
 	List<Travel> findTravelAlls(Map<String, Object> map);//按出发时间查询旅游信息
 
-	List<Travel> selectMyTravelInfoByOId(String openid);//根据openid查找旅游信息
+	List<Object> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state);//根据openid查找旅游信息
 }

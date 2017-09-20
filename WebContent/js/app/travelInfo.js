@@ -77,6 +77,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/myTravelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/myTravelTrade.html',
 		controller : 'PlatformController'
+	}).when('/detailmyTravelTrade',{
+		templateUrl : '/lckywx/jsp/travelInfo/myTravelTradeDetail.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -147,6 +150,11 @@ app.controller('PlatformController', [
 			travelInfo.getTravelInfoById = function(travel_id) {
 				sessionStorage.setItem("travel_id_select",travel_id);
 				$location.path("getTravelInfoDetail/");
+			}
+			
+			travelInfo.getMyTravelTradeById = function(travelTrade){
+				sessionStorage.setItem("travelTrade",JSON.stringify(travelTrade));
+				$location.path("detailmyTravelTrade");
 			}
 			
 /*			travelInfo.addTravelTrade = function(){
@@ -241,12 +249,12 @@ app.controller('PlatformController', [
 			   return Math.max($(".yscroll")[0].scrollHeight, document.documentElement.scrollHeight); 
 		   }
 
-		   function openScroll(getDate, config){
+		   function openScroll(getDate, config , state){
 				var config = config ? config : {};
 				var counter = 1;/*计数器*/
 
 				/*第一次加载页面*/
-				getDate(config, counter);
+				getDate(config, counter, state);
 				
 				/*通过自动监听滚动事件加载更多,可选支持*/
 				config.isEnd = false; /*结束标志*/
@@ -265,13 +273,13 @@ app.controller('PlatformController', [
 			        	/*当滚动到底部时， 加载新内容*/
 			        	if (getScrollHeight()-(t + getClientHeight())<50) {
 			        		counter ++;
-			        		getDate && getDate(config, counter);
+			        		getDate && getDate(config, counter, state);
 			        	}
 		        	}
 				});
 		   }
 		   
-			function getDate(config, counter, list){
+			function getTravelList(config, counter){
 				config.isAjax = true;
 				services.selectTravelInfo({
 					page : counter
@@ -283,23 +291,71 @@ app.controller('PlatformController', [
 					console.log(data.list);
 					config.isAjax = false;
 					if(data.list == ![]){
+						$(".limitHint").css('display','block');
+						config.isEnd = true;
+					}
+				});
+			}
+			
+			function getMyTravelList(config, counter, state){
+				config.isAjax = true;
+				services.selectMyTravelInfoByOId({
+					state : state,
+					page : counter
+				}).success(function(data) {
+					if(!travelInfo.MTTInfo){
+						travelInfo.MTTInfo = [];
+					}
+					if(typeof(data.list) != "undefined"){
+						travelInfo.MTTInfo = travelInfo.MTTInfo.concat(data.list);
+					}
+					config.isAjax = false;
+					if(data.list == ![] || data.list == undefined){
+						$(".limitHint").css('display','block');
 						config.isEnd = true;
 					}
 				});
 			}
 		
+			travelInfo.changeBar=function(state){
+				switch(state){
+				case 0:
+					travelInfo.show={
+						isActive1:true,
+						isActive2:false,
+						isActive3:false
+				}
+					travelInfo.MTTInfo = null;
+					openScroll(getMyTravelList, {}, 0);
+					break;
+				case 1:
+					travelInfo.show={
+						isActive1:false,
+						isActive2:true,
+						isActive3:false
+				}
+					travelInfo.MTTInfo = null;
+					openScroll(getMyTravelList, {} , 1);
+					break;
+				case 2:
+					travelInfo.show={
+						isActive1:false,
+						isActive2:false,
+						isActive3:true
+				}
+					travelInfo.MTTInfo = null;
+					openScroll(getMyTravelList, {} , 2);
+					break;
+				}
+			}
+			
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
 
 				if ($location.path().indexOf('/travelInfo') == 0) {
 					console.log("进入到旅游信息界面");
-					/*services.selectTravelInfo({
-
-					}).success(function(data) {
-						travelInfo.travelList = data.list;
-					});*/
-					openScroll(getDate, {});
+					openScroll(getTravelList, {});
 				} else if($location.path().indexOf('/getTravelInfoDetail') ==0){
 					services.selectTravelInfoById({
 						travel_id_select : sessionStorage.getItem("travel_id_select")
@@ -307,12 +363,10 @@ app.controller('PlatformController', [
 						$scope.TInfo = data.list
 					});
 				} else if ($location.path().indexOf('/myTravelTrade') == 0){
-					services.selectMyTravelInfoByOId({
-						
-					}).success(function(data){
-						$scope.MTTInfo = data.list
-						console.log(data.list);
-					});
+					openScroll(getMyTravelList, {});
+				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0){
+					console.log(sessionStorage.getItem("travelTrade"));
+					$scope.MMTT = JSON.parse(sessionStorage.getItem("travelTrade"));
 				}
 			}
 			initData();

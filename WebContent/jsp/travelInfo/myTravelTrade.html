@@ -1,27 +1,50 @@
+<header >
+	<div class="titlebar reverse">
+		<h1>通告</h1>
+	</div>
+	<ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+		<li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(0)">
+			<label class="tab-label">已付款</label>
+		</li>
+		<li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(1)">
+			<label class="tab-label">待付款</label>
+		</li>
+		<li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive3]" ng-click="changeBar(2)">
+			<label class="tab-label">已退款</label>
+		</li>
+	<hr>
+	</ul>
+</header>
+
 <article style="margin-top: 55px;">
 	<div class="weui_cell" ng-repeat="MTT in MTTInfo">
-
 		<div class="weui_cell_bd weui_cell_primary">
 			<div class="wuliao-title">
-				<label>主题：</label>
-				<span>{{MTT.travel_title}}</span>
-        </div>
-        
-		<div class="detail clearfix">
-			<span class="date">旅游路线：{{MTT.travel_route}}</span>
-		</div>
-		
-		<div class="detail clearfix">
-			<span class="date">出发时间：{{MTT.travel_stime.time | dateType}}</span>
-		</div>
-		
-		<div class="detail clearfix">
-			<span class="date">承办公司：{{MTT.travel_firm}}</span>
-			<span class="require">联系方式：<label>{{MTT.travel_tel}}</label></span>
-		</div>
-		
-		<div class="org">
-			<span>活动描述：{{MTT.travel_content|cutString}}</span>
+					<label>主题：</label>
+					<span>{{MTT.travel_travel_title}}</span>
+	        </div>
+	        
+			<div class="detail clearfix">
+				<span class="date">旅游路线：{{MTT.travel_travel_route}}</span>
+			</div>
+			
+			<div class="detail clearfix">
+				<span class="date">出发时间：{{MTT.travel_travel_stime.time | dateType}}</span>
+			</div>
+			
+			<div class="detail clearfix">
+				<span class="date">承办公司：{{MTT.travel_travel_firm}}</span>
+				<span class="require">联系方式：<label>{{MTT.travel_travel_tel}}</label></span>
+			</div>
+			
+			<div class="org">
+				<span>活动描述：{{MTT.travel_travel_content}}</span>
+			</div>
+			<div class="org">
+               <label class="green" ng-click="getMyTravelTradeById(MTT)">详情</label>
+           </div>
 		</div>
 	</div>
+	
+	<div class="limitHint">没有更多了！</div>
 </article>

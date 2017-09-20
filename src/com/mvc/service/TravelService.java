@@ -7,7 +7,9 @@
  */
 package com.mvc.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
@@ -30,5 +32,5 @@ public interface TravelService {
 	void updateTravel(String travel_id, Integer total_num);
 
 	//根据openid查找旅游信息
-	List<Travel> selectMyTravelInfoByOId(String openid);
+	Map selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state);
 }
