@@ -14,8 +14,28 @@
     </ul>
 </header>
 
-              
-<article style="margin-top: 104px; ">
+<div id="loadingToast" class="weui_loading_toast" style="display:block;">
+                <div class="weui_mask_transparent"></div>
+                <div class="weui_toast">
+                    <div class="weui_loading">
+                        <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+                    </div>
+                    <p class="weui_toast_content">数据加载中</p>
+                </div>
+            </div>
+           
+<article style="margin-top: 100px; ">
     <div id="table1">
  	<form ng-submit="addSmallGoods()" method="post" enctype="multipart/form-data"
  		style="overflow:hidden;">
@@ -69,10 +89,8 @@
                     <div class="item-name">出发时间：<b>*</b></div>
                     <div class="item-value">
                     <div class="input-wrap">
-                        <input type="text" ng-model="GoLimit.smgo_send_time"
-					class="dfselect dateLayoutStyle" 
-					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
-                        </div> 
+                        <input class="select-box" type="date" ng-model="GoLimit.smgo_send_time" required>
+                    </div> 
                     </div>
             </li>
 			
@@ -94,23 +112,22 @@
 				</div>
 			</li>
 			
-			<li class="inner">
+			<li class="inner" style="height:auto">
 				<div class="item-name">收件人联系方式：<b>*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_receiver_tel" required>
+						<input class="select-box" type="number" ng-model="GoLimit.smgo_receiver_tel" ng-blur="checknum(GoLimit.smgo_receiver_tel)" required>
 					</div>
+					<div class="limitNum">请输入正确的手机号码</div>
 				</div>
 			</li>
-			
-			<div style="width:127px;margin:auto;" >
-				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="0" style="-webkit-appearance:radio;"><span>自行送货</span>
-				<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="1" style="-webkit-appearance:radio;"><span>上门取货</span>
-			</div>
-			
-			<div id="addSegoAdd">
-
-			</div>
+			<li class="inner">
+				<div>
+					<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="0" style="-webkit-appearance:radio;"><span>自行送货</span>
+					<input type="radio" name="radio" ng-model="GoLimit.smgo_sego" ng-value="1" style="-webkit-appearance:radio;"><span>上门取货</span>
+				</div>
+			</li>
+			<div id="addSegoAdd"></div>
 			
 			<li class="inner innerP">
 				<div class="item-name">备注：</div>
