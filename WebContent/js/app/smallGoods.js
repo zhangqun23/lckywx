@@ -198,7 +198,7 @@ app
 					            if(discount=="1"){
 					            	var $li = $("<li class='inner'></li>");
 									var $divFir = $("<div class='item-name' style='display:inline;'></div>");
-									$divFir.html("取货地址：<span><b>*</b></span>");
+									$divFir.html("取货地址：<font color='red'>*</font>");
 									var $divSco = $("<div class='item-value'></div>");
 									var $divThi = $("<div class='p-wrap'></div>");
 									var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");

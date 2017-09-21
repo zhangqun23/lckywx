@@ -320,7 +320,33 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 truckDrSdNd.modifyTruckSendList = data.list;
             	 });
              }
-             // 零担货运页面初始化
+
+/*           //零担货运分栏
+ 			busNeed.changeBar=function(state){
+ 				switch(state){
+ 				case 1:
+ 					busNeed.show={
+ 						isActive1:true,
+ 						isActive2:false,
+ 						isActive3:false
+ 				} 					
+ 					break;
+ 				case 2:
+ 					busNeed.show={
+ 						isActive1:false,
+ 						isActive2:true,
+ 						isActive3:false
+ 				}
+ 					break;
+ 				case  3:
+ 					busNeed.show={
+ 						isActive1:false,
+ 						isActive2:false,
+ 						isActive3:true
+ 				}
+ 					break;
+ 			}
+*/             // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");             
                  if ($location.path().indexOf('/truckDriver') == 0) {
