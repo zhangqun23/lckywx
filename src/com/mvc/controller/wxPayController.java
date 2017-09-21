@@ -64,7 +64,7 @@ public class wxPayController {
 		Float mprice = travel.getTravel_mprice();
 		Float cprice = travel.getTravel_cprice();
 		String out_trade_no = wxPayUtil.getTradeNo();
-		float total_fee = trtr_mnum*mprice+trtr_cnum*cprice;
+		float total_fee = (trtr_mnum*mprice+trtr_cnum*cprice)*travel.getTravel_discount()+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance();
 		
 		TravelTrade travelTrade = new TravelTrade();;
 		travelTrade.setTravel(travel);

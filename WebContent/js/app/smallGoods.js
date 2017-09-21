@@ -131,6 +131,18 @@ app
 							startDate:"",
 							endDate:""
 					}
+					smallGoods.checknum = function(element){
+						if((/^1[34578]\d{9}$/.test(element)) 
+								| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
+							console.log("jinalail2")
+					    	$(".limitNum").css('display','none');
+					    }else{
+					    	console.log("jinalail")
+							$(".limitNum").css('display','block');
+							
+					    }
+						return ;
+					}
 					function compareDateTime(startDate, endDate) {
 						var date1 = new Date(startDate);
 						var date2 = new Date(endDate);
