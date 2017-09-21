@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Ad {
 private Integer ad_id;//广告id，主键
 private Integer ad_type;//0招工，1旅游、2其他
-private Integer ad_state;//0代表未审核，1代表已审核
+private Integer ad_state;//0代表未审核，1代表已审核，2代表已驳回
 private String open_id;//openid
 private String ad_name;//联系人
 private String ad_tel;//联系方式
