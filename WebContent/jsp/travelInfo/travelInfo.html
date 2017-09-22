@@ -2,7 +2,7 @@
 		<form ng-submit="selectTravelInfo()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
 	    
 	</form>
-	
+<!-- 	
 	<div ng-model="order" style="width:127px;margin:auto;">
 	    <input type="radio" name="radio" ng-model="order" value="travel_stime" style="-webkit-appearance:radio;"><span>按时间</span>
 	    <input type="radio" name="radio" ng-model="order" value="travel_mprice" style="-webkit-appearance:radio;"><span>按价格</span>
@@ -10,7 +10,7 @@
 	
 	<div ng-model="order">
 		<input type="button" value="按时间进行排序"  ng-model="order">
-	</div>
+	</div> -->
 	
 	<div class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order :desc" id="travelInfoAdd">
                     <div class="weui_cell_bd weui_cell_primary">
@@ -28,7 +28,7 @@
                         <span class="date">出发时间：{{TInfo.travel_stime.time | dateType}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">剩余票数：{{TInfo.travel_left_num}}</span>
+                        <span class="date">剩余票数：<lable class="lableimport">{{TInfo.travel_left_num}}</lable></span>
                     </div>
 		   			<div class="detail clearfix">
                         <span class="date">承办公司：{{TInfo.travel_firm}}</span>

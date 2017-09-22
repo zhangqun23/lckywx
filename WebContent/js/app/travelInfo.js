@@ -383,21 +383,10 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
-// 旅游活动内容的格式化的判断
-app.filter('travelFilter', function() {
-	return function(input) {
-		if (input == "") {
-			var input = "空";
-			return input;
-		} else {
-			return input;
-		}
-	}
-});
-// 旅游交易输入判断
+//旅游活动内容的格式化的判断
 app.filter('trtrFilter', function() {
 	return function(input) {
-		if (input == "") {
+		if (input == ""||input == null) {
 			var input = "空";
 			return input;
 		} else {
@@ -405,13 +394,28 @@ app.filter('trtrFilter', function() {
 		}
 	}
 });
-
+//旅游活动内容的格式化的判断
+app.filter('stateFilter', function() {
+	return function(input) {
+		switch(input){
+		case 0:
+			var input = "已付款";
+			return input;
+		case 1:
+			var input = "待付款";
+			return input;
+		case 2:
+			var input = "已退款";
+			return input;
+		}
+	}
+});
 //截取任务内容
 app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
 		if (input != "") {
-			var shortInput = input.substr(0, 2);
+			var shortInput = input.substr(0, 10);
 			content = shortInput + "……";
 			}
 		return content;	
