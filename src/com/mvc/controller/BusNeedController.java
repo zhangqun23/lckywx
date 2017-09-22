@@ -96,7 +96,6 @@ public class BusNeedController {
 		busNeed.setOpen_id(openid);
 		busNeed.setIs_delete(true);
 		BusNeed result = null;
-		BusTrade result1=null;
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
 				busNeed.setBune_id(Integer.valueOf(jsonObject.getString("bune_id")));
@@ -105,15 +104,8 @@ public class BusNeedController {
 		} else {
 			result = busNeedService.saveBusNeed(busNeed);// 添加班车定制需求
 		}
-		if(result!=null){	
-			BusNeed busAndNeed = new BusNeed();
-			busAndNeed.setBune_id(result.getBune_id());
-			result1.setBusNeed(busAndNeed);
-			result1 = busNeedService.saveAndBusTrade(result1);// 修改的同时添加班车交易
-		}		
 		JSONObject limit=new JSONObject();
 		limit.put("result", result);
-		limit.put("result1", result1);
 		return limit.toString();
 	}
 
@@ -129,7 +121,7 @@ public class BusNeedController {
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		//String openid=SessionUtil.getOpenid(request);
-		String openid="1";
+		String openid="wang123";
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");	
@@ -257,9 +249,7 @@ public class BusNeedController {
 		Integer busNeed_id = Integer.valueOf(request.getParameter("busNeed_id"));		
 		map.put("busNeed_id", busNeed_id);	
 		BusNeed busNeed = busNeedService.findBusNeedAll(map);
-		BusTrade busTrade = busNeedService.findBusTradeAll(map);
 		jsonObject.put("busNeed", busNeed);
-		jsonObject.put("busTrade", busTrade);
 		return jsonObject.toString();
 	}
 	
