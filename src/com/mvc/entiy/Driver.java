@@ -19,7 +19,7 @@ private String driver_name;//司机姓名
 private String driver_job;//司机工作
 private String driver_tel;//司机联系方式
 private String driver_idcard;//司机身份证号
-private Date driver_license_starttime;//司机初次领取驾照日期
+private String driver_license_number;//司机驾驶证号
 private String driver_license;//司机驾驶证照
 private String driver_image;//司机照片
 private String driver_car;//汽车照片
@@ -67,15 +67,14 @@ public void setDriver_idcard(String driver_idcard) {
 	this.driver_idcard = driver_idcard;
 }
 
-@Temporal(TemporalType.TIMESTAMP)
-@Column(name = "driver_license_starttime")
-public Date getDriver_license_starttime() {
-	return driver_license_starttime;
-}
-public void setDriver_license_starttime(Date driver_license_starttime) {
-	this.driver_license_starttime = driver_license_starttime;
-}
 
+@Column(name = "driver_license_number",length = 36)
+public String getDriver_license_number() {
+	return driver_license_number;
+}
+public void setDriver_license_number(String driver_license_number) {
+	this.driver_license_number = driver_license_number;
+}
 @Column(name = "driver_license", length = 36)
 public String getDriver_license() {
 	return driver_license;

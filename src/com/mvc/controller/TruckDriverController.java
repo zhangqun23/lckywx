@@ -52,6 +52,8 @@ public class TruckDriverController {
 		if(jsonObject.containsKey("driver_job")){
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_job"))) {
 				driver.setDriver_job(jsonObject.getString("driver_job"));
+			}else{
+				return null;
 			}
 		}
 		if (jsonObject.containsKey("driver_tel")) {
@@ -64,14 +66,12 @@ public class TruckDriverController {
 				driver.setDriver_idcard(jsonObject.getString("driver_idcard"));
 			}
 		}
-		if (jsonObject.containsKey("driver_license_starttime")) {
-			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_license_starttime"))) {
-				Date date = format.parse(jsonObject.getString("driver_license_starttime"));
-				driver.setDriver_license_starttime(date);
+		if (jsonObject.containsKey("driver_license_number")) {			
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_license_number"))) {				
+				driver.setDriver_license_number(jsonObject.getString("driver_license_number"));
 			}
 		}	
-		if (jsonObject.containsKey("driver_license")) {
+		/*if (jsonObject.containsKey("driver_license")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_license"))) {
 				driver.setDriver_license(jsonObject.getString("driver_license"));
 			}
@@ -85,7 +85,7 @@ public class TruckDriverController {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_car"))) {
 				driver.setDriver_car(jsonObject.getString("driver_car"));
 			}
-		}
+		}*/
 		driver.setIs_audit(0);
 		if (jsonObject2.containsKey("trck_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_load"))) {
@@ -206,6 +206,8 @@ public class TruckDriverController {
 		if (jsonObject.containsKey("trne_remark")) {
 			if (StringUtil.strIsNotEmpty("trne_remark")) {
 				truckNeed.setTrne_remark(jsonObject.getString("trne_remark"));
+			}else{
+				return null;
 			}
 		}
 		if (jsonObject.containsKey("is_freeze")) {

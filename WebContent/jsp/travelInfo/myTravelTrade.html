@@ -16,29 +16,40 @@
 	</ul>
 </header>
 
-<article style="margin-top: 55px;">
+<article style="margin-top: 90px;">
 	<div class="weui_cell" ng-repeat="MTT in MTTInfo">
 		<div class="weui_cell_bd weui_cell_primary">
 			<div class="wuliao-title">
 					<label>主题：</label>
-					<span>{{MTT.travel_travel_title}}</span>
+					{{MTT.travel_travel_title|trtrFilter}}
+	        </div>
+
+	        <div class="detail clearfix">
+				<span class="require">购买成人票数：{{MTT.trade_trtr_cnum|trtrFilter}}</span>
+			</div>
+			
+			 <div>
+	        	<span class="require">购买儿童票数：{{MTT.trade_trtr_mnum|trtrFilter}}</span>
 	        </div>
 	        
 			<div class="detail clearfix">
-				<span class="date">旅游路线：{{MTT.travel_travel_route}}</span>
+				<span class="require">旅游路线：{{MTT.travel_travel_route|trtrFilter}}</span>
 			</div>
 			
 			<div class="detail clearfix">
-				<span class="date">出发时间：{{MTT.travel_travel_stime.time | dateType}}</span>
+				<span class="require">出发时间：{{MTT.travel_travel_stime.time | dateType}}</span>
 			</div>
 			
 			<div class="detail clearfix">
-				<span class="date">承办公司：{{MTT.travel_travel_firm}}</span>
-				<span class="require">联系方式：<label>{{MTT.travel_travel_tel}}</label></span>
+				<span class="require">承办公司：{{MTT.travel_travel_firm|trtrFilter}}</span>
+			</div>
+			
+			<div>
+				<span class="require">联系方式：<label>{{MTT.travel_travel_tel|trtrFilter}}</label></span>
 			</div>
 			
 			<div class="org">
-				<span>活动描述：{{MTT.travel_travel_content}}</span>
+				<span>活动描述：{{MTT.travel_travel_content|cutString|trtrFilter}}</span>
 			</div>
 			<div class="org">
                <label class="green" ng-click="getMyTravelTradeById(MTT)">详情</label>

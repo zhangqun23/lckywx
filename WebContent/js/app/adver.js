@@ -161,6 +161,9 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 			adver.addAdver = function() {
 				var myDate = new Date();
 				if(compareDateTime(myDate.toLocaleDateString(),adver.ADLimit.ad_etime)){return alert("请填写正确时间")}
+				if(!(/^1[34578]\d{9}$/.test(adver.ADLimit.ad_tel)) || !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(adver.ADLimit.ad_tel)){ 
+			        return alert("电话号码有误，请重填");  
+			    }
 				var adLimit = JSON.stringify(adver.ADLimit);
 				if (adver.ADLimit.ad_type == "广告类型") {
 					return alert("请输入广告类型！")
@@ -287,6 +290,7 @@ app.controller('PlatformController', [ '$scope', 'services', '$location',
 					break;
 				}
 			}
+			
 			//初始化
 			function initData() {
 				console.log("初始化页面信息");
