@@ -92,6 +92,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/truckNeedInfo', {
 		templateUrl : '/lckywx/jsp/truckLoad/truckNeedInfo.html',
 		controller : 'TruckLoadController'
+	}).when('/selecttruckDriverInfo', {
+		templateUrl : '/lckywx/jsp/truckLoad/truckDriverInfo.html',
+		controller : 'TruckLoadController'
 	}).when('/modifyTruckSend', {
 		templateUrl : '/lckywx/jsp/truckLoad/modifyTruckSend.html',
 		controller : 'TruckLoadController'
@@ -152,15 +155,22 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			method : 'post',
 			url : baseUrl + 'truckLoad/selectTruckNeedById.do',
 			data : data
-		})
+		});
 	};
+	services.selectTruckDriverById = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectTruckDriverById.do',
+			data : data
+		})
+	}
 	services.modifyTruckSend = function(data){
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/modifyTruckSend.do',
 			data : data
-		})
-	};
+		});
+	};	
 	return services;
 } ]);
 
@@ -169,7 +179,8 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
          var truckDrSdNd = $scope;
              truckDrSdNd.truckLimit = {
                  trck_load : "",
-                 is_freeze : "0"  // 0代表未冷冻，1代表冷冻
+                 is_freeze : "0",  // 0代表未冷冻，1代表冷冻
+                 trck_number :"", //车牌号
              }             
              // pg添加车主+货车信息
              truckDrSdNd.driverLimit = {
@@ -225,14 +236,15 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 				if(compareDateTime(mtDate.toLocaleDateString(),driverLimit.driver_license_starttime)){return alert("请填写正确时间")}*/
                  var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
                  var driverLimit = JSON.stringify(truckDrSdNd.driverLimit);
-                 console.log(truckLimit)
+                 console.log(truckLimit);
+                 console.log(driverLimit);
                      services.addTruckDriver({
                     	 truckInfo : truckLimit,
                     	 driverInfo : driverLimit
                      }).success(function(data) {
-                         sessionStorage.setItem("trckId", data.result.trck_id);
+                         sessionStorage.setItem("trckId", data.limint.trck_id);
                          sessionStorage.setItem("driverId", data.result.driver_id);
-                         $location.path("truckDriver");
+                         $location.path("selecttruckDriverInfo");
                      });
              }
              // pg添加货主需求信息
@@ -303,6 +315,16 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 truckDrSdNd.selectTruckNeedByIdList = data.truckNeed;
             	 });
              }
+             //根据trck_id和driver_id获取司机车辆信息
+             truckDrSdNd.selectTruckDriverById = function (trckId,driverId){           	
+            	 services.selectTruckDriverById({
+            		 trckId : trckId,
+            		 driverId : driverId
+            	 }).success(function(data){            	
+            		 truckDrSdNd.selectDriverByIdList = data.driver;
+            		 truckDrSdNd.selectTruckByIdList = data.truck;
+            	 })
+             }
              //根据trse_id获得车主信息(修改用)
              truckDrSdNd.getModifyTruckSend = function (trse_id){
             	 sessionStorage.setItem("trse_id",trse_id);
@@ -356,10 +378,12 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              function initPage() {
                  console.log("初始化页面信息");             
                  if ($location.path().indexOf('/truckDriver') == 0) {
-                 } else if ($location.path().indexOf('/truckSend') == 0) {
-
+                 } else if ($location.path().indexOf('/selecttruckDriverInfo') == 0) {                 	 
+                     var trckId = sessionStorage.getItem("trckId");                     
+                     var driverId = sessionStorage.getItem("driverId");                    
+                     truckDrSdNd.selectTruckDriverById(trckId,driverId);
                  } else if ($location.path().indexOf('/truckNeed') == 0) {
-                
+                	
                  } else if ($location.path().indexOf('/selectTruckNeed') == 0) {
                 	 
                  } else if ($location.path().indexOf('/selectTruckSend') == 0) {

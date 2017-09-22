@@ -87,6 +87,8 @@ public class TruckDriverController {
 			}
 		}*/
 		driver.setIs_audit(0);
+		String openId = SessionUtil.getOpenid(request);
+		driver.setOpen_id(openId);
 		if (jsonObject2.containsKey("trck_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_load"))) {
 				truck.setTrck_load(Float.parseFloat(jsonObject2.getString("trck_load")));
@@ -95,6 +97,11 @@ public class TruckDriverController {
 		if (jsonObject2.containsKey("is_freeze")) {
 			if (StringUtil.strIsNotEmpty(jsonObject2.getString("is_freeze"))) {
 				truck.setIs_freeze(Integer.parseInt(jsonObject2.getString("is_freeze")));
+			}
+		}
+		if (jsonObject2.containsKey("trck_number")) {
+			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_number"))) {
+				truck.setTrck_number((jsonObject2.getString("trck_number")));
 			}
 		}
 		truck.setTrck_check(0);
@@ -280,6 +287,20 @@ public class TruckDriverController {
 		TruckNeed truckNeed = truckDriverService.findTruckNeedInfo(trneId);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("truckNeed", truckNeed);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据trck_id和driver_id查询truckDriver信息
+	 */
+	@RequestMapping("/selectTruckDriverById.do")
+	public @ResponseBody String selectTruckDriverById (HttpServletRequest request){
+		Integer trckId = Integer.parseInt(request.getParameter("trckId"));
+		Integer driverId = Integer.parseInt(request.getParameter("driverId"));
+		Truck truck = truckDriverService.findTrck(trckId);
+		Driver driver = truckDriverService.findDriver(driverId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("truck", truck);
+		jsonObject.put("driver", driver);
 		return jsonObject.toString();
 	}
 }
