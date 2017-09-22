@@ -224,7 +224,7 @@ app
 								case 2:
 									smallGoods.show={
 										isActive1:false,
-										isActive2:true													
+										isActive2:true											
 								}
 									$("#table1").hide();
 									$("#table2").show();

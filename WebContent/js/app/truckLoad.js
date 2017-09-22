@@ -177,10 +177,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  driver_job : "",
             	 driver_tel : "",
             	 driver_idcard : "",
-            	 driver_license_starttime : "",
-            	 driver_license : "",
-            	 driver_image : "",
-            	 driver_car : ""
+            	 driver_license_number : "",           	 
              }
              /*
                 private Integer driver_id;//司机ID,主键
@@ -224,8 +221,8 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
              // pg添加货车+司机的信息
              truckDrSdNd.addTruckDriver = function() {
             	 console.log("你太调皮了");
- 				var myDate = new Date();
-				if(compareDateTime(mtDate.toLocaleDateString(),driverLimit.driver_license_starttime)){return alert("请填写正确时间")}
+ 				/*var myDate = new Date();
+				if(compareDateTime(mtDate.toLocaleDateString(),driverLimit.driver_license_starttime)){return alert("请填写正确时间")}*/
                  var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
                  var driverLimit = JSON.stringify(truckDrSdNd.driverLimit);
                  console.log(truckLimit)
@@ -320,33 +317,42 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 truckDrSdNd.modifyTruckSendList = data.list;
             	 });
              }
-
-/*           //零担货运分栏
- 			busNeed.changeBar=function(state){
+ 			//修改零担货运分栏
+             truckDrSdNd.changebar=function(state){
  				switch(state){
+ 				case 0:														
+ 					truckDrSdNd.show={
+ 						isActive0:true,
+ 						isActive1:false,
+ 						isActive2:false,
+ 				};
+ 				    $('#table1').show();
+ 				    $('#table2').hide();
+ 				    $('#table3').hide();
+ 					break;
  				case 1:
- 					busNeed.show={
+ 					truckDrSdNd.show={
+ 						isActive0:false,
  						isActive1:true,
  						isActive2:false,
- 						isActive3:false
- 				} 					
+ 				};
+ 	 				$('#table1').hide();
+ 	 				$('#table2').show();
+ 	 				$('#table3').hide();
  					break;
- 				case 2:
- 					busNeed.show={
+ 				case  2:
+ 					truckDrSdNd.show={
+ 						isActive0:false,
  						isActive1:false,
- 						isActive2:true,
- 						isActive3:false
- 				}
+ 						isActive2:true,						
+ 				};
+ 	 				$('#table1').hide();
+ 	 				$('#table2').hide();
+ 	 				$('#table3').show();
  					break;
- 				case  3:
- 					busNeed.show={
- 						isActive1:false,
- 						isActive2:false,
- 						isActive3:true
  				}
- 					break;
  			}
-*/             // 零担货运页面初始化
+             // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");             
                  if ($location.path().indexOf('/truckDriver') == 0) {
