@@ -26,6 +26,7 @@ private String trck_score;//评分
 private Integer trck_check;//0代表未通过审核，1代表已通过审核
 private Driver driver;//外键
 private String open_id; //openid
+private String trck_number;//车牌号
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "trck_id",unique = true, nullable = false, length = 11)
@@ -91,6 +92,12 @@ public String getOpen_id() {
 }
 public void setOpen_id(String open_id) {
 	this.open_id = open_id;
+}
+public String getTrck_number() {
+	return trck_number;
+}
+public void setTrck_number(String trck_number) {
+	this.trck_number = trck_number;
 }
 
 

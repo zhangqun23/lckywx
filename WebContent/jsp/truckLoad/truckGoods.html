@@ -21,16 +21,7 @@
 	<div id = "table1">
  	<form ng-submit="addTruckDriver()" method="post" enctype="multipart/form-data"
  		style="overflow:hidden;">
-		<ul class="form-box">
-			<li class="inner">
-				<div class="item-name">货车载重量<span class="lableimport">*</span></div>
-				<div class="item-value">
-					<div class="input-wrap">
-						<input type="text" ng-model="truckLimit.trck_load" required>
-					</div>
-				</div>
-			</li>
-			
+		<ul class="form-box">			
 			<li class="inner">
 				<div class="item-name">姓名<span class="lableimport">*</span></div>
 				<div class="item-value">
@@ -66,7 +57,14 @@
 					</div>
 				</div>
 			</li>
-			
+						<li class="inner">
+				<div class="item-name">货车载重量<span style="color:red">*</span></div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="truckLimit.trck_load" required>
+					</div>
+				</div>
+			</li>
 			<li class="inner">
                     <div class="item-name">驾驶证号<span class="lableimport">*</span></div>
                     <div class="item-value">
@@ -75,7 +73,14 @@
                         </div> 
                     </div>
             </li>			
-			
+			<li class="inner">
+				<div class="item-name">车牌号<span style="color:red">*</span></div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="truckLimit.trck_number" required>
+					</div>
+				</div>
+			</li>
 			<div style="width:127px;margin:auto;" >
 				<input type="radio" name="radio" ng-model="truckLimit.is_freeze" ng-value="0" style="-webkit-appearance:radio;width:20px;heigth:20px;">
 				<span style="font-size:15px">未冷冻</span>
