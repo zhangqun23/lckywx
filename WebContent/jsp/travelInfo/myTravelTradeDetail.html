@@ -69,5 +69,11 @@
 			<div class="item-name">订单号：</div>
 			<div class="item-value">{{MMTT.trade_trtr_num|trtrFilter|cutString}}</div>
 		</li>
+		
+		<div id="refund-pay" style="display:none">
+			<li class="inner no-padding">
+			<div ng-click="traderefundpay(MMTT.travel_travel_id)" class="weui_btn weui_btn_primary">我要退票</div>
+			</li>
+		</div>
 	</ul>
 </article>
