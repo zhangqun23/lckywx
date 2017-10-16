@@ -52,7 +52,7 @@
 				<div class="item-name">货物重量：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_weight" required>										
+						<input type="text" ng-model="GoLimit.smgo_weight" placeholder="单位：千克" required>										
 					</div>
 					
 				</div>
@@ -113,7 +113,7 @@
 			</li>
 			
 			<li class="inner" style="height:auto">
-				<div class="item-name">收件人联系方式：<b>*</b></div>
+				<div class="item-name">收件人联系方式：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input class="select-box" type="number" ng-model="GoLimit.smgo_receiver_tel" ng-blur="checknum(GoLimit.smgo_receiver_tel)" required>

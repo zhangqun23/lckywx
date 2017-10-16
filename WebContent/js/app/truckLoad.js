@@ -397,7 +397,38 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
  	 				$('#table5').show();
  					break;
  			}
- 				
+ 			
+ 			// 零担货运我的发布
+ 				truckDrSdNd.changebarr=function(state){
+ 	 				switch(state){
+ 	 				case 7:														
+ 	 					truckDrSdNd.show={
+ 	 						isActive7:true,
+ 	 						isActive8:false,
+ 	 						isActive9:false
+ 	 				};
+ 	 				    $('#table').show();
+ 	 				    $('#table5').hide();
+ 	 					break;
+ 	 				case 8:
+ 	 					truckDrSdNd.show={
+ 	 						isActive7:false,
+ 	 						isActive8:true,
+ 	 						isActive9:false
+ 	 				};
+ 	 	 				$('#table4').hide();
+ 	 	 				$('#table5').show();
+ 	 					break;
+ 	 				case 9:
+ 	 					truckDrSdNd.show={
+ 	 						isActive7:false,
+ 	 						isActive8:false,
+ 	 						isActive9:true
+ 	 				};
+ 	 	 				$('#table4').hide();
+ 	 	 				$('#table5').show();
+ 	 					break;	
+ 	 			}		
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");             
