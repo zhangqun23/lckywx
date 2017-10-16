@@ -1,27 +1,48 @@
-<article style="margin-top: 60px;" >
+<header >
+            <div class="titlebar reverse">
+                <h1>我的发布</h1>
+            </div>
+            <ul class="tabbar animate-slide width-full" data-col="2" id="tabbar">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                    <label class="tab-label">待交易</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                    <label class="tab-label">已交易</label>
+                </li>
+                <hr>
+            </ul>
+</header>
 
-	<form ng-submit="selectBusNeeds()" method="post" 
+<article style="margin-top: 100px;">
+
+	<form ng-submit="selectBusNeeds()" method="post"
 		enctype="multipart/form-data">
 
-		<div class="inner" >
+		<div class="inner">
 			<!-- <div class="item-name" style="float: left">出发时间：</div> -->
 
-			<input type="text" name="startTime" style="width:25%;margin-left:10px;float: left"
-				ng-model="startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+			<input type="text" name="startTime"
+				style="width: 25%; margin-left: 10px; float: left"
+				ng-model="startDate" class="dfselect dateLayoutStyle"
+				placeHolder="起始时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
-				required><div style="float: left;margin-right:10px">—</div><!-- <br>
+				required>
+			<div style="float: left; margin-right: 10px">—</div>
+			<!-- <br>
 			<div class="item-name" >出发时间：</div> -->
 
-			<input type="text" name="startTime" style="width:25%;float: left"
-				ng-model="endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+			<input type="text" name="startTime" style="width: 25%; float: left"
+				ng-model="endDate" class="dfselect dateLayoutStyle"
+				placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
 		</div>
 		<div class="org">
-			<span><input type="submit" class="weui_btn weui_btn_primary" value="查询">
+			<span><input type="submit" class="weui_btn weui_btn_primary"
+				value="查询">
 		</div>
 	</form>
-	<br/>
+	<br />
 	<ul ng-repeat="bnl in busNeedList">
 		<li class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary">
@@ -29,7 +50,8 @@
 					<label>需求编号：</label> <span>{{bnl.bune_id}}</span>
 				</div>
 				<div class="detail clearfix">
-					<span class="date">用车时间：{{bnl.bune_gath_time.time | dateType}}</span>
+					<span class="date">用车时间：{{bnl.bune_gath_time.time |
+						dateType}}</span>
 				</div>
 				<div class="detail clearfix">
 					<span class="require">目的地点：<label>{{bnl.bune_goal_pla}}</label></span>
@@ -45,7 +67,7 @@
 
 	</ul>
 
- <div class="limitHint">没有更多了！</div>
+	<div class="limitHint">没有更多了！</div>
 </article>
 
 <script type="text/javascript">
