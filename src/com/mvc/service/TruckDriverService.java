@@ -32,5 +32,9 @@ public interface TruckDriverService {
 	TruckSend findTruckSendInfo(Integer trseId);
 	//根据truckNeedId查询truckNeed详情
 	TruckNeed findTruckNeedInfo(Integer trneId);
+	//根据trck_id查询truck
+
+	Driver findDriver(Integer driverId);
+	Truck findTrck(Integer trckId);
 
 }
