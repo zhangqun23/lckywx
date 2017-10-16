@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.mvc.enums.IsDelete;
 import com.mvc.dao.BusNeedDao;
 import com.mvc.entiy.BusNeed;
-import com.mvc.entiy.BusTrade;
 
 /**
   * 
@@ -77,43 +76,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		return true;
 	}
 
-	//查看单个班车预定需求
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<BusTrade> findBusTradeAlls(Map<String, Object> map) {
-		String startDate = null;
-		String endDate = null;
-		Integer busNeed_id = null;
-		String openid = null;
-		if ((String) map.get("startDate")!=null) {
-			startDate=(String) map.get("startDate");//开始时间
-		}
-		if ((String) map.get("endDate")!=null) {
-			endDate=(String) map.get("endDate");//结束时间
-		}
-		if ((String) map.get("openid")!=null) {
-			openid=(String) map.get("openid");//结束时间
-		}
-		if(map.get("busNeed_id")!=null){
-			busNeed_id=(Integer) map.get("busNeed_id");
-		}
-		EntityManager em=emf.createEntityManager(); 
-		String sql;
-		if(startDate==null || endDate==null ){
-			sql="select * from bus_trade where bune_id=:bune_id and open_id=:openid and is_delete=1 order by butr_time desc ";		
-
-		}else {
-			sql="select * from bus_trade where bune_id=:bune_id and open_id=:openid and is_delete=1 and "
-					+ " butr_time between '"+ startDate +"' and '"+ endDate +"' order by butr_time desc ";		
-		}
-		Query query=em.createNativeQuery(sql,BusTrade.class);
-		query.setParameter("bune_id", busNeed_id);
-		query.setParameter("openid", openid);
-		List<BusTrade> list=query.getResultList();
-		em.close();
-		return list;
-	}
-
+	
 	//查看单个班车预定需求,班车定制表
 	@SuppressWarnings("unchecked")
 	@Override
@@ -130,25 +93,6 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		BusNeed list=(BusNeed) query.getSingleResult();
 		em.close();
 		return list;
-	}
-
-	//查看单个班车预定需求,班车交易表
-	@SuppressWarnings("unchecked")
-	@Override
-	public BusTrade findBusTradeByBusNeed_id(Map<String, Object> map) {
-		Integer busNeed_id = null;
-		if(map.get("busNeed_id")!=null){
-			busNeed_id=(Integer) map.get("busNeed_id");
-		}
-		EntityManager em=emf.createEntityManager(); 
-		String sql=	"select * from bus_trade where bune_id=:busNeed_id and is_delete=1 ";
-	
-		Query query=em.createNativeQuery(sql,BusTrade.class);
-		query.setParameter("bune_id", busNeed_id);
-		BusTrade result=(BusTrade) query.getSingleResult();
-		int in=query.getFirstResult();
-		em.close();
-		return result;
 	}
 
 }

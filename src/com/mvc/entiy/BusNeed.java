@@ -29,6 +29,14 @@ public class BusNeed implements Serializable {
 	private String bune_purp;// 包车用途
 	private String bune_remark;// 备注
 	private Boolean is_delete;// 是否删除1表示未删除，0表示删除
+	private Date butr_time;// 交易创建时间
+	private Float butr_depo;// 押金
+	private Float butr_money;// 交易金额
+	private String bune_bus;// 车牌号
+	private Integer bune_type;// 交易类型，0表示线上，1表示线下
+	private Integer invoice_if;// 是否开发票，0:未开1:已开
+	private String invoice_num;// 发票号
+	private Integer butr_state;// 交易状态，0表示交易中，1表示交易结束
 	private String open_id;// 微信用户
 
 	@Id
@@ -129,4 +137,74 @@ public class BusNeed implements Serializable {
 		this.open_id = open_id;
 	}
 
+	public Date getButr_time() {
+		return butr_time;
+	}
+
+	public void setButr_time(Date butr_time) {
+		this.butr_time = butr_time;
+	}
+
+	@Column(columnDefinition = "float(10,1) not null default '0.0'")
+	public Float getButr_depo() {
+		return butr_depo;
+	}
+
+	public void setButr_depo(Float butr_depo) {
+		this.butr_depo = butr_depo;
+	}
+
+	@Column(columnDefinition = "float(10,1) not null default '0.0'")
+	public Float getButr_money() {
+		return butr_money;
+	}
+
+	public void setButr_money(Float butr_money) {
+		this.butr_money = butr_money;
+	}
+
+	@Column(length = 64)
+	public String getBune_bus() {
+		return bune_bus;
+	}
+
+	public void setBune_bus(String bune_bus) {
+		this.bune_bus = bune_bus;
+	}
+
+	@Column(columnDefinition = "INT not null default 1")
+	public Integer getBune_type() {
+		return bune_type;
+	}
+
+	public void setBune_type(Integer bune_type) {
+		this.bune_type = bune_type;
+	}
+
+	@Column(columnDefinition = "INT not null default 0")
+	public Integer getInvoice_if() {
+		return invoice_if;
+	}
+
+	public void setInvoice_if(Integer invoice_if) {
+		this.invoice_if = invoice_if;
+	}
+
+	@Column(length = 32)
+	public String getInvoice_num() {
+		return invoice_num;
+	}
+
+	public void setInvoice_num(String invoice_num) {
+		this.invoice_num = invoice_num;
+	}
+
+	@Column(columnDefinition = "INT not null default 0")
+	public Integer getButr_state() {
+		return butr_state;
+	}
+
+	public void setButr_state(Integer butr_state) {
+		this.butr_state = butr_state;
+	}
 }

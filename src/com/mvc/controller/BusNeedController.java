@@ -15,11 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-import com.mvc.enums.IsDelete;
+
 import com.mvc.entiy.BusNeed;
-import com.mvc.entiy.BusTrade;
-import com.mvc.entiy.User;
 import com.mvc.service.BusNeedService;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
@@ -95,6 +92,8 @@ public class BusNeedController {
 		String openid=SessionUtil.getOpenid(request);
 		busNeed.setOpen_id(openid);
 		busNeed.setIs_delete(true);
+		busNeed.setBune_type(1);
+		busNeed.setButr_depo((float)0.0);
 		BusNeed result = null;
 		if (jsonObject.containsKey("bune_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_id"))) {
@@ -133,81 +132,6 @@ public class BusNeedController {
 		return jsonObject.toString();
 	}
 
-	/**
-	 * 添加,修改班车交易
-	 * 
-	 * @param request
-	 * @param session
-	 * @return
-	 * @throws ParseException
-	 */
-	@RequestMapping(value = "/addBusTrade.do")
-	public @ResponseBody String addBusTrade(HttpServletRequest request, HttpSession session) throws ParseException {
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("busTrade"));
-		BusTrade busTrade = new BusTrade();
-		if (jsonObject.containsKey("bune_bus")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_bus"))) {
-				busTrade.setBune_bus(jsonObject.getString("bune_bus"));
-			}
-		}
-		if (jsonObject.containsKey("bune_type")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_type"))) {
-				busTrade.setBune_type(Integer.valueOf(jsonObject.getString("bune_type")));
-			}
-		}
-		if (jsonObject.containsKey("butr_depo")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_depo"))) {
-				busTrade.setButr_depo(Float.parseFloat(jsonObject.getString("butr_depo")));
-			}
-		}
-		if (jsonObject.containsKey("butr_money")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_money"))) {
-				busTrade.setButr_money(Float.parseFloat(jsonObject.getString("butr_money")));
-			}
-		}
-		if (jsonObject.containsKey("butr_state")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_state"))) {
-				busTrade.setButr_state(Integer.valueOf(jsonObject.getString("butr_state")));
-			}
-		}
-		if (jsonObject.containsKey("butr_time")) {
-			SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_time"))) {
-				Date date = sdf.parse(jsonObject.getString("butr_time"));
-				busTrade.setButr_time(date);
-			}
-		}
-		if (jsonObject.containsKey("invoice_if")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("invoice_if"))) {
-				busTrade.setInvoice_if(Integer.valueOf(jsonObject.getString("invoice_if")));
-			}
-		}
-		if (jsonObject.containsKey("invoice_num")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("invoice_num"))) {
-				busTrade.setInvoice_num(jsonObject.getString("invoice_num"));
-			}
-		}
-		BusNeed busNeed = new BusNeed();
-		if (jsonObject.containsKey("bus_need")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("bus_need"))) {
-				busNeed.setBune_id(Integer.parseInt(jsonObject.getJSONObject("bus_need").getString("bune_id")));
-				busTrade.setBusNeed(busNeed);
-			}
-		}
-		boolean result = false;
-		if (jsonObject.containsKey("butr_id")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_id"))) {
-				busTrade.setButr_id(Integer.valueOf(jsonObject.getString("butr_id")));
-				result = busNeedService.saveBusTrade(busTrade);// 修改班车交易
-			}
-		} else {
-			result = busNeedService.saveBusTrade(busTrade);// 添加班车交易
-		}
-		
-		JSONObject limit=new JSONObject();
-		limit.put("result", result);
-		return limit.toString();
-	}
 	
 	/**
 	 * 删除班车定制需求
