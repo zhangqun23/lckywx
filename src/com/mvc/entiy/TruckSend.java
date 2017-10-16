@@ -24,7 +24,7 @@ public class TruckSend {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "trtr_id",unique = true, nullable = false, length = 11)
+	@Column(name = "trse_id",unique = true, nullable = false, length = 11)
 	public Integer getTrse_id() {
 		return trse_id;
 	}

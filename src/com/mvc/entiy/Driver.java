@@ -24,6 +24,7 @@ private String driver_license;//司机驾驶证照
 private String driver_image;//司机照片
 private String driver_car;//汽车照片
 private Integer is_audit;//0代表未审核，1代表已审核
+private String open_id;//openid
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -106,4 +107,12 @@ public Integer getIs_audit() {
 public void setIs_audit(Integer is_audit) {
 	this.is_audit = is_audit;
 }
+@Column(name = "open_id",length = 128)
+public String getOpen_id() {
+	return open_id;
+}
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
+}
+
 }

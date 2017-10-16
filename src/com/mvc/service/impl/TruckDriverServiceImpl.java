@@ -100,6 +100,16 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	public TruckNeed findTruckNeedInfo(Integer trneId) {
 		return truckNeedRepository.findTruckNeedInfo(trneId);
 	}
+	//根据trck_id查询truck
+	@Override
+	public Truck findTrck(Integer trckId) {
+		return truckRepository.findTruck(trckId);
+	}
+
+	@Override
+	public Driver findDriver(Integer driverId) {
+		return driverRepository.findDriver(driverId);
+	}
 	
 
 
