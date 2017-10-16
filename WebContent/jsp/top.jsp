@@ -26,7 +26,7 @@
             
 <body class="bodyhe">
 
- <div id="loadingToast" class="weui_loading_toast" style="display:none;">
+<!--  <div id="loadingToast" class="weui_loading_toast" style="display:none;">
                 <div class="weui_mask_transparent"></div>
                 <div class="weui_toast">
                     <div class="weui_loading">
@@ -45,7 +45,7 @@
                     </div>
                     <p class="weui_toast_content">数据加载中</p>
                 </div>
-            </div> 
+            </div> --> 
             
 	<header>
 		<div class="titlebar reverse">

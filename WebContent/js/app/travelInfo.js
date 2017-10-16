@@ -299,7 +299,7 @@ app.controller('PlatformController', [
 			
 			function getMyTravelList(config, counter, state){
 				config.isAjax = true;
-				$('#loadingToast').show();
+//				$('#loadingToast').show();
 				services.selectMyTravelInfoByOId({
 					state : state,
 					page : counter
