@@ -105,4 +105,10 @@ public class TravelServiceImpl implements TravelService{
 		}
 		return listMap;
 	}
+
+	@Override
+	public TravelTrade selectTrTrInfoById(String trtr_id) {
+		TravelTrade list= travelTradeRepository.selectTrTrInfoById(Integer.parseInt(trtr_id));
+		return list;
+	}
 }

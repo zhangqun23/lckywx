@@ -126,6 +126,14 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	}
+	
+	services.travelRefundPay = function(data){
+		return $http({
+			method : 'post' ,
+			url : baseUrl + 'pay/travelRefundPay.do',
+			data : data
+		})
+	}
 
 	return services;
 } ]);
@@ -222,8 +230,12 @@ app.controller('PlatformController', [
 
 			travelInfo.traderefundpay = function(travel_travel_id) {
 				if(confirm("是否确定退款，将扣除20%手续费")){
-					//TODO
-					
+					services.travelRefundPay({
+						travel_travel_id:travel_travel_id
+					}).success(function(data){
+						//TODO
+						console.log(data)
+					})
 				}
 			}
 		
@@ -329,16 +341,16 @@ app.controller('PlatformController', [
 			
 			travelInfo.changeBar=function(state){
 				switch(state){
-				case 0:
+				case 1:
 					travelInfo.show={
 						isActive1:true,
 						isActive2:false,
 						isActive3:false
 				}
 					travelInfo.MTTInfo = null;
-					openScroll(getMyTravelList, {}, 0);
+					openScroll(getMyTravelList, {}, 1);
 					break;
-				case 1:
+				/*case 1:
 					travelInfo.show={
 						isActive1:false,
 						isActive2:true,
@@ -346,7 +358,7 @@ app.controller('PlatformController', [
 				}
 					travelInfo.MTTInfo = null;
 					openScroll(getMyTravelList, {} , 1);
-					break;
+					break;*/
 				case 2:
 					travelInfo.show={
 						isActive1:false,

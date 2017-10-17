@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TravelDao;
 import com.mvc.entiy.Travel;
+import com.mvc.entiy.TravelTrade;
 
 /**
  * @ClassName: TravelDaoImpl
@@ -93,4 +94,17 @@ public class TravelDaoImpl implements TravelDao{
 		em.close();
 		return list;
 	}
+	
+//	//根据trtr_id查找旅游交易信息
+//	@Override
+//	public List<TravelTrade> selectTrTrInfoById(String trtr_id) {
+//		EntityManager em = emf.createEntityManager();
+//		StringBuilder sql = new StringBuilder();
+//		sql.append("select * from travel_trade where is_state = 1 and trtr_id = '" + trtr_id + "' ");
+//		
+//		Query query = em.createNativeQuery(sql.toString(),TravelTrade.class);
+//		List<TravelTrade> list = query.getResultList();
+//		em.close();
+//		return list;
+//	}
 }
