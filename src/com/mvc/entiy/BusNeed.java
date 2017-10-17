@@ -27,6 +27,7 @@ public class BusNeed implements Serializable {
 	private String bune_gath_pla;// 集合地点
 	private String bune_goal_pla;// 目的地点
 	private String bune_purp;// 包车用途
+	private Date bune_insert_time;// 需求添加时间
 	private String bune_remark;// 备注
 	private Boolean is_delete;// 是否删除1表示未删除，0表示删除
 	private Date butr_time;// 交易创建时间
@@ -36,7 +37,7 @@ public class BusNeed implements Serializable {
 	private Integer bune_type;// 交易类型，0表示线上，1表示线下
 	private Integer invoice_if;// 是否开发票，0:未开1:已开
 	private String invoice_num;// 发票号
-	private Integer butr_state;// 交易状态，0表示交易中，1表示交易结束
+	private Integer butr_state;// 交易状态，0表示待交易，1表示已交易
 	private String open_id;// 微信用户
 
 	@Id
@@ -206,5 +207,13 @@ public class BusNeed implements Serializable {
 
 	public void setButr_state(Integer butr_state) {
 		this.butr_state = butr_state;
+	}
+
+	public Date getBune_insert_time() {
+		return bune_insert_time;
+	}
+
+	public void setBune_insert_time(Date bune_insert_time) {
+		this.bune_insert_time = bune_insert_time;
 	}
 }

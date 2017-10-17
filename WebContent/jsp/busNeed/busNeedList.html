@@ -3,10 +3,10 @@
                 <h1>我的发布</h1>
             </div>
             <ul class="tabbar animate-slide width-full" data-col="2" id="tabbar">
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changeBar(0)">
                     <label class="tab-label">待交易</label>
                 </li>
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
                     <label class="tab-label">已交易</label>
                 </li>
                 <hr>
@@ -55,7 +55,7 @@
 				</div>
 				<div class="detail clearfix">
 					<span class="require">目的地点：<label>{{bnl.bune_goal_pla}}</label></span>
-					<span class="result">交易状态：<label>进行中</label></span>
+					<span class="result">交易状态：<label>{{bnl.butr_state |butrState}}</label></span>
 				</div>
 
 				<div class="org">
