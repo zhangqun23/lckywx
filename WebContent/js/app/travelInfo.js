@@ -80,6 +80,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/detailmyTravelTrade',{
 		templateUrl : '/lckywx/jsp/travelInfo/myTravelTradeDetail.html',
 		controller : 'PlatformController'
+	}).when('/enSure',{
+		templateUrl : '/lckywx/jsp/travelInfo/enSure.html',
+		controller : 'PlatformController'
 	})
 } ]);
 
@@ -223,7 +226,7 @@ app.controller('PlatformController', [
 					travelid : travel_id
 				}).success( function(data){
 					if (data.e != null){alert(data.e)}
-
+					$location.path("enSure");
 				})
 			}
 			
@@ -370,7 +373,10 @@ app.controller('PlatformController', [
 					break;
 				}
 			}
-			
+			//zq确定交易跳转到我的交易列表
+			travelInfo.redirectToMyList=function(){
+				$location.path("myTravelTrade");
+			}
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
