@@ -211,7 +211,7 @@ app
 					            if(discount=="1"){
 					            	var $li = $("<li class='inner'></li>");
 									var $divFir = $("<div class='item-name' style='display:inline;'></div>");
-									$divFir.html("取货地址：<span><b>*</b></span>");
+									$divFir.html("取货地址：<font color='red'>*</font>");
 									var $divSco = $("<div class='item-value'></div>");
 									var $divThi = $("<div class='p-wrap'></div>");
 									var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");
@@ -229,11 +229,7 @@ app
 								case 1:
 									smallGoods.show={
 										isActive1:true,
-										isActive2:false,
-										isActive3:false,
-										isActive4:false
-										
-
+										isActive2:false										
 								}
 									$("#table1").show();
 									$("#table2").hide();
@@ -241,9 +237,7 @@ app
 								case 2:
 									smallGoods.show={
 										isActive1:false,
-										isActive2:true,
-										isActive3:false,
-										isActive4:false
+										isActive2:true											
 								}
 									$("#table1").hide();
 									$("#table2").show();

@@ -2,7 +2,6 @@
     <div class="titlebar reverse">
          <h1>通告</h1>
     </div>
-    
     <ul class="tabbar animate-slide width-full" data-col="2" id="tabbar">
         <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
             <label class="tab-label">添加小件货运</label>
@@ -11,16 +10,39 @@
             <label class="tab-label">小件货运列表</label>
         </li>
         <hr>
-    </ul>
+    </ul> 
 </header>
+          
+<article style="margin-top: 90px; ">
+<!--    <div id="loadingToast" class="weui_loading_toast" style="display:block;">
+                <div class="weui_mask_transparent"></div>
+                <div class="weui_toast">
+                    <div class="weui_loading">
+                        <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+                    </div>
+                    <p class="weui_toast_content">数据加载中</p>
+                </div>
+            </div> -->
          
 <article style="margin-top: 100px; ">
+
     <div id="table1">
  	<form ng-submit="addSmallGoods()" method="post" enctype="multipart/form-data"
  		style="overflow:hidden;">
 		<ul class="form-box">
 			<li class="inner">
-				<div class="item-name">货物名称：<b>*</b></div>
+				<div class="item-name">货物名称：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_name" required>
@@ -29,16 +51,17 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">货物重量：<b>*</b></div>
+				<div class="item-name">货物重量：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_weight" required>
+						<input type="text" ng-model="GoLimit.smgo_weight" placeholder="单位：千克" required>										
 					</div>
+					
 				</div>
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">始发地：<b>*</b></div>
+				<div class="item-name">始发地：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_start" placeholder="洛川" required>
@@ -47,7 +70,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">目的地：<b>*</b></div>
+				<div class="item-name">目的地：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_end" required>
@@ -56,7 +79,16 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">发件人：<b>*</b></div>
+                <div class="item-name">出发时间：<span class="lableimport">*</span></div>
+                <div class="item-value">
+                    <div class="input-wrap">
+                        <input class="select-box" type="date" ng-model="GoLimit.smgo_send_time" required>
+                    </div> 
+                    </div>
+            </li>
+			
+			<li class="inner">
+				<div class="item-name">发件人：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_sender" required>
@@ -65,16 +97,7 @@
 			</li>
 			
 			<li class="inner">
-                    <div class="item-name">出发时间：<b>*</b></div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                        <input class="select-box" type="date" ng-model="GoLimit.smgo_send_time" required>
-                    </div> 
-                    </div>
-            </li>
-			
-			<li class="inner">
-				<div class="item-name">发件人联系方式：<b>*</b></div>
+				<div class="item-name">发件人联系方式：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_sender_tel" required>
@@ -83,7 +106,7 @@
 			</li>
 			
 			<li class="inner">
-				<div class="item-name">收件人：<b>*</b></div>
+				<div class="item-name">收件人：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_receiver" required>
@@ -92,7 +115,7 @@
 			</li>
 			
 			<li class="inner" style="height:auto">
-				<div class="item-name">收件人联系方式：<b>*</b></div>
+				<div class="item-name">收件人联系方式：<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input class="select-box" type="number" ng-model="GoLimit.smgo_receiver_tel" ng-blur="checknum(GoLimit.smgo_receiver_tel)" required>
@@ -129,9 +152,8 @@
 	</form>
     </div>
     
-    <!--smallGoodsList页面 -->
     <div id="table2" style="display:none">
-        <form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
+    <form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
 		<div class="inner" >
 			<input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
 				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"

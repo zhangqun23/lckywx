@@ -339,7 +339,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
             		 truckDrSdNd.modifyTruckSendList = data.list;
             	 });
              }
- 			//修改广告查询分栏
+ 			//修改零担货运分栏
              truckDrSdNd.changebar=function(state){
  				switch(state){
  				case 0:														
@@ -348,10 +348,11 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
  						isActive1:false,
  						isActive2:false,
  				};
- 				$('#table1').show();
- 				$('#table2').hide();
- 				$('#table3').hide();
+ 				    $('#table1').show();
+ 				    $('#table2').hide();
+ 				    $('#table3').hide();
  					break;
+ 					
  				case 1:
  					truckDrSdNd.show={
  						isActive0:false,
@@ -362,6 +363,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
  	 				$('#table2').show();
  	 				$('#table3').hide();
  					break;
+ 					
  				case  2:
  					truckDrSdNd.show={
  						isActive0:false,
@@ -374,6 +376,59 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
  					break;
  				}
  			}
+             
+            //修改零担货运查询和修改分栏
+             truckDrSdNd.changebarr=function(state){
+ 				switch(state){
+ 				case 3:														
+ 					truckDrSdNd.show={
+ 						isActive3:true,
+ 						isActive4:false
+ 				};
+ 				    $('#table4').show();
+ 				    $('#table5').hide();
+ 					break;
+ 				case 4:
+ 					truckDrSdNd.show={
+ 						isActive3:false,
+ 						isActive4:true
+ 				};
+ 	 				$('#table4').hide();
+ 	 				$('#table5').show();
+ 					break;
+ 			}
+ 			
+ 			// 零担货运我的发布
+ 				truckDrSdNd.changebarr=function(state){
+ 	 				switch(state){
+ 	 				case 7:														
+ 	 					truckDrSdNd.show={
+ 	 						isActive7:true,
+ 	 						isActive8:false,
+ 	 						isActive9:false
+ 	 				};
+ 	 				    $('#table').show();
+ 	 				    $('#table5').hide();
+ 	 					break;
+ 	 				case 8:
+ 	 					truckDrSdNd.show={
+ 	 						isActive7:false,
+ 	 						isActive8:true,
+ 	 						isActive9:false
+ 	 				};
+ 	 	 				$('#table4').hide();
+ 	 	 				$('#table5').show();
+ 	 					break;
+ 	 				case 9:
+ 	 					truckDrSdNd.show={
+ 	 						isActive7:false,
+ 	 						isActive8:false,
+ 	 						isActive9:true
+ 	 				};
+ 	 	 				$('#table4').hide();
+ 	 	 				$('#table5').show();
+ 	 					break;	
+ 	 			}		
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");             
@@ -400,7 +455,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
                  }
              }
               initPage();
-          } ]);
+          } }]);
 
 //时间的格式化的判断
 app.filter('dateType', function() {
