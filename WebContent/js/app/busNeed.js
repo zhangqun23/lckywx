@@ -283,7 +283,6 @@ app.controller('BusNeedInfoController', [
 							}
 						});
 			}
-
 			// zq初始化
 			function initPage() {
 				console.log("初始化页面信息");
@@ -294,7 +293,6 @@ app.controller('BusNeedInfoController', [
 					sessionStorage.setItem("busNeedState", 0);
 				} else if ($location.path().indexOf('/busNeedInfo') == 0) {
 					var busNeedId = sessionStorage.getItem("busNeedId");
-					alert(busNeedId);
 					busNeed.selectBusNeedById(busNeedId);
 				} else if ($location.path().indexOf('/busNeedTest') == 0) {
 					busNeed.show = {
@@ -304,7 +302,7 @@ app.controller('BusNeedInfoController', [
 				}
 			}
 			initPage();
-			
+
 		} ]);
 
 // 时间的格式化的判断
@@ -339,6 +337,19 @@ app.filter('butrState', function() {
 			type = "已完成";
 		} else {
 			type = "进行中";
+		}
+
+		return type;
+	}
+});
+// 是否开了发票
+app.filter('invoice_if', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = "已开发票";
+		} else {
+			type = "未开发票";
 		}
 
 		return type;
