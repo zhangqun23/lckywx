@@ -113,6 +113,7 @@ app
 				'$routeParams',
 				function($scope, services, $location, $routeParams) {
 					var smallGoods = $scope;
+					
 					smallGoods.GoLimit={
 							smgo_name:"",
 							smgo_weight:"",
@@ -327,6 +328,7 @@ app
 						console.log("初始化页面信息");
 						
 						if ($location.path().indexOf('/smallGoodsList') == 0) {
+							
 							console.log("你弄啥嘞？");
 							services.selectSmallGoods({
 								

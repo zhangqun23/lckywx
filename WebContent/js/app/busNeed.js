@@ -197,15 +197,97 @@ app.controller('BusNeedInfoController', [ '$scope', 'services', '$location',
 					break;
 				}
 			}
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scroll = 0;
+				//判断哪个浏览器
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scroll = $(".yscroll").scrollTop();  
+				} else if (document.body) {
+					scroll = $(".yscroll").scrollTop(); 
+				}
+				return scroll; 
+			};
+			
+		    //获取当前可视范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0; 
+				//判断哪个浏览器
+				if (document.body.clientHeight && document.documentElement.clientHeight) { 
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight); 
+				} else { 
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight); 
+				}
+		    	return clientHeight; 
+		   };
+
+		   //获取文档完整的高度 
+		   function getScrollHeight() {
+			   var aaheight = $(".yscroll")[0].scrollHeight;
+			   return Math.max($(".yscroll")[0].scrollHeight, document.documentElement.scrollHeight); 
+		   }
+
+		   function openScroll(getDate, config , state){
+				var config = config ? config : {};
+				var counter = 1;/*计数器*/
+
+				/*第一次加载页面*/
+				getDate(config, counter, state);
+				
+				/*通过自动监听滚动事件加载更多,可选支持*/
+				config.isEnd = false; /*结束标志*/
+				config.isAjax = false; /*防止滚动过快，服务端没来得及响应造成多次请求*/
+				var t = 0;
+				var p = 0;
+				$("section").scroll(function(){
+		        	 /*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/
+		        	if(config.isEnd == true || config.isAjax == true){
+		          		return;
+		        	}
+		        	/*判断向上滚动或向下滚动*/
+		        	p = getScrollTop()
+		        	if(t <= p){
+		        		t = p;
+			        	/*当滚动到底部时， 加载新内容*/
+			        	if (getScrollHeight()-(t + getClientHeight())<50) {
+			        		counter ++;
+			        		getDate && getDate(config, counter, state);
+			        	}
+		        	}
+				});
+		   }
+		// zq滚动查看班车需求列表
+		   function getBusNeedsList(config, counter){
+				config.isAjax = true;
+				services.selectBusNeeds({
+					page : counter,
+					startDate : busNeed.startDate,
+					endDate : busNeed.endDate
+				}).success(function(data) {
+					if(!busNeed.busNeedList){
+						busNeed.busNeedList = [];
+					}
+					busNeed.busNeedList = busNeed.busNeedList.concat(data.list);
+					console.log(data.list);
+					config.isAjax = false;
+					if(data.list == ![]){
+						$(".limitHint").css('display','block');
+						config.isEnd = true;
+					}
+				});
+			}
+		   
+		   
 			// zq初始化
 			function initPage() {
 				console.log("初始化页面信息");
 				if ($location.path().indexOf('/busNeedIndex') == 0) {
 		
 				} else if ($location.path().indexOf('/busNeedList') == 0) {
-					busNeed.selectBusNeeds();
+					openScroll(getBusNeedsList, {});
 				} else if ($location.path().indexOf('/busNeedInfo') == 0) {
 					var busNeedId = sessionStorage.getItem("busNeedId");
+					alert(busNeedId);
 					busNeed.selectBusNeedById(busNeedId);
 				}else if ($location.path().indexOf('/busNeedTest') == 0) {
 					busNeed.show={

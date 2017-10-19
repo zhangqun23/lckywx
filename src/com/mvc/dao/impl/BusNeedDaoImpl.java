@@ -126,7 +126,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		String sql=	"select * from bus_need where bune_id=:busNeed_id and is_delete=1 ";
 	
 		Query query=em.createNativeQuery(sql,BusNeed.class);
-		query.setParameter("bune_id", busNeed_id);
+		query.setParameter("busNeed_id", busNeed_id);
 		BusNeed list=(BusNeed) query.getSingleResult();
 		em.close();
 		return list;
