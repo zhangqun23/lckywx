@@ -77,8 +77,11 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/myTravelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/myTravelTrade.html',
 		controller : 'PlatformController'
-	}).when('/detailmyTravelTrade',{
+	}).when('/detailmyTravelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/myTravelTradeDetail.html',
+		controller : 'PlatformController'
+	}).when('/enSure', {
+		templateUrl : '/lckywx/jsp/travelInfo/enSure.html',
 		controller : 'PlatformController'
 	})
 } ]);
@@ -94,42 +97,42 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	
-	services.selectTravelInfoById = function(data){
+
+	services.selectTravelInfoById = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'travelInfo/selectTravelInfoById.do',
 			data : data
 		});
 	};
-	
-	services.addTravelTrade = function(data){
+
+	services.addTravelTrade = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'pay/travelPay.do',
 			data : data
 		});
 	}
-	
-	services.saveTravelTrade = function(data){
+
+	services.saveTravelTrade = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'travelInfo/saveTravelTrade.do',
 			data : data
 		});
 	}
-	
-	services.selectMyTravelInfoByOId = function(data){
+
+	services.selectMyTravelInfoByOId = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'travelInfo/selectMyTravelInfoByOId.do',
 			data : data
 		});
 	}
-	
-	services.travelRefundPay = function(data){
+
+	services.travelRefundPay = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'pay/travelRefundPay.do',
 			data : data
 		})
@@ -137,6 +140,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 
 	return services;
 } ]);
+
 
 app.controller('PlatformController', [
 		'$scope',
@@ -222,7 +226,14 @@ app.controller('PlatformController', [
 					payNeed : payLimit,
 					travelid : travel_id
 				}).success( function(data){
-					if (data.e != null){alert(data.e)}
+					if (data.e != null) {
+						alert(data.e)
+					}
+					sessionStorage
+							.setItem("travelTrade",
+									JSON.stringify(data.trTrade));
+					console.log(JSON.stringify(data.trTrade));
+					$location.path("enSure");
 
 				})
 			}
@@ -370,6 +381,17 @@ app.controller('PlatformController', [
 				}
 			}
 			
+			// zq确定交易跳转到我的交易列表
+			travelInfo.redirectToMyList = function() {
+				$location.path("myTravelTrade");
+			}
+			// zq获取交易详情
+			travelInfo.selectTarvelTradeInfo = function() {
+				
+				$location.path("detailmyTravelTrade");
+
+			}
+			
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
@@ -377,19 +399,20 @@ app.controller('PlatformController', [
 				if ($location.path().indexOf('/travelInfo') == 0) {
 					console.log("进入到旅游信息界面");
 					openScroll(getTravelList, {});
-				} else if($location.path().indexOf('/getTravelInfoDetail') ==0){
+				} else if ($location.path().indexOf(
+						'/getTravelInfoDetail') == 0) {
 					services.selectTravelInfoById({
-						travel_id_select : sessionStorage.getItem("travel_id_select")
-					}).success(function(data){
-						$scope.TInfo = data.list
-					});
-				} else if ($location.path().indexOf('/myTravelTrade') == 0){
+							travel_id_select : sessionStorage.getItem("travel_id_select")
+						}).success(function(data) {
+							$scope.TInfo = data.list
+						});
+				} else if ($location.path().indexOf('/myTravelTrade') == 0) {
 					openScroll(getMyTravelList, {}, 1);
-				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0){
+				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0) {
 					console.log(sessionStorage.getItem("travelTrade"));
 					$scope.MMTT = JSON.parse(sessionStorage.getItem("travelTrade"));
-					if($scope.MMTT.trade_is_state == 1){
-						$("#refund-pay").css('display','block');
+					if ($scope.MMTT.is_state == 1) {
+						$("#refund-pay").css('display', 'block');
 					}
 				}
 			}
@@ -407,10 +430,10 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
-//旅游活动内容的格式化的判断
+// 旅游活动内容的格式化的判断
 app.filter('trtrFilter', function() {
 	return function(input) {
-		if (input == ""||input == null) {
+		if (input == "" || input == null) {
 			var input = "空";
 			return input;
 		} else {
@@ -418,10 +441,10 @@ app.filter('trtrFilter', function() {
 		}
 	}
 });
-//旅游活动内容的格式化的判断
+// 旅游活动内容的格式化的判断
 app.filter('stateFilter', function() {
 	return function(input) {
-		switch(input){
+		switch (input) {
 		case 0:
 			var input = "待付款";
 			return input;
@@ -434,16 +457,14 @@ app.filter('stateFilter', function() {
 		}
 	}
 });
-//截取任务内容
+// 截取任务内容
 app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
 		if (input != "") {
 			var shortInput = input.substr(0, 10);
 			content = shortInput + "……";
-			}
-		return content;	
+		}
+		return content;
 	}
 });
-
-

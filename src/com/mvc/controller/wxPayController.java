@@ -94,7 +94,7 @@ public class wxPayController {
 		travelTrade.setOpen_id(openid);
 		travelTrade.setTrade_discount(travel.getTravel_discount());
 		travelTrade.setIs_state(1);
-		travelService.saveTravelTrade(travelTrade);
+		TravelTrade trTrade=travelService.saveTravelTrade(travelTrade);
 		
 		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("attach", attach);
@@ -103,6 +103,8 @@ public class wxPayController {
 		String result = jspay(paraMap, request, responest);
 		json.put("total_fee", total_fee);
 		json.put("out_trade_no", out_trade_no);
+		json.put("trTrade", trTrade);
+		System.out.println(json.toString());
 		return json.toString();
 	}
 

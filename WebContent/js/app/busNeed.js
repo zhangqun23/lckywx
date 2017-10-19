@@ -312,6 +312,7 @@ app.filter('dateType', function() {
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
 		}
+		alert(type);
 
 		return type;
 	}

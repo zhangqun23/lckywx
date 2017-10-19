@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
-<title>合同信息管理</title>
+<title>洛川客运</title>
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${ctx}/css/fonts/iconfont.css" />
 <link rel="stylesheet" href="${ctx}/css/font.css" />
