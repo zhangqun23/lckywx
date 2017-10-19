@@ -152,7 +152,7 @@ app
 								ad_content : "",
 								ad_tel : "",
 								ad_remark : "",
-								ad_etime : ""
+								ad_etime : getNowDate(),
 							}
 							// 比较输入时间与当前时间的大小
 							function compareDateTime(starTime, endTime) {
@@ -166,7 +166,7 @@ app
 							}
 							// 手机，电话格式判定
 							adver.checknum = function(element) {
-								if ((/^[1][3,4,5,7,8][0-9]{9}$/.test(element))
+								if ((/^1[3|4|5|7|8]\d{9}$/.test(element))
 										| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
 												.test(element)) {
 									console.log("jinalail2")
@@ -176,6 +176,21 @@ app
 									$(".limitNum").css('display', 'block');
 								}
 								return;
+							}
+							// 获取当前日期并转化为2017-12-12
+							function getNowDate() {
+								var nowDate = new Date();
+								var year = nowDate.getFullYear();
+								var month = nowDate.getMonth() + 1;
+								var today = nowDate.getDate();
+								if (month >= 1 && month <= 9) {
+									month = "0" + month;
+								}
+								if (today >= 1 && today <= 9) {
+									today = "0" + today;
+								}
+								var currentdate = year + "-" + month + "-" + today;
+								return currentdate;
 							}
 							// 添加广告
 							adver.addAdver = function() {
