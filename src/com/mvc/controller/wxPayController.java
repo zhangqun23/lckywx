@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.KeyStore;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +82,7 @@ public class wxPayController {
 		Float mprice = travel.getTravel_mprice();
 		Float cprice = travel.getTravel_cprice();
 		String out_trade_no = wxPayUtil.getTradeNo();
-		float total_fee = (trtr_mnum*mprice+trtr_cnum*cprice)*travel.getTravel_discount()+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance();
+		int total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*travel.getTravel_discount()+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance());
 		
 		TravelTrade travelTrade = new TravelTrade();;
 		travelTrade.setTravel(travel);
@@ -107,16 +109,38 @@ public class wxPayController {
 	
 	@RequestMapping("/travelRefundPay.do")
 	public @ResponseBody String travelRefundPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
-		System.out.println(request.getParameter("travel_travel_id"));
-		String trtr_id = request.getParameter("travel_travel_id");
+		String trtr_id = request.getParameter("travel_trade_id");
 		TravelTrade list = travelService.selectTrTrInfoById(trtr_id);
+		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
 		
 		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("out_trade_no", list.getTrtr_num());
 		paraMap.put("total_fee", list.getTrtr_price().toString());
-		paraMap.put("refund_fee", StringUtil.save0Float(list.getTrtr_price()*0.8));
+		paraMap.put("refund_fee", refund_fee);
 		
 		String result = jsRefundPay(paraMap, request, responest);
+        Map<String, String> mapResult = wxPayUtil.xmlToMap(result);
+        if(mapResult.get("result_code").equals("FAIL")) {
+        	int mnun = list.getTrtr_mnum();
+    		int cnum = list.getTrtr_cnum();
+    		Travel travel = list.getTravel();
+    		int travel_left_num = travel.getTravel_left_num();
+    		int left_num = travel_left_num + mnun + cnum;
+    		//更新剩余票数
+        	travelService.updateRefundTravel(left_num,travel.getTravel_id());
+        	 // 获取系统当前时间. 存入数据库
+            Date now = new Date(); 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String data = dateFormat.format(now);
+        	//将退票信息存入交易信息
+            if(mapResult.get("refund_id") != null){
+            	travelService.updateRefundTrade(mapResult.get("refund_id"), refund_fee, data, trtr_id);
+            } else {
+            	travelService.updateRefundTrade(refund_fee, data, trtr_id);
+            }
+        }else if(mapResult.get("result_code").equals("FAIL")) {
+      	  // sb.append("退款失败，失败原因：" + mapResult.get("err_code_des"));
+        }
 		
 		return list.toString();
 	}
@@ -187,7 +211,7 @@ public class wxPayController {
 	
 	public @ResponseBody String jsRefundPay(Map<String, String> map, HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		Map<String, String> paraMap = new HashMap<String, String>();
-		StringBuilder sb = new StringBuilder();
+		String jsonStr = "";
 		
 		paraMap.put("appid", wxPayConstants.APPID);//* 
 		paraMap.put("mch_id", wxPayConstants.MCH_ID);//* 
@@ -229,15 +253,18 @@ public class wxPayController {
         try {
             HttpEntity entity = response.getEntity();
             System.out.println(response.getStatusLine());
-            String jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
+            jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
+            System.out.println("---------------------华丽丽的分割线开始---------------------");
             System.out.println(jsonStr);
-            if (entity != null) {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
-                String text = "";
-                while ((text = bufferedReader.readLine()) != null) {
-                    sb.append(text);
-                }
-            }
+            System.out.println("---------------------华丽丽的分割线结束---------------------");
+
+//            if (entity != null) {
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+//                String text = "";
+//                while ((text = bufferedReader.readLine()) != null) {
+//                    sb.append(text);
+//                }
+//            }
             EntityUtils.consume(entity);
         } catch (Exception e) {
             e.printStackTrace();
@@ -250,7 +277,7 @@ public class wxPayController {
             e.printStackTrace();
             }
         }
-		return sb.toString();
+		return jsonStr;
 	}
 		
 }

@@ -111,4 +111,22 @@ public class TravelServiceImpl implements TravelService{
 		TravelTrade list= travelTradeRepository.selectTrTrInfoById(Integer.parseInt(trtr_id));
 		return list;
 	}
+
+	@Override
+	public void updateRefundTravel(int left_num, Integer travel_id) {
+		travelRepository.updateTravel(left_num, travel_id);
+		
+	}
+
+	@Override
+	public void updateRefundTrade(String refund_id, String refund_fee, String data, String trtr_id) {
+		travelTradeRepository.updateRefundTrade(refund_id, refund_fee, data, Integer.parseInt(trtr_id));
+		
+	}
+
+	@Override
+	public void updateRefundTrade(String refund_fee, String data, String trtr_id) {
+		travelTradeRepository.updateRefundTrade(refund_fee, data, Integer.parseInt(trtr_id));
+		
+	}
 }

@@ -228,10 +228,10 @@ app.controller('PlatformController', [
 			}
 			
 
-			travelInfo.traderefundpay = function(travel_travel_id) {
+			travelInfo.traderefundpay = function(travel_trade_id) {
 				if(confirm("是否确定退款，将扣除20%手续费")){
 					services.travelRefundPay({
-						travel_travel_id:travel_travel_id
+						travel_trade_id:travel_trade_id
 					}).success(function(data){
 						//TODO
 						console.log(data)
