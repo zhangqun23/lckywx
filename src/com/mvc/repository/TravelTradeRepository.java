@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.TravelTrade;
 
 public interface TravelTradeRepository extends JpaRepository<TravelTrade, Integer>{
 	//根据trtr_id查找旅游交易信息

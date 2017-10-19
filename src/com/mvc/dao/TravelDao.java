@@ -10,8 +10,8 @@ package com.mvc.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.mvc.entiy.Travel;
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.Travel;
+import com.mvc.entity.TravelTrade;
 
 /**
  * @ClassName: TravelDao

@@ -3,7 +3,7 @@ package com.mvc.service;
 import java.util.List;
 import java.util.Map;
 
-import com.mvc.entiy.Ad;
+import com.mvc.entity.Ad;
 
 import net.sf.json.JSONObject;
 

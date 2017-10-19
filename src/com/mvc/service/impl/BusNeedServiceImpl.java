@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.mvc.dao.BusNeedDao;
-import com.mvc.entiy.BusNeed;
+import com.mvc.entity.BusNeed;
 import com.mvc.repository.BusNeedRepository;
 import com.mvc.service.BusNeedService;
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.dao.AdDao;
-import com.mvc.entiy.Ad;
+import com.mvc.entity.Ad;
 import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
 import com.utils.StringUtil;

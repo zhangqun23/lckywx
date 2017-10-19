@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.mvc.entiy.TruckSend;
+import com.mvc.entity.TruckSend;
 
 public interface TruckSendRepository extends JpaRepository<TruckSend, Integer> {	
 	//根据truckSendId查询truckSend详情
