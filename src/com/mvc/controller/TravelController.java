@@ -88,7 +88,7 @@ public class TravelController {
 		Integer total_num = travelTrade.getTrtr_mnum() + travelTrade.getTrtr_cnum();
 		travelService.updateTravel(travel_id,total_num);
 		
-		travelTrade.setTrtr_price(Float.parseFloat(total_fee));
+		travelTrade.setTrtr_price(Integer.parseInt(total_fee));
 		travelTrade.setTrtr_num(out_trade_no);
 		travelTrade.setOpen_id(SessionUtil.getOpenid(request));
 		travelTrade.setIs_state(0);
@@ -108,7 +108,7 @@ public class TravelController {
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
 		String openid = SessionUtil.getOpenid(request);
 		String state = request.getParameter("state");
-		Map list = travelService.selectMyTravelInfoByOId(openid,pager.getOffset(), pager.getLimit(), state);
+		List<TravelTrade> list = travelService.selectMyTravelInfoByOId(openid,pager.getOffset(), pager.getLimit(), state);
 		if(list.size() != 0){
 			jsonObject.put("list", list);
 		}else{

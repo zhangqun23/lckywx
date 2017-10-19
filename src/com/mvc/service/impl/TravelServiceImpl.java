@@ -7,16 +7,14 @@
  */
 package com.mvc.service.impl;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.dao.TravelDao;
+import com.mvc.dao.TravelTradeDao;
 import com.mvc.entiy.Travel;
 import com.mvc.entiy.TravelTrade;
 import com.mvc.repository.TravelRepository;
@@ -36,6 +34,8 @@ import com.mvc.service.TravelService;
 public class TravelServiceImpl implements TravelService{
 	@Autowired 
 	TravelDao travelDao;
+	@Autowired 
+	TravelTradeDao travelTradeDao;
 	@Autowired
 	TravelRepository travelRepository;
 	@Autowired
@@ -67,48 +67,76 @@ public class TravelServiceImpl implements TravelService{
 		
 	}
 
-	//根据openid查找旅游信息
+//	//根据openid查找旅游信息
+//	@SuppressWarnings("serial")
+//	@Override
+//	public List<Map<String, Object>> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state) {
+//		List<Object> list= travelDao.selectMyTravelInfoByOId(openid, offset, limit, state);
+//		Iterator<Object> it = list.iterator();
+//		Map<String, Object> listMap = new HashMap<String, Object>();
+//		List<Map<String, Object>> listResult = new ArrayList<Map<String, Object>>() {
+//		};
+//		Object[] obj = null;
+//		while(it.hasNext()){
+//			obj = (Object[]) it.next();
+//			listMap.put("travel_travel_id", obj[0]);
+//			listMap.put("travel_is_delete", obj[1]);
+//			listMap.put("travel_travel_content", obj[2]);
+//			listMap.put("travel_travel_cprice", obj[3]);
+//			listMap.put("travel_travel_days", obj[4]);
+//			listMap.put("travel_travel_discount", obj[5]);
+//			listMap.put("travel_travel_frim", obj[6]);
+//			listMap.put("travel_travel_insurance", obj[7]);
+//			listMap.put("travel_travel_left_num", obj[8]);
+//			listMap.put("travel_travel_location", obj[9]);
+//			listMap.put("travel_travel_mprice", obj[10]);
+//			listMap.put("travel_travel_route", obj[11]);
+//			listMap.put("travel_travel_stime", obj[12]);
+//			listMap.put("travel_travel_tel", obj[13]);
+//			listMap.put("travel_travel_title", obj[14]);
+//			listMap.put("travel_travel_total_num", obj[15]);
+//			listMap.put("trade_trtr_id", obj[16]);
+//			listMap.put("trade_is_state", obj[17]);
+//			listMap.put("trade_open_id", obj[18]);
+//			listMap.put("trade_trade_discount", obj[19]);
+//			listMap.put("trade_trtr_cnum", obj[20]);
+//			listMap.put("trade_trtr_mnum", obj[21]);
+//			listMap.put("trade_trtr_num", obj[22]);
+//			listMap.put("trade_trtr_price", obj[23]);
+//			listMap.put("trade_trtr_tel", obj[24]);
+//			listMap.put("trade_travel", obj[25]);
+//			listResult.add(listMap);
+//		}
+//		return listResult;
+//	}
+	
 	@Override
-	public Map selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state) {
-		List<Object> list= travelDao.selectMyTravelInfoByOId(openid, offset, limit, state);
-		Iterator<Object> it = list.iterator();
-		Map<String, Object> listMap = new HashMap<String, Object>();
-		Object[] obj = null;
-		if(list.size() != 0){
-			obj = (Object[]) it.next();
-			listMap.put("travel_travel_id", obj[0]);
-			listMap.put("travel_is_delete", obj[1]);
-			listMap.put("travel_travel_content", obj[2]);
-			listMap.put("travel_travel_cprice", obj[3]);
-			listMap.put("travel_travel_days", obj[4]);
-			listMap.put("travel_travel_discount", obj[5]);
-			listMap.put("travel_travel_frim", obj[6]);
-			listMap.put("travel_travel_insurance", obj[7]);
-			listMap.put("travel_travel_left_num", obj[8]);
-			listMap.put("travel_travel_location", obj[9]);
-			listMap.put("travel_travel_mprice", obj[10]);
-			listMap.put("travel_travel_route", obj[11]);
-			listMap.put("travel_travel_stime", obj[12]);
-			listMap.put("travel_travel_tel", obj[13]);
-			listMap.put("travel_travel_title", obj[14]);
-			listMap.put("travel_travel_total_num", obj[15]);
-			listMap.put("trade_trtr_id", obj[16]);
-			listMap.put("trade_is_state", obj[17]);
-			listMap.put("trade_open_id", obj[18]);
-			listMap.put("trade_trade_discount", obj[19]);
-			listMap.put("trade_trtr_cnum", obj[20]);
-			listMap.put("trade_trtr_mnum", obj[21]);
-			listMap.put("trade_trtr_num", obj[22]);
-			listMap.put("trade_trtr_price", obj[23]);
-			listMap.put("trade_trtr_tel", obj[24]);
-			listMap.put("trade_travel", obj[25]);
-		}
-		return listMap;
+	public List<TravelTrade> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state){
+		List<TravelTrade> list= travelTradeDao.selectMyTravelInfoByOId(openid, offset, limit, state);
+		return list;
 	}
 
 	@Override
 	public TravelTrade selectTrTrInfoById(String trtr_id) {
 		TravelTrade list= travelTradeRepository.selectTrTrInfoById(Integer.parseInt(trtr_id));
 		return list;
+	}
+
+	@Override
+	public void updateRefundTravel(int left_num, Integer travel_id) {
+		travelRepository.updateTravel(left_num, travel_id);
+		
+	}
+
+	@Override
+	public void updateRefundTrade(String refund_id, String refund_fee, String data, String trtr_id) {
+		travelTradeRepository.updateRefundTrade(refund_id, Integer.parseInt(refund_fee), data, Integer.parseInt(trtr_id));
+		
+	}
+
+	@Override
+	public void updateRefundTrade(String refund_fee, String data, String trtr_id) {
+		travelTradeRepository.updateRefundTrade(Integer.parseInt(refund_fee), data, Integer.parseInt(trtr_id));
+		
 	}
 }
