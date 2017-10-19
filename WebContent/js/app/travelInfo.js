@@ -309,7 +309,6 @@ app.controller('PlatformController', [
 						travelInfo.travelList = [];
 					}
 					travelInfo.travelList = travelInfo.travelList.concat(data.list);
-					console.log(data.list);
 					config.isAjax = false;
 					if(data.list == ![]){
 						$(".limitHint").css('display','block');
@@ -424,10 +423,10 @@ app.filter('stateFilter', function() {
 	return function(input) {
 		switch(input){
 		case 0:
-			var input = "已付款";
+			var input = "待付款";
 			return input;
 		case 1:
-			var input = "待付款";
+			var input = "已付款";
 			return input;
 		case 2:
 			var input = "已退款";

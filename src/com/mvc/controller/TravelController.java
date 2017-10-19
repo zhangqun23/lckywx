@@ -108,7 +108,7 @@ public class TravelController {
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
 		String openid = SessionUtil.getOpenid(request);
 		String state = request.getParameter("state");
-		List<Map<String, Object>> list = travelService.selectMyTravelInfoByOId(openid,pager.getOffset(), pager.getLimit(), state);
+		List<TravelTrade> list = travelService.selectMyTravelInfoByOId(openid,pager.getOffset(), pager.getLimit(), state);
 		if(list.size() != 0){
 			jsonObject.put("list", list);
 		}else{
