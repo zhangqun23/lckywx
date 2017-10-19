@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.mvc.entiy.BusNeed;
-import com.mvc.entiy.BusTrade;
 
 /**
  * 
@@ -19,13 +18,8 @@ public interface BusNeedDao {
 	//删除班车定制需求
 	boolean deleteBusNeed(Integer busNeed_id);
 
-	//查看单个班车预定需求
-	List<BusTrade> findBusTradeAlls(Map<String, Object> map);
-
 	//查看单个班车预定需求，班车定制表
 	BusNeed findByBusNeed_id(Map<String, Object> map);
 
-	//查看单个班车预定需求，班车交易表
-	BusTrade findBusTradeByBusNeed_id(Map<String, Object> map);
 
 }

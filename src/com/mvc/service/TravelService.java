@@ -33,4 +33,7 @@ public interface TravelService {
 
 	//根据openid查找旅游信息
 	Map selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state);
+
+	//根据trtr_id查找旅游交易信息
+	TravelTrade selectTrTrInfoById(String trtr_id);
 }
