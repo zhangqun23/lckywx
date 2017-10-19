@@ -88,7 +88,7 @@ public class TravelController {
 		Integer total_num = travelTrade.getTrtr_mnum() + travelTrade.getTrtr_cnum();
 		travelService.updateTravel(travel_id,total_num);
 		
-		travelTrade.setTrtr_price(Float.parseFloat(total_fee));
+		travelTrade.setTrtr_price(Integer.parseInt(total_fee));
 		travelTrade.setTrtr_num(out_trade_no);
 		travelTrade.setOpen_id(SessionUtil.getOpenid(request));
 		travelTrade.setIs_state(0);
