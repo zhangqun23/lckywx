@@ -385,11 +385,11 @@ app.controller('PlatformController', [
 						$scope.TInfo = data.list
 					});
 				} else if ($location.path().indexOf('/myTravelTrade') == 0){
-					openScroll(getMyTravelList, {});
+					openScroll(getMyTravelList, {}, 1);
 				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0){
 					console.log(sessionStorage.getItem("travelTrade"));
 					$scope.MMTT = JSON.parse(sessionStorage.getItem("travelTrade"));
-					if($scope.MMTT.trade_is_state == 0){
+					if($scope.MMTT.trade_is_state == 1){
 						$("#refund-pay").css('display','block');
 					}
 				}

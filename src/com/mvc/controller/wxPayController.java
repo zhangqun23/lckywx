@@ -120,7 +120,7 @@ public class wxPayController {
 		
 		String result = jsRefundPay(paraMap, request, responest);
         Map<String, String> mapResult = wxPayUtil.xmlToMap(result);
-        if(mapResult.get("result_code").equals("FAIL")) {
+        if(mapResult.get("result_code").equals("SUCCESS")) {
         	int mnun = list.getTrtr_mnum();
     		int cnum = list.getTrtr_cnum();
     		Travel travel = list.getTravel();
