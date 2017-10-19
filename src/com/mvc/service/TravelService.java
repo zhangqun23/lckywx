@@ -32,7 +32,7 @@ public interface TravelService {
 	void updateTravel(String travel_id, Integer total_num);
 
 	//根据openid查找旅游信息
-	List<Map<String, Object>> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state);
+	List<TravelTrade> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state);
 
 	//根据trtr_id查找旅游交易信息
 	TravelTrade selectTrTrInfoById(String trtr_id);

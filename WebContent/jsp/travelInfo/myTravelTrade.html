@@ -21,35 +21,35 @@
 		<div class="weui_cell_bd weui_cell_primary">
 			<div class="wuliao-title">
 					<label>主题：</label>
-					{{MTT.travel_travel_title|trtrFilter}}
+					{{MTT.travel.travel_title|trtrFilter}}
 	        </div>
 
 	        <div class="detail clearfix">
-				<span class="require">购买成人票数：{{MTT.trade_trtr_cnum|trtrFilter}}</span>
+				<span class="require">购买成人票数：{{MTT.trtr_cnum|trtrFilter}}</span>
 			</div>
 			
 			 <div>
-	        	<span class="require">购买儿童票数：{{MTT.trade_trtr_mnum|trtrFilter}}</span>
+	        	<span class="require">购买儿童票数：{{MTT.trtr_mnum|trtrFilter}}</span>
 	        </div>
 	        
 			<div class="detail clearfix">
-				<span class="require">旅游路线：{{MTT.travel_travel_route|trtrFilter}}</span>
+				<span class="require">旅游路线：{{MTT.travel.travel_route|trtrFilter}}</span>
 			</div>
 			
 			<div class="detail clearfix">
-				<span class="require">出发时间：{{MTT.travel_travel_stime.time | dateType}}</span>
+				<span class="require">出发时间：{{MTT.travel.travel_stime.time | dateType}}</span>
 			</div>
 			
 			<div class="detail clearfix">
-				<span class="require">承办公司：{{MTT.travel_travel_firm|trtrFilter}}</span>
+				<span class="require">承办公司：{{MTT.travel.travel_firm|trtrFilter}}</span>
 			</div>
 			
 			<div>
-				<span class="require">联系方式：<label>{{MTT.travel_travel_tel|trtrFilter}}</label></span>
+				<span class="require">联系方式：<label>{{MTT.travel.travel_tel|trtrFilter}}</label></span>
 			</div>
 			
 			<div class="org">
-				<span>活动描述：{{MTT.travel_travel_content|cutString|trtrFilter}}</span>
+				<span>活动描述：{{MTT.travel.travel_content|cutString|trtrFilter}}</span>
 			</div>
 			<div class="org">
                <label class="green" ng-click="getMyTravelTradeById(MTT)">详情</label>
