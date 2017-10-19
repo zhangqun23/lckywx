@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.mvc.entiy.Driver;
-import com.mvc.entiy.Truck;
-import com.mvc.entiy.TruckNeed;
-import com.mvc.entiy.TruckSend;
+
+import com.mvc.entity.Driver;
+import com.mvc.entity.Truck;
+import com.mvc.entity.TruckNeed;
+import com.mvc.entity.TruckSend;
 import com.mvc.service.TruckDriverService;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;

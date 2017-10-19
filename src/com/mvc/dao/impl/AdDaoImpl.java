@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import com.mvc.dao.AdDao;
-import com.mvc.entiy.Ad;
+import com.mvc.entity.Ad;
 
 /**
  * 广告

@@ -8,7 +8,7 @@ package com.mvc.enums;
  *
  */
 public enum IsDelete {
-	// 0:删除；1：未删除
+	// 0:未删除；1：删除
 	NO(0), YES(1);
 
 	public int value;

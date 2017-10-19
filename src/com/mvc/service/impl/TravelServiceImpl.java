@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.dao.TravelDao;
-import com.mvc.entiy.Travel;
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.Travel;
+import com.mvc.entity.TravelTrade;
 import com.mvc.repository.TravelRepository;
 import com.mvc.repository.TravelTradeRepository;
 import com.mvc.service.TravelService;

@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.sf.json.JSONObject;
 import com.mvc.constants.wxPayConstants;
-import com.mvc.entiy.Travel;
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.Travel;
+import com.mvc.entity.TravelTrade;
 import com.mvc.service.TravelService;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;

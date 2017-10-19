@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mvc.entiy.BusNeed;
+import com.mvc.entity.BusNeed;
 import com.mvc.service.BusNeedService;
 import com.utils.Pager;
 import com.utils.SessionUtil;
@@ -91,7 +91,7 @@ public class BusNeedController {
 		}
 		String openid = SessionUtil.getOpenid(request);
 		busNeed.setOpen_id(openid);
-		busNeed.setIs_delete(true);
+		busNeed.setIs_delete(false);
 		busNeed.setBune_type(1);
 		busNeed.setButr_depo((float) 0.0);
 		busNeed.setButr_money((float) 0.0);

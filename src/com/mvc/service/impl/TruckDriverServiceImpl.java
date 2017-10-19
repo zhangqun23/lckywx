@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.dao.TruckDriverDao;
-import com.mvc.entiy.Driver;
-import com.mvc.entiy.Truck;
-import com.mvc.entiy.TruckNeed;
-import com.mvc.entiy.TruckSend;
+import com.mvc.entity.Driver;
+import com.mvc.entity.Truck;
+import com.mvc.entity.TruckNeed;
+import com.mvc.entity.TruckSend;
 import com.mvc.repository.DriverRepository;
 import com.mvc.repository.TruckNeedRepository;
 import com.mvc.repository.TruckRepository;

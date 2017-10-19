@@ -3,7 +3,7 @@ package com.mvc.service;
 import java.util.List;
 import java.util.Map;
 
-import com.mvc.entiy.BusNeed;
+import com.mvc.entity.BusNeed;
 
 /**
  * 班车

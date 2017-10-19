@@ -2,7 +2,7 @@ package com.mvc.dao;
 
 import java.util.List;
 
-import com.mvc.entiy.Ad;
+import com.mvc.entity.Ad;
 
 /**
  * 
