@@ -7,6 +7,7 @@
  */
 package com.mvc.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -68,13 +69,16 @@ public class TravelServiceImpl implements TravelService{
 	}
 
 	//根据openid查找旅游信息
+	@SuppressWarnings("serial")
 	@Override
-	public Map selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state) {
+	public List<Map<String, Object>> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state) {
 		List<Object> list= travelDao.selectMyTravelInfoByOId(openid, offset, limit, state);
 		Iterator<Object> it = list.iterator();
 		Map<String, Object> listMap = new HashMap<String, Object>();
+		List<Map<String, Object>> listResult = new ArrayList<Map<String, Object>>() {
+		};
 		Object[] obj = null;
-		if(list.size() != 0){
+		while(it.hasNext()){
 			obj = (Object[]) it.next();
 			listMap.put("travel_travel_id", obj[0]);
 			listMap.put("travel_is_delete", obj[1]);
@@ -102,13 +106,32 @@ public class TravelServiceImpl implements TravelService{
 			listMap.put("trade_trtr_price", obj[23]);
 			listMap.put("trade_trtr_tel", obj[24]);
 			listMap.put("trade_travel", obj[25]);
+			listResult.add(listMap);
 		}
-		return listMap;
+		return listResult;
 	}
 
 	@Override
 	public TravelTrade selectTrTrInfoById(String trtr_id) {
 		TravelTrade list= travelTradeRepository.selectTrTrInfoById(Integer.parseInt(trtr_id));
 		return list;
+	}
+
+	@Override
+	public void updateRefundTravel(int left_num, Integer travel_id) {
+		travelRepository.updateTravel(left_num, travel_id);
+		
+	}
+
+	@Override
+	public void updateRefundTrade(String refund_id, String refund_fee, String data, String trtr_id) {
+		travelTradeRepository.updateRefundTrade(refund_id, Integer.parseInt(refund_fee), data, Integer.parseInt(trtr_id));
+		
+	}
+
+	@Override
+	public void updateRefundTrade(String refund_fee, String data, String trtr_id) {
+		travelTradeRepository.updateRefundTrade(Integer.parseInt(refund_fee), data, Integer.parseInt(trtr_id));
+		
 	}
 }

@@ -157,7 +157,7 @@ app
 					smallGoods.addSmallGoods=function() {
 						var myDate = new Date();
 						if(compareDateTime(myDate.toLocaleDateString(),smallGoods.GoLimit.smgo_send_time)){ return alert("选择时间")}
-						var goLimit = JSON.stringify(smallGoods.GoLimit);
+						var goLimit = JSON.stringify(smallGoods.GoLimit);					
 						services.addSmallGoods({
 							goNeed : goLimit
 						}).success(function(data) {
