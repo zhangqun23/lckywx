@@ -41,6 +41,20 @@ public class StringUtil {
 		}
 		return result;
 	}
+	
+	/**
+	 * 4舍5入取整
+	 * 
+	 * @param fl
+	 * @return
+	 */
+	public static String save0Float(Double fl) {
+		String result = "";
+		if (fl != null) {
+			result = String.format("%.0f", fl);
+		}
+		return result;
+	}
 
 	/**
 	 * 判断对象为空或者为0

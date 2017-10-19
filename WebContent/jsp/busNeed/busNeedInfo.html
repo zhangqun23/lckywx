@@ -23,7 +23,8 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">出发时间：</div>
-			<div class="item-value">{{BNeed.bune_gath_time.time | dateType}}</div>
+			<div class="item-value">{{BNeed.bune_gath_time.time |
+				dateType}}</div>
 		</li>
 
 		<li class="inner">
@@ -39,47 +40,39 @@
 			<div class="item-value">{{BNeed.bune_purp}}</div>
 		</li>
 		<li class="inner">
-			<div class="item-name">备注：</div>
-			<div class="item-value">{{BNeed.bune_remark |isOrNotNull}}</div>
+			<div class="item-name">交易状态：</div>
+			<div class="item-value">{{BNeed.butr_state |butrState}}</div>
 		</li>
-	<!-- 	<li class="inner no-padding"><a href="/lckywx/routeController/toBusNeedPage.do#/busNeedList"
-			class="weui_btn weui_btn_primary">点击返需求列表</a></li> -->
-	</ul>
-	<ul class="order-tab clearfix">
-		<li class="green">交易信息</li>
-	</ul>
-	<ul class="order-box">
 		<li class="inner">
 			<div class="item-name">交易时间：</div>
-			<div class="item-value">{{BTrade.butr_time}}</div>
+			<div class="item-value">{{BNeed.butr_time | isOrNotNull}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">押金：</div>
-			<div class="item-value">{{BTrade.butr_depo}}</div>
+			<div class="item-value">{{BNeed.butr_depo |isOrNotNull}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">交易金额：</div>
-			<div class="item-value">{{BTrade.butr_money}}</div>
+			<div class="item-value">{{BNeed.butr_money |isOrNotNull}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">车牌号：</div>
-			<div class="item-value">{{BTrade.bune_bus}}</div>
+			<div class="item-value">{{BNeed.bune_bus |isOrNotNull}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">是否开发票：</div>
-			<div class="item-value">{{BTrade.invoice_if}}</div>
+			<div class="item-value">{{BNeed.invoice_if |invoice_if}}</div>
 		</li>
 
 		<li class="inner">
 			<div class="item-name">发票号：</div>
-			<div class="item-value">{{BTrade.invoice_num}}</div>
+			<div class="item-value">{{BNeed.invoice_num | isOrNotNull}}</div>
 		</li>
+
 		<li class="inner">
-			<div class="item-name">交易状态：</div>
-			<div class="item-value">{{BTrade.butr_state}}</div>
+			<div class="item-name">备注：</div>
+			<div class="item-value">{{BNeed.bune_remark |isOrNotNull}}</div>
 		</li>
-		
-		<li class="inner no-padding"><a href="/lckywx/routeController/toBusNeedPage.do#/busNeedList"
-			class="weui_btn weui_btn_primary">点击返需求列表</a></li>
 	</ul>
+
 </article>

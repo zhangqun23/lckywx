@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.entiy.Travel;
+import com.mvc.entiy.TravelTrade;
 
 public interface TravelRepository  extends JpaRepository<Travel, Integer>{
 	//根据id查找旅游信息

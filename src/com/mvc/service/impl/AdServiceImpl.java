@@ -1,6 +1,7 @@
 package com.mvc.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,8 +92,8 @@ public class AdServiceImpl implements AdService {
 	}
 	//返回相应类型广告
 	@Override
-	public List<Ad> finAdByType(Integer adType) {
-		return adRepository.findAdByType(adType);
+	public List<Ad> finAdByType(Integer adType, Integer offset, Integer limit) {
+		return adDao.finAdByType(adType,offset,limit);
 	}
 	//删除广告根据广告id
 	@Override
@@ -107,8 +108,9 @@ public class AdServiceImpl implements AdService {
 	}
 	//根据openId，adType，adState查询广告
 	@Override
-	public List<Ad> findMyPlaceAd(Integer adState, String openId) {
-		return adRepository.findMyPlaceAd(adState,openId);
+	public List<Ad> findMyPlaceAd(Integer adState, String openId,Integer offset, Integer limit) {
+		return adDao.findMyPlaceAd(adState,openId,offset,limit);
 	}
+
 
 }

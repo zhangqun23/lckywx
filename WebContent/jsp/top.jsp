@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
-<title>合同信息管理</title>
+<title>洛川客运</title>
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${ctx}/css/fonts/iconfont.css" />
 <link rel="stylesheet" href="${ctx}/css/font.css" />
@@ -48,9 +48,16 @@
             </div> --> 
             
 	<header>
-		<div class="titlebar reverse">
-			<h1>洛川客运</h1>
-		</div>
+            <div class="titlebar reverse">
+                <a href="javascript:history.go(-1);">
+                    <i class="iconfont">&#xe640;</i>
+                </a>
+                <h1>洛川客运</h1>
+                <a href="/lckywx/routeController/toPlatformPage.do" class="app">
+                    <i class="iconfont">&#xe643;</i>
+                </a>
+            </div>
+		
 	</header>
 	<section>
 		<!-- 加载模态框 -->

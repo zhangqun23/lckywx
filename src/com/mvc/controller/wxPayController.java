@@ -1,11 +1,29 @@
 package com.mvc.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.KeyStore;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +82,7 @@ public class wxPayController {
 		Float mprice = travel.getTravel_mprice();
 		Float cprice = travel.getTravel_cprice();
 		String out_trade_no = wxPayUtil.getTradeNo();
-		float total_fee = (trtr_mnum*mprice+trtr_cnum*cprice)*travel.getTravel_discount()+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance();
+		int total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*travel.getTravel_discount()+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance());
 		
 		TravelTrade travelTrade = new TravelTrade();;
 		travelTrade.setTravel(travel);
@@ -76,7 +94,7 @@ public class wxPayController {
 		travelTrade.setOpen_id(openid);
 		travelTrade.setTrade_discount(travel.getTravel_discount());
 		travelTrade.setIs_state(1);
-		travelService.saveTravelTrade(travelTrade);
+		TravelTrade trTrade=travelService.saveTravelTrade(travelTrade);
 		
 		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("attach", attach);
@@ -85,11 +103,51 @@ public class wxPayController {
 		String result = jspay(paraMap, request, responest);
 		json.put("total_fee", total_fee);
 		json.put("out_trade_no", out_trade_no);
+		json.put("trTrade", trTrade);
+		System.out.println(json.toString());
 		return json.toString();
 	}
 
+	
+	@RequestMapping("/travelRefundPay.do")
+	public @ResponseBody String travelRefundPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
+		String trtr_id = request.getParameter("travel_trade_id");
+		TravelTrade list = travelService.selectTrTrInfoById(trtr_id);
+		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
+		
+		Map<String, String> paraMap = new HashMap<String, String>();
+		paraMap.put("out_trade_no", list.getTrtr_num());
+		paraMap.put("total_fee", list.getTrtr_price().toString());
+		paraMap.put("refund_fee", refund_fee);
+		
+		String result = jsRefundPay(paraMap, request, responest);
+        Map<String, String> mapResult = wxPayUtil.xmlToMap(result);
+        if(mapResult.get("result_code").equals("SUCCESS")) {
+        	int mnun = list.getTrtr_mnum();
+    		int cnum = list.getTrtr_cnum();
+    		Travel travel = list.getTravel();
+    		int travel_left_num = travel.getTravel_left_num();
+    		int left_num = travel_left_num + mnun + cnum;
+    		//更新剩余票数
+        	travelService.updateRefundTravel(left_num,travel.getTravel_id());
+        	 // 获取系统当前时间. 存入数据库
+            Date now = new Date(); 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String data = dateFormat.format(now);
+        	//将退票信息存入交易信息
+            if(mapResult.get("refund_id") != null){
+            	travelService.updateRefundTrade(mapResult.get("refund_id"), refund_fee, data, trtr_id);
+            } else {
+            	travelService.updateRefundTrade(refund_fee, data, trtr_id);
+            }
+        }else if(mapResult.get("result_code").equals("FAIL")) {
+      	  // sb.append("退款失败，失败原因：" + mapResult.get("err_code_des"));
+        }
+		
+		return list.toString();
+	}
 	@RequestMapping("/requestPay.do")
-	public @ResponseBody String jspay(Map paraMap, HttpServletRequest request, HttpServletResponse responest) throws Exception{
+	public @ResponseBody String jspay(Map<String, String> paraMap, HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		return null;
 		
 /*		String openid = SessionUtil.getOpenid(request);
@@ -153,5 +211,75 @@ public class wxPayController {
 		return json.toString();*/
 	}
 	
+	public @ResponseBody String jsRefundPay(Map<String, String> map, HttpServletRequest request, HttpServletResponse responest) throws Exception{
+		Map<String, String> paraMap = new HashMap<String, String>();
+		String jsonStr = "";
+		
+		paraMap.put("appid", wxPayConstants.APPID);//* 
+		paraMap.put("mch_id", wxPayConstants.MCH_ID);//* 
+		paraMap.put("out_trade_no", (String) map.get("out_trade_no"));
+		paraMap.put("total_fee",(String) map.get("total_fee"));
+		paraMap.put("refund_fee",(String) map.get("refund_fee"));
+		paraMap.put("nonce_str", wxPayUtil.create_nonce_str());
+		paraMap.put("out_refund_no", (String) map.get("out_trade_no"));
+		String sign = wxPayUtil.generateSignature(paraMap, wxPayConstants.PATERNERKEY);
+		paraMap.put("sign", sign); //*签名
+		
+		// 退款接口链接 https://api.mch.weixin.qq.com/secapi/pay/refund
+		String url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+		//参数值用XML转义即可，CDATA标签用于说明数据不被XML解析器解析.detail不被XML解析
+		String xml = wxPayUtil.mapToXml(paraMap);
+
+		KeyStore keyStore  = KeyStore.getInstance("PKCS12");
+        FileInputStream instream = new FileInputStream(new File(wxPayConstants.FILEPATH));//放退款证书的路径
+        try {
+            keyStore.load(instream, wxPayConstants.MCH_ID.toCharArray());
+        } finally {
+            instream.close();
+        }
+        
+        // 证书
+        SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, wxPayConstants.MCH_ID.toCharArray()).build();
+        // 只允许TLSv1协议
+        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext,new String[]{"TLSv1"},null,
+        		SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+        //创建基于证书的httpClient,后面要用到
+        CloseableHttpClient client = HttpClients.custom().setSSLSocketFactory(sslsf).build();
+
+        HttpPost httpPost = new HttpPost(url);//退款接口
+        StringEntity reqEntity = new StringEntity(xml);
+        // 设置类型
+        reqEntity.setContentType("application/x-www-form-urlencoded");
+        httpPost.setEntity(reqEntity);
+        CloseableHttpResponse response = client.execute(httpPost);
+        try {
+            HttpEntity entity = response.getEntity();
+            System.out.println(response.getStatusLine());
+            jsonStr = EntityUtils.toString(response.getEntity(), "UTF-8");
+            System.out.println("---------------------华丽丽的分割线开始---------------------");
+            System.out.println(jsonStr);
+            System.out.println("---------------------华丽丽的分割线结束---------------------");
+
+//            if (entity != null) {
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8"));
+//                String text = "";
+//                while ((text = bufferedReader.readLine()) != null) {
+//                    sb.append(text);
+//                }
+//            }
+            EntityUtils.consume(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        }
+		return jsonStr;
+	}
 		
 }
