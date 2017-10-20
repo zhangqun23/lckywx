@@ -3,10 +3,10 @@ package com.mvc.service;
 import java.util.List;
 import java.util.Map;
 
-import com.mvc.entiy.Driver;
-import com.mvc.entiy.Truck;
-import com.mvc.entiy.TruckNeed;
-import com.mvc.entiy.TruckSend;
+import com.mvc.entity.Driver;
+import com.mvc.entity.Truck;
+import com.mvc.entity.TruckNeed;
+import com.mvc.entity.TruckSend;
 
 /**
  * 零担货运

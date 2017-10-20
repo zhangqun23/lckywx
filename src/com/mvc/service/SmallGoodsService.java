@@ -3,8 +3,7 @@ package com.mvc.service;
 import java.util.Date;
 import java.util.List;
 
-
-import com.mvc.entiy.SmallGoods;
+import com.mvc.entity.SmallGoods;
 /**
  * 小件货运
  * @author lijing

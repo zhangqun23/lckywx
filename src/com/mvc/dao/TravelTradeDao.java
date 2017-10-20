@@ -2,7 +2,7 @@ package com.mvc.dao;
 
 import java.util.List;
 
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.TravelTrade;
 
 public interface TravelTradeDao {
 

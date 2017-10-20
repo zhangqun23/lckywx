@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TruckDriverDao;
-import com.mvc.entiy.TruckNeed;
-import com.mvc.entiy.TruckSend;
+import com.mvc.entity.TruckNeed;
+import com.mvc.entity.TruckSend;
 
 /**
  * 零担货运

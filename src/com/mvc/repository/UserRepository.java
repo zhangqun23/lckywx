@@ -2,7 +2,7 @@ package com.mvc.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.mvc.entiy.User;
+import com.mvc.entity.User;
 /**
  * 用户
  * @author wanghuimin

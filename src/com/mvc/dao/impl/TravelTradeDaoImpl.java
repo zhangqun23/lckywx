@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TravelTradeDao;
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.TravelTrade;
 
 @Repository("travelTradeDaoImpl")
 public class TravelTradeDaoImpl implements TravelTradeDao{

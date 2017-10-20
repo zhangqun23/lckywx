@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mvc.enums.IsDelete;
 import com.mvc.dao.BusNeedDao;
-import com.mvc.entiy.BusNeed;
+import com.mvc.entity.BusNeed;
 
 /**
  * 
@@ -58,10 +58,10 @@ public class BusNeedDaoImpl implements BusNeedDao {
 		String sql;
 		if (startDate == null || endDate == null || startDate.equals("") || endDate.equals("")) {
 			sql = "select * from bus_need where open_id='" + openid
-					+ "' and is_delete=1 and butr_state="+state+" order by bune_insert_time desc limit " + offset + ", " + limit;
+					+ "' and is_delete=0 and butr_state="+state+" order by bune_insert_time desc limit " + offset + ", " + limit;
 
 		} else {
-			sql = "select * from bus_need where open_id='" + openid + "' and is_delete=1 and "
+			sql = "select * from bus_need where open_id='" + openid + "' and is_delete=0 and "
 					+ " bune_gath_time between '" + startDate + "' and '" + endDate
 					+ "' and butr_state="+state+" order by bune_insert_time desc limit " + offset + ", " + limit;
 		}
@@ -79,7 +79,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 			em.getTransaction().begin();
 			String selectSql = " update bus_need set is_delete =:is_delete where user_id =:user_id ";
 			Query query = em.createNativeQuery(selectSql);
-			query.setParameter("user_isdelete", IsDelete.NO.value);
+			query.setParameter("user_isdelete", IsDelete.YES.value);
 			query.setParameter("user_id", busNeed_id);
 			query.executeUpdate();
 			em.flush();
@@ -99,7 +99,7 @@ public class BusNeedDaoImpl implements BusNeedDao {
 			busNeed_id = (Integer) map.get("busNeed_id");
 		}
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from bus_need where bune_id=:busNeed_id and is_delete=1 ";
+		String sql = "select * from bus_need where bune_id=:busNeed_id and is_delete=0 ";
 
 		Query query = em.createNativeQuery(sql, BusNeed.class);
 		query.setParameter("busNeed_id", busNeed_id);

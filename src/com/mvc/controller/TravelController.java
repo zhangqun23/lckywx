@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mvc.entiy.Travel;
-import com.mvc.entiy.TravelTrade;
+import com.mvc.entity.Travel;
+import com.mvc.entity.TravelTrade;
 import com.mvc.service.TravelService;
 import com.utils.Pager;
 import com.utils.SessionUtil;
