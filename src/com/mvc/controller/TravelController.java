@@ -1,8 +1,6 @@
 package com.mvc.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -84,9 +82,9 @@ public class TravelController {
 				travelTrade.setTrtr_cnum(Integer.valueOf(jsonObject.getString("trtr_cnum")));
 			}
 		}
-		
-		Integer total_num = travelTrade.getTrtr_mnum() + travelTrade.getTrtr_cnum();
-		travelService.updateTravel(travel_id,total_num);
+		//更新剩余人数
+//		Integer total_num = travelTrade.getTrtr_mnum() + travelTrade.getTrtr_cnum();
+//		travelService.updateTravel(travel_id,total_num);
 		
 		travelTrade.setTrtr_price(Integer.parseInt(total_fee));
 		travelTrade.setTrtr_num(out_trade_no);
