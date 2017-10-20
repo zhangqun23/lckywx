@@ -228,10 +228,9 @@ app.controller('PlatformController', [
 				}).success( function(data){
 					if (data.e != null) {
 						alert(data.e)
+						return;
 					}
-					sessionStorage
-							.setItem("travelTrade",
-									JSON.stringify(data.trTrade));
+					sessionStorage.setItem("travelTrade",JSON.stringify(data.trTrade));
 					console.log(JSON.stringify(data.trTrade));
 					$location.path("enSure");
 
@@ -242,10 +241,13 @@ app.controller('PlatformController', [
 			travelInfo.traderefundpay = function(travel_trade_id) {
 				if(confirm("是否确定退款，将扣除20%手续费")){
 					services.travelRefundPay({
-						travel_trade_id:travel_trade_id
+						travel_trade_id : travel_trade_id
 					}).success(function(data){
-						//TODO
-						console.log(data)
+						if(data.e != null){
+							alert(data.e)
+							return;
+						}
+						$location.path("enSure");
 					})
 				}
 			}

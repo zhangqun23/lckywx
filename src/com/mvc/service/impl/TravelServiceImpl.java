@@ -66,49 +66,6 @@ public class TravelServiceImpl implements TravelService{
 		travelRepository.updateTravel(left_num, Integer.parseInt(travel_id));
 		
 	}
-
-//	//根据openid查找旅游信息
-//	@SuppressWarnings("serial")
-//	@Override
-//	public List<Map<String, Object>> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state) {
-//		List<Object> list= travelDao.selectMyTravelInfoByOId(openid, offset, limit, state);
-//		Iterator<Object> it = list.iterator();
-//		Map<String, Object> listMap = new HashMap<String, Object>();
-//		List<Map<String, Object>> listResult = new ArrayList<Map<String, Object>>() {
-//		};
-//		Object[] obj = null;
-//		while(it.hasNext()){
-//			obj = (Object[]) it.next();
-//			listMap.put("travel_travel_id", obj[0]);
-//			listMap.put("travel_is_delete", obj[1]);
-//			listMap.put("travel_travel_content", obj[2]);
-//			listMap.put("travel_travel_cprice", obj[3]);
-//			listMap.put("travel_travel_days", obj[4]);
-//			listMap.put("travel_travel_discount", obj[5]);
-//			listMap.put("travel_travel_frim", obj[6]);
-//			listMap.put("travel_travel_insurance", obj[7]);
-//			listMap.put("travel_travel_left_num", obj[8]);
-//			listMap.put("travel_travel_location", obj[9]);
-//			listMap.put("travel_travel_mprice", obj[10]);
-//			listMap.put("travel_travel_route", obj[11]);
-//			listMap.put("travel_travel_stime", obj[12]);
-//			listMap.put("travel_travel_tel", obj[13]);
-//			listMap.put("travel_travel_title", obj[14]);
-//			listMap.put("travel_travel_total_num", obj[15]);
-//			listMap.put("trade_trtr_id", obj[16]);
-//			listMap.put("trade_is_state", obj[17]);
-//			listMap.put("trade_open_id", obj[18]);
-//			listMap.put("trade_trade_discount", obj[19]);
-//			listMap.put("trade_trtr_cnum", obj[20]);
-//			listMap.put("trade_trtr_mnum", obj[21]);
-//			listMap.put("trade_trtr_num", obj[22]);
-//			listMap.put("trade_trtr_price", obj[23]);
-//			listMap.put("trade_trtr_tel", obj[24]);
-//			listMap.put("trade_travel", obj[25]);
-//			listResult.add(listMap);
-//		}
-//		return listResult;
-//	}
 	
 	@Override
 	public List<TravelTrade> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state){
