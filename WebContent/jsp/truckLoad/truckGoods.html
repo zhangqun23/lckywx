@@ -1,19 +1,19 @@
  <header >
-            <div class="titlebar reverse">
-                <h1>信息录入</h1>
-            </div>
-            <ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changebar(0)" >
-                    <label class="tab-label">司机车辆信息</label>
-                </li>
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changebar(1)">
-                    <label class="tab-label">车主信息</label>
-                </li>
-                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changebar(2)">
-                    <label class="tab-label">货主信息</label>
-                </li>
-                <hr>
-            </ul>
+     <div class="titlebar reverse">
+         <h1>信息录入</h1>
+     </div>
+         <ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+             <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changebar(0)" >
+                 <label class="tab-label">司机车辆信息</label>
+             </li>
+             <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changebar(1)">
+                 <label class="tab-label">车主信息</label>
+             </li>
+             <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changebar(2)">
+                 <label class="tab-label">货主信息</label>
+             </li>
+             <hr>
+         </ul>
 </header>
 
 
@@ -40,12 +40,13 @@
 				</div>
 			</li>
 			
-			<li class="inner">
-				<div class="item-name">联系方式<span style="color:red">*</span></div>
+			<li class="inner" style="height:auto">
+				<div class="item-name">联系方式<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="driverLimit.driver_tel" required>
+						<input class="select-box" type="number" ng-model="driverLimit.driver_tel" ng-blur="checknum(driverLimit.driver_tel)" required>
 					</div>
+					<div class="limitNum">请输入正确的手机号码</div>
 				</div>
 			</li>
 			
@@ -175,12 +176,13 @@
 				</div>
 			</li>
 			
-			<li class="inner">
-				<div class="item-name">联系电话<span style="color:red">*</span></div>
+			<li class="inner" style="height:auto">
+				<div class="item-name">联系电话<span class="lableimport">*</span></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="trneLimit.trne_tel" required>
+						<input class="select-box" type="number" ng-model="trneLimit.trne_tel" ng-blur="checknum(trneLimit.trne_tel)" required>
 					</div>
+					<div class="limitNum">请输入正确的手机号码</div>
 				</div>
 			</li>
 			

@@ -1,4 +1,20 @@
-<article style="margin-top: 48px;">
+<header >
+    <div class="titlebar reverse">
+         <h1>通告</h1>
+    </div>    
+    <ul class="tabbar animate-slide width-full" data-col="2" id="tabbar">
+        <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+            <label class="tab-label">未完成</label>
+        </li>
+        <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+            <label class="tab-label">已完成</label>
+        </li>
+        <hr>
+    </ul>
+</header>
+         
+<article style="margin-top: 98px;">
+    <div id = "table1">
     <form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
 		<div class="inner" >
 			<input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
@@ -36,4 +52,5 @@
               </div>
           </div>
     </form>
+    </div>
 </article>
