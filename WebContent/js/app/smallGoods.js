@@ -132,7 +132,7 @@ app
 							startDate:"",
 							endDate:""
 					}
-					//联系方式格式判断
+					/*//联系方式格式判断
 					smallGoods.checknum = function(element){
 						if((/^1[34578]\d{9}$/.test(element)) 
 								|  /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
@@ -155,7 +155,7 @@ app
 							$(".limitNum").css('display','block');
 					    }
 						return ;
-					}				
+					}				*/
 						 
 					function compareDateTime(startDate, endDate) {
 						var date1 = new Date(startDate);
