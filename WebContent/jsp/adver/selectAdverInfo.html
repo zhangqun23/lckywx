@@ -8,7 +8,7 @@
                 <div class="weui_cell_bd weui_cell_primary">
                     <div class="wuliao-title">
                         <label>广告类型：</label>
-                        <span>{{adIList.ad_type}}</span>
+                        <span>{{adIList.ad_type|type}}</span>
                     </div>
                     <div class="detail clearfix">
                         <span class="date">广告名称：{{adIList.ad_title|adFilter}}</span>
@@ -24,7 +24,7 @@
                     </div>
                      <div class="org">
                        <span class="date">备注：{{adIList.ad_remark|adFilter}}</span>
-                       <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
+                       <!-- <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label> -->
                     </div>		   		                 
               </div>
 		</li>       

@@ -3,8 +3,8 @@ package com.mvc.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.mvc.entiy.TruckNeed;
-import com.mvc.entiy.TruckSend;
+import com.mvc.entity.TruckNeed;
+import com.mvc.entity.TruckSend;
 
 /**
  * 零担货运

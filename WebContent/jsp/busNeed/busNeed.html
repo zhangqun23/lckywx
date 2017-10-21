@@ -1,93 +1,119 @@
 
- <article style="margin-top: 70px;">
- <form ng-submit="addBusNeed()" method="post" enctype="multipart/form-data">
-     <ul class="form-box">
-			 <li class="inner">
-                    <div class="item-name">联系电话：</div>
-                    <div class="item-value">
-                     <div class="input-wrap">
-                            <input type="text" ng-model="BusLimit.bune_tel" required>
-                        </div>
-                    </div>
-                </li>
-				 <li class="inner">
-                    <div class="item-name">乘车人数(人)：</div>
-                    <div class="item-value">
-                        <div class="input-wrap">
-                            <input type="text" ng-model="BusLimit.bune_num"  required>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner">
-                    <div class="item-name">用车时长/天：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" ng-model="BusLimit.bune_time" required>
-                        </div>
-                       
-                    </div>
-                </li>
-                 <li class="inner">
-                    <div class="item-name">出发时间：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" name="startTime" ng-model="BusLimit.bune_gath_time"
-						class="dfselect dateLayoutStyle" 
-						onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " required>
-						
-                        </div>
-                       
-                    </div>
-                </li>
-                 <li class="inner">
-                    <div class="item-name">出发地点：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" ng-model="BusLimit.bune_gath_pla" required>
-                        </div>
-                       
-                    </div>
-                </li>
-                <li class="inner">
-                    <div class="item-name">目的地点：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="text" ng-model="BusLimit.bune_goal_pla" required>
-                        </div>
-                       
-                    </div>
-                </li>
-                 <li class="inner innerP">
-                    <div class="item-name">包车用途：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea  ng-model="BusLimit.bune_purp" required></textarea>
-                        </div>
-                    </div>
-                </li>
-                <li class="inner innerP">
-                    <div class="item-name">其他备注：</div>
-                    <div class="item-value">
-                        <div class="p-wrap">
-                           <textarea ng-model="BusLimit.bune_remark"></textarea>
-                        </div>
-                    </div>
-                </li>
-				<!-- <li class="inner">
+<article style="margin-top: 50px;">
+	<form ng-submit="addBusNeed()" method="post"
+		enctype="multipart/form-data" name="angularForm">
+		<ul class="form-box">
+			<li class="inner addTable">
+				<div class="item-name">
+					联系电话：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="BusLimit.bune_tel" required
+							name="phone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
+					</div>
+					<span class="formWarning"
+						ng-show="angularForm.phone.$error.pattern">手机格式不正确</span>
+				</div>
+			</li>
+			<li class="inner addTable">
+				<div class="item-name">
+					乘车人数(人)：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="BusLimit.bune_num" required
+							name="buneNum" ng-pattern="/^[1-9]\d*$/"> <span
+							class="formWarning" ng-show="angularForm.buneNum.$error.pattern">请输入非零正整数</span>
+					</div>
+				</div>
+			</li>
+			<li class="inner addTable">
+				<div class="item-name">
+					用车时长/天：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="BusLimit.bune_time" name="buneTime"
+							required ng-pattern="/^[1-9]\d*$/"> <span
+							class="formWarning" ng-show="angularForm.buneTime.$error.pattern">请输入非负正整数</span>
+					</div>
+				</div>
+			</li>
+			<li class="inner addTable">
+				<div class="item-name">
+					出发时间：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" name="startTime"
+							ng-model="BusLimit.bune_gath_time"
+							class="dfselect dateLayoutStyle"
+							onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+							required>
+
+					</div>
+
+				</div>
+			</li>
+			<li class="inner addTable">
+				<div class="item-name">
+					出发地点：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="BusLimit.bune_gath_pla" required
+							placeholder="洛川">
+					</div>
+
+				</div>
+			</li>
+			<li class="inner addTable">
+				<div class="item-name">
+					目的地点：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="BusLimit.bune_goal_pla" required>
+					</div>
+
+				</div>
+			</li>
+			<li class="inner innerP addTable">
+				<div class="item-name">
+					包车用途：<span style="color: red">*</span>
+				</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea ng-model="BusLimit.bune_purp" required></textarea>
+					</div>
+				</div>
+			</li>
+			<li class="inner innerP addTable">
+				<div class="item-name">其他备注：</div>
+				<div class="item-value">
+					<div class="p-wrap">
+						<textarea ng-model="BusLimit.bune_remark"></textarea>
+					</div>
+				</div>
+			</li>
+			<!-- <li class="inner">
                     <div class="item-name">同意租赁条款：</div>
                     <div class="item-value">
                         <input type="checkbox"/>
                     </div>
                 </li> -->
-				<li class="inner">
-                    
-                    <div class="item-value" style="margin-right:90px">
-                         <div class="a-wrap">
-					           <input type="submit" class="weui_btn weui_btn_primary" value="提交" >
+			<li class="inner addTable">
 
-                         </div>
-                    </div>
-                </li>
-            </ul>
-            </form>
-        </article>
+				<div class="item-value" style="margin-right: 90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交"
+							ng-disabled="angularForm.$invalid">
+
+					</div>
+				</div>
+			</li>
+		</ul>
+	</form>
+	
+</article>

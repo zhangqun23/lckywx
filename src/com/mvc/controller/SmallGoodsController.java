@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mvc.entiy.SmallGoods;
+import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmallGoodsService;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;

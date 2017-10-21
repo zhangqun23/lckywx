@@ -2,7 +2,8 @@ package com.mvc.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import com.mvc.entiy.Truck;
+
+import com.mvc.entity.Truck;
 
 public interface TruckRepository extends JpaRepository<Truck, Integer> {
 	@Query("select t from Truck t where open_id = :openid ")

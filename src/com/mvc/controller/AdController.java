@@ -1,11 +1,13 @@
 package com.mvc.controller;
 
+import java.io.Console;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.mvc.entiy.Ad;
+
+import com.mvc.entity.Ad;
 import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
+import com.utils.Pager;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
 import net.sf.json.JSONObject;
@@ -127,12 +131,17 @@ public class AdController {
 	 */
 	@RequestMapping("/selectAdver.do")
 	public @ResponseBody String selectAdver(HttpServletRequest request, HttpSession session){
-		String adType;
-		List<Ad> list ;	
+		String adType;	
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
 		adType= request.getParameter("adType");
-		list = adService.finAdByType(Integer.parseInt(adType));		
+		List<Ad> list = adService.finAdByType(Integer.parseInt(adType),pager.getOffset(), pager.getLimit());		
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("list", list);
+		if(list.size() != 0){
+			jsonObject.put("list", list);
+		}else{
+			jsonObject.put("list", null);
+		}
 		return jsonObject.toString();
 	}
 	/**
@@ -177,9 +186,16 @@ public class AdController {
 		String openId = SessionUtil.getOpenid(request);
 		List<Ad> list = new ArrayList<Ad>();
 		String adState = request.getParameter("ad_state");
-		list = adService.findMyPlaceAd(Integer.parseInt(adState),openId);
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		list = adService.findMyPlaceAd(Integer.parseInt(adState),openId,pager.getOffset(), pager.getLimit());
+		
 		JSONObject jsonO = new JSONObject();
-		jsonO.put("list", list);
+		if(list.size() != 0){
+			jsonO.put("list", list);
+		}else{
+			jsonO.put("list", null);
+		}		
 		return jsonO.toString();
 	}
 	

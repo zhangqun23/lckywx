@@ -7,23 +7,23 @@
 		
 		<li class="inner">
 			<div class="item-name">标题：</div>
-			<div class="item-value">{{TInfo.travel_title|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_title|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">路线：</div>
-			<div class="item-value">{{TInfo.travel_route|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_route|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">总人数：</div>
-			<div class="item-value">{{TInfo.travel_total_num|travelFilter}}&nbsp;人</div>
+			<div class="item-value">{{TInfo.travel_total_num|trtrFilter}}&nbsp;人</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">剩余人数：</div>
-			<div class="item-value">{{TInfo.travel_left_num|travelFilter}}&nbsp;人</div>
+			<div class="item-value">{{TInfo.travel_left_num|trtrFilter}}&nbsp;人</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">游玩天数：</div>
-			<div class="item-value">{{TInfo.travel_days|travelFilter}}&nbsp;天</div>
+			<div class="item-value">{{TInfo.travel_days|trtrFilter}}&nbsp;天</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">出发时间：</div>
@@ -32,36 +32,36 @@
 
 		<li class="inner">
 			<div class="item-name">出发地点：</div>
-			<div class="item-value">{{TInfo.travel_location|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_location|trtrFilter}}</div>
 		</li>
 		
 		<li class="inner">
 			<div class="item-name">成人票价格：</div>
-			<div class="item-value">{{TInfo.travel_mprice|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_mprice|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">儿童票价格：</div>
-			<div class="item-value">{{TInfo.travel_cprice|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_cprice|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">折扣：</div>
-			<div class="item-value">{{TInfo.travel_discount|travelFilter|number:2}}</div>
+			<div class="item-value">{{TInfo.travel_discount|trtrFilter|number:2}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">联系电话：</div>
-			<div class="item-value">{{TInfo.travel_tel|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_tel|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">保险费：</div>
-			<div class="item-value">{{TInfo.travel_insurance|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_insurance|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">活动描述：</div>
-			<div class="item-value">{{TInfo.travel_content|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_content|trtrFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">旅游承办公司：</div>
-			<div class="item-value">{{TInfo.travel_firm|travelFilter}}</div>
+			<div class="item-value">{{TInfo.travel_firm|trtrFilter}}</div>
 		</li>
 		<li class="inner no-padding">
 			<label class="weui_btn weui_btn_primary" ng-click="getTravelTradeById(TInfo.travel_id)">我要购票</label>

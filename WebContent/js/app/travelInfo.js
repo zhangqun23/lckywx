@@ -77,8 +77,11 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/myTravelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/myTravelTrade.html',
 		controller : 'PlatformController'
-	}).when('/detailmyTravelTrade',{
+	}).when('/detailmyTravelTrade', {
 		templateUrl : '/lckywx/jsp/travelInfo/myTravelTradeDetail.html',
+		controller : 'PlatformController'
+	}).when('/enSure', {
+		templateUrl : '/lckywx/jsp/travelInfo/enSure.html',
 		controller : 'PlatformController'
 	})
 } ]);
@@ -94,41 +97,50 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	
-	services.selectTravelInfoById = function(data){
+
+	services.selectTravelInfoById = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'travelInfo/selectTravelInfoById.do',
 			data : data
 		});
 	};
-	
-	services.addTravelTrade = function(data){
+
+	services.addTravelTrade = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'pay/travelPay.do',
 			data : data
 		});
 	}
-	
-	services.saveTravelTrade = function(data){
+
+	services.saveTravelTrade = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'travelInfo/saveTravelTrade.do',
 			data : data
 		});
 	}
-	
-	services.selectMyTravelInfoByOId = function(data){
+
+	services.selectMyTravelInfoByOId = function(data) {
 		return $http({
-			method : 'post' ,
+			method : 'post',
 			url : baseUrl + 'travelInfo/selectMyTravelInfoByOId.do',
 			data : data
 		});
 	}
 
+	services.travelRefundPay = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'pay/travelRefundPay.do',
+			data : data
+		})
+	}
+
 	return services;
 } ]);
+
 
 app.controller('PlatformController', [
 		'$scope',
@@ -214,16 +226,29 @@ app.controller('PlatformController', [
 					payNeed : payLimit,
 					travelid : travel_id
 				}).success( function(data){
-					if (data.e != null){alert(data.e)}
+					if (data.e != null) {
+						alert(data.e)
+						return;
+					}
+					sessionStorage.setItem("travelTrade",JSON.stringify(data.trTrade));
+					console.log(JSON.stringify(data.trTrade));
+					$location.path("enSure");
 
 				})
 			}
 			
 
-			travelInfo.traderefundpay = function(travel_travel_id) {
+			travelInfo.traderefundpay = function(travel_trade_id) {
 				if(confirm("是否确定退款，将扣除20%手续费")){
-					//TODO
-					
+					services.travelRefundPay({
+						travel_trade_id : travel_trade_id
+					}).success(function(data){
+						if(data.e != null){
+							alert(data.e)
+							return;
+						}
+						$location.path("enSure");
+					})
 				}
 			}
 		
@@ -297,7 +322,6 @@ app.controller('PlatformController', [
 						travelInfo.travelList = [];
 					}
 					travelInfo.travelList = travelInfo.travelList.concat(data.list);
-					console.log(data.list);
 					config.isAjax = false;
 					if(data.list == ![]){
 						$(".limitHint").css('display','block');
@@ -329,16 +353,16 @@ app.controller('PlatformController', [
 			
 			travelInfo.changeBar=function(state){
 				switch(state){
-				case 0:
+				case 1:
 					travelInfo.show={
 						isActive1:true,
 						isActive2:false,
 						isActive3:false
 				}
 					travelInfo.MTTInfo = null;
-					openScroll(getMyTravelList, {}, 0);
+					openScroll(getMyTravelList, {}, 1);
 					break;
-				case 1:
+				/*case 1:
 					travelInfo.show={
 						isActive1:false,
 						isActive2:true,
@@ -346,7 +370,7 @@ app.controller('PlatformController', [
 				}
 					travelInfo.MTTInfo = null;
 					openScroll(getMyTravelList, {} , 1);
-					break;
+					break;*/
 				case 2:
 					travelInfo.show={
 						isActive1:false,
@@ -359,6 +383,17 @@ app.controller('PlatformController', [
 				}
 			}
 			
+			// zq确定交易跳转到我的交易列表
+			travelInfo.redirectToMyList = function() {
+				$location.path("myTravelTrade");
+			}
+			// zq获取交易详情
+			travelInfo.selectTarvelTradeInfo = function() {
+				
+				$location.path("detailmyTravelTrade");
+
+			}
+			
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
@@ -366,19 +401,20 @@ app.controller('PlatformController', [
 				if ($location.path().indexOf('/travelInfo') == 0) {
 					console.log("进入到旅游信息界面");
 					openScroll(getTravelList, {});
-				} else if($location.path().indexOf('/getTravelInfoDetail') ==0){
+				} else if ($location.path().indexOf(
+						'/getTravelInfoDetail') == 0) {
 					services.selectTravelInfoById({
-						travel_id_select : sessionStorage.getItem("travel_id_select")
-					}).success(function(data){
-						$scope.TInfo = data.list
-					});
-				} else if ($location.path().indexOf('/myTravelTrade') == 0){
-					openScroll(getMyTravelList, {});
-				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0){
+							travel_id_select : sessionStorage.getItem("travel_id_select")
+						}).success(function(data) {
+							$scope.TInfo = data.list
+						});
+				} else if ($location.path().indexOf('/myTravelTrade') == 0) {
+					openScroll(getMyTravelList, {}, 1);
+				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0) {
 					console.log(sessionStorage.getItem("travelTrade"));
 					$scope.MMTT = JSON.parse(sessionStorage.getItem("travelTrade"));
-					if($scope.MMTT.trade_is_state == 0){
-						$("#refund-pay").css('display','block');
+					if ($scope.MMTT.is_state == 1) {
+						$("#refund-pay").css('display', 'block');
 					}
 				}
 			}
@@ -396,10 +432,10 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
-//旅游活动内容的格式化的判断
+// 旅游活动内容的格式化的判断
 app.filter('trtrFilter', function() {
 	return function(input) {
-		if (input == ""||input == null) {
+		if (input == "" || input == null) {
 			var input = "空";
 			return input;
 		} else {
@@ -407,15 +443,15 @@ app.filter('trtrFilter', function() {
 		}
 	}
 });
-//旅游活动内容的格式化的判断
+// 旅游活动内容的格式化的判断
 app.filter('stateFilter', function() {
 	return function(input) {
-		switch(input){
+		switch (input) {
 		case 0:
-			var input = "已付款";
+			var input = "待付款";
 			return input;
 		case 1:
-			var input = "待付款";
+			var input = "已付款";
 			return input;
 		case 2:
 			var input = "已退款";
@@ -423,16 +459,14 @@ app.filter('stateFilter', function() {
 		}
 	}
 });
-//截取任务内容
+// 截取任务内容
 app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
 		if (input != "") {
 			var shortInput = input.substr(0, 10);
 			content = shortInput + "……";
-			}
-		return content;	
+		}
+		return content;
 	}
 });
-
-
