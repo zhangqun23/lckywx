@@ -1,0 +1,79 @@
+<header >
+    <div class="titlebar reverse">
+         <h1>通告</h1>
+    </div>    
+    <ul class="tabbar animate-slide width-full" data-col="2" id="tabbar">
+        <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+            <label class="tab-label">未完成</label>
+        </li>
+        <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+            <label class="tab-label">已完成</label>
+        </li>
+        <hr>
+    </ul>
+</header>
+         
+<article style="margin-top: 98px;">
+    <div id = "table1">
+    <!-- <form ng-submit="selectSmallGoods()" method="post" enctype="multipart/form-data">
+		<div class="inner" >
+			<input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required><div style="float: left;margin-right:10px">-</div>
+				
+			<input type="text" name="GotLimit.endtTime" style="width:25%;float: left"
+				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required>
+		</div>
+		<div class="org">
+			<span><input type="submit" class="weui_btn weui_btn_primary" value="查询">
+		</div>
+	</form>	 -->
+	
+	<form class="weui_cell" ng-repeat="smallGood in smallGoodsList">
+         <div class="weui_cell_bd weui_cell_primary">
+              <div class="wuliao-title">
+                   <label>货物名称：</label>
+                       <span>{{smallGood.smgo_name}}</span>
+              </div>
+              <div class="detail clearfix">
+                   <span class="date">价格：</span>
+                   <span class="date">发件日期：<label>{{smallGood.smgo_send_time.time|dateType}}</label></span>
+              </div>
+			  <div class="detail clearfix">
+                   <span class="date">收件人：{{smallGood.smgo_receiver}}</span>
+                   <span class="require">联系方式：<label>{{smallGood.smgo_receiver_tel}}</label></span>
+              </div>
+              <div class="org">
+                   <span>备注：{{smallGood.smgo_remark}}</span>
+                   <label class="green" ng-click="selectSmallGoodsInfo(smallGood.smgo_id)">详情</label>
+              </div>
+          </div>
+    </form>
+    </div>
+    
+    <div id = "table2">
+    <form class="weui_cell" ng-repeat="smallGood in smallGoodsList">
+         <div class="weui_cell_bd weui_cell_primary">
+              <div class="wuliao-title">
+                   <label>货物名称：</label>
+                       <span>{{smallGood.smgo_name}}</span>
+              </div>
+              <div class="detail clearfix">
+                   <span class="date">价格：</span>
+                   <span class="date">发件日期：<label>{{smallGood.smgo_send_time.time|dateType}}</label></span>
+              </div>
+			  <div class="detail clearfix">
+                   <span class="date">收件人：{{smallGood.smgo_receiver}}</span>
+                   <span class="require">联系方式：<label>{{smallGood.smgo_receiver_tel}}</label></span>
+              </div>
+              <div class="org">
+                   <span>备注：{{smallGood.smgo_remark}}</span>
+                   <label class="green" ng-click="selectSmallGoodsInfo(smallGood.smgo_id)">详情</label>
+              </div>
+          </div>
+    </form>
+    </div>
+</article>
