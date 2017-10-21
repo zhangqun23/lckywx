@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TravelDao;
 import com.mvc.entity.Travel;
-import com.mvc.entity.TravelTrade;
 
 /**
  * @ClassName: TravelDaoImpl
@@ -39,8 +38,12 @@ public class TravelDaoImpl implements TravelDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Travel> findTravelAlls(Integer offset, Integer limit) {	
+		
+		SimpleDateFormat getDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String getdate = getDate.format(new Date());
+		
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from travel where is_delete=0 limit :offset, :end";
+		String sql = "select * from travel where is_delete=0 and travel_stime > '"+ getdate +"' order by travel_stime asc limit :offset, :end";
 		Query query = em.createNativeQuery(sql.toString(),Travel.class);//对象和表对应
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
