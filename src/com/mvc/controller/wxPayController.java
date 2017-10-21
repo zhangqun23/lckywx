@@ -201,6 +201,9 @@ public class wxPayController {
 		String xml = wxPayUtil.mapToXml(paraMap);
 		//异步发送请求
 		String xmlStr = HttpKit.post(url, xml);
+		System.out.println("---------------------华丽丽的分割线开始---------------------");
+		System.out.println(xmlStr);
+		 System.out.println("---------------------华丽丽的分割线结束---------------------");
 		//预支付交易会话标识 
 		String prepay_id = "";
 		Map<String, String> map = new HashMap<String, String>();
@@ -229,7 +232,7 @@ public class wxPayController {
 		mapResult.put("out_trade_no",out_trade_no);
 		mapResult.put("total_fee",map.get("total_fee"));
 		System.out.println(mapResult.toString());
-		return mapResult;
+		return mapResult; 
 	}
 	
 	public @ResponseBody String jsRefundPay(Map<String, String> map, HttpServletRequest request, HttpServletResponse responest) throws Exception{

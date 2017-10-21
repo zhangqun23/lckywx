@@ -411,10 +411,12 @@ app.controller('PlatformController', [
 				} else if ($location.path().indexOf('/myTravelTrade') == 0) {
 					openScroll(getMyTravelList, {}, 1);
 				} else if ($location.path().indexOf('/detailmyTravelTrade') == 0) {
-					console.log(sessionStorage.getItem("travelTrade"));
 					$scope.MMTT = JSON.parse(sessionStorage.getItem("travelTrade"));
 					if ($scope.MMTT.is_state == 1) {
+						$("#hasPaied").css('display', 'block');
 						$("#refund-pay").css('display', 'block');
+					} else if($scope.MMTT.is_state == 2){
+						$("#hasRefunded").css('display', 'block');
 					}
 				}
 			}
