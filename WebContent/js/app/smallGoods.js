@@ -117,7 +117,7 @@ app
 					smallGoods.GoLimit={
 							smgo_name:"",
 							smgo_weight:"",
-							smgo_start:"洛川",
+							smgo_start:"",
 							smgo_end:"",
 							smgo_sender:"",
 							smgo_sender_tel:"",
@@ -132,10 +132,9 @@ app
 							startDate:"",
 							endDate:""
 					}
-					/*//联系方式格式判断
 					smallGoods.checknum = function(element){
 						if((/^1[34578]\d{9}$/.test(element)) 
-								|  /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
+								| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
 							console.log("jinalail2")
 					    	$(".limitNum").css('display','none');
 					    }else{
@@ -145,18 +144,6 @@ app
 					    }
 						return ;
 					}
-					//货物重量的判断
-					smallGoods.checkweight = function(element){
-						if((/^[0-9]*[1-9][0-9]*$/.test(element))) {
-							console.log("jinalail2")
-					    	$(".limitNum").css('display','none');
-					    }else{
-					    	console.log("jinalail")
-							$(".limitNum").css('display','block');
-					    }
-						return ;
-					}				*/
-						 
 					function compareDateTime(startDate, endDate) {
 						var date1 = new Date(startDate);
 						var date2 = new Date(endDate);
@@ -242,7 +229,7 @@ app
 								case 1:
 									smallGoods.show={
 										isActive1:true,
-										isActive2:false
+										isActive2:false										
 								}
 									$("#table1").show();
 									$("#table2").hide();
@@ -250,7 +237,7 @@ app
 								case 2:
 									smallGoods.show={
 										isActive1:false,
-										isActive2:true
+										isActive2:true											
 								}
 									$("#table1").hide();
 									$("#table2").show();
