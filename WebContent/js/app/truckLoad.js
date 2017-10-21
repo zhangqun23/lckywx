@@ -374,6 +374,19 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
  					break;
  				}
  			}
+             //时间格式
+             truckDrSdNd.checknum = function(element){
+					if((/^1[34578]\d{9}$/.test(element)) 
+							| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
+						console.log("jinalail2")
+				    	$(".limitNum").css('display','none');
+				    }else{
+				    	console.log("jinalail")
+						$(".limitNum").css('display','block');
+						
+				    }
+					return ;
+				}
              // 零担货运页面初始化
              function initPage() {
                  console.log("初始化页面信息");             
