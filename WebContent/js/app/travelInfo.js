@@ -289,6 +289,8 @@ app.controller('PlatformController', [
 
 				/*第一次加载页面*/
 				getDate(config, counter, state);
+				$('.containerloading').fadeIn(100);
+				$('.overlayer').fadeIn(100);
 				
 				/*通过自动监听滚动事件加载更多,可选支持*/
 				config.isEnd = false; /*结束标志*/
@@ -318,6 +320,8 @@ app.controller('PlatformController', [
 				services.selectTravelInfo({
 					page : counter
 				}).success(function(data) {
+					$('.containerloading').fadeOut(1000);
+				    $('.overlayer').fadeOut(1000);
 					if(!travelInfo.travelList){
 						travelInfo.travelList = [];
 					}
@@ -332,7 +336,6 @@ app.controller('PlatformController', [
 			
 			function getMyTravelList(config, counter, state){
 				config.isAjax = true;
-//				$('#loadingToast').show();
 				services.selectMyTravelInfoByOId({
 					state : state,
 					page : counter
@@ -388,10 +391,20 @@ app.controller('PlatformController', [
 				$location.path("myTravelTrade");
 			}
 			// zq获取交易详情
-			travelInfo.selectTarvelTradeInfo = function() {
-				
+			travelInfo.selectTarvelTradeInfo = function() {		
 				$location.path("detailmyTravelTrade");
-
+			}
+			
+			travelInfo.showloadingToast = function(){
+				var $overlayer = $('.overlayer');
+				var $loadingToast = $('.containerloading');
+				$loadingToast.fadeIn(100);
+				$overlayer.fadeIn(100);
+				setTimeout(function () {
+				    $loadingToast.fadeOut(100);
+				    $overlayer.fadeOut(100);
+				}, 2000);
+				    
 			}
 			
 			// zq初始化
@@ -401,8 +414,7 @@ app.controller('PlatformController', [
 				if ($location.path().indexOf('/travelInfo') == 0) {
 					console.log("进入到旅游信息界面");
 					openScroll(getTravelList, {});
-				} else if ($location.path().indexOf(
-						'/getTravelInfoDetail') == 0) {
+				} else if ($location.path().indexOf('/getTravelInfoDetail') == 0) {
 					services.selectTravelInfoById({
 							travel_id_select : sessionStorage.getItem("travel_id_select")
 						}).success(function(data) {
