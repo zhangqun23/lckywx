@@ -188,7 +188,6 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 
 	return services;
 } ]);
-
 app
 		.controller(
 				'TruckLoadController',
@@ -468,7 +467,7 @@ app
 							}
 							// zq
 							truckDrSdNd.selectInfo = function(data) {
-								alert("fsdsZ");
+							
 								$location.path("selectTruckDriverInfo");
 							}
 							// 零担货运页面初始化

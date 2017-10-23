@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${ctx}/css/mui.css" />
 <link rel="stylesheet" href="${ctx}/css/animate.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/order-list.css" />
- <link rel="stylesheet" href="${ctx}/css/pages/order-detail.css" /> 
+<link rel="stylesheet" href="${ctx}/css/pages/order-detail.css" /> 
 <link rel="stylesheet" href="${ctx}/css/pages/ad-list.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/form-detail.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/info-detail.css" />
@@ -24,28 +24,7 @@
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
             
-<body class="bodyhe">
-
-<!--  <div id="loadingToast" class="weui_loading_toast" style="display:none;">
-                <div class="weui_mask_transparent"></div>
-                <div class="weui_toast">
-                    <div class="weui_loading">
-                        <div class="weui_loading_leaf weui_loading_leaf_0"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_1"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_2"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_3"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_4"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_5"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_6"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_7"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_8"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_9"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_10"></div>
-                        <div class="weui_loading_leaf weui_loading_leaf_11"></div>
-                    </div>
-                    <p class="weui_toast_content">数据加载中</p>
-                </div>
-            </div> --> 
+<body class="bodyhe"> 
             
 	<header>
             <div class="titlebar reverse">
@@ -66,6 +45,26 @@
 			<img class="tipimage" src="../images/wait.gif" />
 			<div class="tiptext">正在加载，请稍后……</div>
 		</div>
+		<div class="overlayer"></div>
+<!-- 菊花图开始 -->
+<div class="containerloading" style="display:none;">      
+     <div class="spinner">
+         <div class="bar1"></div>
+         <div class="bar2"></div>
+         <div class="bar3"></div>
+         <div class="bar4"></div>
+         <div class="bar5"></div>
+         <div class="bar6"></div>
+         <div class="bar7"></div>
+         <div class="bar8"></div>
+         <div class="bar9"></div>
+         <div class="bar10"></div>
+         <div class="bar11"></div>
+         <div class="bar12"></div>
+     </div>
+     <div class="base">数据加载中...</div>
+</div>
+<!-- 菊花图结束 -->
 		<!-- 加载模态框 -->
 		<script type="text/javascript"
 			src="${ctx}/js/lib/jquery.json-2.2.min.js"></script>
