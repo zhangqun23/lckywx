@@ -1,0 +1,78 @@
+
+<header>
+	<div class="titlebar reverse">
+		<h1>信息录入</h1>
+	</div>
+	<ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[show.isActive0]"
+			ng-click="changebar(0,selectUserTruckList)"><label
+			class="tab-label">车辆详情</label></li>
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[show.isActive1]"
+			ng-click="changebar(1)"><label class="tab-label">货车运货</label></li>
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[show.isActive2]"
+			ng-click="changebar(2)"><label class="tab-label">我的货物</label></li>
+		<hr>
+	</ul>
+</header>
+
+
+<article style="margin-top: 100px;">
+	<div id="table1">
+		<ul ng-repeat="tl in truckList">
+			<li class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="wuliao-title">
+						<label>车牌号：</label> <span>{{tl.trck_number}}</span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">司机：<label>{{tl.driver.driver_name}}</label></span>
+						<span class="result">联系方式：<label>{{tl.driver.driver_tel}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">货车载重：<label>{{tl.trck_load}}&nbsp;&nbsp;吨</label></span>
+						<span class="result">是否可冷冻：<label>{{tl.is_freeze
+								|isFreeze}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">审核状态：<label>{{tl.trck_check
+								|trckCheck}}</label></span>
+
+					</div>
+				</div>
+			</li>
+
+		</ul>
+
+	</div>
+	<!-- truckSend车主信息界面 -->
+	<div id="table2" style="display: none">
+		<ul ng-repeat="tl in truckList1">
+			<li class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="wuliao-title">
+						<label>车牌号：</label> <span>{{tl.trck_number}}</span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">司机：<label>{{tl.driver.driver_name}}</label></span>
+						<span class="result">联系方式：<label>{{tl.driver.driver_tel}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">货车载重：<label>{{tl.trck_load}}&nbsp;&nbsp;吨</label></span>
+						<span class="result">是否可冷冻：<label>{{tl.is_freeze
+								|isFreeze}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">审核状态：<label>{{tl.trck_check
+								|trckCheck}}</label></span>
+
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</article>
+

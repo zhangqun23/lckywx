@@ -63,7 +63,7 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 	});
 } ]);
 
-//路由配置
+// 路由配置
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/truckGoods', {
 		templateUrl : '/lckywx/jsp/truckLoad/truckGoods.html',
@@ -98,13 +98,19 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/modifyTruckSend', {
 		templateUrl : '/lckywx/jsp/truckLoad/modifyTruckSend.html',
 		controller : 'TruckLoadController'
-	})		
+	}).when('/truckOwnerInput', {
+		templateUrl : '/lckywx/jsp/truckLoad/truckOwnerInput.html',
+		controller : 'TruckLoadController'
+	}).when('/myTruckPublish0', {
+		templateUrl : '/lckywx/jsp/truckLoad/myTruckPublish.html',
+		controller : 'TruckLoadController'
+	})
 } ]);
 
 app.constant('baseUrl', '/lckywx/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
-	//添加司机货车信息
+	// 添加司机货车信息
 	services.addTruckDriver = function(data) {
 		return $http({
 			method : 'post',
@@ -112,7 +118,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	//添加货车货运信息
+	// 添加货车货运信息
 	services.addTruckSend = function(data) {
 		return $http({
 			method : 'post',
@@ -120,7 +126,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	//添加货车货运信息
+	// 添加货车货运信息
 	services.addTruckNeed = function(data) {
 		return $http({
 			method : 'post',
@@ -128,286 +134,425 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	//车主查询货主信息
-	services.selectTruckNeed =  function(data){
+	// 车主查询货主信息
+	services.selectTruckNeed = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/selectTruckNeed.do',
 			data : data
 		});
 	};
-	services.selectTruckSend = function(data){
+	services.selectTruckSend = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/selectTruckSend.do',
 			data : data
 		});
 	};
-	services.selectTruckSendById = function(data){
+	services.selectTruckSendById = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl +'truckLoad/selectTruckSendById.do',
+			url : baseUrl + 'truckLoad/selectTruckSendById.do',
 			data : data
 		});
 	};
-	services.selectTruckNeedById = function(data){
+	services.selectTruckNeedById = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/selectTruckNeedById.do',
 			data : data
 		});
 	};
-	services.selectTruckDriverById = function(data){
+	services.selectTruckDriverById = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/selectTruckDriverById.do',
 			data : data
 		})
 	}
-	services.modifyTruckSend = function(data){
+	services.modifyTruckSend = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'truckLoad/modifyTruckSend.do',
 			data : data
 		});
-	};	
+	};
+	// zq
+	services.selectUserTruck = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/selectUserTruck.do',
+			data : data
+		});
+	};
+
 	return services;
 } ]);
 
-app.controller('TruckLoadController', [ '$scope', 'services', '$location',
-     function($scope, services, $location) {
-         var truckDrSdNd = $scope;
-             truckDrSdNd.truckLimit = {
-                 trck_load : "",
-                 is_freeze : "0",  // 0代表未冷冻，1代表冷冻
-                 trck_number :"", //车牌号
-             }             
-             // pg添加车主+货车信息
-             truckDrSdNd.driverLimit = {
-            	 driver_name : "",
-                 driver_job : "",
-            	 driver_tel : "",
-            	 driver_idcard : "",
-            	 driver_license_number : "",           	 
-             }
-             /*
-                private Integer driver_id;//司机ID,主键
-                private Integer is_audit;//0代表未审核，1代表已审核
-              */             
-             truckDrSdNd.trseLimit = {
-                 trse_left_load : "",
-                 trse_splace : "洛川",
-                 trse_eplace : "",
-                 trse_price : "",
-                 trse_time : ""
-             }                
-             truckDrSdNd.trneLimit = {
-                 trne_name : "",
-                 trne_tel : "",
-                 trne_type : "",
-                 trne_weight : "",
-                 trne_splace : "洛川",
-                 trne_eplace : "",
-                 trne_time : "",
-                 trne_remark : "",
-                 is_freeze : "0"
-             }
-            /* truckDrSdNd.gotLimit={
-				 startDate:"",
-				 endDate:""
-				}
-             truckDrSdNd.gotLimits={
-    				 startDate:"",
-    				 endDate:""
-    				}*/
- 			function compareDateTime(starTime,endTime){
- 				var date1 = new Date(starTime);
- 				var date2 = new Date(endTime);
- 				if(date1.getTime()<date2.getTime()){
- 					return true;
- 				}else{
- 					return false;
- 				}
- 			}
-             // pg添加货车+司机的信息
-             truckDrSdNd.addTruckDriver = function() {
-            	 console.log("你太调皮了");
- 				/*var myDate = new Date();
-				if(compareDateTime(mtDate.toLocaleDateString(),driverLimit.driver_license_starttime)){return alert("请填写正确时间")}*/
-                 var truckLimit = JSON.stringify(truckDrSdNd.truckLimit);
-                 var driverLimit = JSON.stringify(truckDrSdNd.driverLimit);
-                 console.log(truckLimit);
-                 console.log(driverLimit);
-                     services.addTruckDriver({
-                    	 truckInfo : truckLimit,
-                    	 driverInfo : driverLimit
-                     }).success(function(data) {
-                         sessionStorage.setItem("trckId", data.limint.trck_id);
-                         sessionStorage.setItem("driverId", data.result.driver_id);
-                         $location.path("selecttruckDriverInfo");
-                     });
-             }
-             // pg添加货主需求信息
-             truckDrSdNd.addTruckSend = function() {
-            	 console.log("你太调皮了");
-                 var truckLimit = JSON.stringify(truckDrSdNd.trseLimit);
-                 console.log(truckLimit);
-                     services.addTruckSend({
-                    	 trseInfo : truckLimit
-                     }).success(function(data) {
-                         sessionStorage.setItem("trseId", data.result.trse_id);
-                         $location.path("truckSend");
-                     });
-             }
-             // pg添加发货需求信息
-             truckDrSdNd.addTruckNeed = function() {
-            	 console.log("你太调皮了");
-                 var truckLimit = JSON.stringify(truckDrSdNd.trneLimit);
-                     services.addTruckNeed({
-                    	 trneInfo : truckLimit
-                     }).success(function(data) {
-                         sessionStorage.setItem("trneId", data.result.trne_id);
-                         $location.path("truckNeed");
-                     });
-             }
-             //车主查询货主信息
-             truckDrSdNd.selectTruckNeed = function() {               
-            	 services.selectTruckNeed({
-            		 startTime : truckDrSdNd.startTime,
-            		 endTime : truckDrSdNd.endTime,
-            		 trne_eplace : truckDrSdNd.trne_eplace
-            	 }).success(function(data){
-            		 truckDrSdNd.selectTruckNeedList = data.list;
-            	 });
-             }
-             //货主查询车主信息
-             truckDrSdNd.selectTruckSend = function() {               
-            	 services.selectTruckSend({
-            		 startTime : truckDrSdNd.startTime,
-            		 endTime : truckDrSdNd.endTime,
-            		 trse_eplace : truckDrSdNd.trse_eplace
-            	 }).success(function(data){
-            		 truckDrSdNd.selectTruckSendList = data.list;
-            		 $location.path("selectTruckSend");         
-            	 });
-             }
-             //根据trse_id获得车主信息(先获得Id后查询)
-             truckDrSdNd.getTruckSendById = function (trse_id){           	 
-            	 sessionStorage.setItem("trse_id",trse_id);
-            	 $location.path('truckSendInfo');
-             }
-             truckDrSdNd.selectTruckSendById = function (trse_id){          
-            	 services.selectTruckSendById({
-            		 trse_id : trse_id
-            	 }).success(function(data){
-            		 truckDrSdNd.selectTruckSendByIdList = data.truckSend;
-            	 });
-             }
-             //根据trne_id获得货主信息(先获得Id后查询)
-             truckDrSdNd.getTruckNeedById = function (trne_id){
-            	 sessionStorage.setItem("trne_id",trne_id);
-            	 $location.path('truckNeedInfo');
-             }
-             truckDrSdNd.selectTruckNeedById = function (trne_id){
-            	 services.selectTruckNeedById({
-            		 trne_id : trne_id
-            	 }).success(function(data){
-            		 truckDrSdNd.selectTruckNeedByIdList = data.truckNeed;
-            	 });
-             }
-             //根据trck_id和driver_id获取司机车辆信息
-             truckDrSdNd.selectTruckDriverById = function (trckId,driverId){           	
-            	 services.selectTruckDriverById({
-            		 trckId : trckId,
-            		 driverId : driverId
-            	 }).success(function(data){            	
-            		 truckDrSdNd.selectDriverByIdList = data.driver;
-            		 truckDrSdNd.selectTruckByIdList = data.truck;
-            	 })
-             }
-             //根据trse_id获得车主信息(修改用)
-             truckDrSdNd.getModifyTruckSend = function (trse_id){
-            	 sessionStorage.setItem("trse_id",trse_id);
-            	 $location.path('modifyTruckSend');
-             }
-             truckDrSdNd.modifyTruckSend = function (){
-            	 var truckSend = JSON.stringify(truckDrSdNd.selectTruckSendByIdList);//修改部分只将前台写完，后台没写
-            	 services.modifyTruckSend({
-            		 truckSend : truckSend,
-            		 trse_id : sessionStorage.getItem("trse_id")
-            	 }).success(function(data){
-            		 truckDrSdNd.modifyTruckSendList = data.list;
-            	 });
-             }
- 			//修改广告查询分栏
-             truckDrSdNd.changebar=function(state){
- 				switch(state){
- 				case 0:														
- 					truckDrSdNd.show={
- 						isActive0:true,
- 						isActive1:false,
- 						isActive2:false,
- 				};
- 				$('#table1').show();
- 				$('#table2').hide();
- 				$('#table3').hide();
- 					break;
- 				case 1:
- 					truckDrSdNd.show={
- 						isActive0:false,
- 						isActive1:true,
- 						isActive2:false,
- 				};
- 	 				$('#table1').hide();
- 	 				$('#table2').show();
- 	 				$('#table3').hide();
- 					break;
- 				case  2:
- 					truckDrSdNd.show={
- 						isActive0:false,
- 						isActive1:false,
- 						isActive2:true,						
- 				};
- 	 				$('#table1').hide();
- 	 				$('#table2').hide();
- 	 				$('#table3').show();
- 					break;
- 				}
- 			}
-             // 零担货运页面初始化
-             function initPage() {
-                 console.log("初始化页面信息");             
-                 if ($location.path().indexOf('/truckDriver') == 0) {
-                 } else if ($location.path().indexOf('/selecttruckDriverInfo') == 0) {                 	 
-                     var trckId = sessionStorage.getItem("trckId");                     
-                     var driverId = sessionStorage.getItem("driverId");                    
-                     truckDrSdNd.selectTruckDriverById(trckId,driverId);
-                 } else if ($location.path().indexOf('/truckNeed') == 0) {
-                	
-                 } else if ($location.path().indexOf('/selectTruckNeed') == 0) {
-                	 
-                 } else if ($location.path().indexOf('/selectTruckSend') == 0) {
-                	 		
-                 } else if($location.path().indexOf('/truckNeedInfo')== 0){
-                	 var trne_id = sessionStorage.getItem("trne_id");
-                	 truckDrSdNd.selectTruckNeedById(trne_id);
-                 } else if ($location.path().indexOf('/truckSendInfo') == 0) {                
-                	 var trse_id = sessionStorage.getItem("trse_id");                	
-                	 truckDrSdNd.selectTruckSendById(trse_id);
-                 } else if ($location.path().indexOf('/modifyTruckSend') == 0){
-                	 var trse_id = sessionStorage.getItem("trse_id");
-                	 truckDrSdNd.selectTruckSendById(trse_id);
-                 }
-             }
-              initPage();
-          } ]);
+app
+		.controller(
+				'TruckLoadController',
+				[
+						'$scope',
+						'services',
+						'$location',
+						function($scope, services, $location) {
+							var truckDrSdNd = $scope;
+							truckDrSdNd.truckLimit = {
+								trck_load : "",
+								is_freeze : "0", // 0代表未冷冻，1代表冷冻
+								trck_number : "", // 车牌号
+							}
+							// pg添加车主+货车信息
+							truckDrSdNd.driverLimit = {
+								driver_name : "",
+								driver_job : "",
+								driver_tel : "",
+								driver_idcard : "",
+								driver_license_number : "",
+							}
+							/*
+							 * private Integer driver_id;//司机ID,主键 private
+							 * Integer is_audit;//0代表未审核，1代表已审核
+							 */
+							truckDrSdNd.trseLimit = {
+								trse_left_load : "",
+								trse_splace : "洛川",
+								trse_eplace : "",
+								trse_price : "",
+								trse_time : ""
+							}
+							truckDrSdNd.trneLimit = {
+								trne_name : "",
+								trne_tel : "",
+								trne_type : "",
+								trne_weight : "",
+								trne_splace : "洛川",
+								trne_eplace : "",
+								trne_time : "",
+								trne_remark : "",
+								is_freeze : "0"
+							}
+							/*
+							 * truckDrSdNd.gotLimit={ startDate:"", endDate:"" }
+							 * truckDrSdNd.gotLimits={ startDate:"", endDate:"" }
+							 */
+							function compareDateTime(starTime, endTime) {
+								var date1 = new Date(starTime);
+								var date2 = new Date(endTime);
+								if (date1.getTime() < date2.getTime()) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+							// zq pg添加货车+司机的信息
+							truckDrSdNd.addTruckDriver = function() {
+								var truckLimit = JSON
+										.stringify(truckDrSdNd.truckLimit);
+								var driverLimit = JSON
+										.stringify(truckDrSdNd.driverLimit);
+								services.addTruckDriver({
+									truckInfo : truckLimit,
+									driverInfo : driverLimit
+								}).success(
+										function(data) {
+											sessionStorage.setItem("trckId",
+													data.limint.trck_id);
+											sessionStorage.setItem("driverId",
+													data.result.driver_id);
+											$location.path("enSure");
+										});
+							}
+							// pg添加货主需求信息
+							truckDrSdNd.addTruckSend = function() {
 
-//时间的格式化的判断
+								var truckLimit = JSON
+										.stringify(truckDrSdNd.trseLimit);
+								console.log(truckLimit);
+								services.addTruckSend({
+									trseInfo : truckLimit
+								}).success(
+										function(data) {
+											sessionStorage.setItem("trseId",
+													data.result.trse_id);
+											$location.path("truckSend");
+										});
+							}
+							// pg添加发货需求信息
+							truckDrSdNd.addTruckNeed = function() {
+								console.log("你太调皮了");
+								var truckLimit = JSON
+										.stringify(truckDrSdNd.trneLimit);
+								services.addTruckNeed({
+									trneInfo : truckLimit
+								}).success(
+										function(data) {
+											sessionStorage.setItem("trneId",
+													data.result.trne_id);
+											$location.path("truckNeed");
+										});
+							}
+							// 车主查询货主信息
+							truckDrSdNd.selectTruckNeed = function() {
+								services
+										.selectTruckNeed(
+												{
+													startTime : truckDrSdNd.startTime,
+													endTime : truckDrSdNd.endTime,
+													trne_eplace : truckDrSdNd.trne_eplace
+												})
+										.success(
+												function(data) {
+													truckDrSdNd.selectTruckNeedList = data.list;
+												});
+							}
+							// 货主查询车主信息
+							truckDrSdNd.selectTruckSend = function() {
+								services
+										.selectTruckSend(
+												{
+													startTime : truckDrSdNd.startTime,
+													endTime : truckDrSdNd.endTime,
+													trse_eplace : truckDrSdNd.trse_eplace
+												})
+										.success(
+												function(data) {
+													truckDrSdNd.selectTruckSendList = data.list;
+													$location
+															.path("selectTruckSend");
+												});
+							}
+							// 根据trse_id获得车主信息(先获得Id后查询)
+							truckDrSdNd.getTruckSendById = function(trse_id) {
+								sessionStorage.setItem("trse_id", trse_id);
+								$location.path('truckSendInfo');
+							}
+							truckDrSdNd.selectTruckSendById = function(trse_id) {
+								services
+										.selectTruckSendById({
+											trse_id : trse_id
+										})
+										.success(
+												function(data) {
+													truckDrSdNd.selectTruckSendByIdList = data.truckSend;
+												});
+							}
+							// 根据trne_id获得货主信息(先获得Id后查询)
+							truckDrSdNd.getTruckNeedById = function(trne_id) {
+								sessionStorage.setItem("trne_id", trne_id);
+								$location.path('truckNeedInfo');
+							}
+							truckDrSdNd.selectTruckNeedById = function(trne_id) {
+								services
+										.selectTruckNeedById({
+											trne_id : trne_id
+										})
+										.success(
+												function(data) {
+													truckDrSdNd.selectTruckNeedByIdList = data.truckNeed;
+												});
+							}
+							// 根据trck_id和driver_id获取司机车辆信息
+							truckDrSdNd.selectTruckDriverById = function(
+									trckId, driverId) {
+								services
+										.selectTruckDriverById({
+											trckId : trckId,
+											driverId : driverId
+										})
+										.success(
+												function(data) {
+													truckDrSdNd.selectDriverByIdList = data.driver;
+													truckDrSdNd.selectTruckByIdList = data.truck;
+												})
+							}
+							// 根据trse_id获得车主信息(修改用)
+							truckDrSdNd.getModifyTruckSend = function(trse_id) {
+								sessionStorage.setItem("trse_id", trse_id);
+								$location.path('modifyTruckSend');
+							}
+							truckDrSdNd.modifyTruckSend = function() {
+								var truckSend = JSON
+										.stringify(truckDrSdNd.selectTruckSendByIdList);// 修改部分只将前台写完，后台没写
+								services
+										.modifyTruckSend(
+												{
+													truckSend : truckSend,
+													trse_id : sessionStorage
+															.getItem("trse_id")
+												})
+										.success(
+												function(data) {
+													truckDrSdNd.modifyTruckSendList = data.list;
+												});
+							}
+							// 修改广告查询分栏
+							truckDrSdNd.changebar = function(state, fun) {
+								switch (state) {
+								case 0:
+									truckDrSdNd.show = {
+										isActive0 : true,
+										isActive1 : false,
+										isActive2 : false,
+									};
+									fun();
+									break;
+								case 1:
+									truckDrSdNd.show = {
+										isActive0 : false,
+										isActive1 : true,
+										isActive2 : false,
+									};
+									$('#table1').hide();
+									$('#table2').show();
+
+									break;
+								}
+							}
+							truckDrSdNd.selectUserTruck = function() {
+
+								var flag = false;
+								services
+										.selectUserTruck({})
+										.success(
+												function(data) {
+													if (data.list.length > 0) {
+
+														for (var i = 0; i < data.list.length; i++) {
+															if (data.list[i].trck_check) {
+																flag = true;
+																break;
+															}
+														}
+														if (flag) {
+															$('#table1').show();
+															$('#table2').hide();
+														} else {
+															$('#table1').hide();
+															$('#table2').hide();
+															alert("您的司机车辆信息还在审核过程中，暂不能发布运货需求！");
+														}
+
+													} else {
+														truckDrSdNd.show = {
+															isActive0 : false,
+															isActive1 : true,
+															isActive2 : false,
+														};
+														$('#table1').hide();
+														$('#table2').show();
+														alert("请先登记货车及司机信息！");
+													}
+
+												});
+							};
+							// zq查询与用户相关的货车列表
+							truckDrSdNd.selectUserTruckList = function() {
+								alert("fdsfs");
+								services.selectUserTruck({}).success(
+										function(data) {
+											truckDrSdNd.truckList = data.list;
+											console.log("dfdsfs"+JSON
+													.stringify(data.list));
+										});
+							}
+							// zq 查询车主发布的送货信息
+							truckDrSdNd.selectTruckSendList = function() {
+								services
+										.selectTruckSend({})
+										.success(
+												function(data) {
+													truckDrSdNd.truckSendList = data.list;
+												});
+							}
+							// zq
+							truckDrSdNd.selectInfo = function(data) {
+								alert("fsdsZ");
+								$location.path("selectTruckDriverInfo");
+							}
+							// 零担货运页面初始化
+							function initPage() {
+								console.log("初始化页面信息");
+								if ($location.path().indexOf('/truckDriver') == 0) {
+								} else if ($location.path().indexOf(
+										'/selectTruckDriverInfo') == 0) {
+									var trckId = sessionStorage
+											.getItem("trckId");
+									var driverId = sessionStorage
+											.getItem("driverId");
+									truckDrSdNd.selectTruckDriverById(trckId,
+											driverId);
+								} else if ($location.path().indexOf(
+										'/truckNeed') == 0) {
+
+								} else if ($location.path().indexOf(
+										'/selectTruckNeed') == 0) {
+
+								} else if ($location.path().indexOf(
+										'/selectTruckSend') == 0) {
+
+								} else if ($location.path().indexOf(
+										'/truckNeedInfo') == 0) {
+									var trne_id = sessionStorage
+											.getItem("trne_id");
+									truckDrSdNd.selectTruckNeedById(trne_id);
+								} else if ($location.path().indexOf(
+										'/truckSendInfo') == 0) {
+									var trse_id = sessionStorage
+											.getItem("trse_id");
+									truckDrSdNd.selectTruckSendById(trse_id);
+								} else if ($location.path().indexOf(
+										'/modifyTruckSend') == 0) {
+									var trse_id = sessionStorage
+											.getItem("trse_id");
+									truckDrSdNd.selectTruckSendById(trse_id);
+								} else if ($location.path().indexOf(
+										'/truckOwnerInput') == 0) {
+									truckDrSdNd.changebar(0,
+											truckDrSdNd.selectUserTruck);
+								} else if ($location.path().indexOf(
+										'/myTruckPublish0') == 0) {
+									truckDrSdNd
+											.changebar(0,truckDrSdNd.selectUserTruckList);
+
+								}
+							}
+							initPage();
+						} ]);
+
+// 时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
 		var type = "";
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}
+		return type;
+	}
+});
+// 货车是否冷冻的判断
+app.filter('isFreeze', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = "否";
+		} else {
+			type = "是";
+		}
+		return type;
+	}
+});
+// 货车是否冷冻的判断
+app.filter('trckCheck', function() {
+	return function(input) {
+		var type = "";
+		if (input == "0") {
+			type = "未审核";
+		} else if (input == "1") {
+			type = "审核通过";
+		} else {
+			type = "审核未通过";
 		}
 		return type;
 	}
