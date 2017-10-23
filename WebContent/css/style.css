@@ -1918,43 +1918,45 @@ h2 {
 }
 /* 菊花图结束 */
 
+/* 下拉loading等待开始 */
 .loading-loading{
-            width: 150px;
-            height: 15px;
+            width: 80px;
+            height: 10px;
             margin: 0 auto;
         }
 .loading-loading span{
-            display: inline-block;
-            width: 15px;
-            height: 100%;
-            margin-right: 5px;
-            border-radius: 50%;
-            background: #0498a1;
-            -webkit-animation: load 1.04s ease infinite;
-        }
-        .loading-loading span:last-child{
-            margin-right: 0px; 
-        }
-        @-webkit-keyframes load{
-            0%{
-                opacity: 1;
-            }
-            100%{
-                opacity: 0;
-            }
-        }
-        .loading-loading span:nth-child(1){
-            -webkit-animation-delay:0.13s;
-        }
-        .loading-loading span:nth-child(2){
-            -webkit-animation-delay:0.26s;
-        }
-        .loading-loading span:nth-child(3){
-            -webkit-animation-delay:0.39s;
-        }
-        .loading-loading span:nth-child(4){
-            -webkit-animation-delay:0.52s;
-        }
-        .loading-loading span:nth-child(5){
-            -webkit-animation-delay:0.65s;
-        }
+    display: inline-block;
+    width: 10px;
+    height: 100%;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: #0498a1;
+    -webkit-animation: load 1.04s ease infinite;
+}
+.loading-loading span:last-child{
+    margin-right: 0px; 
+}
+@-webkit-keyframes load{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+.loading-loading span:nth-child(1){
+    -webkit-animation-delay:0.13s;
+}
+.loading-loading span:nth-child(2){
+    -webkit-animation-delay:0.26s;
+}
+.loading-loading span:nth-child(3){
+    -webkit-animation-delay:0.39s;
+}
+.loading-loading span:nth-child(4){
+    -webkit-animation-delay:0.52s;
+}
+.loading-loading span:nth-child(5){
+    -webkit-animation-delay:0.65s;
+}
+/* 下拉loading等待结束 */

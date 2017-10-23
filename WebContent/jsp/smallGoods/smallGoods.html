@@ -12,6 +12,8 @@
 				</div>
 			</li>
 			<li class="inner addTable">
+				<span class="formWarning"
+						ng-show="angularForm.weight.$error.pattern">请输入正整数</span>
 				<div class="item-name">
 					货物重量：<span style="color: red">*</span>
 				</div>
@@ -20,8 +22,7 @@
 						<input type="text" ng-model="GoLimit.smgo_weight" required placeholder="单位：千克" 
 							name="weight" ng-pattern="/^[0-9]*[1-9][0-9]*$/" >
 					</div>
-					<span class="formWarning"
-						ng-show="angularForm.weight.$error.pattern">请输入正整数</span>
+					
 				</div>
 			</li>
 			

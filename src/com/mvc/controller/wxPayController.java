@@ -31,6 +31,7 @@ import com.mvc.constants.wxPayConstants;
 import com.mvc.entity.Travel;
 import com.mvc.entity.TravelTrade;
 import com.mvc.service.TravelService;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.utils.HttpKit;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
@@ -107,6 +108,10 @@ public class wxPayController {
 		paraMap.put("body", wxPayConstants.TRAVELBODY);
 		Map<String, String> mapResult = jspay(paraMap, request, responest);
 		
+		if(mapResult.get("e") != null){
+			json.put("e", mapResult.get("e"));
+			return json.toString();
+		}
 		json.put("appId",  mapResult.get("appid"));
 		json.put("timeStamp", mapResult.get("timeStamp"));
 		json.put("nonceStr", mapResult.get("nonceStr"));
@@ -199,39 +204,42 @@ public class wxPayController {
 		String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 		//参数值用XML转义即可，CDATA标签用于说明数据不被XML解析器解析.detail不被XML解析
 		String xml = wxPayUtil.mapToXml(paraMap);
-		//异步发送请求
-		String xmlStr = HttpKit.post(url, xml);
-		System.out.println("---------------------华丽丽的分割线开始---------------------");
-		System.out.println(xmlStr);
-		 System.out.println("---------------------华丽丽的分割线结束---------------------");
-		//预支付交易会话标识 
-		String prepay_id = "";
-		Map<String, String> map = new HashMap<String, String>();
-		if (xmlStr.indexOf("SUCCESS") != -1) { 
-			map = wxPayUtil.xmlToMap(xmlStr); 
-			prepay_id = (String) map.get("prepay_id"); 
-		}
-		
-		String timeStamp2 = wxPayUtil.getCurrentTimestamp();
-		String nonceStr2 = wxPayUtil.create_nonce_str();
-		Map<String, String> payMap = new HashMap<String, String>();
-		payMap.put("appId", (String) map.get("appid"));
-		payMap.put("nonceStr", nonceStr2);
-		payMap.put("timeStamp", timeStamp2);
-		payMap.put("signType", "MD5");
-		payMap.put("package", "prepay_id=" + prepay_id);
-		
-		String paySign = wxPayUtil.generateSignature(payMap,wxPayConstants.PATERNERKEY);
 		Map<String, String> mapResult = new HashMap<>();
-		mapResult.put("appId", (String) map.get("appid"));
-		mapResult.put("timeStamp", timeStamp2);
-		mapResult.put("nonceStr", nonceStr2);
-		mapResult.put("pg", prepay_id);
-		mapResult.put("signType", wxPayConstants.SIGNTYPE);
-		mapResult.put("paySign", paySign);
-		mapResult.put("out_trade_no",out_trade_no);
-		mapResult.put("total_fee",map.get("total_fee"));
-		System.out.println(mapResult.toString());
+		try{
+			//异步发送请求
+			String xmlStr = HttpKit.post(url, xml);
+			System.out.println("---------------------华丽丽的分割线开始---------------------");
+			System.out.println(xmlStr);
+			System.out.println("---------------------华丽丽的分割线结束---------------------");
+			//预支付交易会话标识 
+			String prepay_id = "";
+			Map<String, String> map = new HashMap<String, String>();
+			if (xmlStr.indexOf("SUCCESS") != -1) { 
+				map = wxPayUtil.xmlToMap(xmlStr); 
+				prepay_id = (String) map.get("prepay_id"); 
+			}
+			String timeStamp2 = wxPayUtil.getCurrentTimestamp();
+			String nonceStr2 = wxPayUtil.create_nonce_str();
+			Map<String, String> payMap = new HashMap<String, String>();
+			payMap.put("appId", (String) map.get("appid"));
+			payMap.put("nonceStr", nonceStr2);
+			payMap.put("timeStamp", timeStamp2);
+			payMap.put("signType", "MD5");
+			payMap.put("package", "prepay_id=" + prepay_id);
+			
+			String paySign = wxPayUtil.generateSignature(payMap,wxPayConstants.PATERNERKEY);
+			mapResult.put("appId", (String) map.get("appid"));
+			mapResult.put("timeStamp", timeStamp2);
+			mapResult.put("nonceStr", nonceStr2);
+			mapResult.put("pg", prepay_id);
+			mapResult.put("signType", wxPayConstants.SIGNTYPE);
+			mapResult.put("paySign", paySign);
+			mapResult.put("out_trade_no",out_trade_no);
+			mapResult.put("total_fee",map.get("total_fee"));
+			System.out.println(mapResult.toString());
+		} catch(Exception e) {
+			mapResult.put("e", "支付失败，失败原因：参数不正确");
+		}
 		return mapResult; 
 	}
 	

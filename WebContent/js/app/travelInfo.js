@@ -169,13 +169,36 @@ app.controller('PlatformController', [
 				$location.path("detailmyTravelTrade");
 			}
 			
-/*			travelInfo.addTravelTrade = function(){
+			travelInfo.addTravelTrade = function(){
+				console.log(travelInfo.TradeLimit);
+				if (travelInfo.TradeLimit.trtr_tel == undefined){
+					alert("请输入正确的手机号码");
+					return
+				}
+				if (isNaN(travelInfo.TradeLimit.trtr_mnum)){
+					alert("请输入正确的成人票数");
+					return
+				}
+				if (isNaN(travelInfo.TradeLimit.trtr_cnum) && travelInfo.TradeLimit.trtr_cnum !=""){
+					alert("请输入正确的儿童票数");
+					return
+				}
+				$('.containerloading').fadeIn(100);
+				$('.overlayer').fadeIn(100);
 				var payLimit = JSON.stringify(travelInfo.TradeLimit);
 				var travel_id = sessionStorage.getItem("travel_id_buy");
 				services.addTravelTrade({
 					payNeed : payLimit,
 					travelid : travel_id
 				}).success(function onBridgeReady(data){
+		            	if(data.e != null){
+		            		if ($('.containerloading').css('display') == 'block'){
+								$('.containerloading').fadeOut(100);
+						    	$('.overlayer').fadeOut(100);
+							}
+		            		alert(data.e);
+		            		return;
+		            	}
 		            	var tt=JSON.parse(data);
 						   WeixinJSBridge.invoke(
 							'getBrandWCPayRequest', {
@@ -187,6 +210,10 @@ app.controller('PlatformController', [
 							    "paySign":tt.paySign //微信签名 
 						   },
 						   function(res){
+						   if ($('.containerloading').css('display') == 'block'){
+								$('.containerloading').fadeOut(100);
+						    	$('.overlayer').fadeOut(100);
+							}
 							// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 
 						       if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 						    	   services.saveTravelTrade({
@@ -217,9 +244,9 @@ app.controller('PlatformController', [
 		            
 				})
 				
-			}*/
+			}
 			
-			travelInfo.addTravelTrade = function(){
+/*			travelInfo.addTravelTrade = function(){
 				var payLimit = JSON.stringify(travelInfo.TradeLimit);
 				var travel_id = sessionStorage.getItem("travel_id_buy");
 				services.addTravelTrade({
@@ -235,14 +262,20 @@ app.controller('PlatformController', [
 					$location.path("enSure");
 
 				})
-			}
+			}*/
 			
 
 			travelInfo.traderefundpay = function(travel_trade_id) {
 				if(confirm("是否确定退款，将扣除20%手续费")){
+					$('.containerloading').fadeIn(100);
+					$('.overlayer').fadeIn(100);
 					services.travelRefundPay({
 						travel_trade_id : travel_trade_id
 					}).success(function(data){
+						if ($('.containerloading').css('display') == 'block'){
+							$('.containerloading').fadeOut(100);
+						    $('.overlayer').fadeOut(100);
+						}
 						if(data.e != null){
 							alert(data.e)
 							return;
@@ -310,6 +343,7 @@ app.controller('PlatformController', [
 			        	if (getScrollHeight()-(t + getClientHeight())<50) {
 			        		counter ++;
 			        		getDate && getDate(config, counter, state);
+			        		$('.loading-loading').fadeIn(100);
 			        	}
 		        	}
 				});
@@ -320,8 +354,13 @@ app.controller('PlatformController', [
 				services.selectTravelInfo({
 					page : counter
 				}).success(function(data) {
-					$('.containerloading').fadeOut(1000);
-				    $('.overlayer').fadeOut(1000);
+					if ($('.containerloading').css('display') == 'block'){
+						$('.containerloading').fadeOut(100);
+					    $('.overlayer').fadeOut(100);
+					}
+				    if ($('.loading-loading').css('display') == 'block'){
+				    	$('.loading-loading').fadeOut(100);
+				    };
 					if(!travelInfo.travelList){
 						travelInfo.travelList = [];
 					}
@@ -347,6 +386,10 @@ app.controller('PlatformController', [
 						travelInfo.MTTInfo = travelInfo.MTTInfo.concat(data.list);
 					}
 					config.isAjax = false;
+					if ($('.containerloading').css('display') == 'block'){
+						$('.containerloading').fadeOut(100);
+					    $('.overlayer').fadeOut(100);
+					}
 					if(data.list == ![] || data.list == undefined){
 						$(".limitHint").css('display','block');
 						config.isEnd = true;
@@ -395,18 +438,6 @@ app.controller('PlatformController', [
 				$location.path("detailmyTravelTrade");
 			}
 			
-			travelInfo.showloadingToast = function(){
-				var $overlayer = $('.overlayer');
-				var $loadingToast = $('.containerloading');
-				$loadingToast.fadeIn(100);
-				$overlayer.fadeIn(100);
-				setTimeout(function () {
-				    $loadingToast.fadeOut(100);
-				    $overlayer.fadeOut(100);
-				}, 2000);
-				    
-			}
-			
 			// zq初始化
 			function initData() {
 				console.log("初始化页面信息");
@@ -415,9 +446,15 @@ app.controller('PlatformController', [
 					console.log("进入到旅游信息界面");
 					openScroll(getTravelList, {});
 				} else if ($location.path().indexOf('/getTravelInfoDetail') == 0) {
+					$('.containerloading').fadeIn(100);
+				    $('.overlayer').fadeIn(100);
 					services.selectTravelInfoById({
 							travel_id_select : sessionStorage.getItem("travel_id_select")
 						}).success(function(data) {
+							if ($('.containerloading').css('display') == 'block'){
+								$('.containerloading').fadeOut(100);
+							    $('.overlayer').fadeOut(100);
+							}
 							$scope.TInfo = data.list
 						});
 				} else if ($location.path().indexOf('/myTravelTrade') == 0) {
