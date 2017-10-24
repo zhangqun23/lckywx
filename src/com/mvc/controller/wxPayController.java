@@ -48,6 +48,7 @@ public class wxPayController {
 	public @ResponseBody String travelPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		
 		String openid = SessionUtil.getOpenid(request);
+		System.out.println("这里的openID"+openid);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("payNeed"));
 		String travelid = request.getParameter("travelid");
 		Integer trtr_mnum = 0;
@@ -75,6 +76,7 @@ public class wxPayController {
 		if(trtr_mnum+trtr_cnum>travel.getTravel_left_num()){
 			String e = "剩余票数不足";
 			json.put("e", e);
+			System.out.println(json.get("e"));
 			return json.toString();
 		}
 		String attach = travel.getTravel_title();
@@ -120,7 +122,7 @@ public class wxPayController {
 		json.put("paySign", mapResult.get("paySign"));
 		json.put("total_fee",total_fee);
 		json.put("out_trade_no",mapResult.get("out_trade_no"));
-		System.out.println(json.toString());
+		System.out.println("最后的json"+json.toString());
 		return json.toString();
 	}
 
@@ -129,7 +131,8 @@ public class wxPayController {
 	public @ResponseBody String travelRefundPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		String trtr_id = request.getParameter("travel_trade_id");
 		TravelTrade list = travelService.selectTrTrInfoById(trtr_id);
-		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
+//		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
+		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*1.0);
    	 	// 获取系统当前时间. 存入数据库
         Date now = new Date(); 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

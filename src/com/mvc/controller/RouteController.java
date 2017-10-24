@@ -44,7 +44,7 @@ public class RouteController extends HttpServlet {
 		String openid = OpenidUtil.getOpenid(null, null, code);
 		System.out.println("my code is "+code);
 		System.out.println("my openid is "+openid);
-		if(code == null){
+		if(openid == null){
 			return "platform/index";
 		}
 //		String openid = "wang123";
