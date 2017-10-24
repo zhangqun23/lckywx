@@ -15,8 +15,8 @@ public class SessionUtil {
 	
 	public static String getOpenid(HttpServletRequest request){
 		HttpSession session = request.getSession();
-		/*String openid = (String) session.getAttribute("openid");*/
-		String openid = "wang123";
+		String openid = (String) session.getAttribute("openid");
+//		String openid = "wang123";
 		return openid;
 		
 	}
