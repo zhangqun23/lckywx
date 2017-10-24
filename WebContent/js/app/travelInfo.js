@@ -161,7 +161,7 @@ app.controller('PlatformController', [
 			
 			travelInfo.getTravelInfoById = function(travel_id) {
 				sessionStorage.setItem("travel_id_select",travel_id);
-				$location.path("getTravelInfoDetail/");
+				$location.path("getTravelInfoDetail");
 			}
 			
 			travelInfo.getMyTravelTradeById = function(travelTrade){
@@ -197,7 +197,7 @@ app.controller('PlatformController', [
 					}
 					alert(data.appId);
 					alert(data.timeStamp);
-		            	if(!data.e){
+		            	if(data.e != undefined){
 		            		alert(data.e);
 		            		return;
 		            	}
@@ -463,7 +463,7 @@ app.controller('PlatformController', [
 						$("#refund-pay").css('display', 'block');
 					} else if($scope.MMTT.is_state == 2){
 						$("#hasRefunded").css('display', 'block');
-					}
+					} 
 				}
 			}
 			initData();
@@ -516,5 +516,17 @@ app.filter('cutString', function() {
 			content = shortInput + "……";
 		}
 		return content;
+	}
+});
+//小数过滤器
+app.filter('cutFloat', function() {
+	return function(input) {
+		if (!input) {
+			var money = parseFloat('0').toFixed(2);
+		} else {
+			var money = parseFloat(input).toFixed(2);
+		}
+
+		return money;
 	}
 });
