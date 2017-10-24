@@ -191,35 +191,32 @@ app.controller('PlatformController', [
 					payNeed : payLimit,
 					travelid : travel_id
 				}).success(function onBridgeReady(data){
-		            	if(data.e != null){
-		            		if ($('.containerloading').css('display') == 'block'){
-								$('.containerloading').fadeOut(100);
-						    	$('.overlayer').fadeOut(100);
-							}
+					if ($('.containerloading').css('display') == 'block'){
+						$('.containerloading').fadeOut(100);
+				    	$('.overlayer').fadeOut(100);
+					}
+					alert(data.appId);
+					alert(data.timeStamp);
+		            	if(!data.e){
 		            		alert(data.e);
 		            		return;
 		            	}
-		            	var tt=JSON.parse(data);
 						   WeixinJSBridge.invoke(
 							'getBrandWCPayRequest', {
-							    "appId":tt.appId,     //公众号名称，由商户传入     
-							    "timeStamp":tt.timeStamp,//时间戳，自1970年以来的秒数     
-							    "nonceStr":tt.nonceStr, //随机串     
-							    "package":"prepay_id="+tt.pg,
+							    "appId":data.appId,     //公众号名称，由商户传入     
+							    "timeStamp":data.timeStamp,//时间戳，自1970年以来的秒数     
+							    "nonceStr":data.nonceStr, //随机串     
+							    "package":"prepay_id="+data.pg,
 							    "signType":"MD5",//微信签名方式：     
-							    "paySign":tt.paySign //微信签名 
+							    "paySign":data.paySign //微信签名 
 						   },
 						   function(res){
-						   if ($('.containerloading').css('display') == 'block'){
-								$('.containerloading').fadeOut(100);
-						    	$('.overlayer').fadeOut(100);
-							}
 							// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 
 						       if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 						    	   services.saveTravelTrade({
 						    		   tradeNeed : payLimit,
-						    		   out_trade_no : tt.out_trade_no,
-						    		   total_fee : tt.total_fee,
+						    		   out_trade_no : data.out_trade_no,
+						    		   total_fee : data.total_fee,
 						    		   travelidbuy : sessionStorage.getItem("travel_id_buy")
 						    	   }).success(function (data){
 						    		   
