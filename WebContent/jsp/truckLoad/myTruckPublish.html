@@ -1,0 +1,124 @@
+
+<header>
+	<div class="titlebar reverse">
+		<h1>信息录入</h1>
+	</div>
+	<ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[myShow.isActive0]"
+			ng-click="myChangebar(0)"><label class="tab-label">车辆详情</label></li>
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[myShow.isActive1]"
+			ng-click="myChangebar(1)"><label class="tab-label">货车运货</label></li>
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[myShow.isActive2]"
+			ng-click="myChangebar(2)"><label class="tab-label">我的货物</label></li>
+		<hr>
+	</ul>
+</header>
+
+
+<article style="margin-top: 100px;">
+	<div id="table0">
+		<ul>
+			<li class="weui_cell" ng-repeat="tl in truckList">
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="wuliao-title">
+						<label>车牌号：</label> <span>{{tl.trck_number}}</span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">司机：<label>{{tl.driver.driver_name}}</label></span>
+						<span class="result">联系方式：<label>{{tl.driver.driver_tel}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">货车载重：<label>{{tl.trck_load}}&nbsp;&nbsp;吨</label></span>
+						<span class="result">是否可冷冻：<label>{{tl.is_freeze
+								|isFreeze}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">审核状态：<label>{{tl.trck_check
+								|trckCheck}}</label></span>
+
+					</div>
+					<div class="org">
+						<!-- <span>包车用途：{{bnl.bune_purp}}</span>  -->
+						<label class="green"
+							ng-click="getTruckById(tl.trck_id,tl.driver.driver_id)">详情</label><label
+							class="green"
+							ng-click="getModifyTruckById(tl.trck_id,tl.driver.driver_id)">修改</label>
+					</div>
+				</div>
+			</li>
+
+		</ul>
+
+	</div>
+	<!-- truckSend车主信息界面 -->
+	<div id="table1" style="display: none">
+		<ul>
+			<li class="weui_cell" ng-repeat="tl in truckSendList">
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="wuliao-title">
+						<label>车牌号：</label> <span>{{tl.truck.trck_number}}</span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">始发地：<label>{{tl.trse_splace}}</label></span>
+						<span class="result">目的地：<label>{{tl.trse_eplace}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">剩余载重：<label>{{tl.trse_left_load}}&nbsp;&nbsp;吨</label></span>
+						<span class="result">价格(元/千克)：<label>{{tl.trse_price}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">出发时间：<label>{{tl.trse_time.time
+								|dateType}}</label></span>
+
+					</div>
+					<div class="org">
+						<!-- <span>包车用途：{{bnl.bune_purp}}</span>  -->
+						<label class="green" ng-click="getTruckSendById(tl.trse_id)">详情</label><label
+							class="green" ng-click="getModifyTruckSendById(tl.trse_id)">修改</label>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- truckNeed货主信息界面 -->
+	<div id="table2" style="display: none">
+		<ul>
+			<li class="weui_cell" ng-repeat="tnl in truckNeedList">
+				<div class="weui_cell_bd weui_cell_primary">
+					<div class="wuliao-title">
+						<label>货物名称：</label> <span>{{tnl.trne_type}}</span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">货物重量：<label>{{tnl.trne_weight}}</label></span>
+						<span class="result">目的地：<label>{{tnl.trne_eplace}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">收件人：<label>{{tnl.trne_receive_name}}</label></span>
+						<span class="result">收件人电话：<label>{{tnl.trne_receive_tel}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">期望发货时间：<label>{{tnl.trne_time.time
+								|dateType}}</label></span> <span class="result">是否需要冰冻：<label>{{tnl.is_freeze
+								|isFreeze}}</label></span>
+
+					</div>
+					<div class="detail clearfix">
+						<span class="require">需求添加时间：<label>{{tnl.trne_insert_time.time
+								|dateType}}</label></span>
+					</div>
+					<div class="org">
+						<!-- <span>包车用途：{{bnl.bune_purp}}</span>  -->
+						<label class="green" ng-click="getTruckNeedById(tnl.trne_id)">详情</label><label
+							class="green" ng-click="getModifyTruckNeedById(tnl.trne_id)">修改</label>
+					</div>
+				</div>
+
+			</li>
+		</ul>
+	</div>
+	<div class="limitHint">没有更多了！</div>
+</article>
+

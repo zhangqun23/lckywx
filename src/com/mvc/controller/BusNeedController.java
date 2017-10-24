@@ -124,8 +124,7 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		// String openid=SessionUtil.getOpenid(request);
-		String openid = "wang123";
+		String openid=SessionUtil.getOpenid(request);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");

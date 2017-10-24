@@ -217,4 +217,21 @@ public class wxPayUtil {
 		return sandbox_signkey;
     }
     
+    /**
+     * 判断签名是否正确，必须包含sign字段，否则返回false。
+     *
+     * @param data Map类型数据
+     * @param key API密钥
+     * @param signType 签名方式
+     * @return 签名是否正确
+     * @throws Exception
+     */
+    public static boolean isSignatureValid(Map<String, String> data, String paternerKey) throws Exception {
+        if (!data.containsKey("sign") ) {
+            return false;
+        }
+        String sign = data.get("sign");
+        return generateSignature(data, paternerKey).equals(sign);
+    }
+    
 }

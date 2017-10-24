@@ -77,6 +77,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/busNeedTest', {
 		templateUrl : '/lckywx/jsp/busNeed/busNeedTest.html',
 		controller : 'BusNeedInfoController'
+	}).when('/busNeedModify', {
+		templateUrl : '/lckywx/jsp/busNeed/busNeedModify.html',
+		controller : 'BusNeedInfoController'
 	})
 } ]);
 
@@ -168,6 +171,8 @@ app.controller('BusNeedInfoController', [
 					busNeed_id : bunId
 				}).success(function(data) {
 					busNeed.BNeed = data.busNeed;
+					busNeed.BusLimit = data.busNeed;
+					busNeed.BusLimit.bune_gath_time=changeDateType(busNeed.BusLimit.bune_gath_time);
 				});
 			}
 			// 修改分栏
@@ -283,6 +288,24 @@ app.controller('BusNeedInfoController', [
 							}
 						});
 			}
+			// zq修改班车定制需求
+			busNeed.modifyBusNeedById = function(bunId) {
+				sessionStorage.setItem("busNeedId", bunId);
+				$location.path("busNeedModify");
+			}
+			//格式化时间
+			function changeDateType(date) {
+				console.log("传进来的时间" + date);
+				if (date != "") {
+					var DateTime = new Date(date.time)
+							.toLocaleDateString().replace(
+									/\//g, '-');
+				} else {
+					var DateTime = "";
+				}
+				console.log("转化后的的时间" + DateTime);
+				return DateTime;
+			}
 			// zq初始化
 			function initPage() {
 				console.log("初始化页面信息");
@@ -299,6 +322,9 @@ app.controller('BusNeedInfoController', [
 						isActive0 : true,
 						isActive1 : false
 					}
+				} else if ($location.path().indexOf('/busNeedModify') == 0) {
+					var busNeedId = sessionStorage.getItem("busNeedId");
+					busNeed.selectBusNeedById(busNeedId);
 				}
 			}
 			initPage();
@@ -311,9 +337,9 @@ app.filter('dateType', function() {
 		var type = "";
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
+		}else{
+			type="无";
 		}
-		alert(type);
-
 		return type;
 	}
 });

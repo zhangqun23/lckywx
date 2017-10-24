@@ -63,7 +63,7 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 	});
 } ]);
 
-//路由配置
+// 路由配置
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/smallGoods', {
 		templateUrl : '/lckywx/jsp/smallGoods/smallGoods.html',
@@ -100,274 +100,314 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	
+
 	return services;
 } ]);
 app
-.controller(
-		'PlatformController',
-		[
-				'$scope',
-				'services',
-				'$location',
-				'$routeParams',
-				function($scope, services, $location, $routeParams) {
-					var smallGoods = $scope;
-					
-					smallGoods.GoLimit={
-							smgo_name:"",
-							smgo_weight:"",
-							smgo_start:"",
-							smgo_end:"",
-							smgo_sender:"",
-							smgo_sender_tel:"",
-							smgo_receiver:"",
-							smgo_receiver_tel:"",
-							smgo_sego:"0",
-							smgo_remark:"",
-							smgo_send_time:""
-					}
-					
-					smallGoods.GotLimit={
-							startDate:"",
-							endDate:""
-					}
-					smallGoods.checknum = function(element){
-						if((/^1[34578]\d{9}$/.test(element)) 
-								| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
-							console.log("jinalail2")
-					    	$(".limitNum").css('display','none');
-					    }else{
-					    	console.log("jinalail")
-							$(".limitNum").css('display','block');
-							
-					    }
-						return ;
-					}
-					function compareDateTime(startDate, endDate) {
-						var date1 = new Date(startDate);
-						var date2 = new Date(endDate);
-						if (date2.getTime() < date1.getTime()) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-				    // 添加小件货运
-					smallGoods.addSmallGoods=function() {
-						var myDate = new Date();
-						if(compareDateTime(myDate.toLocaleDateString(),smallGoods.GoLimit.smgo_send_time)){ return alert("选择时间")}
-						var goLimit = JSON.stringify(smallGoods.GoLimit);					
-						services.addSmallGoods({
-							goNeed : goLimit
-						}).success(function(data) {
-							sessionStorage.setItem("smallGoodsId", data.result.smgo_id);
-						 	$location.path('smallGoodsInfo');
+		.controller(
+				'PlatformController',
+				[
+						'$scope',
+						'services',
+						'$location',
+						'$routeParams',
+						function($scope, services, $location, $routeParams) {
+							var smallGoods = $scope;
 
-						});
-					}		
-					// 获取小件货运
-					smallGoods.selectSmallGoods=function() {
-						var gotLimit = JSON.stringify(smallGoods.GotLimit);
-						console.log(gotLimit);
-						services.selectSmallGoods({
-							gotNeed : gotLimit
-						}).success(function(data) {
-						smallGoods.smallGoodsList = data.list
-						});
-					}
-					
-					
-					smallGoods.selectSmallGoodsInfo = function(smgo_id) {
-						sessionStorage.setItem("smallGoodsId",smgo_id);
-						
-						 	$location.path('smallGoodsInfo');
-					};
-					
-					
-					//获取小件货运信息    
-					function getSmallGoodsInfo(smallGoodsId) {
-						var id=smallGoodsId;
-						services.selectSmallGoodsInfo({
-							smgo_id : id
-						}).success(function(data) {
-							$scope.sgIList=data.list;
-						});
-					};
-				/*	
-					//点击“提交并返回货运列表”要跳转的页面
-					smallGoods.selectSmallGoods = function(smgo_select){
-						sessionStorage.setItem("smallGoods",smgo_select);
-						
-						 	$location.path('smallGoodsList');
-					};
-					*/
-					
-					 $("input[name=radio]").each(function() {
-					        $(this).click(function(){
-					        	var smgoSego = $('#addSegoAdd');
-								smgoSego.empty();
-					            var discount = $(this).val();
-					            if(discount=="1"){
-					            	var $li = $("<li class='inner'></li>");
-									var $divFir = $("<div class='item-name' style='display:inline;'></div>");
-									$divFir.html("取货地址：<font color='red'>*</font>");
-									var $divSco = $("<div class='item-value'></div>");
-									var $divThi = $("<div class='p-wrap'></div>");
-									var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");
-									$divThi.append($input);
-									$divSco.append($divThi);
-									$li.append($divFir);
-									$li.append($divSco);
-									smgoSego.append($li);
-					            }
-					        });
-					        
-					      //小件货运分栏
-					        smallGoods.changeBar=function(state){
-								switch(state){
-								case 1:
-									smallGoods.show={
-										isActive1:true,
-										isActive2:false										
-								}
-									$("#table1").show();
-									$("#table2").hide();
-									break;
-								case 2:
-									smallGoods.show={
-										isActive1:false,
-										isActive2:true											
-								}
-									$("#table1").hide();
-									$("#table2").show();
-									break;
+							smallGoods.GoLimit = {
+								smgo_name : "",
+								smgo_weight : "",
+								smgo_start : "洛川",
+								smgo_end : "",
+								smgo_sender : "",
+								smgo_sender_tel : "",
+								smgo_receiver : "",
+								smgo_receiver_tel : "",
+								smgo_sego : "0",
+								smgo_remark : "",
+								smgo_send_time : ""
+							}
+
+							smallGoods.GotLimit = {
+								startDate : "",
+								endDate : ""
+							}
+							/*
+							 * //联系方式格式判断 smallGoods.checknum =
+							 * function(element){
+							 * if((/^1[34578]\d{9}$/.test(element)) |
+							 * /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
+							 * console.log("jinalail2")
+							 * $(".limitNum").css('display','none'); }else{
+							 * console.log("jinalail")
+							 * $(".limitNum").css('display','block');
+							 *  } return ; } //货物重量的判断 smallGoods.checkweight =
+							 * function(element){
+							 * if((/^[0-9]*[1-9][0-9]*$/.test(element))) {
+							 * console.log("jinalail2")
+							 * $(".limitNum").css('display','none'); }else{
+							 * console.log("jinalail")
+							 * $(".limitNum").css('display','block'); } return ; }
+							 */
+
+							function compareDateTime(startDate, endDate) {
+								var date1 = new Date(startDate);
+								var date2 = new Date(endDate);
+								if (date2.getTime() < date1.getTime()) {
+									return true;
+								} else {
+									return false;
 								}
 							}
-					    });
-						//获取滚动条当前的位置 
-						function getScrollTop() {
-							var scroll = 0;
-							//判断哪个浏览器
-							if (document.documentElement && document.documentElement.scrollTop) {
-								scroll = $(".yscroll").scrollTop();  
-							} else if (document.body) {
-								scroll = $(".yscroll").scrollTop(); 
-							}
-							return scroll; 
-						};
-						
-					    //获取当前可视范围的高度 
-						function getClientHeight() {
-							var clientHeight = 0; 
-							//判断哪个浏览器
-							if (document.body.clientHeight && document.documentElement.clientHeight) { 
-								clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight); 
-							} else { 
-								clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight); 
-							}
-					    	return clientHeight; 
-					   };
-
-					   //获取文档完整的高度 
-					   function getScrollHeight() {
-						   var aaheight = $(".yscroll")[0].scrollHeight;
-						   return Math.max($(".yscroll")[0].scrollHeight, document.documentElement.scrollHeight); 
-					   }
-
-					   function openScroll(getDate, config){
-							var config = config ? config : {};
-							var counter = 1;/*计数器*/
-
-							/*第一次加载页面*/
-							getDate(config, counter);
-							
-							/*通过自动监听滚动事件加载更多,可选支持*/
-							config.isEnd = false; /*结束标志*/
-							config.isAjax = false; /*防止滚动过快，服务端没来得及响应造成多次请求*/
-							var t = 0;
-							var p = 0;
-							$("section").scroll(function(){
-					        	 /*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/
-					        	if(config.isEnd == true || config.isAjax == true){
-					          		return;
-					        	}
-					        	/*判断向上滚动或向下滚动*/
-					        	p = getScrollTop()
-					        	if(t <= p){
-					        		t = p;
-						        	/*当滚动到底部时， 加载新内容*/
-						        	if (getScrollHeight()-(t + getClientHeight())<50) {
-						        		counter ++;
-						        		getDate && getDate(config, counter);
-						        	}
-					        	}
-							});
-					   }
-					   
-						function getDate(config, counter, list){
-							config.isAjax = true;
-							services.selectSmallGoods({
-								page : counter
-							}).success(function(data) {
-								if(!smallGoods.smallGoodsList){
-									smallGoods.smallGoodsList = [];
+							// 添加小件货运
+							smallGoods.addSmallGoods = function() {
+								var myDate = new Date();
+								if (compareDateTime(
+										myDate.toLocaleDateString(),
+										smallGoods.GoLimit.smgo_send_time)) {
+									return alert("选择时间")
 								}
-								smallGoods.smallGoodsList = smallGoods.smallGoodsList.concat(data.list);
-								console.log(data.list);
-								config.isAjax = false;
-								if(data.list == ![]){
-									config.isEnd = true;
+								var goLimit = JSON
+										.stringify(smallGoods.GoLimit);
+								services.addSmallGoods({
+									goNeed : goLimit
+								}).success(
+										function(data) {
+											sessionStorage.setItem(
+													"smallGoodsId",
+													data.result.smgo_id);
+											$location.path('smallGoodsInfo');
+
+										});
+							}
+							// 获取小件货运
+							smallGoods.selectSmallGoods = function() {
+								var gotLimit = JSON
+										.stringify(smallGoods.GotLimit);
+								console.log(gotLimit);
+								services.selectSmallGoods({
+									gotNeed : gotLimit
+								}).success(function(data) {
+									smallGoods.smallGoodsList = data.list
+								});
+							}
+
+							smallGoods.selectSmallGoodsInfo = function(smgo_id) {
+								sessionStorage.setItem("smallGoodsId", smgo_id);
+
+								$location.path('smallGoodsInfo');
+							};
+
+							// 获取小件货运信息
+							function getSmallGoodsInfo(smallGoodsId) {
+								var id = smallGoodsId;
+								services.selectSmallGoodsInfo({
+									smgo_id : id
+								}).success(function(data) {
+									$scope.sgIList = data.list;
+								});
+							}
+							;
+							/*
+							 * //点击“提交并返回货运列表”要跳转的页面 smallGoods.selectSmallGoods =
+							 * function(smgo_select){
+							 * sessionStorage.setItem("smallGoods",smgo_select);
+							 * 
+							 * $location.path('smallGoodsList'); };
+							 */
+
+							$("input[name=radio]")
+									.each(
+											function() {
+												$(this)
+														.click(
+																function() {
+																	var smgoSego = $('#addSegoAdd');
+																	smgoSego
+																			.empty();
+																	var discount = $(
+																			this)
+																			.val();
+																	if (discount == "1") {
+																		var $li = $("<li class='inner'></li>");
+																		var $divFir = $("<div class='item-name' style='display:inline;'></div>");
+																		$divFir
+																				.html("取货地址：<font color='red'>*</font>");
+																		var $divSco = $("<div class='item-value'></div>");
+																		var $divThi = $("<div class='p-wrap'></div>");
+																		var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");
+																		$divThi
+																				.append($input);
+																		$divSco
+																				.append($divThi);
+																		$li
+																				.append($divFir);
+																		$li
+																				.append($divSco);
+																		smgoSego
+																				.append($li);
+																	}
+																});
+
+												// 小件货运分栏
+												smallGoods.changeBar = function(
+														state) {
+													switch (state) {
+													case 1:
+														smallGoods.show = {
+															isActive1 : true,
+															isActive2 : false
+														}
+														$("#table1").show();
+														$("#table2").hide();
+														break;
+													case 2:
+														smallGoods.show = {
+															isActive1 : false,
+															isActive2 : true
+														}
+														$("#table1").hide();
+														$("#table2").show();
+														break;
+													}
+												}
+											});
+							// 获取滚动条当前的位置
+							function getScrollTop() {
+								var scroll = 0;
+								// 判断哪个浏览器
+								if (document.documentElement
+										&& document.documentElement.scrollTop) {
+									scroll = $(".yscroll").scrollTop();
+								} else if (document.body) {
+									scroll = $(".yscroll").scrollTop();
 								}
-							});
-						}
-										
-					 
-					// 初始化
-					function initData() {
-						console.log("初始化页面信息");
-						
-						if ($location.path().indexOf('/smallGoodsList') == 0) {
-							
-							console.log("你弄啥嘞？");
-							services.selectSmallGoods({
-								
-							}).success(function(data) {
-								smallGoods.smallGoodsList = data.list;
-							});
-						} else if($location.path().indexOf('/smallGoodsInfo') == 0){
-							var smallGoodsId = sessionStorage.getItem("smallGoodsId");
-							getSmallGoodsInfo(smallGoodsId);
-						}
-					}
-					initData();
-				} ]);
+								return scroll;
+							}
+							;
 
-app
-.controller(
-		'SGInfoController',
-		[
-				'$scope',
-				'services',
-				'$location',
-				'$routeParams',
-				function($scope, services, $location,$routeParams) {
-					$scope.sgIList=JSON.parse($routeParams.smallgoods);
-				} ]);
+							// 获取当前可视范围的高度
+							function getClientHeight() {
+								var clientHeight = 0;
+								// 判断哪个浏览器
+								if (document.body.clientHeight
+										&& document.documentElement.clientHeight) {
+									clientHeight = Math
+											.min(
+													document.body.clientHeight,
+													document.documentElement.clientHeight);
+								} else {
+									clientHeight = Math
+											.max(
+													document.body.clientHeight,
+													document.documentElement.clientHeight);
+								}
+								return clientHeight;
+							}
+							;
 
-//小件货运内容为空判断
-app.filter('sgFilter',function() { 
-	return function(input){ 
-		if(input == "" || input == null){
+							// 获取文档完整的高度
+							function getScrollHeight() {
+								var aaheight = $(".yscroll")[0].scrollHeight;
+								return Math.max($(".yscroll")[0].scrollHeight,
+										document.documentElement.scrollHeight);
+							}
+
+							function openScroll(getDate, config) {
+								var config = config ? config : {};
+								var counter = 1;/* 计数器 */
+
+								/* 第一次加载页面 */
+								getDate(config, counter);
+
+								/* 通过自动监听滚动事件加载更多,可选支持 */
+								config.isEnd = false; /* 结束标志 */
+								config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
+								var t = 0;
+								var p = 0;
+								$("section")
+										.scroll(
+												function() {
+													/* 滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行 */
+													if (config.isEnd == true
+															|| config.isAjax == true) {
+														return;
+													}
+													/* 判断向上滚动或向下滚动 */
+													p = getScrollTop()
+													if (t <= p) {
+														t = p;
+														/* 当滚动到底部时， 加载新内容 */
+														if (getScrollHeight()
+																- (t + getClientHeight()) < 50) {
+															counter++;
+															getDate
+																	&& getDate(
+																			config,
+																			counter);
+														}
+													}
+												});
+							}
+
+							function getDate(config, counter, list) {
+								config.isAjax = true;
+								services
+										.selectSmallGoods({
+											page : counter
+										})
+										.success(
+												function(data) {
+													if (!smallGoods.smallGoodsList) {
+														smallGoods.smallGoodsList = [];
+													}
+													smallGoods.smallGoodsList = smallGoods.smallGoodsList
+															.concat(data.list);
+													console.log(data.list);
+													config.isAjax = false;
+													if (data.list == ![]) {
+														config.isEnd = true;
+													}
+												});
+							}
+
+							// 初始化
+							function initData() {
+								console.log("初始化页面信息");
+
+								if ($location.path().indexOf('/smallGoodsList') == 0) {
+									services.selectSmallGoods({
+
+									}).success(function(data) {
+										smallGoods.smallGoodsList = data.list;
+									});
+								} else if ($location.path().indexOf(
+										'/smallGoodsInfo') == 0) {
+									var smallGoodsId = sessionStorage
+											.getItem("smallGoodsId");
+									getSmallGoodsInfo(smallGoodsId);
+								}
+							}
+							initData();
+						} ]);
+
+app.controller('SGInfoController', [ '$scope', 'services', '$location',
+		'$routeParams', function($scope, services, $location, $routeParams) {
+			$scope.sgIList = JSON.parse($routeParams.smallgoods);
+		} ]);
+
+// 小件货运内容为空判断
+app.filter('sgFilter', function() {
+	return function(input) {
+		if (input == "" || input == null) {
 			var input = "空";
-			return input; 		
-		}
-		else{
+			return input;
+		} else {
 			return input;
 		}
 	}
 });
-//时间的格式化的判断
+// 时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
 		var type = "";
@@ -377,4 +417,3 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
-

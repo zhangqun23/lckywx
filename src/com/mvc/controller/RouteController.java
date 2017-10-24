@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.mvc.repository.UserRepository;
+import com.utils.OpenidUtil;
 //import com.utils.OpenidUtil;
 
 /**
@@ -36,17 +37,19 @@ public class RouteController extends HttpServlet {
 
 	@RequestMapping("/toPlatformPage.do")
 	public String InvoiceReceivePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException   {
-//		request.setCharacterEncoding("UTF-8");
-//		response.setCharacterEncoding("UTF-8");
-//
-//		String code = getInitParameter("code");
-//		String openid = OpenidUtil.getOpenid(null, null, code);
-		String openid = "wang123";
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		String code = request.getParameter("code");
+		String openid = OpenidUtil.getOpenid(null, null, code);
+		System.out.println("my code is "+code);
+		System.out.println("my openid is "+openid);
+		if(openid == null){
+			return "platform/index";
+		}
+//		String openid = "wang123";
 		HttpSession session = getSession();
 		session.setAttribute("openid", openid);
-
-
-
 		return "platform/index";
 	}
 

@@ -6,10 +6,6 @@
 	<div ng-model="order" style="width:127px;margin:auto;">
 	    <input type="radio" name="radio" ng-model="order" value="travel_stime" style="-webkit-appearance:radio;"><span>按时间</span>
 	    <input type="radio" name="radio" ng-model="order" value="travel_mprice" style="-webkit-appearance:radio;"><span>按价格</span>
-	</div>
-	
-	<div ng-model="order">
-		<input type="button" value="按时间进行排序"  ng-model="order">
 	</div> -->        	
 	<div class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order :desc" id="travelInfoAdd">
                     <div class="weui_cell_bd weui_cell_primary">
@@ -21,7 +17,7 @@
                         <span class="date">旅游路线：{{TInfo.travel_route}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">成人票价：{{TInfo.travel_mprice}}</span>
+                        <span class="date">成人票价：{{TInfo.travel_mprice | cutFloat}}</span>
                     </div>
                     <div class="detail clearfix">
                         <span class="date">出发时间：{{TInfo.travel_stime.time | dateType}}</span>
@@ -41,6 +37,7 @@
                     </div>
               </div>
        </div>
+       		<div class="loading-loading" style="display:none;"><span></span><span></span><span></span><span></span><span></span></div>
        <div class="limitHint">没有更多了！</div>
 </article>
         
