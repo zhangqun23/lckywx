@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmallGoodsService;
+import com.utils.Pager;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
 
@@ -90,8 +93,8 @@ public class SmallGoodsController {
 		if (jsonObject.containsKey("smgo_remark")) {
 			smallGoods.setSmgo_remark(jsonObject.getString("smgo_remark"));
 		}
-		smallGoods.setIs_delete(true);
-
+		smallGoods.setIs_delete(false);
+		smallGoods.setIsFinish(false);
 		SmallGoods result;
 		if (jsonObject.containsKey("smgo_id")) {
 			smallGoods.setSmgo_id(Integer.valueOf(jsonObject.getString("smgo_id")));
@@ -118,26 +121,22 @@ public class SmallGoodsController {
 	@RequestMapping(value = "/selectSmallGoods.do")
 	public @ResponseBody String selectSmallGoods(HttpServletRequest request, HttpSession session)
 			throws ParseException {
-		String openid = SessionUtil.getOpenid(request);
-		List<SmallGoods> list = new ArrayList<SmallGoods>();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		if (request.getParameter("gotNeed") != null) {
-			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
-			String startDate = "";
-			String endDate = "";
-			if (jsonObject.containsKey("startDate")) {
-				startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
-			}
-			if (jsonObject.containsKey("endDate")) {
-				endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
-			}
-			Date date1 = sdf.parse(startDate);
-			Date date2 = sdf.parse(endDate);
-			list = smallGoodsService.findSmallGoodsBy(date1, date2, openid);
+		String openId = SessionUtil.getOpenid(request);
+		String page = request.getParameter("page");
+		String state = request.getParameter("state");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("openId", openId);
+		map.put("state", state);
+		Pager pager = new Pager();
+		if (!page.equals("") && !page.equals(null)) {
+			pager.setPage(Integer.parseInt(page));
 		} else {
-			list = smallGoodsService.findSmallGoodsAlls(openid);
+			pager.setPage(1);
 		}
+		map.put("offset", pager.getOffset());
+		map.put("limit", pager.getLimit());
+		List<SmallGoods> list = smallGoodsService.findSmallGoodsAlls(map);
+
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("list", list);
 		return jsonO.toString();

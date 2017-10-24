@@ -610,7 +610,7 @@ app
 									};
 									$('#table0').show();
 									$('#table1').hide();
-
+									truckDrSdNd.truckSendList = [];
 									openScroll(truckDrSdNd.selectNewTruckSendList);
 									break;
 								case 1:
