@@ -112,10 +112,10 @@ public class wxPayController {
 			json.put("e", mapResult.get("e"));
 			return json.toString();
 		}
-		json.put("appId",  mapResult.get("appid"));
+		json.put("appId",  wxPayConstants.APPID);
 		json.put("timeStamp", mapResult.get("timeStamp"));
 		json.put("nonceStr", mapResult.get("nonceStr"));
-		json.put("pg", mapResult.get("prepay_id"));
+		json.put("pg", mapResult.get("pg"));
 		json.put("signType", "MD5");
 		json.put("paySign", mapResult.get("paySign"));
 		json.put("total_fee",total_fee);
@@ -221,22 +221,22 @@ public class wxPayController {
 			String timeStamp2 = wxPayUtil.getCurrentTimestamp();
 			String nonceStr2 = wxPayUtil.create_nonce_str();
 			Map<String, String> payMap = new HashMap<String, String>();
-			payMap.put("appId", (String) map.get("appid"));
+			payMap.put("appId", wxPayConstants.APPID);
 			payMap.put("nonceStr", nonceStr2);
 			payMap.put("timeStamp", timeStamp2);
 			payMap.put("signType", "MD5");
 			payMap.put("package", "prepay_id=" + prepay_id);
 			
 			String paySign = wxPayUtil.generateSignature(payMap,wxPayConstants.PATERNERKEY);
-			mapResult.put("appId", (String) map.get("appid"));
+			mapResult.put("appId", wxPayConstants.APPID);
 			mapResult.put("timeStamp", timeStamp2);
 			mapResult.put("nonceStr", nonceStr2);
 			mapResult.put("pg", prepay_id);
 			mapResult.put("signType", wxPayConstants.SIGNTYPE);
 			mapResult.put("paySign", paySign);
 			mapResult.put("out_trade_no",out_trade_no);
-			mapResult.put("total_fee",map.get("total_fee"));
-			System.out.println(mapResult.toString());
+			mapResult.put("total_fee",paraMap.get("total_fee"));
+			System.out.println("mapResult"+mapResult.toString());
 		} catch(Exception e) {
 			mapResult.put("e", "支付失败，失败原因：参数不正确");
 		}
