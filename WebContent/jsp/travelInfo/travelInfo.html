@@ -17,7 +17,7 @@
                         <span class="date">旅游路线：{{TInfo.travel_route}}</span>
                     </div>
                     <div class="detail clearfix">
-                        <span class="date">成人票价：{{TInfo.travel_mprice}}</span>
+                        <span class="date">成人票价：{{TInfo.travel_mprice | cutFloat}}</span>
                     </div>
                     <div class="detail clearfix">
                         <span class="date">出发时间：{{TInfo.travel_stime.time | dateType}}</span>

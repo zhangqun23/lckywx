@@ -48,6 +48,7 @@ public class wxPayController {
 	public @ResponseBody String travelPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		
 		String openid = SessionUtil.getOpenid(request);
+		System.out.println("这里的openID"+openid);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("payNeed"));
 		String travelid = request.getParameter("travelid");
 		Integer trtr_mnum = 0;
@@ -129,7 +130,8 @@ public class wxPayController {
 	public @ResponseBody String travelRefundPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		String trtr_id = request.getParameter("travel_trade_id");
 		TravelTrade list = travelService.selectTrTrInfoById(trtr_id);
-		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
+//		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
+		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*1.0);
    	 	// 获取系统当前时间. 存入数据库
         Date now = new Date(); 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
