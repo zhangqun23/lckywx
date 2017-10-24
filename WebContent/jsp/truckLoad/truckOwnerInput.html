@@ -10,7 +10,7 @@
 		</li>
 		<li class="tab"
 			ng-class="{true:'active',false:'inactive'}[show.isActive1]"
-			ng-click="changebar(1)"><label class="tab-label">司机车辆信息</label>
+			ng-click="changebar(1,isAddedTruck)"><label class="tab-label">司机车辆信息</label>
 		</li>
 		<hr>
 	</ul>
@@ -62,7 +62,7 @@
 
 				<li class="inner addTable">
 					<div class="item-name">
-						价格<span class="lableimport">*</span>
+						价格(元/千克)<span class="lableimport">*</span>
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">

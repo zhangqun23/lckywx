@@ -1,0 +1,79 @@
+<article style="margin-top: 54px;">
+	<form ng-submit="addTruckSend()" method="post"
+		enctype="multipart/form-data" style="overflow: hidden;"
+		name="angularForm">
+		<ul class="form-box">
+			<li class="inner addTable">
+				<div class="item-name">
+					剩余载重(千克)<span class="lableimport">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trseLimit.trse_left_load"
+							name="leftLoad" placeholder="单位：千克" required
+							ng-pattern="/^[0-9]+([.]{1}[0-9]{1,2})?$/"> <span
+							class="formWarning" ng-show="angularForm.leftLoad.$error.pattern">请输入非负数整数或保留两位小数</span>
+					</div>
+				</div>
+			</li>
+
+			<li class="inner addTable">
+				<div class="item-name">
+					始发地<span class="lableimport">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trseLimit.trse_splace" required>
+					</div>
+				</div>
+			</li>
+
+			<li class="inner addTable">
+				<div class="item-name">
+					目的地<span class="lableimport">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trseLimit.trse_eplace" required>
+					</div>
+				</div>
+			</li>
+
+			<li class="inner addTable">
+				<div class="item-name">
+					价格(元/千克)<span class="lableimport">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trseLimit.trse_price" name="price"
+							required ng-pattern="/^[1-9]\d*$/"> <span
+							class="formWarning" ng-show="angularForm.price.$error.pattern">请输入非零正整数</span>
+					</div>
+				</div>
+			</li>
+
+			<li class="inner addTable">
+				<div class="item-name">
+					出发时间<span class="lableimport">*</span>
+				</div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="trseLimit.trse_time"
+							class="dfselect dateLayoutStyle"
+							onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+							required>
+					</div>
+				</div>
+			</li>
+
+			<li class="inner addTable">
+				<div class="item-value" style="margin-right: 90px">
+					<div class="a-wrap">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交"
+							ng-disabled="angularForm.$invalid">
+					</div>
+				</div>
+			</li>
+		</ul>
+	</form>
+</article>

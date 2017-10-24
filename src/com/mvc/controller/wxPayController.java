@@ -76,6 +76,7 @@ public class wxPayController {
 		if(trtr_mnum+trtr_cnum>travel.getTravel_left_num()){
 			String e = "剩余票数不足";
 			json.put("e", e);
+			System.out.println(json.get("e"));
 			return json.toString();
 		}
 		String attach = travel.getTravel_title();
@@ -121,7 +122,7 @@ public class wxPayController {
 		json.put("paySign", mapResult.get("paySign"));
 		json.put("total_fee",total_fee);
 		json.put("out_trade_no",mapResult.get("out_trade_no"));
-		System.out.println(json.toString());
+		System.out.println("最后的json"+json.toString());
 		return json.toString();
 	}
 

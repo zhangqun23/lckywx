@@ -122,10 +122,28 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	}
 
 	@Override
-	public List<Truck> selectUserTruck(String openid) {
+	public List<Truck> selectUserTruck(Integer driverId) {
 		// TODO Auto-generated method stub
-		List<Truck> list = truckDriverDao.selectUserTruck(openid);
+		List<Truck> list = truckDriverDao.selectUserTruck(driverId);
 		return list;
+	}
+
+	@Override
+	public List<TruckSend> findNewTruckSendList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return truckDriverDao.findNewTruckSendList(map);
+	}
+
+	@Override
+	public List<TruckNeed> findNewTruckNeed(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return truckDriverDao.findNewTruckNeed(map);
+	}
+
+	@Override
+	public Driver selectDriverByOpenId(String openId) {
+		// TODO Auto-generated method stub
+		return truckDriverDao.selectDriverByOpenId(openId);
 	}
 
 }
