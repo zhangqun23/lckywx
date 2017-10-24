@@ -1,15 +1,19 @@
 <article style="margin-top: 55px;">
 
 	<ul class="order-tab clearfix">
-		<li class="green">需求信息</li>
+		<li class="green">详情</li>
 	</ul>
 	<ul class="order-box">
+		<li class="inner">
+			<div class="item-name">车牌号:</div>
+			<div class="item-value">{{tl.trck_number}}</div>
+		</li>
 		<li class="inner">
 			<div class="item-name">货车载重量:</div>
 			<div class="item-value">{{selectTruckByIdList.trck_load}}</div>
 		</li>
 		<li class="inner">
-			<div class="item-name">姓名：</div>
+			<div class="item-name">车主：</div>
 			<div class="item-value">{{selectDriverByIdList.driver_name}}</div>
 		</li>
 		<li class="inner">
@@ -24,14 +28,15 @@
 			<div class="item-name">身份证号：</div>
 			<div class="item-value">{{selectDriverByIdList.driver_idcard}}</div>
 		</li>
-		
+
 		<li class="inner">
 			<div class="item-name">驾驶证号：</div>
 			<div class="item-value">{{selectDriverByIdList.driver_license_number}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">是否冰冻：</div>
-			<div class="item-value">{{selectTruckByIdList.is_freeze}}</div>
+			<div class="item-value">{{selectTruckByIdList.is_freeze
+				|isFreeze}}</div>
 		</li>
 	</ul>
 

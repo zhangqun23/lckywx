@@ -19,6 +19,7 @@ import com.mvc.entity.Truck;
 import com.mvc.entity.TruckNeed;
 import com.mvc.entity.TruckSend;
 import com.mvc.service.TruckDriverService;
+import com.utils.Pager;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
 import net.sf.json.JSONObject;
@@ -104,15 +105,32 @@ public class TruckDriverController {
 				truck.setTrck_number((jsonObject2.getString("trck_number")));
 			}
 		}
-		truck.setTrck_check(0);
-		Driver result = truckDriverService.addDriver(driver);
+
+		Driver result = null;
+		if (jsonObject.containsKey("driver_id")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_id"))) {
+				driver.setDriver_id(Integer.valueOf(jsonObject.getString("driver_id")));
+			}
+			result = truckDriverService.addDriver(driver);// 修改班车定制需求
+		} else {
+			result = truckDriverService.addDriver(driver);// 添加班车定制需求
+		}
 		truck.setDriver(result);
 		truck.setTrck_score("0");
 		truck.setTrck_num(1);
 		truck.setIs_delete(false);
+		truck.setTrck_check(0);
 		// String openId = SessionUtil.getOpenid(request);
 		// truck.setOpen_id(openId);
-		Truck limint = truckDriverService.addTruck(truck);
+		Truck limint = null;
+		if (jsonObject2.containsKey("trck_id")) {
+			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_id"))) {
+				truck.setTrck_id(Integer.valueOf(jsonObject2.getString("trck_id")));
+			}
+			limint = truckDriverService.addTruck(truck);// 修改班车定制需求
+		} else {
+			limint = truckDriverService.addTruck(truck);// 添加班车定制需求
+		}
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		jsonO.put("limint", limint);
@@ -159,7 +177,15 @@ public class TruckDriverController {
 		}
 		String openId = SessionUtil.getOpenid(request);
 		truckSend.setTruck(truckDriverService.findTruck(openId));
-		TruckSend result = truckDriverService.addTruckSend(truckSend);
+		TruckSend result = null;
+		if (jsonObject.containsKey("trse_id")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_id"))) {
+				truckSend.setTrse_id(Integer.valueOf(jsonObject.getString("trse_id")));
+			}
+			result = truckDriverService.addTruckSend(truckSend);// 修改班车定制需求
+		} else {
+			result = truckDriverService.addTruckSend(truckSend);// 添加班车定制需求
+		}
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		return jsonO.toString();
@@ -227,9 +253,29 @@ public class TruckDriverController {
 				truckNeed.setIs_freeze(Integer.parseInt(jsonObject.getString("is_freeze")));
 			}
 		}
+		if (jsonObject.containsKey("trne_receive_name")) {
+			if (StringUtil.strIsNotEmpty("trne_receive_name")) {
+				truckNeed.setTrne_receive_name(jsonObject.getString("trne_receive_name"));
+			}
+		}
+		if (jsonObject.containsKey("trne_receive_tel")) {
+			if (StringUtil.strIsNotEmpty("trne_receive_tel")) {
+				truckNeed.setTrne_receive_tel(jsonObject.getString("trne_receive_tel"));
+			}
+		}
 		String openId = SessionUtil.getOpenid(request);
 		truckNeed.setOpen_id(openId);
-		TruckNeed result = truckDriverService.addTruckNeed(truckNeed);
+		Date date = new Date();
+		truckNeed.setTrne_insert_time(date);
+		TruckNeed result = null;
+		if (jsonObject.containsKey("trne_id")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("trne_id"))) {
+				truckNeed.setTrne_id(Integer.valueOf(jsonObject.getString("trne_id")));
+			}
+			result = truckDriverService.addTruckNeed(truckNeed);// 修改班车定制需求
+		} else {
+			result = truckDriverService.addTruckNeed(truckNeed);// 添加班车定制需求
+		}
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("result", result);
 		return jsonO.toString();
@@ -243,9 +289,19 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/selectTruckSend.do")
 	public @ResponseBody String selectTruckSend(HttpServletRequest request) {
-		String openid = SessionUtil.getOpenid(request);
+		String openId = SessionUtil.getOpenid(request);
+		String page = request.getParameter("page");
+		Truck truck = truckDriverService.findTruck(openId);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("openid", openid);
+		map.put("truckId", truck.getTrck_id());
+		Pager pager = new Pager();
+		if (!page.equals("") && !page.equals(null)) {
+			pager.setPage(Integer.parseInt(page));
+		} else {
+			pager.setPage(1);
+		}
+		map.put("offset", pager.getOffset());
+		map.put("limit", pager.getLimit());
 		List<TruckSend> list = truckDriverService.findTruckSendList(map);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
@@ -257,13 +313,18 @@ public class TruckDriverController {
 	 */
 	@RequestMapping("/selectTruckNeed.do")
 	public @ResponseBody String selectTruckNeed(HttpServletRequest request) {
-		String trne_eplace = request.getParameter("trne_eplace");
-		String startTime = request.getParameter("startTime");
-		String endTime = request.getParameter("endTime");
+		String openId = SessionUtil.getOpenid(request);
+		String page = request.getParameter("page");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("trne_eplace", trne_eplace);
-		map.put("startTime", startTime);
-		map.put("endTime", endTime);
+		map.put("openId", openId);
+		Pager pager = new Pager();
+		if (!page.equals("") && !page.equals(null)) {
+			pager.setPage(Integer.parseInt(page));
+		} else {
+			pager.setPage(1);
+		}
+		map.put("offset", pager.getOffset());
+		map.put("limit", pager.getLimit());
 		List<TruckNeed> list = truckDriverService.findTruckNeed(map);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
@@ -315,10 +376,54 @@ public class TruckDriverController {
 	@RequestMapping("/selectUserTruck.do")
 	public @ResponseBody String selectUserTruck(HttpServletRequest request) {
 		String openid = SessionUtil.getOpenid(request);
-		List<Truck> list = truckDriverService.selectUserTruck(openid);
+		Driver driver = truckDriverService.selectDriverByOpenId(openid);
+		List<Truck> list = truckDriverService.selectUserTruck(driver.getDriver_id());
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("list", list);
 		System.out.println(jsonObject.toString());
+		return jsonObject.toString();
+	}
+
+	/**
+	 * zq查询用户的所有登记的货车
+	 */
+	@RequestMapping("/selectNewTruckSend.do")
+	public @ResponseBody String selectNewTruckSend(HttpServletRequest request) {
+
+		String page = request.getParameter("page");
+		Map<String, Object> map = new HashMap<String, Object>();
+		Pager pager = new Pager();
+		if (!page.equals("") && !page.equals(null)) {
+			pager.setPage(Integer.parseInt(page));
+		} else {
+			pager.setPage(1);
+		}
+		map.put("offset", pager.getOffset());
+		map.put("limit", pager.getLimit());
+		List<TruckSend> list = truckDriverService.findNewTruckSendList(map);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
+		return jsonObject.toString();
+	}
+
+	/**
+	 * 车主查询货源根据始发地、目的地，出发时间
+	 */
+	@RequestMapping("/selectNewTruckNeed.do")
+	public @ResponseBody String selectNewTruckNeed(HttpServletRequest request) {
+		String page = request.getParameter("page");
+		Map<String, Object> map = new HashMap<String, Object>();
+		Pager pager = new Pager();
+		if (!page.equals("") && !page.equals(null)) {
+			pager.setPage(Integer.parseInt(page));
+		} else {
+			pager.setPage(1);
+		}
+		map.put("offset", pager.getOffset());
+		map.put("limit", pager.getLimit());
+		List<TruckNeed> list = truckDriverService.findNewTruckNeed(map);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 }

@@ -22,7 +22,6 @@ public class Truck implements Serializable {
 	private String trck_score;// 评分
 	private Integer trck_check;// 0代表未审核，1代表已通过审核，2表示审核未通过
 	private Driver driver;// 外键
-	private String open_id; // openid
 	private String trck_number;// 车牌号
 	private Boolean is_delete;// 是否删除0表示未删除，1表示删除
 
@@ -90,15 +89,6 @@ public class Truck implements Serializable {
 
 	public void setDriver(Driver driver) {
 		this.driver = driver;
-	}
-
-	@Column(name = "open_id", length = 128)
-	public String getOpen_id() {
-		return open_id;
-	}
-
-	public void setOpen_id(String open_id) {
-		this.open_id = open_id;
 	}
 
 	public String getTrck_number() {

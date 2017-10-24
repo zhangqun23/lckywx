@@ -27,11 +27,17 @@ public interface TruckDriverService {
 	// 货主信息录入
 	TruckNeed addTruckNeed(TruckNeed truckNeed);
 
-	// 货主查询车辆根据目的地，出发时间
+	// 车主查询车辆根据目的地，出发时间
 	List<TruckSend> findTruckSendList(Map<String, Object> map);
 
-	// 车主查询货源根据始发地、目的地，出发时间
+	// 车主查询车辆根据目的地，出发时间
+	List<TruckSend> findNewTruckSendList(Map<String, Object> map);
+
+	// 货主查询货源根据始发地、目的地，出发时间
 	List<TruckNeed> findTruckNeed(Map<String, Object> map);
+
+	// 车主查询货源根据始发地、目的地，出发时间
+	List<TruckNeed> findNewTruckNeed(Map<String, Object> map);
 
 	// 根据openid查询truck对象
 	Truck findTruck(String openId);
@@ -47,6 +53,8 @@ public interface TruckDriverService {
 
 	Truck findTrck(Integer trckId);
 
-	List<Truck> selectUserTruck(String openid);
+	List<Truck> selectUserTruck(Integer openid);
+
+	Driver selectDriverByOpenId(String openId);
 
 }
