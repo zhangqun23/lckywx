@@ -43,7 +43,8 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/addSmallGoods.do")
-	public @ResponseBody String addSmallGoods(HttpServletRequest request, HttpSession session, HttpServletResponse res) throws ParseException {
+	public @ResponseBody String addSmallGoods(HttpServletRequest request, HttpSession session, HttpServletResponse res)
+			throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("goNeed"));
 		SmallGoods smallGoods = new SmallGoods();
 		String openid = SessionUtil.getOpenid(request);
@@ -63,6 +64,9 @@ public class SmallGoodsController {
 		if (jsonObject.containsKey("smgo_sender")) {
 			smallGoods.setSmgo_sender(jsonObject.getString("smgo_sender"));
 		}
+		if (jsonObject.containsKey("smgo_add")) {
+			smallGoods.setSmgo_add(jsonObject.getString("smgo_add"));
+		}
 		if (jsonObject.containsKey("smgo_sender_tel")) {
 			smallGoods.setSmgo_sender_tel(jsonObject.getString("smgo_sender_tel"));
 		}
@@ -74,11 +78,10 @@ public class SmallGoodsController {
 		}
 		if (jsonObject.containsKey("amgo_money")) {
 			smallGoods.setAmgo_money(Float.parseFloat(jsonObject.getString("amgo_money")));
-		}
-		else{
+		} else {
 			smallGoods.setAmgo_money((float) 0.123);
 		}
-		
+
 		if (jsonObject.containsKey("smgo_send_time")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("smgo_send_time"));
@@ -86,20 +89,20 @@ public class SmallGoodsController {
 		}
 		if (jsonObject.containsKey("smgo_remark")) {
 			smallGoods.setSmgo_remark(jsonObject.getString("smgo_remark"));
-		}		
+		}
 		smallGoods.setIs_delete(true);
-		
+
 		SmallGoods result;
 		if (jsonObject.containsKey("smgo_id")) {
 			smallGoods.setSmgo_id(Integer.valueOf(jsonObject.getString("smgo_id")));
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 修改班车定制需求
 		} else {
-				Date date = new Date();
-				smallGoods.setSmgo_deal_time(date);
+			Date date = new Date();
+			smallGoods.setSmgo_deal_time(date);
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 添加班车定制需求
 		}
-		
-		JSONObject limit=new JSONObject();
+
+		JSONObject limit = new JSONObject();
 		limit.put("result", result);
 		return limit.toString();
 	}
@@ -113,12 +116,13 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/selectSmallGoods.do")
-	public @ResponseBody String selectSmallGoods(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody String selectSmallGoods(HttpServletRequest request, HttpSession session)
+			throws ParseException {
 		String openid = SessionUtil.getOpenid(request);
 		List<SmallGoods> list = new ArrayList<SmallGoods>();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-	    
-		if(request.getParameter("gotNeed") != null) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		if (request.getParameter("gotNeed") != null) {
 			JSONObject jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
 			String startDate = "";
 			String endDate = "";
@@ -131,14 +135,14 @@ public class SmallGoodsController {
 			Date date1 = sdf.parse(startDate);
 			Date date2 = sdf.parse(endDate);
 			list = smallGoodsService.findSmallGoodsBy(date1, date2, openid);
-		}else{
+		} else {
 			list = smallGoodsService.findSmallGoodsAlls(openid);
 		}
 		JSONObject jsonO = new JSONObject();
 		jsonO.put("list", list);
 		return jsonO.toString();
 	}
-	
+
 	/**
 	 * 查询小件货运信息
 	 * 
@@ -148,7 +152,8 @@ public class SmallGoodsController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/selectSmallGoodsInfo.do")
-	public @ResponseBody String selectSmallGoodsInfo(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody String selectSmallGoodsInfo(HttpServletRequest request, HttpSession session)
+			throws ParseException {
 		SmallGoods list = null;
 		String smgo_id = request.getParameter("smgo_id");
 		if (smgo_id != null) {

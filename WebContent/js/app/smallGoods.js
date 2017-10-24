@@ -140,8 +140,8 @@ app
 							 * console.log("jinalail2")
 							 * $(".limitNum").css('display','none'); }else{
 							 * console.log("jinalail")
-							 * $(".limitNum").css('display','block');
-							 *  } return ; } //货物重量的判断 smallGoods.checkweight =
+							 * $(".limitNum").css('display','block'); } return ; }
+							 * //货物重量的判断 smallGoods.checkweight =
 							 * function(element){
 							 * if((/^[0-9]*[1-9][0-9]*$/.test(element))) {
 							 * console.log("jinalail2")
@@ -216,62 +216,32 @@ app
 							 * $location.path('smallGoodsList'); };
 							 */
 
-							$("input[name=radio]")
-									.each(
-											function() {
-												$(this)
-														.click(
-																function() {
-																	var smgoSego = $('#addSegoAdd');
-																	smgoSego
-																			.empty();
-																	var discount = $(
-																			this)
-																			.val();
-																	if (discount == "1") {
-																		var $li = $("<li class='inner'></li>");
-																		var $divFir = $("<div class='item-name' style='display:inline;'></div>");
-																		$divFir
-																				.html("取货地址：<font color='red'>*</font>");
-																		var $divSco = $("<div class='item-value'></div>");
-																		var $divThi = $("<div class='p-wrap'></div>");
-																		var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");
-																		$divThi
-																				.append($input);
-																		$divSco
-																				.append($divThi);
-																		$li
-																				.append($divFir);
-																		$li
-																				.append($divSco);
-																		smgoSego
-																				.append($li);
-																	}
-																});
+							smallGoods.changeShow = function(type) {
+								alert(0);
+							};
 
-												// 小件货运分栏
-												smallGoods.changeBar = function(
-														state) {
-													switch (state) {
-													case 1:
-														smallGoods.show = {
-															isActive1 : true,
-															isActive2 : false
-														}
-														$("#table1").show();
-														$("#table2").hide();
-														break;
-													case 2:
-														smallGoods.show = {
-															isActive1 : false,
-															isActive2 : true
-														}
-														$("#table1").hide();
-														$("#table2").show();
-														break;
-													}
-												}
-											});
+							// 小件货运分栏
+							smallGoods.changeBar = function(state) {
+								switch (state) {
+								case 1:
+									smallGoods.show = {
+										isActive1 : true,
+										isActive2 : false
+									}
+									$("#table1").show();
+									$("#table2").hide();
+									break;
+								case 2:
+									smallGoods.show = {
+										isActive1 : false,
+										isActive2 : true
+									}
+									$("#table1").hide();
+									$("#table2").show();
+									break;
+								}
+							}
+
 							// 获取滚动条当前的位置
 							function getScrollTop() {
 								var scroll = 0;
@@ -376,6 +346,8 @@ app
 								console.log("初始化页面信息");
 
 								if ($location.path().indexOf('/smallGoodsList') == 0) {
+
+									console.log("你弄啥嘞？");
 									services.selectSmallGoods({
 
 									}).success(function(data) {
