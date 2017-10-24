@@ -87,6 +87,7 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 		String sql = "select * from truck where driver_id= '" + driverId + "' and is_delete=0 order by trck_id desc";
 		Query query = em.createNativeQuery(sql, Truck.class);
 		List<Truck> list = query.getResultList();
+		em.close();
 		return list;
 	}
 
