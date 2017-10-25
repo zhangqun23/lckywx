@@ -132,24 +132,6 @@ app
 								startDate : "",
 								endDate : ""
 							}
-							/*
-							 * //联系方式格式判断 smallGoods.checknum =
-							 * function(element){
-							 * if((/^1[34578]\d{9}$/.test(element)) |
-							 * /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(element)){
-							 * console.log("jinalail2")
-							 * $(".limitNum").css('display','none'); }else{
-							 * console.log("jinalail")
-							 * $(".limitNum").css('display','block');
-							 *  } return ; } //货物重量的判断 smallGoods.checkweight =
-							 * function(element){
-							 * if((/^[0-9]*[1-9][0-9]*$/.test(element))) {
-							 * console.log("jinalail2")
-							 * $(".limitNum").css('display','none'); }else{
-							 * console.log("jinalail")
-							 * $(".limitNum").css('display','block'); } return ; }
-							 */
-
 							function compareDateTime(startDate, endDate) {
 								var date1 = new Date(startDate);
 								var date2 = new Date(endDate);
@@ -165,31 +147,53 @@ app
 								if (compareDateTime(
 										myDate.toLocaleDateString(),
 										smallGoods.GoLimit.smgo_send_time)) {
-									return alert("选择时间")
+									return alert("时间应大于当前时间")
 								}
 								var goLimit = JSON
 										.stringify(smallGoods.GoLimit);
 								services.addSmallGoods({
 									goNeed : goLimit
-								}).success(
-										function(data) {
-											sessionStorage.setItem(
-													"smallGoodsId",
-													data.result.smgo_id);
-											$location.path('smallGoodsInfo');
-
-										});
+								}).success(function(data) {
+									$location.path('smallGoodsList');
+								});
 							}
 							// 获取小件货运
-							smallGoods.selectSmallGoods = function() {
-								var gotLimit = JSON
-										.stringify(smallGoods.GotLimit);
-								console.log(gotLimit);
-								services.selectSmallGoods({
-									gotNeed : gotLimit
-								}).success(function(data) {
-									smallGoods.smallGoodsList = data.list
-								});
+							smallGoods.selectSmallGoods = function(config,
+									counter, state) {
+								config.isAjax = true;
+								services
+										.selectSmallGoods({
+											page : counter,
+											state : state
+										})
+										.success(
+												function(data) {
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
+													if (!smallGoods.smallGoodsList) {
+														smallGoods.smallGoodsList = [];
+													}
+													smallGoods.smallGoodsList = smallGoods.smallGoodsList
+															.concat(data.list);
+													config.isAjax = false;
+													if (data.list == ![]) {
+														$(".limitHint").css(
+																'display',
+																'block');
+														config.isEnd = true;
+													}
+												});
 							}
 
 							smallGoods.selectSmallGoodsInfo = function(smgo_id) {
@@ -201,11 +205,18 @@ app
 							// 获取小件货运信息
 							function getSmallGoodsInfo(smallGoodsId) {
 								var id = smallGoodsId;
-								services.selectSmallGoodsInfo({
-									smgo_id : id
-								}).success(function(data) {
-									$scope.sgIList = data.list;
-								});
+								services
+										.selectSmallGoodsInfo({
+											smgo_id : id
+										})
+										.success(
+												function(data) {
+													console
+															.log("zqzqzqzqzq"
+																	+ JSON
+																			.stringify(data.list));
+													$scope.sgIList = data.list;
+												});
 							}
 							;
 							/*
@@ -216,62 +227,34 @@ app
 							 * $location.path('smallGoodsList'); };
 							 */
 
-							$("input[name=radio]")
-									.each(
-											function() {
-												$(this)
-														.click(
-																function() {
-																	var smgoSego = $('#addSegoAdd');
-																	smgoSego
-																			.empty();
-																	var discount = $(
-																			this)
-																			.val();
-																	if (discount == "1") {
-																		var $li = $("<li class='inner'></li>");
-																		var $divFir = $("<div class='item-name' style='display:inline;'></div>");
-																		$divFir
-																				.html("取货地址：<font color='red'>*</font>");
-																		var $divSco = $("<div class='item-value'></div>");
-																		var $divThi = $("<div class='p-wrap'></div>");
-																		var $input = $("<input type='text' ng-model='GoLimit.smgo_add' required>");
-																		$divThi
-																				.append($input);
-																		$divSco
-																				.append($divThi);
-																		$li
-																				.append($divFir);
-																		$li
-																				.append($divSco);
-																		smgoSego
-																				.append($li);
-																	}
-																});
+							smallGoods.changeShow = function(type) {
+								alert(0);
+							};
 
-												// 小件货运分栏
-												smallGoods.changeBar = function(
-														state) {
-													switch (state) {
-													case 1:
-														smallGoods.show = {
-															isActive1 : true,
-															isActive2 : false
-														}
-														$("#table1").show();
-														$("#table2").hide();
-														break;
-													case 2:
-														smallGoods.show = {
-															isActive1 : false,
-															isActive2 : true
-														}
-														$("#table1").hide();
-														$("#table2").show();
-														break;
-													}
-												}
-											});
+							// 小件货运分栏
+							smallGoods.changeBar = function(state) {
+								smallGoods.smallGoodsList = [];
+								switch (state) {
+								case 1:
+									smallGoods.show = {
+										isActive1 : true,
+										isActive2 : false
+									}
+
+									openScroll(smallGoods.selectSmallGoods, {},
+											0);
+									break;
+								case 2:
+									smallGoods.show = {
+										isActive1 : false,
+										isActive2 : true
+									}
+									openScroll(smallGoods.selectSmallGoods, {},
+											1);
+									break;
+								}
+							}
+
 							// 获取滚动条当前的位置
 							function getScrollTop() {
 								var scroll = 0;
@@ -313,13 +296,14 @@ app
 										document.documentElement.scrollHeight);
 							}
 
-							function openScroll(getDate, config) {
+							function openScroll(getDate, config, state) {
 								var config = config ? config : {};
 								var counter = 1;/* 计数器 */
 
 								/* 第一次加载页面 */
-								getDate(config, counter);
-
+								getDate(config, counter, state);
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
 								/* 通过自动监听滚动事件加载更多,可选支持 */
 								config.isEnd = false; /* 结束标志 */
 								config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
@@ -344,43 +328,20 @@ app
 															getDate
 																	&& getDate(
 																			config,
-																			counter);
+																			counter,
+																			state);
+															$(
+																	'.loading-loading')
+																	.fadeIn(100);
 														}
 													}
 												});
 							}
-
-							function getDate(config, counter, list) {
-								config.isAjax = true;
-								services
-										.selectSmallGoods({
-											page : counter
-										})
-										.success(
-												function(data) {
-													if (!smallGoods.smallGoodsList) {
-														smallGoods.smallGoodsList = [];
-													}
-													smallGoods.smallGoodsList = smallGoods.smallGoodsList
-															.concat(data.list);
-													console.log(data.list);
-													config.isAjax = false;
-													if (data.list == ![]) {
-														config.isEnd = true;
-													}
-												});
-							}
-
 							// 初始化
 							function initData() {
-								console.log("初始化页面信息");
-
 								if ($location.path().indexOf('/smallGoodsList') == 0) {
-									services.selectSmallGoods({
-
-									}).success(function(data) {
-										smallGoods.smallGoodsList = data.list;
-									});
+									openScroll(smallGoods.selectSmallGoods, {},
+											0);
 								} else if ($location.path().indexOf(
 										'/smallGoodsInfo') == 0) {
 									var smallGoodsId = sessionStorage
@@ -414,6 +375,44 @@ app.filter('dateType', function() {
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
 		}
+		return type;
+	}
+});
+// 时间的格式化的判断
+app.filter('isOrNotNull', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = input;
+		} else {
+			type = "无";
+		}
+
+		return type;
+	}
+});
+// 小数过滤器
+app.filter('cutFloat', function() {
+	return function(input) {
+		if (!input) {
+			var money = parseFloat('0').toFixed(2);
+		} else {
+			var money = parseFloat(input).toFixed(2);
+		}
+
+		return money;
+	}
+});
+// 小件派送状态
+app.filter('smallGoodsState', function() {
+	return function(input) {
+		var type = "";
+		if (input) {
+			type = "已派发";
+		} else {
+			type = "未派发";
+		}
+
 		return type;
 	}
 });

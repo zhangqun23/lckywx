@@ -204,16 +204,18 @@ app
 								if (adver.ADLimit.ad_type == "广告类型") {
 									return alert("请输入广告类型！")
 								}
+<<<<<<< HEAD
+=======
+								console.log(adLimit);
+								$('.containerloading').fadeIn(100);
+							    $('.overlayer').fadeIn(100);
+>>>>>>> dca8b9f6af394949d3c6f5a7f5ec148ebfa85a5b
 								services.addAdver({
 									ad : adLimit
 								}).success(function(data) {
-									console.log("::::::::::::" + data);
-									if (data) {
-										alert("添加成功");
-									} else {
-										alert("否");
-									}
-									$location.path('myPlace/');
+									$('.containerloading').fadeOut(100);
+								    $('.overlayer').fadeOut(100);
+									$location.path('myPlace');
 
 								});
 							}
@@ -266,47 +268,48 @@ app
 
 								/* 第一次加载页面 */
 								getDate(config, counter, state);
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
 
 								/* 通过自动监听滚动事件加载更多,可选支持 */
 								config.isEnd = false; /* 结束标志 */
 								config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
 								var t = 0;
 								var p = 0;
-								$("section")
-										.scroll(
-												function() {
-													/* 滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行 */
-													if (config.isEnd == true
-															|| config.isAjax == true) {
-														return;
-													}
-													/* 判断向上滚动或向下滚动 */
-													p = getScrollTop()
-													if (t <= p) {
-														t = p;
-														/* 当滚动到底部时， 加载新内容 */
-														if (getScrollHeight()
-																- (t + getClientHeight()) < 50) {
-															counter++;
-															getDate
-																	&& getDate(
-																			config,
-																			counter,
-																			state);
-														}
-													}
-												});
+								$("section").scroll(function() {
+										/* 滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行 */
+										if (config.isEnd == true || config.isAjax == true) {
+											return;
+										}
+										/* 判断向上滚动或向下滚动 */
+										p = getScrollTop()
+										if (t <= p) {
+											t = p;
+											/* 当滚动到底部时， 加载新内容 */
+											if (getScrollHeight() - (t + getClientHeight()) < 50) {
+												counter++;
+												getDate && getDate(config,counter,state);
+												$('.loading-loading').fadeIn(100);
+											}
+										}
+									});
 							}
 							// 查询广告
 							function selectAdver(config, counter, state) {
 								config.isAjax = true;
-								services
-										.selectAdver({
+								services.selectAdver({
 											adType : state,
 											page : counter
 										})
 										.success(
 												function(data) {
+													if ($('.containerloading').css('display') == 'block'){
+														$('.containerloading').fadeOut(100);
+													    $('.overlayer').fadeOut(100);
+													}
+												    if ($('.loading-loading').css('display') == 'block'){
+												    	$('.loading-loading').fadeOut(100);
+												    };
 													if (!adver.adList) {
 														adver.adList = [];
 													}
@@ -342,6 +345,13 @@ app
 										})
 										.success(
 												function(data) {
+													if ($('.containerloading').css('display') == 'block'){
+														$('.containerloading').fadeOut(100);
+													    $('.overlayer').fadeOut(100);
+													}
+												    if ($('.loading-loading').css('display') == 'block'){
+												    	$('.loading-loading').fadeOut(100);
+												    };
 													if (!adver.adList) {
 														adver.adList = [];
 													}
@@ -372,9 +382,14 @@ app
 							// 删除广告
 							adver.deleteAd = function(ad_id, ad_title) {
 								if (confirm("确定删除此广告<" + ad_title + ">")) {
+									$('.containerloading').fadeIn(100);
+								    $('.overlayer').fadeIn(100);
 									services.deleteAd({
 										adId : ad_id
 									}).success(function(data) {
+									    if ($('.loading-loading').css('display') == 'block'){
+									    	$('.loading-loading').fadeOut(100);
+									    };
 										$location.path('myPlace/');
 									});
 								} else {
@@ -388,12 +403,17 @@ app
 							}
 							// 修改广告
 							adver.modifyAd = function() {
-								alert("确定修改？")
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
 								var adLimit = JSON.stringify(adver.ADQLimit);
 								services.modifyAd({
 									ad : adLimit,
 									ad_id : sessionStorage.getItem("adId")
 								}).success(function(data) {
+									if ($('.containerloading').css('display') == 'block'){
+										$('.containerloading').fadeOut(100);
+									    $('.overlayer').fadeOut(100);
+									}
 									$location.path('myPlace/');
 								});
 							}
@@ -479,12 +499,17 @@ app
 										isActive2 : false,
 									};
 									adver.flag = true;
-								} else if ($location.path()
-										.indexOf('/updateAd') == 0) {
+								} else if ($location.path().indexOf('/updateAd') == 0) {
 									var adId = sessionStorage.getItem("adId");
+										$('.containerloading').fadeIn(100);
+									    $('.overlayer').fadeIn(100);
 									services.selectAdverInfo({
 										ad_id : adId
 									}).success(function(data) {
+										if ($('.containerloading').css('display') == 'block'){
+											$('.containerloading').fadeOut(100);
+										    $('.overlayer').fadeOut(100);
+										}
 										$scope.ADQLimit = data.list;
 									});
 								}

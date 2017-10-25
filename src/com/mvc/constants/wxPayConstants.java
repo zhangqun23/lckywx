@@ -11,7 +11,8 @@ public class wxPayConstants {
 	public static final String PATERNERKEY = "luochuankeyunqichezhan9113622220";//API密钥
 	public static final String SIGNTYPE = "MD5";//编码方式
 	public static final String TRAVELBODY = "洛客-旅游";//交易名称，必须是“XX-XX”
-	public static final String NOTIFY_URL = "lckywx.cc/returnPay/payReturn.do";//微信支付回调URL，支付完成后，微信会把相关和用户信息发送到该URL
+	public static final String NOTIFY_URL = "http://lckywx.cc/returnPay/payReturn.do";//微信支付回调URL，支付完成后，微信会把相关和用户信息发送到该URL
 	public static final String FILEPATH = "/usr/java/apiclient_cert.p12"; //退款需要提供证书数据，所以需要根据证书路径读取证书
+	//public static final String FILEPATH = "E:\\证书\\apiclient_cert.p12"; //退款需要提供证书数据，所以需要根据证书路径读取证书
 	
 }

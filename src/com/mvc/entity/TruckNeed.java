@@ -1,5 +1,6 @@
 package com.mvc.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name="truck_need")
-public class TruckNeed{
+public class TruckNeed implements Serializable {
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private Integer trne_id;//货车需求id，主键
 private String trne_name;//联系人发货人
 private String trne_tel;//发货人联系电话

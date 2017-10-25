@@ -22,9 +22,9 @@
 					<div class="item-value">
 						<div class="input-wrap">
 							<input class="select-box" type="text"
-								ng-model="trneLimit.trne_tel" required name=phone
+								ng-model="trneLimit.trne_tel" required name=phone1
 								ng-pattern="/^1[3|4|5|7|8]\d{9}$/"> <span
-								class="formWarning" ng-show="angularForm.phone.$error.pattern">手机格式不正确</span>
+								class="formWarning" ng-show="angularForm.phone1.$error.pattern">手机格式不正确</span>
 
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 					<div class="item-value">
 						<div class="input-wrap">
 							<input class="select-box" type="text"
-								ng-model="trneLimit.trne_receive_name_tel" required name=phone
+								ng-model="trneLimit.trne_receive _tel" required name=phone
 								ng-pattern="/^1[3|4|5|7|8]\d{9}$/"> <span
 								class="formWarning" ng-show="angularForm.phone.$error.pattern">手机格式不正确</span>
 
@@ -108,10 +108,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trneLimit.trne_time"
-								class="dfselect dateLayoutStyle"
-								onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
-								required>
+							<input type="date" ng-model="trneLimit.trne_time"
+								class="select-box" ng-change="limitDate(trneLimit.trne_time)" required>
 						</div>
 					</div>
 				</li>
@@ -138,7 +136,7 @@
 				<li class="inner addTable">
 					<div class="item-value" style="margin-right: 90px">
 						<div class="a-wrap">
-							<input type="submit" class="weui_btn weui_btn_primary" value="提交"
+							<input type="submit" class="weui_btn weui_btn_primary" value="提交" id="submitBtn"
 								ng-disabled="angularForm.$invalid">
 						</div>
 					</div>
