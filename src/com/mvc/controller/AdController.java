@@ -1,13 +1,11 @@
 package com.mvc.controller;
 
-import java.io.Console;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mvc.entity.Ad;
-import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
 import com.utils.Pager;
 import com.utils.SessionUtil;
@@ -46,6 +43,7 @@ public class AdController {
 	 */
 	@RequestMapping("/addAd.do")
 	public @ResponseBody String addAd(HttpServletRequest request, HttpSession session) throws ParseException {
+		System.out.println("wang123jinlaila");
 		JSONObject jsonObject= JSONObject.fromObject(request.getParameter("ad"));
 		Ad ad= new  Ad();
 		if (jsonObject.containsKey("ad_type")){
