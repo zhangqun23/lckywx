@@ -113,223 +113,298 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	}
 	return services;
 } ]);
-app.controller('BusNeedInfoController', [
-		'$scope',
-		'services',
-		'$location',
-		function($scope, services, $location) {
-			var busNeed = $scope;
-			busNeed.BusLimit = {
-				bune_tel : "",
-				bune_num : "",
-				bune_time : "1",
-				bune_gath_time : getNowDate(),
-				bune_gath_pla : "洛川",
-				bune_goal_pla : "",
-				bune_purp : "",
-				bune_remark : ""
-			}
-			// 获取当前日期并转化为2017-12-12
-			function getNowDate() {
-				var nowDate = new Date();
-				var year = nowDate.getFullYear();
-				var month = nowDate.getMonth() + 1;
-				var today = nowDate.getDate();
-				if (month >= 1 && month <= 9) {
-					month = "0" + month;
-				}
-				if (today >= 1 && today <= 9) {
-					today = "0" + today;
-				}
-				var currentdate = year + "-" + month + "-" + today;
-				return currentdate;
-			}
-			// zq添加班车需求
-			busNeed.addBusNeed = function() {
-				var busLimit = JSON.stringify(busNeed.BusLimit);
-				services.addBusNeed({
-					busNeed : busLimit
-				}).success(function(data) {
-					sessionStorage.setItem("busNeedId", data.result.bune_id);
-					$location.path("busNeedList");
-				});
-			}
-			// zq查询班车需求列表
-			busNeed.selectBusNeeds = function() {
-				busNeed.busNeedList = [];
-				var state = sessionStorage.getItem("busNeedState");
-				openScroll(getBusNeedsList, {}, state);
-			}
-			// zq查询班车定制需求
-			busNeed.getBusNeedById = function(bunId) {
-				sessionStorage.setItem("busNeedId", bunId);
-				$location.path("busNeedInfo");
-			}
-			// 根据ID获取班车定需求
-			busNeed.selectBusNeedById = function(bunId) {
-				services.selectBusNeedById({
-					busNeed_id : bunId
-				}).success(function(data) {
-					busNeed.BNeed = data.busNeed;
-					busNeed.BusLimit = data.busNeed;
-					busNeed.BusLimit.bune_gath_time=changeDateType(busNeed.BusLimit.bune_gath_time);
-				});
-			}
-			// 修改分栏
-			busNeed.changeBar = function(state) {
-				busNeed.busNeedList = [];
-				sessionStorage.setItem("busNeedState", state);
-				busNeed.startDate = "";
-				busNeed.endDate = "";
-				switch (state) {
-				case 0:
-					busNeed.show = {
-						isActive0 : true,
-						isActive1 : false
-					}
-
-					break;
-				case 1:
-					busNeed.show = {
-						isActive0 : false,
-						isActive1 : true
-					}
-					break;
-				}
-
-				openScroll(getBusNeedsList, {}, state);
-			}
-			// 获取滚动条当前的位置
-			function getScrollTop() {
-				var scroll = 0;
-				// 判断哪个浏览器
-				if (document.documentElement
-						&& document.documentElement.scrollTop) {
-					scroll = $(".yscroll").scrollTop();
-				} else if (document.body) {
-					scroll = $(".yscroll").scrollTop();
-				}
-				return scroll;
-			}
-			;
-
-			// 获取当前可视范围的高度
-			function getClientHeight() {
-				var clientHeight = 0;
-				// 判断哪个浏览器
-				if (document.body.clientHeight
-						&& document.documentElement.clientHeight) {
-					clientHeight = Math.min(document.body.clientHeight,
-							document.documentElement.clientHeight);
-				} else {
-					clientHeight = Math.max(document.body.clientHeight,
-							document.documentElement.clientHeight);
-				}
-				return clientHeight;
-			}
-			;
-
-			// 获取文档完整的高度
-			function getScrollHeight() {
-				var aaheight = $(".yscroll")[0].scrollHeight;
-				return Math.max($(".yscroll")[0].scrollHeight,
-						document.documentElement.scrollHeight);
-			}
-
-			function openScroll(getDate, config, state) {
-				var config = config ? config : {};
-				var counter = 1;/* 计数器 */
-
-				/* 第一次加载页面 */
-				getDate(config, counter, state);
-
-				/* 通过自动监听滚动事件加载更多,可选支持 */
-				config.isEnd = false; /* 结束标志 */
-				config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
-				var t = 0;
-				var p = 0;
-				$("section").scroll(function() {
-					/* 滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行 */
-					if (config.isEnd == true || config.isAjax == true) {
-						return;
-					}
-					/* 判断向上滚动或向下滚动 */
-					p = getScrollTop()
-					if (t <= p) {
-						t = p;
-						/* 当滚动到底部时， 加载新内容 */
-						if (getScrollHeight() - (t + getClientHeight()) < 50) {
-							counter++;
-							getDate && getDate(config, counter, state);
-						}
-					}
-				});
-			}
-			// zq滚动查看班车需求列表
-			function getBusNeedsList(config, counter, state) {
-				config.isAjax = true;
-				services.selectBusNeeds({
-					state : state,
-					page : counter,
-					startDate : busNeed.startDate,
-					endDate : busNeed.endDate
-				}).success(
-						function(data) {
-							if (!busNeed.busNeedList) {
+app
+		.controller(
+				'BusNeedInfoController',
+				[
+						'$scope',
+						'services',
+						'$location',
+						function($scope, services, $location) {
+							var busNeed = $scope;
+							busNeed.BusLimit = {
+								bune_tel : "",
+								bune_num : "",
+								bune_time : "1",
+								bune_gath_time : getNowDate(),
+								bune_gath_pla : "洛川",
+								bune_goal_pla : "",
+								bune_purp : "",
+								bune_remark : ""
+							}
+							// 获取当前日期并转化为2017-12-12
+							function getNowDate() {
+								var nowDate = new Date();
+								var year = nowDate.getFullYear();
+								var month = nowDate.getMonth() + 1;
+								var today = nowDate.getDate();
+								if (month >= 1 && month <= 9) {
+									month = "0" + month;
+								}
+								if (today >= 1 && today <= 9) {
+									today = "0" + today;
+								}
+								var currentdate = year + "-" + month + "-"
+										+ today;
+								return currentdate;
+							}
+							// zq添加班车需求
+							busNeed.addBusNeed = function() {
+								var myDate = new Date();
+								var flag = busNeed.compareDate(myDate,
+										busNeed.BusLimit.bune_gath_time);
+								if (flag) {
+									alert("出发时间应大于当前日期！");
+									return;
+								}
+								var busLimit = JSON.stringify(busNeed.BusLimit);
+								services.addBusNeed({
+									busNeed : busLimit
+								}).success(
+										function(data) {
+											sessionStorage.setItem("busNeedId",
+													data.result.bune_id);
+											$location.path("busNeedList");
+										});
+							}
+							// zq查询班车需求列表
+							busNeed.selectBusNeeds = function() {
 								busNeed.busNeedList = [];
+								var state = sessionStorage
+										.getItem("busNeedState");
+								openScroll(getBusNeedsList, {}, state);
 							}
-							busNeed.busNeedList = busNeed.busNeedList
-									.concat(data.list);
-							console.log(data.list);
-							config.isAjax = false;
-							if (data.list == ![]) {
-								$(".limitHint").css('display', 'block');
-								config.isEnd = true;
+							// zq查询班车定制需求
+							busNeed.getBusNeedById = function(bunId) {
+								sessionStorage.setItem("busNeedId", bunId);
+								$location.path("busNeedInfo");
 							}
-						});
-			}
-			// zq修改班车定制需求
-			busNeed.modifyBusNeedById = function(bunId) {
-				sessionStorage.setItem("busNeedId", bunId);
-				$location.path("busNeedModify");
-			}
-			//格式化时间
-			function changeDateType(date) {
-				console.log("传进来的时间" + date);
-				if (date != "") {
-					var DateTime = new Date(date.time)
-							.toLocaleDateString().replace(
-									/\//g, '-');
-				} else {
-					var DateTime = "";
-				}
-				console.log("转化后的的时间" + DateTime);
-				return DateTime;
-			}
-			// zq初始化
-			function initPage() {
-				console.log("初始化页面信息");
-				if ($location.path().indexOf('/busNeedIndex') == 0) {
+							// 根据ID获取班车定需求
+							busNeed.selectBusNeedById = function(bunId) {
+								services
+										.selectBusNeedById({
+											busNeed_id : bunId
+										})
+										.success(
+												function(data) {
+													busNeed.BNeed = data.busNeed;
+													busNeed.BusLimit = data.busNeed;
+													busNeed.BusLimit.bune_gath_time = changeDateType(busNeed.BusLimit.bune_gath_time);
+												});
+							}
+							// 修改分栏
+							busNeed.changeBar = function(state) {
+								busNeed.busNeedList = [];
+								sessionStorage.setItem("busNeedState", state);
+								busNeed.startDate = "";
+								busNeed.endDate = "";
+								switch (state) {
+								case 0:
+									busNeed.show = {
+										isActive0 : true,
+										isActive1 : false
+									}
 
-				} else if ($location.path().indexOf('/busNeedList') == 0) {
-					openScroll(getBusNeedsList, {}, 0);
-					sessionStorage.setItem("busNeedState", 0);
-				} else if ($location.path().indexOf('/busNeedInfo') == 0) {
-					var busNeedId = sessionStorage.getItem("busNeedId");
-					busNeed.selectBusNeedById(busNeedId);
-				} else if ($location.path().indexOf('/busNeedTest') == 0) {
-					busNeed.show = {
-						isActive0 : true,
-						isActive1 : false
-					}
-				} else if ($location.path().indexOf('/busNeedModify') == 0) {
-					var busNeedId = sessionStorage.getItem("busNeedId");
-					busNeed.selectBusNeedById(busNeedId);
-				}
-			}
-			initPage();
+									break;
+								case 1:
+									busNeed.show = {
+										isActive0 : false,
+										isActive1 : true
+									}
+									break;
+								}
 
-		} ]);
+								openScroll(getBusNeedsList, {}, state);
+							}
+							// 获取滚动条当前的位置
+							function getScrollTop() {
+								var scroll = 0;
+								// 判断哪个浏览器
+								if (document.documentElement
+										&& document.documentElement.scrollTop) {
+									scroll = $(".yscroll").scrollTop();
+								} else if (document.body) {
+									scroll = $(".yscroll").scrollTop();
+								}
+								return scroll;
+							}
+							;
+
+							// 获取当前可视范围的高度
+							function getClientHeight() {
+								var clientHeight = 0;
+								// 判断哪个浏览器
+								if (document.body.clientHeight
+										&& document.documentElement.clientHeight) {
+									clientHeight = Math
+											.min(
+													document.body.clientHeight,
+													document.documentElement.clientHeight);
+								} else {
+									clientHeight = Math
+											.max(
+													document.body.clientHeight,
+													document.documentElement.clientHeight);
+								}
+								return clientHeight;
+							}
+							;
+
+							// 获取文档完整的高度
+							function getScrollHeight() {
+								var aaheight = $(".yscroll")[0].scrollHeight;
+								return Math.max($(".yscroll")[0].scrollHeight,
+										document.documentElement.scrollHeight);
+							}
+
+							function openScroll(getDate, config, state) {
+								var config = config ? config : {};
+								var counter = 1;/* 计数器 */
+
+								/* 第一次加载页面 */
+								getDate(config, counter, state);
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
+								/* 通过自动监听滚动事件加载更多,可选支持 */
+								config.isEnd = false; /* 结束标志 */
+								config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
+								var t = 0;
+								var p = 0;
+								$("section")
+										.scroll(
+												function() {
+													/* 滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行 */
+													if (config.isEnd == true
+															|| config.isAjax == true) {
+														return;
+													}
+													/* 判断向上滚动或向下滚动 */
+													p = getScrollTop()
+													if (t <= p) {
+														t = p;
+														/* 当滚动到底部时， 加载新内容 */
+														if (getScrollHeight()
+																- (t + getClientHeight()) < 50) {
+															counter++;
+															getDate
+																	&& getDate(
+																			config,
+																			counter,
+																			state);
+															$(
+																	'.loading-loading')
+																	.fadeIn(100);
+														}
+													}
+												});
+							}
+							// zq滚动查看班车需求列表
+							function getBusNeedsList(config, counter, state) {
+								config.isAjax = true;
+								services
+										.selectBusNeeds({
+											state : state,
+											page : counter,
+											startDate : busNeed.startDate,
+											endDate : busNeed.endDate
+										})
+										.success(
+												function(data) {
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
+													if (!busNeed.busNeedList) {
+														busNeed.busNeedList = [];
+													}
+													busNeed.busNeedList = busNeed.busNeedList
+															.concat(data.list);
+													console.log(data.list);
+													config.isAjax = false;
+													if (data.list == ![]) {
+														$(".limitHint").css(
+																'display',
+																'block');
+														config.isEnd = true;
+													}
+												});
+							}
+							// zq修改班车定制需求
+							busNeed.modifyBusNeedById = function(bunId) {
+								sessionStorage.setItem("busNeedId", bunId);
+								$location.path("busNeedModify");
+							}
+							// 格式化时间
+							function changeDateType(date) {
+								console.log("传进来的时间" + date);
+								if (date != "") {
+									var DateTime = new Date(date.time)
+											.toLocaleDateString().replace(
+													/\//g, '-');
+								} else {
+									var DateTime = "";
+								}
+								console.log("转化后的的时间" + DateTime);
+								return DateTime;
+							}
+							// 比较两个时间的大小
+							busNeed.compareDate = function(startDate, endDate) {
+								var date1 = new Date(startDate);
+								var date2 = new Date(endDate);
+								if (date2.getTime() < date1.getTime()) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+							busNeed.limitDate = function() {
+
+								var myDate = new Date();
+								var flag = busNeed.compareDate(myDate,
+										busNeed.BusLimit.bune_gath_time);
+								if (flag) {
+									alert("出发时间应大于当前日期！");
+								}
+							}
+							// zq初始化
+							function initPage() {
+								console.log("初始化页面信息");
+								if ($location.path().indexOf('/busNeedIndex') == 0) {
+
+								} else if ($location.path().indexOf(
+										'/busNeedList') == 0) {
+									openScroll(getBusNeedsList, {}, 0);
+									sessionStorage.setItem("busNeedState", 0);
+								} else if ($location.path().indexOf(
+										'/busNeedInfo') == 0) {
+									var busNeedId = sessionStorage
+											.getItem("busNeedId");
+									busNeed.selectBusNeedById(busNeedId);
+								} else if ($location.path().indexOf(
+										'/busNeedTest') == 0) {
+									busNeed.show = {
+										isActive0 : true,
+										isActive1 : false
+									}
+								} else if ($location.path().indexOf(
+										'/busNeedModify') == 0) {
+									var busNeedId = sessionStorage
+											.getItem("busNeedId");
+									busNeed.selectBusNeedById(busNeedId);
+								}
+							}
+							initPage();
+
+						} ]);
 
 // 时间的格式化的判断
 app.filter('dateType', function() {
@@ -337,8 +412,8 @@ app.filter('dateType', function() {
 		var type = "";
 		if (input) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
-		}else{
-			type="无";
+		} else {
+			type = "无";
 		}
 		return type;
 	}

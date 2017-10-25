@@ -2,6 +2,7 @@ package com.mvc.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.mvc.entity.SmallGoods;
 /**
@@ -20,6 +21,6 @@ public interface SmallGoodsService {
 	SmallGoods findSmallGoodsById(String sgid);
 	
 	// 查询所有小件货运信息 
-	List<SmallGoods> findSmallGoodsAlls(String openid);
+	List<SmallGoods> findSmallGoodsAlls(Map<String, Object> map);
 
 }

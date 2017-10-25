@@ -376,10 +376,28 @@ public class TruckDriverController {
 	@RequestMapping("/selectUserTruck.do")
 	public @ResponseBody String selectUserTruck(HttpServletRequest request) {
 		String openid = SessionUtil.getOpenid(request);
+		List<Truck> list = null;
 		Driver driver = truckDriverService.selectDriverByOpenId(openid);
-		List<Truck> list = truckDriverService.selectUserTruck(driver.getDriver_id());
+		if (driver != null) {
+			list = truckDriverService.selectUserTruck(driver.getDriver_id());
+		}
 		JSONObject jsonObject = new JSONObject();
+		int flag = 3;// 3表示未添加过0表示待审核1表示已审核可以发布需求2表示审核未通过
+		if (list == null) {
+			flag = 3;
+		} else {
+			Truck truck = list.get(0);
+			if (truck.getTrck_check() == 0) {
+				flag = 0;// 待审核
+			} else if (truck.getTrck_check() == 1) {
+				flag = 1;// 审核未通过
+			} else if (truck.getTrck_check() == 2) {
+				flag = 2;// 审核未通过
+			}
+
+		}
 		jsonObject.put("list", list);
+		jsonObject.put("flag", flag);
 		System.out.println(jsonObject.toString());
 		return jsonObject.toString();
 	}
