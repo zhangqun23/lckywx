@@ -185,7 +185,7 @@ public class AdController {
 		List<Ad> list = new ArrayList<Ad>();
 		String adState = request.getParameter("ad_state");
 		Pager pager = new Pager();
-		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		pager.setPage(Integer.parseInt(request.getParameter("page")));
 		list = adService.findMyPlaceAd(Integer.parseInt(adState),openId,pager.getOffset(), pager.getLimit());
 		
 		JSONObject jsonO = new JSONObject();

@@ -31,12 +31,15 @@ public class OpenidUtil {
 	 * @return
 	 */
 	public static String getOpenid(String appId, String appSecret, String code) {
+
 		String Url = String.format(
 				"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3afdb0aec74f693f&secret=c5b66a39a2c96849446d1c2d33994a28&code=%s&grant_type=authorization_code",
 				code);
 		String result = getHttpsResponse(Url, "");
 		JSONObject json = JSON.parseObject(result);
 		return json.getString("openid");
+
+		/* return "wang123"; */
 	}
 
 	private static String getHttpsResponse(String hsUrl, String requestMethod) {
