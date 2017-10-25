@@ -204,7 +204,6 @@ app
 								if (adver.ADLimit.ad_type == "广告类型") {
 									return alert("请输入广告类型！")
 								}
-								console.log(adLimit);
 								services.addAdver({
 									ad : adLimit
 								}).success(function(data) {
