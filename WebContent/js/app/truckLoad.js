@@ -265,7 +265,7 @@ app
 								trne_weight : "",
 								trne_splace : "洛川",
 								trne_eplace : "",
-								trne_time : "",
+								trne_time : getNowDate(),
 								trne_remark : "",
 								is_freeze : "0",
 								trne_receive_name : "",
@@ -414,7 +414,14 @@ app
 							}
 							// zq、pg添加货主需求信息
 							truckDrSdNd.addTruckSend = function() {
-
+								var myDate = new Date();
+								var flag = truckDrSdNd.compareDate(myDate,
+										truckDrSdNd.trseLimit.trse_time);
+								if (flag) {
+									alert("出发时间应大于当前日期！");
+									truckDrSdNd.trseLimit.trse_time = getNowDate();
+									return;
+								}
 								var truckLimit = JSON
 										.stringify(truckDrSdNd.trseLimit);
 								console.log(truckLimit);
@@ -441,33 +448,39 @@ app
 											.selectUserTruck({})
 											.success(
 													function(data) {
-														if (data.list.length > 0) {
-
-															for (var i = 0; i < data.list.length; i++) {
-																if (data.list[i].trck_check) {
-																	flag = true;
-																	break;
-																}
-															}
-															if (flag) {
-																$('#table1')
-																		.show();
-																$('#table2')
-																		.hide();
-															} else {
-																$('#table1')
-																		.hide();
-																$('#table2')
-																		.hide();
-																alert("您的司机车辆信息还在审核过程中，暂不能发布运货需求！请及时与客运站联系审核！");
-															}
-
-														} else {
-															truckDrSdNd
-																	.changebar(1);
+														switch (data.flag) {
+														case 0:
+															$('#table1').hide();
+															$('#table2').hide();
+															alert("您的司机车辆信息还在审核过程中，暂不能发布运货需求！请及时与客运站联系审核！");
+															break;
+														case 1:
+															truckDrSdNd.show = {
+																isActive0 : true,
+																isActive1 : false,
+																isActive2 : false,
+															};
+															$('#table1').show();
+															$('#table2').hide();
+															break;
+														case 2:
+															$('#table1').hide();
+															$('#table2').hide();
+															alert("您的司机车辆信息审核未通过，请在我的发布中找到你的车辆信息进行修改！");
+															$location
+																	.path("myTruckPublish0");
+															break;
+														case 3:
+															truckDrSdNd.show = {
+																isActive0 : false,
+																isActive1 : true,
+																isActive2 : false,
+															};
+															$('#table1').hide();
+															$('#table2').show();
 															alert("请先登记货车及司机信息！");
+															break;
 														}
-
 													});
 
 									break;
@@ -481,10 +494,38 @@ app
 											.selectUserTruck({})
 											.success(
 													function(data) {
-														if (data.list.length > 0) {
-															truckDrSdNd
-																	.changebar(0);
-															alert("您已登记过司机车辆信息，请直接填写运货动态！若车辆还在审核过程中，请及时与客运站联系审核！");
+														switch (data.flag) {
+														case 0:
+															$('#table1').hide();
+															$('#table2').hide();
+															alert("您的司机车辆信息还在审核过程中，暂不能发布运货需求！请及时与客运站联系审核！");
+															break;
+														case 1:
+															truckDrSdNd.show = {
+																isActive0 : true,
+																isActive1 : false,
+																isActive2 : false,
+															};
+															$('#table1').show();
+															$('#table2').hide();
+															alert("您的车辆信息已被审核通过，请直接填写需求发布");
+															break;
+														case 2:
+															$('#table1').hide();
+															$('#table2').hide();
+															alert("您的司机车辆信息审核未通过，请在我的发布中找到你的车辆信息进行修改！");
+															$location
+																	.path("myTruckPublish0");
+															break;
+														case 3:
+															truckDrSdNd.show = {
+																isActive0 : false,
+																isActive1 : true,
+																isActive2 : false,
+															};
+															$('#table1').hide();
+															$('#table2').show();
+															break;
 														}
 													});
 
@@ -532,9 +573,25 @@ app
 							}
 							// zq查询与用户相关的货车列表
 							truckDrSdNd.selectUserTruckList = function() {
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
 								services.selectUserTruck({}).success(
 										function(data) {
+											if ($('.containerloading').css(
+													'display') == 'block') {
+												$('.containerloading').fadeOut(
+														100);
+												$('.overlayer').fadeOut(100);
+											}
+											if ($('.loading-loading').css(
+													'display') == 'block') {
+												$('.loading-loading').fadeOut(
+														100);
+											}
+											;
 											truckDrSdNd.truckList = data.list;
+											$(".limitHint").css('display',
+													'block');
 										});
 							}
 							// zq 查询车主发布的送货信息
@@ -547,7 +604,19 @@ app
 										})
 										.success(
 												function(data) {
-
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
 													if (!truckDrSdNd.truckSendList) {
 														truckDrSdNd.truckSendList = [];
 													}
@@ -565,6 +634,14 @@ app
 
 							// zqpg添加发货需求信息
 							truckDrSdNd.addTruckNeed = function() {
+								var myDate = new Date();
+								var flag = truckDrSdNd.compareDate(myDate,
+										truckDrSdNd.trneLimit.trne_time);
+								if (flag) {
+									alert("出发时间应大于当前日期！");
+									truckDrSdNd.trneLimit.trne_time = getNowDate();
+									return;
+								}
 								var truckLimit = JSON
 										.stringify(truckDrSdNd.trneLimit);
 								services.addTruckNeed({
@@ -586,6 +663,19 @@ app
 										})
 										.success(
 												function(data) {
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
 													if (!truckDrSdNd.truckNeedList) {
 														truckDrSdNd.truckNeedList = [];
 													}
@@ -635,6 +725,19 @@ app
 										})
 										.success(
 												function(data) {
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
 													if (!truckDrSdNd.truckNeedList) {
 														truckDrSdNd.truckNeedList = [];
 													}
@@ -659,6 +762,19 @@ app
 										})
 										.success(
 												function(data) {
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
 													if (!truckDrSdNd.truckSendList) {
 														truckDrSdNd.truckSendList = [];
 													}
@@ -720,7 +836,8 @@ app
 
 								/* 第一次加载页面 */
 								getDate(config, counter, state);
-
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
 								/* 通过自动监听滚动事件加载更多,可选支持 */
 								config.isEnd = false; /* 结束标志 */
 								config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
@@ -747,11 +864,49 @@ app
 																			config,
 																			counter,
 																			state);
+															$(
+																	'.loading-loading')
+																	.fadeIn(100);
 														}
 													}
 												});
 							}
+							// 比较两个时间的大小
+							truckDrSdNd.compareDate = function(startDate,
+									endDate) {
+								var date1 = new Date(startDate);
+								var date2 = new Date(endDate);
+								if (date2.getTime() < date1.getTime()) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+							truckDrSdNd.limitDate = function(date) {
 
+								var myDate = new Date();
+								var flag = truckDrSdNd
+										.compareDate(myDate, date);
+								if (flag) {
+									alert("出发时间应大于当前日期！");
+								}
+							}
+							// 获取当前日期并转化为2017-12-12
+							function getNowDate() {
+								var nowDate = new Date();
+								var year = nowDate.getFullYear();
+								var month = nowDate.getMonth() + 1;
+								var today = nowDate.getDate();
+								if (month >= 1 && month <= 9) {
+									month = "0" + month;
+								}
+								if (today >= 1 && today <= 9) {
+									today = "0" + today;
+								}
+								var currentdate = year + "-" + month + "-"
+										+ today;
+								return currentdate;
+							}
 							// 零担货运页面初始化
 							function initPage() {
 								console.log("初始化页面信息");

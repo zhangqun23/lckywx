@@ -168,6 +168,19 @@ app
 										})
 										.success(
 												function(data) {
+													if ($('.containerloading')
+															.css('display') == 'block') {
+														$('.containerloading')
+																.fadeOut(100);
+														$('.overlayer')
+																.fadeOut(100);
+													}
+													if ($('.loading-loading')
+															.css('display') == 'block') {
+														$('.loading-loading')
+																.fadeOut(100);
+													}
+													;
 													if (!smallGoods.smallGoodsList) {
 														smallGoods.smallGoodsList = [];
 													}
@@ -289,7 +302,8 @@ app
 
 								/* 第一次加载页面 */
 								getDate(config, counter, state);
-
+								$('.containerloading').fadeIn(100);
+								$('.overlayer').fadeIn(100);
 								/* 通过自动监听滚动事件加载更多,可选支持 */
 								config.isEnd = false; /* 结束标志 */
 								config.isAjax = false; /* 防止滚动过快，服务端没来得及响应造成多次请求 */
@@ -316,6 +330,9 @@ app
 																			config,
 																			counter,
 																			state);
+															$(
+																	'.loading-loading')
+																	.fadeIn(100);
 														}
 													}
 												});
