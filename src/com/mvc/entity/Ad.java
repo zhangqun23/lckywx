@@ -1,5 +1,6 @@
 package com.mvc.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ad")
-public class Ad {
+public class Ad implements Serializable {
 private Integer ad_id;//广告id，主键
 private Integer ad_type;//0招工，1旅游、2其他
 private Integer ad_state;//0代表未审核，1代表已审核，2代表已驳回

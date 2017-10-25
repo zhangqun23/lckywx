@@ -1,5 +1,6 @@
 package com.mvc.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +14,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="truck_send")
-public class TruckSend {
+public class TruckSend implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer trse_id;//主键
 	private Float trse_left_load;//剩余载重
 	private String trse_splace;//始发地（默认洛川）

@@ -122,7 +122,7 @@ public class wxPayController {
 		json.put("paySign", mapResult.get("paySign"));
 		json.put("total_fee",total_fee);
 		json.put("out_trade_no",mapResult.get("out_trade_no"));
-		System.out.println("最后的json"+json.toString());
+		System.out.println("最后的返回"+json.toString());
 		return json.toString();
 	}
 

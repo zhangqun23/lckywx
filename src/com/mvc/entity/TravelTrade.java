@@ -1,5 +1,7 @@
 package com.mvc.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,11 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="travel_trade")
-public class TravelTrade {
+public class TravelTrade implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private Integer trtr_id;//交易ID
 private String trtr_num;//商户订单号
 private String trtr_tel;//客户联系方式
