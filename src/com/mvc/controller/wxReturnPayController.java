@@ -29,6 +29,7 @@ public class wxReturnPayController {
 	
 	@RequestMapping("/payReturn.do")
 	public String PaySult(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("我进来了哈哈哈");
 	       String resXml = "";
 	       InputStream inStream;
 	       try {

@@ -93,9 +93,13 @@ public class TravelController {
 		Travel travel = new Travel();
 		travel.setTravel_id(Integer.parseInt(travel_id));
 		travelTrade.setTravel(travel);
-		TravelTrade temp = travelService.saveTravelTrade(travelTrade);
+//		TravelTrade temp = travelService.saveTravelTrade(travelTrade);
+//		
+//		return temp.toString();
 		
-		return temp.toString();
+		travelService.saveTravelTrade(travelTrade);
+		
+		return null;
 	}
 	
 	//根据OPENID查找旅游信息

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.TravelTradeDao;
+import com.mvc.entity.Travel;
 import com.mvc.entity.TravelTrade;
 
 @Repository("travelTradeDaoImpl")
@@ -37,7 +38,7 @@ public class TravelTradeDaoImpl implements TravelTradeDao {
 	}
 
 	@Override
-	public TravelTrade addTravelTrade(TravelTrade travelTrade) {
+	public void addTravelTrade(TravelTrade travelTrade) {
 		// TODO Auto-generated method stub
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -54,8 +55,6 @@ public class TravelTradeDaoImpl implements TravelTradeDao {
 		em.flush();
 		em.getTransaction().commit();
 		em.close();
-		TravelTrade trtr = null;
-		return trtr;
 	}
 
 }

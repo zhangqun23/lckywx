@@ -48,11 +48,17 @@ public class TravelServiceImpl implements TravelService{
 		return travelDao.findTravelAlls(offset, limit);
 	}
 
+//	//旅游交易
+//	@Override
+//	public TravelTrade saveTravelTrade(TravelTrade travelTrade) {
+//		TravelTrade result = travelTradeRepository.saveAndFlush(travelTrade);
+//		return result;
+//	}
+	
 	//旅游交易
 	@Override
-	public TravelTrade saveTravelTrade(TravelTrade travelTrade) {
-		TravelTrade result = travelTradeRepository.saveAndFlush(travelTrade);
-		return result;
+	public void saveTravelTrade(TravelTrade travelTrade) {
+		travelTradeDao.addTravelTrade(travelTrade);
 	}
 
 	//根据id查找travel
