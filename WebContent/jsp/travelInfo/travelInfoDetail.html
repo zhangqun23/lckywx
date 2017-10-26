@@ -37,15 +37,15 @@
 		
 		<li class="inner">
 			<div class="item-name">成人票价格：</div>
-			<div class="item-value">{{TInfo.travel_mprice|trtrFilter}}</div>
+			<div class="item-value">{{TInfo.travel_mprice|trtrFilter|cutFloat}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">儿童票价格：</div>
-			<div class="item-value">{{TInfo.travel_cprice|trtrFilter}}</div>
+			<div class="item-value">{{TInfo.travel_cprice|trtrFilter|cutFloat}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">折扣：</div>
-			<div class="item-value">{{TInfo.travel_discount|trtrFilter|number:2}}</div>
+			<div class="item-value">{{TInfo.travel_discount|trtrFilter|cutFloat}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">联系电话：</div>
@@ -53,7 +53,7 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">保险费：</div>
-			<div class="item-value">{{TInfo.travel_insurance|trtrFilter}}</div>
+			<div class="item-value">{{TInfo.travel_insurance|trtrFilter|cutFloat}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">活动描述：</div>
@@ -64,7 +64,7 @@
 			<div class="item-value">{{TInfo.travel_firm|trtrFilter}}</div>
 		</li>
 		<li class="inner no-padding">
-			<label class="weui_btn weui_btn_primary" ng-click="getTravelTradeById(TInfo.travel_id)">我要购票</label>
+			<label class="weui_btn weui_btn_primary" ng-click="getTravelTradeById(TInfo)">我要购票</label>
 		</li>
 	</ul>
 </article>

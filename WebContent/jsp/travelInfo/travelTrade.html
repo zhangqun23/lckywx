@@ -1,9 +1,25 @@
 <article style="margin-top: 54px;">
 <form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data" name="angularForm"
  		style="overflow:hidden;">
- 	<div>
+ 	
 		<ul class="form-box">
 
+			<li class="inner addTable">
+                    <div class="item-name">购买的成人票数：<span style="color: red">*</span></div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                            <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_mnum" ng-blur="getTotalFee()" required>
+                        </div>                
+                    </div>
+			</li>
+			<li class="inner addTable">
+                    <div class="item-name">购买的儿童票数：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                            <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_cnum" ng-blur="getTotalFee()" placeholder="此项可为空">
+                        </div>       
+                    </div>
+			</li>
 			<li class="inner addTable">
 				<div class="item-name">客户电话：<span style="color: red">*</span></div>
 				<div class="item-value">
@@ -13,21 +29,9 @@
 					</div>
 				</div>
 			</li>
-			<li class="inner">
-                    <div class="item-name">购买的成人票数：<span style="color: red">*</span></div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_mnum" required>
-                        </div>                
-                    </div>
-			</li>
-			<li class="inner">
-                    <div class="item-name">购买的儿童票数：</div>
-                    <div class="item-value">
-                    <div class="input-wrap">
-                            <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_cnum" placeholder="此项可为空">
-                        </div>       
-                    </div>
+			<li class="inner addTable">
+                    <div class="item-name">订单总金额：</div>
+                    <div class="item-value" style="color:red">{{totalfee}}</div>
 			</li>
 			<li class="inner">
                     <div class="item-value" style="margin-right:90px">
@@ -40,4 +44,7 @@
             </ul>
    </div>
    </form>
-        </article>
+</article>
+<script>
+
+</script>

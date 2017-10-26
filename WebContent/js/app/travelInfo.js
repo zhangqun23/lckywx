@@ -154,9 +154,35 @@ app.controller('PlatformController', [
 					trtr_cnum:""
 			}
 			
-			travelInfo.getTravelTradeById = function(travel_id){
-				sessionStorage.setItem("travel_id_buy",travel_id);
+			travelInfo.getTravelTradeById = function(travel){
+				sessionStorage.setItem("travel_id_buy",travel.travel_id);
+				var travelbuy = JSON.stringify(travel)
+				sessionStorage.setItem("travelbuy",travelbuy);
+				console.log(sessionStorage.getItem("travel_id_buy"));
+				console.log(sessionStorage.getItem("travelbuy"))
 				$location.path("getTravelTravelDetail/");
+			}
+			
+			travelInfo.getTotalFee = function() {
+				var travelbuy = JSON.parse(sessionStorage.getItem("travelbuy"));
+				var mprice = parseFloat(travelbuy.travel_mprice);
+				var cprice = parseFloat(travelbuy.travel_cprice);
+				var discount = parseFloat(travelbuy.travel_discount);
+				var insurance = parseFloat(travelbuy.travel_insurance);
+				if(travelInfo.TradeLimit.trtr_mnum == ""){
+					totalfee1 = 
+						(parseFloat(travelInfo.TradeLimit.trtr_cnum)*cprice)*discount+
+						(parseFloat(travelInfo.TradeLimit.trtr_cnum))*insurance;
+				} else if(travelInfo.TradeLimit.trtr_cnum == ""){
+					totalfee1 = 
+						(parseFloat(travelInfo.TradeLimit.trtr_mnum)*mprice)*discount+
+						(parseFloat(travelInfo.TradeLimit.trtr_mnum))*insurance;
+				}else {
+					totalfee1 = 
+					(parseFloat(travelInfo.TradeLimit.trtr_mnum)*mprice + parseFloat(travelInfo.TradeLimit.trtr_cnum)*cprice)*discount+
+					(parseFloat(travelInfo.TradeLimit.trtr_mnum)+parseFloat(travelInfo.TradeLimit.trtr_cnum))*insurance;
+				}
+				travelInfo.totalfee =  totalfee1.toFixed(2);
 			}
 			
 			travelInfo.getTravelInfoById = function(travel_id) {
@@ -219,7 +245,7 @@ app.controller('PlatformController', [
 						    		   total_fee : data.total_fee,
 						    		   travelidbuy : sessionStorage.getItem("travel_id_buy")
 						    	   }).success(function (data){
-						    		   $location.path("enSure");
+						    		   $location.path("myTravelTrade");
 						    	   })
 						       }
 						   else if(res.err_msg == "get_brand_wcpay_request:fail"){
