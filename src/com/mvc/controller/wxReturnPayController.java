@@ -29,6 +29,7 @@ public class wxReturnPayController {
 	
 	@RequestMapping("/payReturn.do")
 	public String PaySult(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("我进来了哈哈哈");
 	       String resXml = "";
 	       InputStream inStream;
 	       try {
@@ -55,15 +56,16 @@ public class wxReturnPayController {
 	                    // 处理业务 -修改订单支付状态  
 	                    System.out.println("微信支付回调：修改的订单=" + out_trade_no);
 	                    System.out.println("微信支付回调：微信支付订单号=" + map.get("transaction_id"));
-	                    // 获取系统当前时间. 存入数据库
-	                    Date now = new Date(); 
-	                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	                    String data = dateFormat.format(now);
-
-	                    //更新人数
-	                    wxReturnPayService.getTotalNum(out_trade_no);
-	                    //更新交易记录
-	                    wxReturnPayService.updateTradeState(out_trade_no,map.get("transaction_id"),data);
+	                    int trade_id = wxReturnPayService.getTravelTrade(out_trade_no);
+	                    if(trade_id == 0){
+		                    // 获取系统当前时间. 存入数据库
+		                    Date now = new Date(); 
+		                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		                    String data = dateFormat.format(now);
+	
+		                    //更新交易记录
+		                    wxReturnPayService.saveTradeState(out_trade_no,map.get("transaction_id"), data);
+	                    }
 	                    
 	                }
 	                // ------------------------------  

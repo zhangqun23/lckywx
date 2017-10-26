@@ -1,5 +1,7 @@
 package com.mvc.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,22 +82,30 @@ public class TravelController {
 		if (jsonObject.containsKey("trtr_cnum")) {
 			if(StringUtil.strIsNotEmpty(jsonObject.getString("trtr_cnum"))){
 				travelTrade.setTrtr_cnum(Integer.valueOf(jsonObject.getString("trtr_cnum")));
+			}else {
+				travelTrade.setTrtr_cnum(0);
 			}
 		}
 		//更新剩余人数
-//		Integer total_num = travelTrade.getTrtr_mnum() + travelTrade.getTrtr_cnum();
-//		travelService.updateTravel(travel_id,total_num);
-		
+		Integer total_num = travelTrade.getTrtr_mnum() + travelTrade.getTrtr_cnum();
+		travelService.updateTravel(travel_id,total_num);
+        
 		travelTrade.setTrtr_price(Integer.parseInt(total_fee));
 		travelTrade.setTrtr_num(out_trade_no);
 		travelTrade.setOpen_id(SessionUtil.getOpenid(request));
-		travelTrade.setIs_state(0);
-		Travel travel = new Travel();
-		travel.setTravel_id(Integer.parseInt(travel_id));
+		travelTrade.setIs_state(1);
+		Travel travel = travelService.findTravelById(travel_id);
 		travelTrade.setTravel(travel);
-		TravelTrade temp = travelService.saveTravelTrade(travelTrade);
+		if(travel.getTravel_discount() != null){
+			travelTrade.setTrade_discount(travel.getTravel_discount());
+		}else{
+			travelTrade.setTrade_discount((float) 1);
+		}
+//		TravelTrade temp = travelService.saveTravelTrade(travelTrade);		
+//		return temp.toString();
 		
-		return temp.toString();
+		travelService.updateTravelTrade(travelTrade);
+		return null;
 	}
 	
 	//根据OPENID查找旅游信息

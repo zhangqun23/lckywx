@@ -332,8 +332,7 @@ app
 							 */
 							function myPlace(config, counter, state) {
 								config, isAjax = true;
-								services
-										.myPlace({
+								services.myPlace({
 											ad_state : state,
 											page : counter
 										})
@@ -486,6 +485,7 @@ app
 										isActive2 : false,
 									}
 								} else if ($location.path().indexOf('/myPlace') == 0) {
+									
 									openScroll(myPlace, {}, "0");
 									adver.show = {
 										isActive0 : true,

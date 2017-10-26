@@ -23,7 +23,9 @@ import com.mvc.entity.TravelTrade;
 public interface TravelService {
 	List<Travel> findTravelAlls(Integer offset, Integer limit);//直接查询
 	
-	TravelTrade saveTravelTrade(TravelTrade travelTrade);//旅游交易
+	//TravelTrade saveTravelTrade(TravelTrade travelTrade);//旅游交易
+	//void saveTravelTrade(TravelTrade travelTrade);//旅游交易
+	void updateTravelTrade(TravelTrade travelTrade);
 	
 	//根据id查找travel
 	Travel findTravelById(String travelid);
@@ -44,4 +46,6 @@ public interface TravelService {
 	void updateRefundTrade(String refund_id, String refund_fee, String data ,String trtr_id);
 
 	void updateRefundTrade(String refund_fee, String data, String trtr_id);
+
+	void saveTravelTrade(TravelTrade travelTrade);
 }

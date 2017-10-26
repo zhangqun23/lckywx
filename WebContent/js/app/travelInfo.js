@@ -219,7 +219,7 @@ app.controller('PlatformController', [
 						    		   total_fee : data.total_fee,
 						    		   travelidbuy : sessionStorage.getItem("travel_id_buy")
 						    	   }).success(function (data){
-						    		   
+						    		   $location.path("enSure");
 						    	   })
 						       }
 						   else if(res.err_msg == "get_brand_wcpay_request:fail"){
@@ -228,16 +228,16 @@ app.controller('PlatformController', [
 							   alert("没有成功cancel")
 							           }
 								})
-						   if (typeof WeixinJSBridge == "undefined"){
-						   if( document.addEventListener ){
-						       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-						   }else if (document.attachEvent){
-						       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-						   document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-						   }
-						}else{
-						   onBridgeReady();
-						}
+//						   if (typeof WeixinJSBridge == "undefined"){
+//						   if( document.addEventListener ){
+//						       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+//						   }else if (document.attachEvent){
+//						       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+//						   document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+//						   }
+//						}else{
+//						   onBridgeReady();
+//						}
 		            
 				})
 				
