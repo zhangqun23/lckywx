@@ -102,7 +102,7 @@ public class wxPayController {
 		travelTrade.setOpen_id(openid);
 		travelTrade.setTrade_discount(travel.getTravel_discount());
 		travelTrade.setIs_state(0);
-		//TravelTrade trTrade=travelService.saveTravelTrade(travelTrade);
+//		travelService.saveTravelTrade(travelTrade);
 		
 		Map<String, String> paraMap = new HashMap<String, String>();
 		paraMap.put("attach", attach);

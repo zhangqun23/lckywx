@@ -7,5 +7,7 @@ import com.mvc.entity.TravelTrade;
 public interface TravelTradeDao {
 
 	List<TravelTrade> selectMyTravelInfoByOId(String openid, Integer offset, Integer limit, String state);
+
+	void saveTravelTrade(TravelTrade travelTrade);
 	
 }

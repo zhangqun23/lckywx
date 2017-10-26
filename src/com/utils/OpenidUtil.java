@@ -37,6 +37,7 @@ public class OpenidUtil {
 		String result = getHttpsResponse(Url, "");
 		JSONObject json = JSON.parseObject(result);
 		return json.getString("openid");
+//		return "wang123";
 	}
 
 	private static String getHttpsResponse(String hsUrl, String requestMethod) {
