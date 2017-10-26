@@ -92,7 +92,7 @@ public class wxPayController {
 			total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*discount+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance());
 		}
 		
-		TravelTrade travelTrade = new TravelTrade();;
+		TravelTrade travelTrade = new TravelTrade();
 		travelTrade.setTravel(travel);
 		travelTrade.setTrtr_cnum(trtr_cnum);
 		travelTrade.setTrtr_mnum(trtr_mnum);

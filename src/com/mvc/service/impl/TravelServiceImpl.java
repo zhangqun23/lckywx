@@ -60,6 +60,13 @@ public class TravelServiceImpl implements TravelService{
 	public void saveTravelTrade(TravelTrade travelTrade) {
 		travelTradeDao.addTravelTrade(travelTrade);
 	}
+	
+	//旅游交易
+	@Override
+	public void updateTravelTrade(TravelTrade travelTrade) {
+		travelTradeDao.updateTravelTrade(travelTrade);
+		
+	}
 
 	//根据id查找travel
 	@Override
@@ -104,4 +111,5 @@ public class TravelServiceImpl implements TravelService{
 		travelTradeRepository.updateRefundTrade(Integer.parseInt(refund_fee), data, Integer.parseInt(trtr_id));
 		
 	}
+
 }
