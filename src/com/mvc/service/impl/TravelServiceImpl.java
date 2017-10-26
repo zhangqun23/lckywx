@@ -58,7 +58,7 @@ public class TravelServiceImpl implements TravelService{
 	//旅游交易
 	@Override
 	public void saveTravelTrade(TravelTrade travelTrade) {
-		travelTradeDao.saveTravelTrade(travelTrade);
+		travelTradeDao.addTravelTrade(travelTrade);
 	}
 
 	//根据id查找travel

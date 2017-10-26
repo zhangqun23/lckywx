@@ -197,8 +197,7 @@ app
 								}).success(function(data) {
 									$('.containerloading').fadeOut(100);
 								    $('.overlayer').fadeOut(100);
-								    
-								$location.path('myPlace/')
+									$location.path('myPlace');
 
 								});
 							}
