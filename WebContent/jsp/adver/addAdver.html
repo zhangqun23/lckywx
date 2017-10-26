@@ -1,8 +1,8 @@
 <article style="margin-top: 54px; ">
- 	<form ng-submit="addAdver()" method="post" enctype="multipart/form-data">
+ 	<form ng-submit="addAdver()" method="post" enctype="multipart/form-data" name="angularForm">
 		<ul class="form-box">
 		
-			<li  class="inner addTable">
+			<li  class="inner">
 				<div class="item-name">广告类型<b>*</b></div>
 				<div style="padding-left: 5px;padding-right: 15px; ">
 					<select class="select-box" ng-model="ADLimit.ad_type" id="ad-type" required>
@@ -14,7 +14,7 @@
 				</div>
 			</li>
 			
-			<li class="inner addTable">
+			<li class="inner">
 				<div class="item-name">广告名称<b>*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
@@ -23,7 +23,7 @@
 				</div>
 			</li>
 			
-			<li class="inner addTable">
+			<li class="inner">
 				<div class="item-name">联系人<b>*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
@@ -32,7 +32,7 @@
 				</div>
 			</li>
 			
-			<li class="inner addTable" style="height:auto">
+<!-- 			<li class="inner" style="height:auto">
 				<div class="item-name">联系方式<b>*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
@@ -40,9 +40,22 @@
 					</div>
 					<div class="limitNum">请输入正确的手机号码</div>
 				</div>
-			</li>
+			</li>  -->
 			
-			<li class="inner addTable">
+			<li class="inner " style="height:auto" >
+				<div class="item-name">联系方式<b>*</b></div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input  type="text" ng-model="ADLimit.ad_tel"  required
+							name="phone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
+					</div>
+					<span class="formWaring"
+						ng-show="angularForm.phone.$error.pattern">手机格式不正确</span>
+				</div>
+			</li > 
+
+	
+			<li class="inner">
                     <div class="item-name">截止日期<b>*</b></div>
                     <div class="item-value">
                     <div class="input-wrap">
@@ -51,7 +64,7 @@
                     </div>
             </li>
 			
-			<li class="inner innerP addTable">
+			<li class="inner innerP">
 				<div class="item-name">广告内容<b>*</b></div>
 				<div class="item-value">
 					<div class="p-wrap">
@@ -60,7 +73,7 @@
 				</div>
 			</li>
 			
-			<li class="inner innerP addTable">
+			<li class="inner innerP">
 				<div class="item-name">广告备注：</div>
 				<div class="item-value">
 					<div class="p-wrap">
@@ -69,10 +82,10 @@
 				</div>
 			</li>
 			
-			<li class="inner addTable">
+			<li class="inner">
 				<div class="item-value" style="margin-right:90px">
 					<div class="a-wrap">
-						<input type="submit" class="weui_btn weui_btn_primary" value="提交" >
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交" ng-disabled="angularForm.$invalid" >
 					</div>
  				</div>
 			</li>

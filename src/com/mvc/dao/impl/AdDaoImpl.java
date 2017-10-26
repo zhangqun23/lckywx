@@ -30,8 +30,8 @@ public class AdDaoImpl implements AdDao {
 		try {
 			em.getTransaction().begin();
 			Integer adid = ad_id;
-			String selectSql = "update ad set ad.is_delete=1 where ad.ad_id = " + adid;
-			Query query = em.createNativeQuery(selectSql);
+			String selectSql = "update ad set ad.is_delete=1 where ad.ad_id = "+ adid;
+			Query query =  em.createNativeQuery(selectSql);
 			query.executeUpdate();
 			em.flush();
 			em.getTransaction().commit();
