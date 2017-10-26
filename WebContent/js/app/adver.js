@@ -152,7 +152,7 @@ app
 								ad_content : "",
 								ad_tel : "",
 								ad_remark : "",
-								ad_etime : ""
+								ad_etime : getNowDate(),
 							}
 							// 比较输入时间与当前时间的大小
 							function compareDateTime(starTime, endTime) {
@@ -164,9 +164,9 @@ app
 									return false;
 								}
 							}
-							// 手机，电话格式判定
+/*							// 手机，电话格式判定
 							adver.checknum = function(element) {
-								if ((/^[1][3,4,5,7,8][0-9]{9}$/.test(element))
+								if ((/^1[3|4|5|7|8]\d{9}$/.test(element))
 										| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
 												.test(element)) {
 									console.log("jinalail2")
@@ -176,6 +176,21 @@ app
 									$(".limitNum").css('display', 'block');
 								}
 								return;
+							}*/
+							// 获取当前日期并转化为2017-12-12
+							function getNowDate() {
+								var nowDate = new Date();
+								var year = nowDate.getFullYear();
+								var month = nowDate.getMonth() + 1;
+								var today = nowDate.getDate();
+								if (month >= 1 && month <= 9) {
+									month = "0" + month;
+								}
+								if (today >= 1 && today <= 9) {
+									today = "0" + today;
+								}
+								var currentdate = year + "-" + month + "-" + today;
+								return currentdate;
 							}
 							// 添加广告
 							adver.addAdver = function() {
@@ -189,9 +204,6 @@ app
 								if (adver.ADLimit.ad_type == "广告类型") {
 									return alert("请输入广告类型！")
 								}
-								console.log(adLimit);
-								$('.containerloading').fadeIn(100);
-							    $('.overlayer').fadeIn(100);
 								services.addAdver({
 									ad : adLimit
 								}).success(function(data) {
@@ -529,3 +541,11 @@ app.filter('type', function() {
 			return type;
 	}
 });
+//固定电话
+function checkTel(obj){
+	 var tel=document.getElementById("travelInfo.travel_tel").value;
+	 if(!((/^0\d{2,3}-?\d{7,8}$/.test(tel))||(/^1(3|4|5|7|8)\d{9}$/.test(tel)))){
+			alert("电话格式有误，请重填!");
+			obj.value='';
+	}
+	}
