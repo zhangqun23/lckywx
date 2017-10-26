@@ -2,7 +2,8 @@ package com.mvc.service;
 
 public interface WxReturnPayService {
 
-	void updateTradeState(String trade_num, String transaction_id, String dateFormat);
+	void saveTradeState(String trade_num, String transaction_id, String datanow);
 
-	void getTotalNum(String out_trade_no);
+	int getTravelTrade(String out_trade_no);
+
 }
