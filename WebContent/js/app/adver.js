@@ -164,7 +164,7 @@ app
 									return false;
 								}
 							}
-							// 手机，电话格式判定
+/*							// 手机，电话格式判定
 							adver.checknum = function(element) {
 								if ((/^1[3|4|5|7|8]\d{9}$/.test(element))
 										| /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
@@ -176,7 +176,7 @@ app
 									$(".limitNum").css('display', 'block');
 								}
 								return;
-							}
+							}*/
 							// 获取当前日期并转化为2017-12-12
 							function getNowDate() {
 								var nowDate = new Date();
@@ -204,12 +204,6 @@ app
 								if (adver.ADLimit.ad_type == "广告类型") {
 									return alert("请输入广告类型！")
 								}
-<<<<<<< HEAD
-=======
-								console.log(adLimit);
-								$('.containerloading').fadeIn(100);
-							    $('.overlayer').fadeIn(100);
->>>>>>> dca8b9f6af394949d3c6f5a7f5ec148ebfa85a5b
 								services.addAdver({
 									ad : adLimit
 								}).success(function(data) {
@@ -547,3 +541,11 @@ app.filter('type', function() {
 			return type;
 	}
 });
+//固定电话
+function checkTel(obj){
+	 var tel=document.getElementById("travelInfo.travel_tel").value;
+	 if(!((/^0\d{2,3}-?\d{7,8}$/.test(tel))||(/^1(3|4|5|7|8)\d{9}$/.test(tel)))){
+			alert("电话格式有误，请重填!");
+			obj.value='';
+	}
+	}
