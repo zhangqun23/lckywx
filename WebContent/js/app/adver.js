@@ -538,7 +538,7 @@ app.filter('adFilter', function() {
 		}
 	}
 });
-app.filter('type', function() {
+app.filter('adtype', function() {
 	return function(input) {
 		if (input == "0") {
 			type = "旅游";
