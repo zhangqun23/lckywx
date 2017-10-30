@@ -138,7 +138,11 @@
 				</div>
 			</li>
 
-
+			<li class="inner addTable"">
+				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+				<span class="needToKonw" ng-click="showShadow()">我已阅读货运须知</span>
+            </li>
+            
 			<li class="inner">
 				<div class="item-value" style="margin-right: 90px">
 					<div class="a-wrap">
@@ -149,4 +153,18 @@
 			</li>
 		</ul>
 	</form>
+	
+<div class="shadowbox" style="height: 400px">
+	<div class="shadowbox-title">广告货运须知</div>
+	<div class="shadowbox-content">
+1、乙方在收到货物后须按照运单的要求，在约定的期限内，将货物运到甲方指定的地点，交给甲方指定的货运站；<br/>
+2、货物装卸责任和方法：按托运人及收货人要求装卸为主；<br/>
+3、乙方在将货物交给收货人时，同时应协助收货人亲笔签收货物以作为完成运输义务的证明。如乙方联系不上收货人时，应及时通知甲方，甲方有责任协助乙方及时通知收货人提货；<br/>
+4、甲方交付乙方承运的货物乙方对此应予以高度重视，避免暴晒、雨淋，确保包装及内容物均完好按期运达指定地。运输过程中如发生货物灭失、短少、损坏、变质、污染等问题，乙方应确认数量并按照甲方购进或卖出时价格全额赔偿；<br/>
+5、因发生自然灾害等不可抗力造成货物无法按期运达目的地时，乙方应将情况及时通知甲方并取得相关证明，以便甲方与客户协调；<br/>
+6、非因自然灾害等不可抗力造成货物无法按时到达，乙方须在最短时间内运至甲方指定的收货地点并交给收货人，且赔偿逾期承运给甲方造成的全部经济损失；<br/>
+7、本协议未尽事宜，由双方协商解决，协商不成，可向甲方住所地法院提起诉讼。<br/>
+	</div>
+	<input class="weui_btn weui_btn_primary" style="margin-top:28px" ng-click="showShadow()" value="我已阅读并且同意">
+</div>
 </article>

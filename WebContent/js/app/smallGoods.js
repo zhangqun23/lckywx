@@ -141,6 +141,15 @@ app
 									return false;
 								}
 							}
+							
+							smallGoods.showShadow = function(){
+								if ($('.shadowbox').css('display') == 'none') {
+									$('.shadowbox').fadeIn(100);
+								} else {
+									$('.shadowbox').fadeOut(100);
+								}
+							}
+							
 							// 添加小件货运
 							smallGoods.addSmallGoods = function() {
 								var myDate = new Date();

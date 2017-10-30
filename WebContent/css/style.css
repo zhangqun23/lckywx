@@ -1960,3 +1960,38 @@ h2 {
     -webkit-animation-delay:0.65s;
 }
 /* 下拉loading等待结束 */
+.needToKonw{
+	text-decoration:underline;
+	font-size:16px;
+	color:blue;
+	font-style:oblique;
+}
+.shadowbox {
+	background-color:#ffffff ;
+	display:none;
+	width:85%;
+	box-shadow: 0 0 10px #0498a1;
+	margin:70px auto;
+	word-wrap:break-word;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position:fixed;
+	z-index:10000;
+	}
+.shadowbox-title{
+	height:50px;
+	font-size:20px;
+	line-height:50px;
+	overflow:hidden;
+	text-align:center;
+	border-bottom:ridge;
+}
+.shadowbox-content{
+	height:250px;
+	font-size:14px;
+	border-bottom:ridge;
+	line-height:24px;
+	overflow-y: scroll;
+}

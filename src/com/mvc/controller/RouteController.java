@@ -52,6 +52,23 @@ public class RouteController extends HttpServlet {
 		session.setAttribute("openid", openid);
 		return "platform/index";
 	}
+	
+	@RequestMapping("/toAllPlacePage.do")
+	public String toAllPlacePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException   {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		String code = request.getParameter("code");
+		String openid = OpenidUtil.getOpenid(null, null, code);
+		System.out.println("my place code is "+code);
+		System.out.println("my place openid is "+openid);
+		if(openid == null){
+			return "allPlace";
+		}
+		HttpSession session = getSession();
+		session.setAttribute("openid", openid);
+		return "allPlace";
+	}
 
 	  public static HttpSession getSession() { 
           HttpSession session = null; 

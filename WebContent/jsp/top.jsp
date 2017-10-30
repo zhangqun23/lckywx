@@ -18,9 +18,9 @@
 <link rel="stylesheet" href="${ctx}/css/pages/ad-list.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/form-detail.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/info-detail.css" />
- <link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
- <link href="${ctx}/css/pages/branch.css" rel="stylesheet" type="text/css" />
-  <link href="${ctx}/css/pages/page.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/branch.css" rel="stylesheet" type="text/css" />
+<link href="${ctx}/css/pages/page.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
             
@@ -40,11 +40,6 @@
 	</header>
 	<section>
 		<!-- 加载模态框 -->
-		<div class="overlayer"></div>
-		<div class="tipLoading">
-			<img class="tipimage" src="../images/wait.gif" />
-			<div class="tiptext">正在加载，请稍后……</div>
-		</div>
 		<div class="overlayer"></div>
 <!-- 菊花图开始 -->
 <div class="containerloading" style="display:none;">      

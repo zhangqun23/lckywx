@@ -317,18 +317,22 @@ public class TruckDriverController {
 		String page = request.getParameter("page");
 		Truck truck = truckDriverService.findTruck(openId);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("truckId", truck.getTrck_id());
-		Pager pager = new Pager();
-		if (!page.equals("") && !page.equals(null)) {
-			pager.setPage(Integer.parseInt(page));
-		} else {
-			pager.setPage(1);
-		}
-		map.put("offset", pager.getOffset());
-		map.put("limit", pager.getLimit());
-		List<TruckSend> list = truckDriverService.findTruckSendList(map);
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("list", list);
+		if(truck !=null){
+			map.put("truckId", truck.getTrck_id());
+			Pager pager = new Pager();
+			if (!page.equals("") && !page.equals(null)) {
+				pager.setPage(Integer.parseInt(page));
+			} else {
+				pager.setPage(1);
+			}
+			map.put("offset", pager.getOffset());
+			map.put("limit", pager.getLimit());
+			List<TruckSend> list = truckDriverService.findTruckSendList(map);
+			jsonObject.put("list", list);
+		}else{
+			jsonObject.put("list", null);
+		}
 		return jsonObject.toString();
 	}
 

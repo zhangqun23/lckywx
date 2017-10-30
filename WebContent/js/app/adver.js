@@ -164,6 +164,15 @@ app
 									return false;
 								}
 							}
+							
+							adver.showShadow = function(){
+								if ($('.shadowbox').css('display') == 'none') {
+									$('.shadowbox').fadeIn(100);
+								} else {
+									$('.shadowbox').fadeOut(100);
+								}
+							}
+							
 /*							// 手机，电话格式判定
 							adver.checknum = function(element) {
 								if ((/^1[3|4|5|7|8]\d{9}$/.test(element))
