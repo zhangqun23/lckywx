@@ -87,9 +87,9 @@ public class wxPayController {
 		int total_fee;
 		if(discount == 0 || discount == null){
 			discount = (float) 1;
-			total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*discount+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance());
+			total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*discount+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance()*100);
 		} else {
-			total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*discount+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance());
+			total_fee = (int) ((trtr_mnum*mprice+trtr_cnum*cprice)*discount+(trtr_mnum+trtr_cnum)*travel.getTravel_insurance()*100);
 		}
 		
 		TravelTrade travelTrade = new TravelTrade();

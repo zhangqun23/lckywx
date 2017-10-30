@@ -148,6 +148,15 @@ app
 										+ today;
 								return currentdate;
 							}
+							
+							busNeed.showShadow = function(){
+								if ($('.shadowbox').css('display') == 'none') {
+									$('.shadowbox').fadeIn(100);
+								} else {
+									$('.shadowbox').fadeOut(100);
+								}
+							}
+							
 							// zq添加班车需求
 							busNeed.addBusNeed = function() {
 								var myDate = new Date();

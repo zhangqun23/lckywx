@@ -271,6 +271,15 @@ app
 								trne_receive_name : "",
 								trne_receive_tel : ""
 							}
+							
+							truckDrSdNd.showShadow = function(){
+								if ($('.shadowbox').css('display') == 'none') {
+									$('.shadowbox').fadeIn(100);
+								} else {
+									$('.shadowbox').fadeOut(100);
+								}
+							}
+							
 							/*
 							 * truckDrSdNd.gotLimit={ startDate:"", endDate:"" }
 							 * truckDrSdNd.gotLimits={ startDate:"", endDate:"" }
@@ -290,8 +299,7 @@ app
 								$location.path('truckSendInfo');
 							}
 							// 根据trse_id获得修改车主信息(先获得Id后查询)
-							truckDrSdNd.getModifyTruckSendById = function(
-									trse_id) {
+							truckDrSdNd.getModifyTruckSendById = function(trse_id) {
 								sessionStorage.setItem("trse_id", trse_id);
 								$location.path('modifyTruckSend');
 							}
@@ -367,8 +375,7 @@ app
 							truckDrSdNd.modifyTruckSend = function() {
 								var truckSend = JSON
 										.stringify(truckDrSdNd.selectTruckSendByIdList);// 修改部分只将前台写完，后台没写
-								services
-										.modifyTruckSend(
+								services.modifyTruckSend(
 												{
 													truckSend : truckSend,
 													trse_id : sessionStorage
@@ -623,11 +630,14 @@ app
 													truckDrSdNd.truckSendList = truckDrSdNd.truckSendList
 															.concat(data.list);
 													config.isAjax = false;
-													if (data.list == ![]) {
+													console.log(data.list)
+													if (data.list == ![] || data.list == null) {
 														$(".limitHint").css(
 																'display',
 																'block');
 														config.isEnd = true;
+														$('#table1').css('display',
+														'none');
 													}
 												});
 							}

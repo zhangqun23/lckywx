@@ -154,6 +154,14 @@ app.controller('PlatformController', [
 					trtr_cnum:""
 			}
 			
+			travelInfo.showShadow = function(){
+				if ($('.shadowbox').css('display') == 'none') {
+					$('.shadowbox').fadeIn(100);
+				} else {
+					$('.shadowbox').fadeOut(100);
+				}
+			}
+			
 			travelInfo.getTravelTradeById = function(travel){
 				sessionStorage.setItem("travel_id_buy",travel.travel_id);
 				var travelbuy = JSON.stringify(travel)
