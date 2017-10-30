@@ -46,11 +46,9 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" name="startTime"
-							ng-model="BusLimit.bune_gath_time"
-							class="dfselect dateLayoutStyle"
-							onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
-							required>
+						<input type="date" name="startTime"
+							ng-model="BusLimit.bune_gath_time" class="select-box"
+							ng-change="limitDate()" required>
 
 					</div>
 
@@ -107,13 +105,13 @@
 
 				<div class="item-value" style="margin-right: 90px">
 					<div class="a-wrap">
-						<input type="submit" class="weui_btn weui_btn_primary" value="确认修改"
-							ng-disabled="angularForm.$invalid">
+						<input type="submit" class="weui_btn weui_btn_primary"
+							value="确认修改" ng-disabled="angularForm.$invalid">
 
 					</div>
 				</div>
 			</li>
 		</ul>
 	</form>
-	
+
 </article>

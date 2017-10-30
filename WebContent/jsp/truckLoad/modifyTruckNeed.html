@@ -105,9 +105,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="trneLimit.trne_time"
-							class="dfselect dateLayoutStyle"
-							onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+						<input type="date" ng-model="trneLimit.trne_time"
+							class="select-box" ng-change="limitDate(trneLimit.trne_time)"
 							required>
 					</div>
 				</div>

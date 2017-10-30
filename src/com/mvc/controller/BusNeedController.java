@@ -91,13 +91,50 @@ public class BusNeedController {
 		}
 		String openid = SessionUtil.getOpenid(request);
 		busNeed.setOpen_id(openid);
-		busNeed.setIs_delete(false);
-		busNeed.setBune_type(1);
-		busNeed.setButr_depo((float) 0.0);
-		busNeed.setButr_money((float) 0.0);
-		busNeed.setButr_state(0);
-		busNeed.setInvoice_if(0);
-		Date date=new Date(); 
+		if (jsonObject.containsKey("is_delete")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("is_delete"))) {
+				busNeed.setIs_delete(Boolean.getBoolean(jsonObject.getString("is_delete")));
+			}
+		} else {
+			busNeed.setIs_delete(false);
+		}
+		if (jsonObject.containsKey("bune_type")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("bune_type"))) {
+				busNeed.setBune_type(Integer.parseInt(jsonObject.getString("bune_type")));
+			}
+		} else {
+			busNeed.setBune_type(1);
+		}
+		if (jsonObject.containsKey("butr_depo")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_depo"))) {
+				busNeed.setButr_depo(Float.parseFloat(jsonObject.getString("butr_depo")));
+			}
+		} else {
+			busNeed.setButr_depo((float) 0.0);
+		}
+		if (jsonObject.containsKey("butr_money")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_money"))) {
+				busNeed.setButr_money(Float.parseFloat(jsonObject.getString("butr_money")));
+			}
+		} else {
+			busNeed.setButr_money((float) 0.0);
+		}
+		if (jsonObject.containsKey("butr_state")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("butr_state"))) {
+				busNeed.setButr_state(Integer.parseInt(jsonObject.getString("butr_state")));
+			}
+		} else {
+			busNeed.setButr_state(0);
+		}
+		if (jsonObject.containsKey("invoice_if")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("invoice_if"))) {
+				busNeed.setInvoice_if(Integer.parseInt(jsonObject.getString("invoice_if")));
+			}
+		} else {
+			busNeed.setInvoice_if(0);
+		}
+
+		Date date = new Date();
 		busNeed.setBune_insert_time(date);
 		BusNeed result = null;
 		if (jsonObject.containsKey("bune_id")) {
@@ -124,7 +161,7 @@ public class BusNeedController {
 	@RequestMapping(value = "/selectBusNeed.do")
 	public @ResponseBody String selectBusNeed(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-		String openid=SessionUtil.getOpenid(request);
+		String openid = SessionUtil.getOpenid(request);
 		Map<String, Object> map = new HashMap<String, Object>();
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
