@@ -49,6 +49,8 @@ public class TruckDriverController {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("driverInfo"));
 		Truck truck = new Truck();
 		Driver driver = new Driver();
+		String openId = SessionUtil.getOpenid(request);
+		driver.setOpen_id(openId);
 		if (jsonObject.containsKey("driver_name")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_name"))) {
 				driver.setDriver_name(jsonObject.getString("driver_name"));
@@ -57,8 +59,6 @@ public class TruckDriverController {
 		if (jsonObject.containsKey("driver_job")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_job"))) {
 				driver.setDriver_job(jsonObject.getString("driver_job"));
-			} else {
-				return null;
 			}
 		}
 		if (jsonObject.containsKey("driver_tel")) {
@@ -76,20 +76,13 @@ public class TruckDriverController {
 				driver.setDriver_license_number(jsonObject.getString("driver_license_number"));
 			}
 		}
-		/*
-		 * if (jsonObject.containsKey("driver_license")) { if
-		 * (StringUtil.strIsNotEmpty(jsonObject.getString("driver_license"))) {
-		 * driver.setDriver_license(jsonObject.getString("driver_license")); } }
-		 * if (jsonObject.containsKey("driver_image")) { if
-		 * (StringUtil.strIsNotEmpty(jsonObject.getString("driver_image"))) {
-		 * driver.setDriver_image(jsonObject.getString("driver_image")); } } if
-		 * (jsonObject.containsKey("driver_car")) { if
-		 * (StringUtil.strIsNotEmpty(jsonObject.getString("driver_car"))) {
-		 * driver.setDriver_car(jsonObject.getString("driver_car")); } }
-		 */
-		driver.setIs_audit(0);
-		String openId = SessionUtil.getOpenid(request);
-		driver.setOpen_id(openId);
+		if (jsonObject.containsKey("is_audit")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("is_audit"))) {
+				driver.setIs_audit(Integer.parseInt(jsonObject.getString("is_audit")));
+			}
+		} else {
+			driver.setIs_audit(0);
+		}
 		if (jsonObject2.containsKey("trck_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_load"))) {
 				truck.setTrck_load(Float.parseFloat(jsonObject2.getString("trck_load")));
@@ -105,7 +98,6 @@ public class TruckDriverController {
 				truck.setTrck_number((jsonObject2.getString("trck_number")));
 			}
 		}
-
 		Driver result = null;
 		if (jsonObject.containsKey("driver_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_id"))) {
@@ -116,12 +108,34 @@ public class TruckDriverController {
 			result = truckDriverService.addDriver(driver);// 添加班车定制需求
 		}
 		truck.setDriver(result);
-		truck.setTrck_score("0");
-		truck.setTrck_num(1);
-		truck.setIs_delete(false);
-		truck.setTrck_check(0);
-		// String openId = SessionUtil.getOpenid(request);
-		// truck.setOpen_id(openId);
+		if (jsonObject2.containsKey("trck_score")) {
+			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_score"))) {
+				truck.setTrck_score(jsonObject2.getString("trck_score"));
+			}
+		} else {
+			truck.setTrck_score("0");
+		}
+		if (jsonObject2.containsKey("trck_num")) {
+			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_num"))) {
+				truck.setTrck_num(Integer.parseInt(jsonObject2.getString("trck_num")));
+			}
+		} else {
+			truck.setTrck_num(1);
+		}
+		if (jsonObject2.containsKey("is_delete")) {
+			if (StringUtil.strIsNotEmpty(jsonObject2.getString("is_delete"))) {
+				truck.setIs_delete(Boolean.getBoolean(jsonObject2.getString("is_delete")));
+			}
+		} else {
+			truck.setIs_delete(false);
+		}
+		if (jsonObject2.containsKey("trck_check")) {
+			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_check"))) {
+				truck.setTrck_check(Integer.parseInt(jsonObject2.getString("trck_check")));
+			}
+		} else {
+			truck.setTrck_check(0);
+		}
 		Truck limint = null;
 		if (jsonObject2.containsKey("trck_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_id"))) {
@@ -147,6 +161,7 @@ public class TruckDriverController {
 	@RequestMapping("/addTruckSend.do")
 	public @ResponseBody String addTruckSend(HttpServletRequest request) throws ParseException {
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("trseInfo"));
+		JSONObject jsonO = new JSONObject();
 		TruckSend truckSend = new TruckSend();
 		if (jsonObject.containsKey("trse_left_load")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_left_load"))) {
@@ -186,7 +201,7 @@ public class TruckDriverController {
 		} else {
 			result = truckDriverService.addTruckSend(truckSend);// 添加班车定制需求
 		}
-		JSONObject jsonO = new JSONObject();
+
 		jsonO.put("result", result);
 		return jsonO.toString();
 	}
