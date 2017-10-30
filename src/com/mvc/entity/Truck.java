@@ -24,6 +24,7 @@ public class Truck implements Serializable {
 	private Driver driver;// 外键
 	private String trck_number;// 车牌号
 	private Boolean is_delete;// 是否删除0表示未删除，1表示删除
+	private String open_id;//openid
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -106,6 +107,14 @@ public class Truck implements Serializable {
 
 	public void setIs_delete(Boolean is_delete) {
 		this.is_delete = is_delete;
+	}
+
+	public String getOpen_id() {
+		return open_id;
+	}
+
+	public void setOpen_id(String open_id) {
+		this.open_id = open_id;
 	}
 
 }

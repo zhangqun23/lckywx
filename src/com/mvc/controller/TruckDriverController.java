@@ -51,6 +51,7 @@ public class TruckDriverController {
 		Driver driver = new Driver();
 		String openId = SessionUtil.getOpenid(request);
 		driver.setOpen_id(openId);
+		truck.setOpen_id(openId);
 		if (jsonObject.containsKey("driver_name")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_name"))) {
 				driver.setDriver_name(jsonObject.getString("driver_name"));
@@ -129,13 +130,7 @@ public class TruckDriverController {
 		} else {
 			truck.setIs_delete(false);
 		}
-		if (jsonObject2.containsKey("trck_check")) {
-			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_check"))) {
-				truck.setTrck_check(Integer.parseInt(jsonObject2.getString("trck_check")));
-			}
-		} else {
-			truck.setTrck_check(0);
-		}
+		truck.setTrck_check(0);
 		Truck limint = null;
 		if (jsonObject2.containsKey("trck_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject2.getString("trck_id"))) {
@@ -191,7 +186,14 @@ public class TruckDriverController {
 			}
 		}
 		String openId = SessionUtil.getOpenid(request);
-		truckSend.setTruck(truckDriverService.findTruck(openId));
+		Truck truck = truckDriverService.findTruck(openId);
+		if (truck == null) {
+			jsonO.put("result", null);
+			return jsonO.toString();
+		} else {
+			truckSend.setTruck(truck);
+		}
+
 		TruckSend result = null;
 		if (jsonObject.containsKey("trse_id")) {
 			if (StringUtil.strIsNotEmpty(jsonObject.getString("trse_id"))) {
@@ -255,7 +257,14 @@ public class TruckDriverController {
 				truckNeed.setTrne_time(date);
 			}
 		}
-		truckNeed.setTrne_check(0);
+		if (jsonObject.containsKey("trne_check")) {
+			if (StringUtil.strIsNotEmpty("trne_check")) {
+				truckNeed.setTrne_check(Integer.parseInt(jsonObject.getString("trne_check")));
+			}
+		} else {
+			truckNeed.setTrne_check(0);
+		}
+
 		if (jsonObject.containsKey("trne_remark")) {
 			if (StringUtil.strIsNotEmpty("trne_remark")) {
 				truckNeed.setTrne_remark(jsonObject.getString("trne_remark"));
