@@ -229,8 +229,6 @@ app.controller('PlatformController', [
 						$('.containerloading').fadeOut(100);
 				    	$('.overlayer').fadeOut(100);
 					}
-					alert(data.appId);
-					alert(data.timeStamp);
 		            	if(data.e != undefined){
 		            		alert(data.e);
 		            		return;
@@ -262,16 +260,6 @@ app.controller('PlatformController', [
 							   alert("没有成功cancel")
 							           }
 								})
-//						   if (typeof WeixinJSBridge == "undefined"){
-//						   if( document.addEventListener ){
-//						       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-//						   }else if (document.attachEvent){
-//						       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-//						   document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-//						   }
-//						}else{
-//						   onBridgeReady();
-//						}
 		            
 				})
 				
@@ -486,6 +474,7 @@ app.controller('PlatformController', [
 								$('.containerloading').fadeOut(100);
 							    $('.overlayer').fadeOut(100);
 							}
+							console.log(data.list)
 							$scope.TInfo = data.list
 						});
 				} else if ($location.path().indexOf('/myTravelTrade') == 0) {
@@ -560,7 +549,16 @@ app.filter('cutFloat', function() {
 		} else {
 			var money = parseFloat(input).toFixed(2);
 		}
-
 		return money;
+	}
+});
+app.filter('totalFeeFilter', function() {
+	return function(input) {
+		if (input == "" || input == null) {
+			var input = "空";
+			return input;
+		} else {
+			return input/100;
+		}
 	}
 });
