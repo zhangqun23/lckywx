@@ -9,7 +9,7 @@
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${ctx}/css/fonts/iconfont.css" />
 <link rel="stylesheet" href="${ctx}/css/weui.min.css" />
-<link rel="stylesheet" href="${ctx}/css/animate.css" />
+<link rel="stylesheet" href="${ctx}/css/animate.min.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/ad-list.css" />
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>

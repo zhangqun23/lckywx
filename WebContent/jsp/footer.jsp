@@ -5,5 +5,5 @@
 <!-- AngularJS dependences -->
 <script type="text/javascript" src="${ctx}/js/lib/angular/angular.min.js"></script>
 <script type="text/javascript" src="${ctx}/js/lib/angular/angular-route.js"></script>
-<script type="text/javascript" src="${ctx}/js/lib/jquery-weui.js"></script>
+<%-- <script type="text/javascript" src="${ctx}/js/lib/jquery-weui.js"></script> --%>
 <script type="text/javascript" src="${ctx}/js/lib/pageTurn.js"></script> 
