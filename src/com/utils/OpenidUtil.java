@@ -1,8 +1,10 @@
 package com.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
@@ -14,6 +16,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.portlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -35,10 +42,18 @@ public class OpenidUtil {
 		
 		  String Url = String.format(
 		  "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3afdb0aec74f693f&secret=c5b66a39a2c96849446d1c2d33994a28&code=%s&grant_type=authorization_code",
-		  code); String result = getHttpsResponse(Url, ""); JSONObject json =
-		  JSON.parseObject(result); return json.getString("openid");
+		  code); 
+		  String result = getHttpsResponse(Url, ""); 
+		  JSONObject json = JSON.parseObject(result);
+		  return json.getString("openid");
 	
 	}
+	
+	public static void GetopenidUrl(HttpServletResponse response) throws IOException{
+        String CodeUrl = String.format(
+        		"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3afdb0aec74f693f&redirect_uri=http://www.lckywx.cc/lckywx/&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
+        response.sendRedirect(CodeUrl);
+    }
 
 	private static String getHttpsResponse(String hsUrl, String requestMethod) {
 		URL url;

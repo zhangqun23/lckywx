@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!-- <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-	version="2.4">
+	version="2.4"> -->
+	<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:META-INF/applicationContext*.xml</param-value>
@@ -21,6 +25,25 @@
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
+	
+ 	<!-- session过滤器配置相关 -->
+<!--   	<filter>
+		<filter-name>SessionFilter</filter-name>
+		<filter-class>com.mvc.filter.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>/routeController/toTravelInfoPage.do/*</url-pattern>
+		<url-pattern>/routeController/toBusNeedPage.do/*</url-pattern>
+		<url-pattern>/routeController/toSmallGoodsPage.do/*</url-pattern>
+		<url-pattern>/routeController/toTruckGoodsPage.do/*</url-pattern>
+		<url-pattern>/routeController/toAddAdListPage.do/*</url-pattern>
+		<url-pattern>/routeController/toSelectAdListPage.do/*</url-pattern>
+		<url-pattern>/routeController/toSmallGoodsListPage.do/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping> -->
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
