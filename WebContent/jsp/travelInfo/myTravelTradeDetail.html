@@ -47,15 +47,15 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">购买成人票数：</div>
-			<div class="item-value">{{MMTT.trtr_cnum|trtrFilter}}</div>
-		</li>
-		<li class="inner">
-			<div class="item-name">购买儿童票数：</div>
 			<div class="item-value">{{MMTT.trtr_mnum|trtrFilter}}</div>
 		</li>
 		<li class="inner">
+			<div class="item-name">购买儿童票数：</div>
+			<div class="item-value">{{MMTT.trtr_cnum|trtrFilter}}</div>
+		</li>
+		<li class="inner">
 			<div class="item-name">订单总金额：</div>
-			<div class="item-value">{{MMTT.trtr_price|trtrFilter}}</div>
+			<div class="item-value">{{MMTT.trtr_price|trtrFilter|totalFeeFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">预留联系方式：</div>
@@ -67,7 +67,7 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">订单号：</div>
-			<div class="item-value">{{MMTT.trtr_num|trtrFilter|trtrFilter}}</div>
+			<div class="item-value">{{MMTT.trtr_num|trtrFilter}}</div>
 		</li>
 		
 		<div id="refund-pay" style="display:none">
@@ -112,11 +112,11 @@
 		</li>
 		<li class="inner">
 			<div class="item-name">订单总金额：</div>
-			<div class="item-value">{{MMTT.trtr_price|trtrFilter}}</div>
+			<div class="item-value">{{MMTT.trtr_price|trtrFilter|totalFeeFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">退款金额：</div>
-			<div class="item-value">{{MMTT.refund_fee|trtrFilter}}</div>
+			<div class="item-value">{{MMTT.refund_fee|trtrFilter|totalFeeFilter}}</div>
 		</li>
 		<li class="inner">
 			<div class="item-name">预留联系方式：</div>

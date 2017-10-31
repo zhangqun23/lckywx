@@ -126,18 +126,18 @@
 						ng-value="1" style="-webkit-appearance: radio;"><span>上门取货</span>
 				</div>
 			</li>
-
-			<li class="inner addTable" ng-switch="GoLimit.smgo_sego">
-				<div class="item-name" ng-switch-when="1">
-					收货地址：<span style="color: red">*</span>
-				</div>
-				<div class="item-value" ng-switch-when="1">
-					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_add" required>
+			<div ng-switch="GoLimit.smgo_sego">
+				<li class="inner addTable" ng-switch-when="1">
+					<div class="item-name">
+						收货地址：<span style="color: red">*</span>
 					</div>
-				</div>
-			</li>
-
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="GoLimit.smgo_add" required>
+						</div>
+					</div>
+				</li>
+			</div>
 			<li class="inner addTable"">
 				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读货运须知</span>
