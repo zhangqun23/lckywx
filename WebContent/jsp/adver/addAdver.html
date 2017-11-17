@@ -2,8 +2,8 @@
  	<form ng-submit="addAdver()" method="post" enctype="multipart/form-data" name="angularForm">
 		<ul class="form-box">
 		
-			<li  class="inner">
-				<div class="item-name">广告类型<b>*</b></div>
+			<li  class="inner addTable">
+				<div class="item-name">广告类型<b class="lableimport">*</b></div>
 				<div style="padding-left: 5px;padding-right: 15px; ">
 					<select class="select-box" ng-model="ADLimit.ad_type" id="ad-type" required>
 						<option>广告类型</option>
@@ -14,20 +14,22 @@
 				</div>
 			</li>
 			
-			<li class="inner">
-				<div class="item-name">广告名称<b>*</b></div>
+			<li class="inner addTable">
+				<div class="item-name">广告名称<b class="lableimport">*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="ADLimit.ad_title" required>
+						<input type="text" ng-model="ADLimit.ad_title" required name="ad_title" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="angularForm.ad_title.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
 			
-			<li class="inner">
-				<div class="item-name">联系人<b>*</b></div>
+			<li class="inner addTable">
+				<div class="item-name">联系人<b class="lableimport">*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="ADLimit.ad_name" required>
+						<input type="text" ng-model="ADLimit.ad_name" required name="ad_name" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="angularForm.ad_name.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
@@ -42,21 +44,21 @@
 				</div>
 			</li>  -->
 			
-			<li class="inner " style="height:auto" >
-				<div class="item-name">联系方式<b>*</b></div>
+			<li class="inner addTable" style="height:auto" >
+				<div class="item-name">联系方式<b class="lableimport">*</b></div>
 				<div class="item-value">
 					<div class="input-wrap">
 						<input  type="text" ng-model="ADLimit.ad_tel"  required
 							name="phone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
 					</div>
-					<span class="formWaring"
+					<span class="formWarning"
 						ng-show="angularForm.phone.$error.pattern">手机格式不正确</span>
 				</div>
 			</li > 
 
 	
-			<li class="inner">
-                    <div class="item-name">截止日期<b>*</b></div>
+			<li class="inner addTable">
+                    <div class="item-name">截止日期<b class="lableimport">*</b></div>
                     <div class="item-value">
                     <div class="input-wrap">
                         <input class="select-box" type="date" ng-model="ADLimit.ad_etime" required>
@@ -64,30 +66,32 @@
                     </div>
             </li>
 			
-			<li class="inner innerP">
-				<div class="item-name">广告内容<b>*</b></div>
+			<li class="inner addTable">
+				<div class="item-name">广告内容<b class="lableimport">*</b></div>
 				<div class="item-value">
 					<div class="p-wrap">
-						<textarea type="text" ng-model="ADLimit.ad_content" required></textarea>
+						<textarea type="text" ng-model="ADLimit.ad_content" required name="ad_content" ng-pattern="/^\S{1,100}$/"></textarea>
+						<span class="formWarning" ng-show="angularForm.ad_content.$error.pattern">输入长度在100个字以内</span>
 					</div>
 				</div>
 			</li>
 			
-			<li class="inner innerP">
+			<li class="inner addTable">
 				<div class="item-name">广告备注：</div>
 				<div class="item-value">
 					<div class="p-wrap">
-						<textarea type="text" ng-model="ADLimit.ad_remark" ></textarea>
+						<textarea type="text" ng-model="ADLimit.ad_remark" name="ad_remark" ng-pattern="/^\S{1,100}$/"></textarea>
+						<span class="formWarning" ng-show="angularForm.ad_remark.$error.pattern">输入长度在100个字以内</span>
 					</div>
 				</div>
 			</li>
 			
 			<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读广告发布须知</span>
             </li>
 			
-			<li class="inner">
+			<li class="inner addTable">
 				<div class="item-value" style="margin-right:90px">
 					<div class="a-wrap">
 						<input type="submit" class="weui_btn weui_btn_primary" value="提交" ng-disabled="angularForm.$invalid" >

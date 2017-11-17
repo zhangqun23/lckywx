@@ -125,12 +125,28 @@ app
 								smgo_receiver_tel : "",
 								smgo_sego : "0",
 								smgo_remark : "",
-								smgo_send_time : ""
+								smgo_send_time : getNowDate()
 							}
 
 							smallGoods.GotLimit = {
 								startDate : "",
 								endDate : ""
+							}
+							
+							// 获取当前日期并转化为2017-12-12
+							function getNowDate() {
+								var nowDate = new Date();
+								var year = nowDate.getFullYear();
+								var month = nowDate.getMonth() + 1;
+								var today = nowDate.getDate();
+								if (month >= 1 && month <= 9) {
+									month = "0" + month;
+								}
+								if (today >= 1 && today <= 9) {
+									today = "0" + today;
+								}
+								var currentdate = year + "-" + month + "-" + today;
+								return currentdate;
 							}
 							function compareDateTime(startDate, endDate) {
 								var date1 = new Date(startDate);
@@ -146,6 +162,8 @@ app
 								if ($('.shadowbox').css('display') == 'none') {
 									$('.shadowbox').fadeIn(100);
 								} else {
+
+									$('input[type="checkbox"]')[0].checked = 'true';
 									$('.shadowbox').fadeOut(100);
 								}
 							}
@@ -369,7 +387,7 @@ app.controller('SGInfoController', [ '$scope', 'services', '$location',
 // 小件货运内容为空判断
 app.filter('sgFilter', function() {
 	return function(input) {
-		if (input == "" || input == null) {
+		if (input === "" || input === null) {
 			var input = "空";
 			return input;
 		} else {

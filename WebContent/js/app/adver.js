@@ -169,6 +169,7 @@ app
 								if ($('.shadowbox').css('display') == 'none') {
 									$('.shadowbox').fadeIn(100);
 								} else {
+									$('input[type="checkbox"]')[0].checked = 'true';
 									$('.shadowbox').fadeOut(100);
 								}
 							}

@@ -67,6 +67,13 @@ public class SmallGoodsController {
 		if (jsonObject.containsKey("smgo_sender")) {
 			smallGoods.setSmgo_sender(jsonObject.getString("smgo_sender"));
 		}
+		if (jsonObject.containsKey("smgo_sego")) {
+			if(jsonObject.getString("smgo_sego").equals("0")){
+				smallGoods.setSmgo_sego(false);
+			}else{
+				smallGoods.setSmgo_sego(true);
+			}
+		}
 		if (jsonObject.containsKey("smgo_add")) {
 			smallGoods.setSmgo_add(jsonObject.getString("smgo_add"));
 		}

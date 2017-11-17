@@ -18,6 +18,7 @@
 <article style="margin-top: 85px;">
 	<!-- truckSend车主信息界面 -->
 	<div id="table0" style="display: none">
+	<div class="limitHint" style="display: block;">以下是车辆信息</div>
 		<ul>
 			<li class="weui_cell" ng-repeat="tl in truckSendList">
 				<div class="weui_cell_bd weui_cell_primary">
@@ -27,15 +28,18 @@
 					<div class="detail clearfix">
 						<span class="require">始发地：<label>{{tl.trse_splace}}</label></span>
 						<span class="result">目的地：<label>{{tl.trse_eplace}}</label></span>
+						
 					</div>
 					<div class="detail clearfix">
 						<span class="require">剩余载重：<label>{{tl.trse_left_load}}&nbsp;&nbsp;吨</label></span>
 						<span class="result">价格(元/千克)：<label>{{tl.trse_price}}</label></span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">出发时间：<label>{{tl.trse_time.time
-								|dateType}}</label></span>
-
+						<span class="require">车主姓名:<label>{{tl.truck.driver.driver_name}}</label></span>
+						<span class="result">车主联系方式：<label>{{tl.truck.driver.driver_tel}}</label></span>
+					</div>
+					<div class="detail clearfix">
+						<span class="require">出发时间：<label>{{tl.trse_time.time|dateType}}</label></span>
 					</div>
 					<div class="org">
 						<!-- <span>包车用途：{{bnl.bune_purp}}</span>  -->
@@ -47,6 +51,7 @@
 	</div>
 	<!-- truckNeed车主信息界面 -->
 	<div id="table1" style="display: none">
+	<div class="limitHint" style="display: block;">以下是货物信息</div>
 		<ul>
 			<li class="weui_cell" ng-repeat="tnl in truckNeedList">
 				<div class="weui_cell_bd weui_cell_primary">

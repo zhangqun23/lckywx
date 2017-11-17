@@ -11,11 +11,16 @@
 <title></title>
 <style type="text/css">
 div{
-width:45%;
+width:30%;
 margin:10% auto;
-height:310px;
+text-align:center;
+}
+img{
+	width:50%;
+	margin:auto;
 }
 .content{
+	width:100%;
 font-family: '微软雅黑';
 font-size: 25pt;
 text-align:center;
@@ -27,7 +32,7 @@ margin:0 auto;
 <body>
 <div>
 	<img src="/lckywx/images/qrcode.jpg">
+	<div class="content">请打开微信，点开扫一扫，关注公众号后即可完成操作</div>
 </div>
-<div class="content">请打开微信，点开扫一扫，关注公众号后即可完成操作</div>
 </body>
 </html>

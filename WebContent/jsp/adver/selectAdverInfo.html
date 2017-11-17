@@ -4,28 +4,35 @@
 		<li class="green">广告信息</li>
 	</ul>
 	<ul class="order-box" >	
-	<li class="weui_cell">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <div class="wuliao-title">
-                        <label>广告类型：</label>
-                        <span>{{adIList.ad_type|adtype}}</span>
-                    </div>
-                    <div class="detail clearfix">
-                        <span class="date">广告名称：{{adIList.ad_title|adFilter}}</span>
-                    </div>
-                   <div class="detail clearfix">
-                        <span class="date">广告内容：{{adIList.ad_content|adFilter}}</span>
-                    </div>
-                    <div class="detail clearfix">
-                        <span class="date">联系人：{{adIList.ad_name|adFilter}}</span>
-                    </div>
-                     <div class="detail clearfix">
-                        <span class="date">联系方式：{{adIList.ad_tel|adFilter}}</span>
-                    </div>
-                     <div class="org">
-                       <span class="date">备注：{{adIList.ad_remark|adFilter}}</span>
-                       <!-- <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label> -->
-                    </div>		   		                 
-              </div>
-		</li> </ul>      
+
+		<li class="inner">
+			<div class="item-name">广告类型：</div>
+			<div class="item-value">{{adIList.ad_type|adtype}}</div>
+		</li>
+		
+				<li class="inner">
+			<div class="item-name">广告名称：</div>
+			<div class="item-value">{{adIList.ad_title|adFilter}}</div>
+		</li>
+		
+				<li class="inner">
+			<div class="item-name">广告内容：</div>
+			<div class="item-value">{{adIList.ad_content|adFilter}}</div>
+		</li>
+		
+				<li class="inner">
+			<div class="item-name">联系人：</div>
+			<div class="item-value">{{adIList.ad_name|adFilter}}</div>
+		</li>
+		
+				<li class="inner">
+			<div class="item-name">联系方式：</div>
+			<div class="item-value">{{adIList.ad_tel|adFilter}}</div>
+		</li>
+		
+				<li class="inner">
+			<div class="item-name">备注：</div>
+			<div class="item-value">{{adIList.ad_remark|adFilter}}</div>
+		</li>
+		 </ul>      
 </article>

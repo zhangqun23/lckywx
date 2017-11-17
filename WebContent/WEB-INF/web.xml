@@ -27,7 +27,7 @@
 	</session-config>
 	
  	<!-- session过滤器配置相关 -->
-<!--   	<filter>
+<!--    	<filter>
 		<filter-name>SessionFilter</filter-name>
 		<filter-class>com.mvc.filter.SessionFilter</filter-class>
 	</filter>

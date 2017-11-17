@@ -60,8 +60,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="BusLimit.bune_gath_pla" required
-							placeholder="洛川">
+						<input type="text" name="bune_gath_pla" ng-model="BusLimit.bune_gath_pla" required ng-pattern="/^\S{1,15}$/" placeholder="洛川">
+						<span class="formWarning" ng-show="angularForm.bune_gath_pla.$error.pattern">输入长度在15个字以内</span>
 					</div>
 
 				</div>
@@ -72,7 +72,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="BusLimit.bune_goal_pla" required>
+						<input type="text" name="bune_goal_pla" ng-model="BusLimit.bune_goal_pla" required ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="angularForm.bune_goal_pla.$error.pattern">输入长度在15个字以内</span>
 					</div>
 
 				</div>
@@ -83,7 +84,8 @@
 				</div>
 				<div class="item-value">
 					<div class="p-wrap">
-						<textarea ng-model="BusLimit.bune_purp" required></textarea>
+						<textarea name="bune_purp" ng-model="BusLimit.bune_purp" required ng-pattern="/^\S{1,100}$/"></textarea>
+						<span class="formWarning" ng-show="angularForm.bune_purp.$error.pattern">输入长度在100个字以内</span>
 					</div>
 				</div>
 			</li>
@@ -91,12 +93,13 @@
 				<div class="item-name">其他备注：</div>
 				<div class="item-value">
 					<div class="p-wrap">
-						<textarea ng-model="BusLimit.bune_remark"></textarea>
+						<textarea name="bune_remark" ng-model="BusLimit.bune_remark" ng-pattern="/^\S{1,100}$/"></textarea>
+						<span class="formWarning" ng-show="angularForm.bune_remark.$error.pattern">输入长度在100个字以内</span>
 					</div>
 				</div>
 			</li>
 			<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读班车租赁须知</span>
             </li>
 			<li class="inner addTable">
