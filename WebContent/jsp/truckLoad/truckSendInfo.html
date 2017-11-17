@@ -29,6 +29,17 @@
 			<div class="item-value">{{selectTruckSendByIdList.trse_time.time
 				| dateType|isOrNotNull}}</div>
 		</li>
+						
+		<li class="inner">
+			<div class="item-name">车主姓名：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.driver.driver_name
+				|isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">车主联系方式：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.driver.driver_tel
+				|isOrNotNull}}</div>
+		</li>				
 		<li class="inner">
 			<div class="item-name">货车牌号：</div>
 			<div class="item-value">{{selectTruckSendByIdList.truck.trck_number

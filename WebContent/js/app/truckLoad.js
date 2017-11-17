@@ -276,6 +276,8 @@ app
 								if ($('.shadowbox').css('display') == 'none') {
 									$('.shadowbox').fadeIn(100);
 								} else {
+									$('input[type="checkbox"]')[0].checked = 'true';
+									$('input[type="checkbox"]')[1].checked = 'true';
 									$('.shadowbox').fadeOut(100);
 								}
 							}
@@ -551,6 +553,7 @@ app
 									$('#table0').show();
 									$('#table1').hide();
 									$('#table2').hide();
+									truckDrSdNd.truckList = [];
 									truckDrSdNd.selectUserTruckList();
 									break;
 								case 1:
@@ -574,6 +577,7 @@ app
 									$('#table0').hide();
 									$('#table1').hide();
 									$('#table2').show();
+									truckDrSdNd.truckNeedList = [];
 									openScroll(truckDrSdNd.selectTruckNeedList);
 									break;
 								}
@@ -627,17 +631,16 @@ app
 													if (!truckDrSdNd.truckSendList) {
 														truckDrSdNd.truckSendList = [];
 													}
-													truckDrSdNd.truckSendList = truckDrSdNd.truckSendList
-															.concat(data.list);
+													if(typeof(data.list) != "undefined"){
+													truckDrSdNd.truckSendList = truckDrSdNd.truckSendList.concat(data.list);
+													}
 													config.isAjax = false;
-													console.log(data.list)
+													console.log(truckDrSdNd.truckSendList)
 													if (data.list == ![] || data.list == null) {
 														$(".limitHint").css(
 																'display',
 																'block');
 														config.isEnd = true;
-														$('#table1').css('display',
-														'none');
 													}
 												});
 							}

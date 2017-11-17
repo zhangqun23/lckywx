@@ -65,7 +65,7 @@
 				<div class="org">
 					<span>包车用途：{{bnl.bune_purp}}</span> <label class="green"
 						ng-click="getBusNeedById(bnl.bune_id)">详情</label><label
-						ng-show="show.isActive0" class="green"
+						ng-show="bnl.butr_state==0" class="green"
 						ng-click="modifyBusNeedById(bnl.bune_id)">修改</label>
 				</div>
 			</div>

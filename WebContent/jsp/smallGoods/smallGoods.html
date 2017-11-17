@@ -9,12 +9,13 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_name" required>
+						<input type="text" ng-model="GoLimit.smgo_name" required ng-pattern="/^\S{1,15}$/" name="smgo_name">
+						<span class="formWarning" ng-show="angularForm.smgo_name.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
 			<li class="inner addTable"><span class="formWarning"
-				ng-show="angularForm.weight.$error.pattern">请输入正整数</span>
+				ng-show="angularForm.weight.$error.pattern">请输入数字</span>
 				<div class="item-name">
 					货物重量：<span style="color: red">*</span>
 				</div>
@@ -22,7 +23,7 @@
 					<div class="input-wrap">
 						<input type="text" ng-model="GoLimit.smgo_weight" required
 							placeholder="单位：千克" name="weight"
-							ng-pattern="/^[0-9]*[1-9][0-9]*$/">
+							ng-pattern="/^[0-9]+([.]{1}[0-9]{1,2})?$/">
 					</div>
 
 				</div></li>
@@ -33,7 +34,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_start" required>
+						<input type="text" ng-model="GoLimit.smgo_start" required ng-pattern="/^\S{1,15}$/" name="smgo_start">
+						<span class="formWarning" ng-show="angularForm.smgo_start.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
@@ -44,7 +46,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_end" required>
+						<input type="text" ng-model="GoLimit.smgo_end" required ng-pattern="/^\S{1,15}$/" name="smgo_end">
+						<span class="formWarning" ng-show="angularForm.smgo_end.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
@@ -55,12 +58,10 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input class="select-box" type="date"
-							ng-model="GoLimit.smgo_send_time" required>
+						<input class="select-box" type="date" ng-model="GoLimit.smgo_send_time" required>
 					</div>
 				</div>
 			</li>
-
 
 			<li class="inner addTable">
 				<div class="item-name">
@@ -68,7 +69,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_sender" required>
+						<input type="text" ng-model="GoLimit.smgo_sender" required ng-pattern="/^\S{1,15}$/" name="smgo_sender">
+						<span class="formWarning" ng-show="angularForm.smgo_sender.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
@@ -93,7 +95,8 @@
 				</div>
 				<div class="item-value">
 					<div class="input-wrap">
-						<input type="text" ng-model="GoLimit.smgo_receiver" required>
+						<input type="text" ng-model="GoLimit.smgo_receiver" required ng-pattern="/^\S{1,15}$/" name="smgo_receiver">
+						<span class="formWarning" ng-show="angularForm.smgo_receiver.$error.pattern">输入长度在15个字以内</span>
 					</div>
 				</div>
 			</li>
@@ -114,14 +117,15 @@
 				<div class="item-name">备注：</div>
 				<div class="item-value">
 					<div class="p-wrap">
-						<textarea type="text" ng-model="GoLimit.smgo_remark"></textarea>
+						<textarea type="text" ng-model="GoLimit.smgo_remark" ng-pattern="/^\S{1,100}$/" name="smgo_remark"></textarea>
+						<span class="formWarning" ng-show="angularForm.smgo_remark.$error.pattern">输入长度在100个字以内</span>
 					</div>
 				</div>
 			</li>
 			<li class="inner addTable">
 				<div>
 					<input type="radio" name="radio" ng-model="GoLimit.smgo_sego"
-						ng-value="0" style="-webkit-appearance: radio;"><span>自行送货</span>
+						ng-value="0" style="-webkit-appearance: radio;"><span>自行送货</span>&nbsp
 					<input type="radio" name="radio" ng-model="GoLimit.smgo_sego"
 						ng-value="1" style="-webkit-appearance: radio;"><span>上门取货</span>
 				</div>
@@ -133,21 +137,21 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="GoLimit.smgo_add" required>
+							<input type="text" ng-model="GoLimit.smgo_add" required ng-pattern="/^\S{1,15}$/" name="smgo_add">
+							<span class="formWarning" ng-show="angularForm.smgo_add.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
 			</div>
-			<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+			<li class="inner addTable">
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读货运须知</span>
             </li>
             
-			<li class="inner">
+			<li class="inner addTable">
 				<div class="item-value" style="margin-right: 90px">
 					<div class="a-wrap">
-						<input type="submit" class="weui_btn weui_btn_primary"
-							value="提交并显示货运详情">
+						<input type="submit" class="weui_btn weui_btn_primary" value="提交并显示货运详情" ng-disabled="angularForm.$invalid">
 					</div>
 				</div>
 			</li>
