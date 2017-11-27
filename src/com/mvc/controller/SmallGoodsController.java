@@ -100,8 +100,8 @@ public class SmallGoodsController {
 			smallGoods.setSmgo_id(Integer.valueOf(jsonObject.getString("smgo_id")));
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 修改班车定制需求
 		} else {
-			Date date = new Date();
-			smallGoods.setSmgo_deal_time(date);
+			/*Date date = new Date();
+			smallGoods.setSmgo_deal_time(date);*/
 			result = smallGoodsService.saveSmallGoods(smallGoods);// 添加班车定制需求
 		}
 
