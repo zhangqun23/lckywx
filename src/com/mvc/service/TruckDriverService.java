@@ -53,7 +53,7 @@ public interface TruckDriverService {
 
 	Truck findTrck(Integer trckId);
 
-	List<Truck> selectUserTruck(Integer openid);
+	List<Truck> selectUserTruck(String openId);
 
 	Driver selectDriverByOpenId(String openId);
 

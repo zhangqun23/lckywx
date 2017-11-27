@@ -184,14 +184,20 @@ public class TruckDriverController {
 				truckSend.setTrse_time(date);
 			}
 		}
-		String openId = SessionUtil.getOpenid(request);
-		Truck truck = truckDriverService.findTruck(openId);
-		if (truck == null) {
-			jsonO.put("result", null);
-			return jsonO.toString();
-		} else {
-			truckSend.setTruck(truck);
+		if (jsonObject.containsKey("trck_id")) {
+			if (StringUtil.strIsNotEmpty(jsonObject.getString("trck_id"))) {
+				Truck truck = new Truck();
+				truck.setTrck_id(Integer.parseInt(jsonObject.getString("trck_id")));
+				truckSend.setTruck(truck);
+
+			}
 		}
+		String openId = SessionUtil.getOpenid(request);
+		/*
+		 * Truck truck = truckDriverService.findTruck(openId); if (truck ==
+		 * null) { jsonO.put("result", null); return jsonO.toString(); } else {
+		 * truckSend.setTruck(truck); }
+		 */
 
 		TruckSend result = null;
 		if (jsonObject.containsKey("trse_id")) {
@@ -317,7 +323,7 @@ public class TruckDriverController {
 		Truck truck = truckDriverService.findTruck(openId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		JSONObject jsonObject = new JSONObject();
-		if(truck !=null){
+		if (truck != null) {
 			map.put("truckId", truck.getTrck_id());
 			Pager pager = new Pager();
 			if (!page.equals("") && !page.equals(null)) {
@@ -329,7 +335,7 @@ public class TruckDriverController {
 			map.put("limit", pager.getLimit());
 			List<TruckSend> list = truckDriverService.findTruckSendList(map);
 			jsonObject.put("list", list);
-		}else{
+		} else {
 			jsonObject.put("list", null);
 		}
 		return jsonObject.toString();
@@ -404,24 +410,33 @@ public class TruckDriverController {
 	public @ResponseBody String selectUserTruck(HttpServletRequest request) {
 		String openid = SessionUtil.getOpenid(request);
 		List<Truck> list = null;
-		Driver driver = truckDriverService.selectDriverByOpenId(openid);
-		if (driver != null) {
-			list = truckDriverService.selectUserTruck(driver.getDriver_id());
+		/* Driver driver = truckDriverService.selectDriverByOpenId(openid); */
+		if (openid != null) {
+			list = truckDriverService.selectUserTruck(openid);
 		}
 		JSONObject jsonObject = new JSONObject();
 		int flag = 3;// 3表示未添加过0表示待审核1表示已审核可以发布需求2表示审核未通过
 		if (list == null || list.size() == 0) {
 			flag = 3;
 		} else {
-			Truck truck = list.get(0);
-			if (truck.getTrck_check() == 0) {
-				flag = 0;// 待审核
-			} else if (truck.getTrck_check() == 1) {
-				flag = 1;// 审核未通过
-			} else if (truck.getTrck_check() == 2) {
-				flag = 2;// 审核未通过
-			}
+			Boolean state = false;
 
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).getTrck_check() == 1) {
+					state = true;
+					break;
+				}
+			}
+			if (state) {
+				flag = 1;
+			} else {
+				flag = 0;
+			}
+			/*
+			 * if (truck.getTrck_check() == 0) { flag = 0;// 待审核 } else if
+			 * (truck.getTrck_check() == 1) { flag = 1;// 审核通过 } else if
+			 * (truck.getTrck_check() == 2) { flag = 2;// 审核未通过 }
+			 */
 		}
 		jsonObject.put("list", list);
 		jsonObject.put("flag", flag);

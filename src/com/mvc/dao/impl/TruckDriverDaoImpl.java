@@ -81,10 +81,10 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 	}
 
 	@Override
-	public List<Truck> selectUserTruck(Integer driverId) {
+	public List<Truck> selectUserTruck(String openId) {
 		// TODO Auto-generated method stub
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from truck where driver_id= '" + driverId + "' and is_delete=0 order by trck_id desc";
+		String sql = "select * from truck where open_id= '" + openId + "' and is_delete=0 order by trck_id desc";
 		Query query = em.createNativeQuery(sql, Truck.class);
 		List<Truck> list = query.getResultList();
 		em.close();
@@ -141,7 +141,7 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 		EntityManager em = emf.createEntityManager();
 		String selectSql = null;
 
-		selectSql = "select * from driver where open_id='" + openId+"'";
+		selectSql = "select * from driver where open_id='" + openId + "'";
 
 		Query query = em.createNativeQuery(selectSql, Driver.class);
 		List<Driver> list = query.getResultList();

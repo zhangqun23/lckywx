@@ -39,21 +39,20 @@ public class OpenidUtil {
 	 */
 	public static String getOpenid(String appId, String appSecret, String code) {
 
-		
-		  String Url = String.format(
-		  "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3afdb0aec74f693f&secret=c5b66a39a2c96849446d1c2d33994a28&code=%s&grant_type=authorization_code",
-		  code); 
-		  String result = getHttpsResponse(Url, ""); 
-		  JSONObject json = JSON.parseObject(result);
-		  return json.getString("openid");
-	
+		String Url = String.format(
+				"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx3afdb0aec74f693f&secret=c5b66a39a2c96849446d1c2d33994a28&code=%s&grant_type=authorization_code",
+				code);
+		String result = getHttpsResponse(Url, "");
+		JSONObject json = JSON.parseObject(result);
+		return json.getString("openid");
+
 	}
-	
-	public static void GetopenidUrl(HttpServletResponse response) throws IOException{
-        String CodeUrl = String.format(
-        		"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3afdb0aec74f693f&redirect_uri=http://www.lckywx.cc/lckywx/&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
-        response.sendRedirect(CodeUrl);
-    }
+
+	public static void GetopenidUrl(HttpServletResponse response) throws IOException {
+		String CodeUrl = String.format(
+				"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3afdb0aec74f693f&redirect_uri=http://www.lckywx.cc/lckywx/&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
+		response.sendRedirect(CodeUrl);
+	}
 
 	private static String getHttpsResponse(String hsUrl, String requestMethod) {
 		URL url;

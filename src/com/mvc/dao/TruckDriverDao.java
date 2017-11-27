@@ -24,7 +24,7 @@ public interface TruckDriverDao {
 	// 货主查询货源根据始发地、目的地，出发时间
 	List<TruckNeed> findByUsertime(Map<String, Object> map);
 
-	List<Truck> selectUserTruck(Integer driverId);
+	List<Truck> selectUserTruck(String openId);
 
 	// 车主查询货源根据始发地、目的地，出发时间
 	List<TruckNeed> findNewTruckNeed(Map<String, Object> map);

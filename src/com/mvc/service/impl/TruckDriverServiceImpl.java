@@ -122,9 +122,9 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	}
 
 	@Override
-	public List<Truck> selectUserTruck(Integer driverId) {
+	public List<Truck> selectUserTruck(String  openId) {
 		// TODO Auto-generated method stub
-		List<Truck> list = truckDriverDao.selectUserTruck(driverId);
+		List<Truck> list = truckDriverDao.selectUserTruck(openId);
 		return list;
 	}
 

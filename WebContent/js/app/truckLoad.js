@@ -271,8 +271,8 @@ app
 								trne_receive_name : "",
 								trne_receive_tel : ""
 							}
-							
-							truckDrSdNd.showShadow = function(){
+
+							truckDrSdNd.showShadow = function() {
 								if ($('.shadowbox').css('display') == 'none') {
 									$('.shadowbox').fadeIn(100);
 								} else {
@@ -281,7 +281,7 @@ app
 									$('.shadowbox').fadeOut(100);
 								}
 							}
-							
+
 							/*
 							 * truckDrSdNd.gotLimit={ startDate:"", endDate:"" }
 							 * truckDrSdNd.gotLimits={ startDate:"", endDate:"" }
@@ -301,7 +301,8 @@ app
 								$location.path('truckSendInfo');
 							}
 							// 根据trse_id获得修改车主信息(先获得Id后查询)
-							truckDrSdNd.getModifyTruckSendById = function(trse_id) {
+							truckDrSdNd.getModifyTruckSendById = function(
+									trse_id) {
 								sessionStorage.setItem("trse_id", trse_id);
 								$location.path('modifyTruckSend');
 							}
@@ -377,7 +378,8 @@ app
 							truckDrSdNd.modifyTruckSend = function() {
 								var truckSend = JSON
 										.stringify(truckDrSdNd.selectTruckSendByIdList);// 修改部分只将前台写完，后台没写
-								services.modifyTruckSend(
+								services
+										.modifyTruckSend(
 												{
 													truckSend : truckSend,
 													trse_id : sessionStorage
@@ -405,6 +407,13 @@ app
 							}
 							// zq pg添加货车+司机的信息
 							truckDrSdNd.addTruckDriver = function() {
+								var list = truckDrSdNd.truckList;
+								for (var i = 0; i < list.length; i++) {
+									if (list[i].trck_number == truckDrSdNd.truckLimit.trck_number) {
+										alert("该车牌号已被注册！如有问题请联系客运站！");
+										return;
+									}
+								}
 								var truckLimit = JSON
 										.stringify(truckDrSdNd.truckLimit);
 								var driverLimit = JSON
@@ -460,17 +469,18 @@ app
 														switch (data.flag) {
 														case 0:
 															$('#table1').hide();
-															$('#table2').hide();
-															alert("您的司机车辆信息还在审核过程中，暂不能发布运货需求！请及时与客运站联系审核！");
+															$('#table2').show();
+															alert("您有司机车辆信息状态为待审核中或审核不通过，请及时在我的发布中查看车辆信息审核结果，如有问题请及时与客运站联系！");
 															break;
 														case 1:
 															truckDrSdNd.show = {
-																isActive0 : true,
-																isActive1 : false,
+																isActive0 : false,
+																isActive1 : true,
 																isActive2 : false,
 															};
-															$('#table1').show();
-															$('#table2').hide();
+															alert("您已登记过车辆信息，如果需要添加更多不同车辆，请继续操作！否则请直接发布运货需求！");
+															$('#table2').show();
+															$('#table1').hide();
 															break;
 														case 2:
 															$('#table1').hide();
@@ -507,9 +517,13 @@ app
 														case 0:
 															$('#table1').hide();
 															$('#table2').hide();
-															alert("您的司机车辆信息还在审核过程中，暂不能发布运货需求！请及时与客运站联系审核！");
+															alert("您的司机车辆信息状态为待审核中或审核不通过，请及时在我的发布中查看车辆信息审核结果，如有问题请及时与客运站联系！");
+															$location
+																	.path("myTruckPublish0");
 															break;
 														case 1:
+															truckDrSdNd.truckList = data.list;
+															truckDrSdNd.trseLimit.trck_id = data.list[0].trck_id;
 															truckDrSdNd.show = {
 																isActive0 : true,
 																isActive1 : false,
@@ -517,26 +531,27 @@ app
 															};
 															$('#table1').show();
 															$('#table2').hide();
-															alert("您的车辆信息已被审核通过，请直接填写需求发布");
 															break;
-														case 2:
-															$('#table1').hide();
-															$('#table2').hide();
-															alert("您的司机车辆信息审核未通过，请在我的发布中找到你的车辆信息进行修改！");
-															$location
-																	.path("myTruckPublish0");
-															break;
-														case 3:
-															truckDrSdNd.show = {
-																isActive0 : false,
-																isActive1 : true,
-																isActive2 : false,
-															};
-															$('#table1').hide();
-															$('#table2').show();
-															break;
-														}
-													});
+														break;
+													case 2:
+														$('#table1').hide();
+														$('#table2').hide();
+														alert("您的司机车辆信息审核未通过，请在我的发布中找到你的车辆信息进行修改！");
+														$location
+																.path("myTruckPublish0");
+														break;
+													case 3:
+														truckDrSdNd.show = {
+															isActive0 : false,
+															isActive1 : true,
+															isActive2 : false,
+														};
+														$('#table1').hide();
+														$('#table2').show();
+														alert("请先登记货车及司机信息！");
+														break;
+													}
+												});
 
 									break;
 								}
@@ -631,12 +646,15 @@ app
 													if (!truckDrSdNd.truckSendList) {
 														truckDrSdNd.truckSendList = [];
 													}
-													if(typeof(data.list) != "undefined"){
-													truckDrSdNd.truckSendList = truckDrSdNd.truckSendList.concat(data.list);
+													if (typeof (data.list) != "undefined") {
+														truckDrSdNd.truckSendList = truckDrSdNd.truckSendList
+																.concat(data.list);
 													}
 													config.isAjax = false;
-													console.log(truckDrSdNd.truckSendList)
-													if (data.list == ![] || data.list == null) {
+													console
+															.log(truckDrSdNd.truckSendList)
+													if (data.list == ![]
+															|| data.list == null) {
 														$(".limitHint").css(
 																'display',
 																'block');
@@ -946,7 +964,7 @@ app
 									truckDrSdNd.selectTruckSendById(trse_id);
 								} else if ($location.path().indexOf(
 										'/truckOwnerInput') == 0) {
-									truckDrSdNd.changebar(0);
+									truckDrSdNd.changebar(1);
 								} else if ($location.path().indexOf(
 										'/myTruckPublish0') == 0) {
 									truckDrSdNd.myChangebar(0);
