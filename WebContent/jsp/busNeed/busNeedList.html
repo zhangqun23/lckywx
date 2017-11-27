@@ -13,13 +13,13 @@
 	</ul>
 </header>
 
-<article style="margin-top: 100px;">
-
+<article style="margin-top: 85px;">
+<!-- 
 	<form ng-submit="selectBusNeeds()" method="post"
 		enctype="multipart/form-data">
 
 		<div class="inner">
-			<!-- <div class="item-name" style="float: left">出发时间：</div> -->
+			<div class="item-name" style="float: left">出发时间：</div>
 
 			<input type="text" name="startTime"
 				style="width: 25%; margin-left: 10px; float: left"
@@ -27,22 +27,25 @@
 				placeHolder="起始时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
+				<input class="select-box" style="width:100px" type="date" ng-model="startDate" required>
 			<div style="float: left; margin-right: 10px">—</div>
-			<!-- <br>
-			<div class="item-name" >出发时间：</div> -->
+			<br>
+			<div class="item-name" >出发时间：</div>
 
 			<input type="text" name="startTime" style="width: 25%; float: left"
 				ng-model="endDate" class="dfselect dateLayoutStyle"
 				placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
+				
+				<input class="select-box" style="width:100px" type="date" ng-model="endDate" required>
 		</div>
 		<div class="org">
 			<span><input type="submit" class="weui_btn weui_btn_primary"
 				value="查询">
 		</div>
 	</form>
-	<br />
+	<br /> -->
 	<ul ng-repeat="bnl in busNeedList">
 		<li class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary">
@@ -62,7 +65,7 @@
 				<div class="org">
 					<span>包车用途：{{bnl.bune_purp}}</span> <label class="green"
 						ng-click="getBusNeedById(bnl.bune_id)">详情</label><label
-						ng-show="show.isActive0" class="green"
+						ng-show="bnl.butr_state==0" class="green"
 						ng-click="modifyBusNeedById(bnl.bune_id)">修改</label>
 				</div>
 			</div>

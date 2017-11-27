@@ -169,6 +169,7 @@ app
 								if ($('.shadowbox').css('display') == 'none') {
 									$('.shadowbox').fadeIn(100);
 								} else {
+									$('input[type="checkbox"]')[0].checked = 'true';
 									$('.shadowbox').fadeOut(100);
 								}
 							}
@@ -538,7 +539,8 @@ app.filter('adFilter', function() {
 		}
 	}
 });
-app.filter('type', function() {
+app.filter('adtype', function() {
+	var type='';
 	return function(input) {
 		if (input == "0") {
 			type = "旅游";

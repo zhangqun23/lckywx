@@ -155,10 +155,11 @@ app.controller('PlatformController', [
 			}
 			
 			travelInfo.showShadow = function(){
-				if ($('.shadowbox').css('display') == 'none') {
-					$('.shadowbox').fadeIn(100);
+				if ($('#shadowbox').css('display') == 'none') {
+					$('#shadowbox').fadeIn(100);
 				} else {
-					$('.shadowbox').fadeOut(100);
+					$('input[type="checkbox"]')[0].checked = 'true';
+					$('#shadowbox').fadeOut(100);
 				}
 			}
 			
@@ -229,8 +230,6 @@ app.controller('PlatformController', [
 						$('.containerloading').fadeOut(100);
 				    	$('.overlayer').fadeOut(100);
 					}
-					alert(data.appId);
-					alert(data.timeStamp);
 		            	if(data.e != undefined){
 		            		alert(data.e);
 		            		return;
@@ -262,16 +261,6 @@ app.controller('PlatformController', [
 							   alert("没有成功cancel")
 							           }
 								})
-//						   if (typeof WeixinJSBridge == "undefined"){
-//						   if( document.addEventListener ){
-//						       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-//						   }else if (document.attachEvent){
-//						       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-//						   document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-//						   }
-//						}else{
-//						   onBridgeReady();
-//						}
 		            
 				})
 				
@@ -297,25 +286,28 @@ app.controller('PlatformController', [
 			
 
 			travelInfo.traderefundpay = function(travel_trade_id) {
-				if(confirm("是否确定退款，将扣除20%手续费")){
-					$('.containerloading').fadeIn(100);
-					$('.overlayer').fadeIn(100);
-					services.travelRefundPay({
-						travel_trade_id : travel_trade_id
-					}).success(function(data){
-						if ($('.containerloading').css('display') == 'block'){
-							$('.containerloading').fadeOut(100);
-						    $('.overlayer').fadeOut(100);
-						}
-						if(data.e != null){
-							alert(data.e)
-							return;
-						}
-						$location.path("enSure");
-					})
-				}
-			}
-		
+				
+				//TODO
+				$('#enSureRefund').fadeIn(100);
+				$('#enSureRefundClick').on('click',function(e){
+					$('#enSureRefund').fadeOut(100);
+//					$('.containerloading').fadeIn(100);
+//					$('.overlayer').fadeIn(100);
+//					services.travelRefundPay({
+//						travel_trade_id : travel_trade_id
+//					}).success(function(data){
+//						if ($('.containerloading').css('display') == 'block'){
+//							$('.containerloading').fadeOut(100);
+//						    $('.overlayer').fadeOut(100);
+//						}
+//						if(data.e != null){
+//							alert(data.e)
+//							return;
+//						}
+//						$location.path("enSure");
+//					})
+				});
+			}	
 			
 			//获取滚动条当前的位置 
 			function getScrollTop() {
@@ -486,6 +478,7 @@ app.controller('PlatformController', [
 								$('.containerloading').fadeOut(100);
 							    $('.overlayer').fadeOut(100);
 							}
+							console.log(data.list)
 							$scope.TInfo = data.list
 						});
 				} else if ($location.path().indexOf('/myTravelTrade') == 0) {
@@ -560,7 +553,16 @@ app.filter('cutFloat', function() {
 		} else {
 			var money = parseFloat(input).toFixed(2);
 		}
-
 		return money;
+	}
+});
+app.filter('totalFeeFilter', function() {
+	return function(input) {
+		if (input == "" || input == null) {
+			var input = "空";
+			return input;
+		} else {
+			return input/100;
+		}
 	}
 });

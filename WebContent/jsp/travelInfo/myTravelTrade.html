@@ -16,7 +16,7 @@
 	</ul>
 </header>
 
-<article style="margin-top: 90px;">
+<article style="margin-top: 85px;">
 	<div class="weui_cell" ng-repeat="MTT in MTTInfo">
 		<div class="weui_cell_bd weui_cell_primary">
 			<div class="wuliao-title">
@@ -25,11 +25,11 @@
 	        </div>
 
 	        <div class="detail clearfix">
-				<span class="require">购买成人票数：{{MTT.trtr_cnum|trtrFilter}}</span>
+				<span class="require">购买成人票数：{{MTT.trtr_mnum|trtrFilter}}</span>
 			</div>
 			
 			 <div>
-	        	<span class="require">购买儿童票数：{{MTT.trtr_mnum|trtrFilter}}</span>
+	        	<span class="require">购买优惠票数：{{MTT.trtr_cnum|trtrFilter}}</span>
 	        </div>
 	        
 			<div class="detail clearfix">

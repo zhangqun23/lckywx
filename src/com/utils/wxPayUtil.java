@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -101,6 +102,35 @@ public class wxPayUtil {
         sb.append("key=").append(key);
         return MD5(sb.toString()).toUpperCase();
 	    }
+	 
+	 /**
+     * 生成 SHA1
+     *
+     * @param data 待处理数据
+     * @return SHA1结果
+     */
+	 public static String SHA1(String decript) {  
+	    try {  
+	        MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");  
+	        digest.update(decript.getBytes());  
+	        byte messageDigest[] = digest.digest();  
+	        // Create Hex String  
+	        StringBuffer hexString = new StringBuffer();  
+	        // 字节数组转换为 十六进制 数  
+	            for (int i = 0; i < messageDigest.length; i++) {  
+	                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);  
+	                if (shaHex.length() < 2) {  
+	                    hexString.append(0);  
+	                }  
+	                hexString.append(shaHex);  
+	            }  
+	            return hexString.toString();  
+	   
+	        } catch (NoSuchAlgorithmException e) {  
+	            e.printStackTrace();  
+	        }  
+	        return "";  
+		}  
 	 
 	 /**
      * 生成 MD5,已测试

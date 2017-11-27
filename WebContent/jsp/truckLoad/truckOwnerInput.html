@@ -17,7 +17,7 @@
 </header>
 
 
-<article style="margin-top: 100px;">
+<article style="margin-top: 85px;">
 	<div id="table1">
 		<form ng-submit="addTruckSend()" method="post"
 			enctype="multipart/form-data" style="overflow: hidden;"
@@ -44,7 +44,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trseLimit.trse_splace" required>
+							<input type="text" ng-model="trseLimit.trse_splace" required name="trse_splace" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="angularForm.trse_splace.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -55,7 +56,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trseLimit.trse_eplace" required>
+							<input type="text" ng-model="trseLimit.trse_eplace" required name="trse_eplace" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="angularForm.trse_eplace.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -85,8 +87,8 @@
 				</li>
 				
 				<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
-				<span class="needToKonw" ng-click="">我已阅读货运须知</span>
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
+				<span class="needToKonw" ng-click="showShadow()">我已阅读货运须知</span>
             </li>
 
 				<li class="inner addTable">
@@ -112,7 +114,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="driverLimit.driver_name" required>
+							<input type="text" ng-model="driverLimit.driver_name" required name="driver_name" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="truckInfo.driver_name.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -121,7 +124,8 @@
 					<div class="item-name">工作：</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="driverLimit.driver_job">
+							<input type="text" ng-model="driverLimit.driver_job" name="driver_job" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="truckInfo.driver_job.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -173,7 +177,8 @@
 					<div class="item-value">
 						<div class="input-wrap">
 							<input type="text" ng-model="driverLimit.driver_license_number"
-								required>
+								required name="driver_license_number" ng-pattern="/^\S{1,15}$/">
+						<span class="formWarning" ng-show="truckInfo.driver_license_number.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -200,7 +205,7 @@
 				</div>
 				
 				<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读货运须知</span>
             </li>
 

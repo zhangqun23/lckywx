@@ -67,6 +67,13 @@ public class SmallGoodsController {
 		if (jsonObject.containsKey("smgo_sender")) {
 			smallGoods.setSmgo_sender(jsonObject.getString("smgo_sender"));
 		}
+		if (jsonObject.containsKey("smgo_sego")) {
+			if(jsonObject.getString("smgo_sego").equals("0")){
+				smallGoods.setSmgo_sego(false);
+			}else{
+				smallGoods.setSmgo_sego(true);
+			}
+		}
 		if (jsonObject.containsKey("smgo_add")) {
 			smallGoods.setSmgo_add(jsonObject.getString("smgo_add"));
 		}
@@ -82,10 +89,11 @@ public class SmallGoodsController {
 		if (jsonObject.containsKey("amgo_money")) {
 			smallGoods.setAmgo_money(Float.parseFloat(jsonObject.getString("amgo_money")));
 		} else {
-			smallGoods.setAmgo_money((float) 0.123);
+			smallGoods.setAmgo_money((float) 0);
 		}
 
 		if (jsonObject.containsKey("smgo_send_time")) {
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("smgo_send_time"));
 			smallGoods.setSmgo_send_time(date);

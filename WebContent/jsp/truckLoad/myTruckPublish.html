@@ -18,20 +18,20 @@
 </header>
 
 
-<article style="margin-top: 100px;">
-	<div id="table0">
+<article style="margin-top: 85px;">
+	<div id="table0" style="display: none">
 		<ul>
 			<li class="weui_cell" ng-repeat="tl in truckList">
 				<div class="weui_cell_bd weui_cell_primary">
 					<div class="wuliao-title">
-						<label>车牌号：</label> <span>{{tl.trck_number}}</span>
+						<label>车牌号：</label> <span>{{tl.trck_number|isOrNotNull}}</span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">司机：<label>{{tl.driver.driver_name}}</label></span>
-						<span class="result">联系方式：<label>{{tl.driver.driver_tel}}</label></span>
+						<span class="require">司机：<label>{{tl.driver.driver_name|isOrNotNull}}</label></span>
+						<span class="result">联系方式：<label>{{tl.driver.driver_tel|isOrNotNull}}</label></span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">货车载重：<label>{{tl.trck_load}}&nbsp;&nbsp;吨</label></span>
+						<span class="require">货车载重：<label>{{tl.trck_load|isOrNotNull}}&nbsp;&nbsp;吨</label></span>
 						<span class="result">是否可冷冻：<label>{{tl.is_freeze
 								|isFreeze}}</label></span>
 					</div>
@@ -59,19 +59,19 @@
 			<li class="weui_cell" ng-repeat="tl in truckSendList">
 				<div class="weui_cell_bd weui_cell_primary">
 					<div class="wuliao-title">
-						<label>车牌号：</label> <span>{{tl.truck.trck_number}}</span>
+						<label>车牌号：</label> <span>{{tl.truck.trck_number|isOrNotNull}}</span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">始发地：<label>{{tl.trse_splace}}</label></span>
-						<span class="result">目的地：<label>{{tl.trse_eplace}}</label></span>
+						<span class="require">始发地：<label>{{tl.trse_splace|isOrNotNull}}</label></span>
+						<span class="result">目的地：<label>{{tl.trse_eplace|isOrNotNull}}</label></span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">剩余载重：<label>{{tl.trse_left_load}}&nbsp;&nbsp;吨</label></span>
-						<span class="result">价格(元/千克)：<label>{{tl.trse_price}}</label></span>
+						<span class="require">剩余载重：<label>{{tl.trse_left_load|isOrNotNull}}&nbsp;&nbsp;吨</label></span>
+						<span class="result">价格(元/千克)：<label>{{tl.trse_price|isOrNotNull}}</label></span>
 					</div>
 					<div class="detail clearfix">
 						<span class="require">出发时间：<label>{{tl.trse_time.time
-								|dateType}}</label></span>
+								|dateType|isOrNotNull}}</label></span>
 
 					</div>
 					<div class="org">
@@ -89,25 +89,25 @@
 			<li class="weui_cell" ng-repeat="tnl in truckNeedList">
 				<div class="weui_cell_bd weui_cell_primary">
 					<div class="wuliao-title">
-						<label>货物名称：</label> <span>{{tnl.trne_type}}</span>
+						<label>货物名称：</label> <span>{{tnl.trne_type|isOrNotNull}}</span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">货物重量：<label>{{tnl.trne_weight}}</label></span>
-						<span class="result">目的地：<label>{{tnl.trne_eplace}}</label></span>
+						<span class="require">货物重量：<label>{{tnl.trne_weight|isOrNotNull}}</label></span>
+						<span class="result">目的地：<label>{{tnl.trne_eplace|isOrNotNull}}</label></span>
 					</div>
 					<div class="detail clearfix">
-						<span class="require">收件人：<label>{{tnl.trne_receive_name}}</label></span>
-						<span class="result">收件人电话：<label>{{tnl.trne_receive_tel}}</label></span>
+						<span class="require">收件人：<label>{{tnl.trne_receive_name|isOrNotNull}}</label></span>
+						<span class="result">收件人电话：<label>{{tnl.trne_receive_tel|isOrNotNull}}</label></span>
 					</div>
 					<div class="detail clearfix">
 						<span class="require">期望发货时间：<label>{{tnl.trne_time.time
-								|dateType}}</label></span> <span class="result">是否需要冰冻：<label>{{tnl.is_freeze
-								|isFreeze}}</label></span>
+								|dateType|isOrNotNull}}</label></span> <span class="result">是否需要冰冻：<label>{{tnl.is_freeze
+								|isFreeze|isOrNotNull}}</label></span>
 
 					</div>
 					<div class="detail clearfix">
 						<span class="require">需求添加时间：<label>{{tnl.trne_insert_time.time
-								|dateType}}</label></span>
+								|dateType|isOrNotNull}}</label></span>
 					</div>
 					<div class="org">
 						<!-- <span>包车用途：{{bnl.bune_purp}}</span>  -->

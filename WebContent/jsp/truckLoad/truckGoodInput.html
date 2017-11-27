@@ -1,4 +1,4 @@
-<article style="margin-top: 55px;">
+<article style="margin-top: 50px;">
 	<!-- truckNeed货主信息界面 -->
 	<div>
 		<form ng-submit="addTruckNeed()" method="post"
@@ -11,7 +11,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trneLimit.trne_name" required>
+							<input type="text" ng-model="trneLimit.trne_name" required name="trne_name" ng-pattern="/^\S{1,15}$/">
+							<span class="formWarning" ng-show="angularForm.trne_name.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -36,7 +37,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trneLimit.trne_type" required>
+							<input type="text" ng-model="trneLimit.trne_type" required name="trne_type" ng-pattern="/^\S{1,15}$/">
+							<span class="formWarning" ng-show="angularForm.trne_type.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -62,7 +64,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trneLimit.trne_splace" required>
+							<input type="text" ng-model="trneLimit.trne_splace" required name="trne_splace" ng-pattern="/^\S{1,15}$/">
+							<span class="formWarning" ng-show="angularForm.trne_splace.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -73,7 +76,8 @@
 					</div>
 					<div class="item-value">
 						<div class="input-wrap">
-							<input type="text" ng-model="trneLimit.trne_eplace" required>
+							<input type="text" ng-model="trneLimit.trne_eplace" required name="trne_eplace" ng-pattern="/^\S{1,15}$/">
+							<span class="formWarning" ng-show="angularForm.trne_eplace.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -84,7 +88,8 @@
 					<div class="item-value">
 						<div class="input-wrap">
 							<input type="text" ng-model="trneLimit.trne_receive_name"
-								required>
+								required name="trne_receive_name" ng-pattern="/^\S{1,15}$/">
+							<span class="formWarning" ng-show="angularForm.trne_receive_name.$error.pattern">输入长度在15个字以内</span>
 						</div>
 					</div>
 				</li>
@@ -128,13 +133,14 @@
 					<div class="item-name">备注：</div>
 					<div class="item-value">
 						<div class="p-wrap">
-							<textarea type="text" ng-model="trneLimit.trne_remark"></textarea>
+							<textarea type="text" ng-model="trneLimit.trne_remark" name="trne_remark" ng-pattern="/^\S{1,100}$/"></textarea>
+							<span class="formWarning" ng-show="angularForm.trne_remark.$error.pattern">输入长度在100个字以内</span>
 						</div>
 					</div>
 				</li>
 				
-				<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+				<li class="inner addTable">
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读货运须知</span>
             </li>
             

@@ -50,6 +50,7 @@ public class TruckDriverController {
 		Truck truck = new Truck();
 		Driver driver = new Driver();
 		String openId = SessionUtil.getOpenid(request);
+		Driver olddriver = truckDriverService.selectDriverByOpenId(openId);
 		driver.setOpen_id(openId);
 		truck.setOpen_id(openId);
 		if (jsonObject.containsKey("driver_name")) {
@@ -100,10 +101,8 @@ public class TruckDriverController {
 			}
 		}
 		Driver result = null;
-		if (jsonObject.containsKey("driver_id")) {
-			if (StringUtil.strIsNotEmpty(jsonObject.getString("driver_id"))) {
-				driver.setDriver_id(Integer.valueOf(jsonObject.getString("driver_id")));
-			}
+		if (olddriver != null) {
+			driver.setDriver_id(olddriver.getDriver_id());
 			result = truckDriverService.addDriver(driver);// 修改班车定制需求
 		} else {
 			result = truckDriverService.addDriver(driver);// 添加班车定制需求
@@ -411,7 +410,7 @@ public class TruckDriverController {
 		}
 		JSONObject jsonObject = new JSONObject();
 		int flag = 3;// 3表示未添加过0表示待审核1表示已审核可以发布需求2表示审核未通过
-		if (list == null) {
+		if (list == null || list.size() == 0) {
 			flag = 3;
 		} else {
 			Truck truck = list.get(0);

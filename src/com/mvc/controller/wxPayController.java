@@ -31,7 +31,6 @@ import com.mvc.constants.wxPayConstants;
 import com.mvc.entity.Travel;
 import com.mvc.entity.TravelTrade;
 import com.mvc.service.TravelService;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.utils.HttpKit;
 import com.utils.SessionUtil;
 import com.utils.StringUtil;
@@ -131,8 +130,8 @@ public class wxPayController {
 	public @ResponseBody String travelRefundPay(HttpServletRequest request, HttpServletResponse responest) throws Exception{
 		String trtr_id = request.getParameter("travel_trade_id");
 		TravelTrade list = travelService.selectTrTrInfoById(trtr_id);
-//		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
-		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*1.0);
+		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*0.8);
+//		String refund_fee = StringUtil.save0Float(list.getTrtr_price()*1.0);
    	 	// 获取系统当前时间. 存入数据库
         Date now = new Date(); 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

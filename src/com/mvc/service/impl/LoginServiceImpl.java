@@ -11,6 +11,7 @@ import org.dom4j.Element;
 import org.springframework.stereotype.Service;
 
 import com.mvc.service.LoginService;
+import com.mvc.constants.wxPayConstants;
 import com.mvc.entityReport.ReceiveXmlEntity;
 
 @Service("loginServiceImpl")
@@ -36,25 +37,35 @@ public class LoginServiceImpl implements LoginService {
 			result += xmlEntity.getFromUserName();
 			break;
 		case "text":
-			result = "这是一条文本消息";
+			String content=xmlEntity.getContent();
+			if(content.indexOf("票")>-1){result = "购票功能正在完善中，敬请期待！";}
+			else if(content.indexOf("从")>-1){result = "购票功能正在完善中，敬请期待！";}
+			else if(content.indexOf("到")>-1){result = "购票功能正在完善中，敬请期待！";}
+			else if(content.indexOf("货运")>-1){result = "请点击"+wxPayConstants.BASEURL+"完成货运操作";}
+			else if(content.indexOf("广告")>-1){result = "请点击"+wxPayConstants.BASEURL+"完成广告操作";}
+			else if(content.indexOf("班车")>-1){result = "请点击"+wxPayConstants.BASEURL+"完成班车预定操作";}
+			else if(content.indexOf("旅游")>-1){result = "请点击"+wxPayConstants.BASEURL+"完成旅游操作";}
+			else {
+				result = "对不起，我们暂时不能识别该文本消息";
+			}
 			break;
 		case "image":
-			result = "这是一张图片";
+			result = "对不起，我们暂时不能识别图片类型的消息";
 			break;
 		case "location":
 			result = "您发送的是位置，经度为" + xmlEntity.getLocation_X() + ",纬度为" + xmlEntity.getLocation_Y() + ",位置为" + xmlEntity.getLabel();
 			break;
 		case "voice":
-			result = "这是一条语音消息";
+			result = "对不起，我们暂时不能识别语音类型的消息";
 			break;
 		case "video":
-			result = "这是一个视频";
+			result = "对不起，我们暂时不能识别视频类型的消息";
 			break;
 		case "link":
 			result = "这是一个链接";
 			break;
 		default :
-			result = "这是未知类型的消息";
+			result = "对不起，我们暂时不能该类型的消息";
 			break;
 		
 		}

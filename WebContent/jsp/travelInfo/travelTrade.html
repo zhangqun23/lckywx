@@ -1,4 +1,4 @@
-<article style="margin-top: 54px;">
+<article style="margin-top: 50px;">
 <form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data" name="angularForm"
  		style="overflow:hidden;">
  	
@@ -15,14 +15,16 @@
                     </div>
 			</li>
 			<li class="inner addTable">
-                    <div class="item-name">购买的儿童票数：</div>
+                    <div class="item-name">购买优惠票票数：</div>
                     <div class="item-value">
                     <div class="input-wrap">
                             <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_cnum" ng-blur="getTotalFee()" placeholder="此项可为空"
  							name="cNum" ng-pattern="/^[1-9]\d*$/"> 
                             <span class="formWarning" ng-show="angularForm.cNum.$error.pattern">请输入非零正整数</span>
                         </div>       
+                        
                     </div>
+                    <span style="position:relative;top:-10px;color:#888888">优惠票包括儿童票、学生票、老年票</span>
 			</li>
 			<li class="inner addTable">
 				<div class="item-name">客户电话：<span style="color: red">*</span></div>
@@ -38,7 +40,7 @@
                     <div class="item-value" style="color:red">{{totalfee}}</div>
 			</li>
 			<li class="inner addTable"">
-				<input type="checkbox" checked="true" style="-webkit-appearance:checkbox;" required>
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
 				<span class="needToKonw" ng-click="showShadow()">我已阅读购票须知</span>
             </li>
 			<li class="inner" style="border-top: 1px solid #d9d9d9;">

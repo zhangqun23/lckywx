@@ -47,7 +47,7 @@ public class RouteController extends HttpServlet {
 		if(openid == null){
 			return "platform/index";
 		}
-//		String openid = "wang123";
+//		openid = "wang123";
 		HttpSession session = getSession();
 		session.setAttribute("openid", openid);
 		return "platform/index";

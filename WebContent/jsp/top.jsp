@@ -8,19 +8,9 @@
 <title>洛川客运</title>
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${ctx}/css/fonts/iconfont.css" />
-<link rel="stylesheet" href="${ctx}/css/font.css" />
 <link rel="stylesheet" href="${ctx}/css/weui.min.css" />
-<link rel="stylesheet" href="${ctx}/css/jquery-weui.min.css" />
-<link rel="stylesheet" href="${ctx}/css/mui.css" />
-<link rel="stylesheet" href="${ctx}/css/animate.css" />
-<link rel="stylesheet" href="${ctx}/css/pages/order-list.css" />
-<link rel="stylesheet" href="${ctx}/css/pages/order-detail.css" /> 
+<link rel="stylesheet" href="${ctx}/css/animate.min.css" />
 <link rel="stylesheet" href="${ctx}/css/pages/ad-list.css" />
-<link rel="stylesheet" href="${ctx}/css/pages/form-detail.css" />
-<link rel="stylesheet" href="${ctx}/css/pages/info-detail.css" />
-<link href="${ctx}/css/pages/app.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/css/pages/branch.css" rel="stylesheet" type="text/css" />
-<link href="${ctx}/css/pages/page.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 </head>
             

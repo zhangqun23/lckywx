@@ -10,6 +10,5 @@
 </section>
 <jsp:include page="/jsp/footer.jsp" />
 <script src="${ctx}/js/app/busNeed.js"></script>
-<script type="text/javascript" src="${ctx}/js/lib/My97DatePicker/WdatePicker.js"></script>
 </body>
 </html>
