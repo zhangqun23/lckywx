@@ -1,0 +1,71 @@
+<article style="margin-top: 55px;">
+
+	<ul class="order-tab clearfix">
+		<li class="green">旅游详情</li>
+	</ul>
+	<ul class="order-box">
+		
+		<li class="inner">
+			<div class="item-name">标题：</div>
+			<div class="item-value">{{TInfo.travel_title|trtrFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">路线：</div>
+			<div class="item-value">{{TInfo.travel_route|trtrFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">总人数：</div>
+			<div class="item-value">{{TInfo.travel_total_num|trtrFilter}}&nbsp;人</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">剩余人数：</div>
+			<div class="item-value">{{TInfo.travel_left_num|trtrFilter}}&nbsp;人</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">游玩天数：</div>
+			<div class="item-value">{{TInfo.travel_days|trtrFilter}}&nbsp;天</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">出发时间：</div>
+			<div class="item-value">{{TInfo.travel_stime.time|dateType}}</div>
+		</li>
+
+		<li class="inner">
+			<div class="item-name">出发地点：</div>
+			<div class="item-value">{{TInfo.travel_location|trtrFilter}}</div>
+		</li>
+		
+		<li class="inner">
+			<div class="item-name">成人票价格：</div>
+			<div class="item-value">{{TInfo.travel_mprice|trtrFilter|cutFloat}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">优惠票票价格：</div>
+			<div class="item-value">{{TInfo.travel_cprice|trtrFilter|cutFloat}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">折扣：</div>
+			<div class="item-value">{{TInfo.travel_discount|trtrFilter|cutFloat}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">联系电话：</div>
+			<div class="item-value">{{TInfo.travel_tel|trtrFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">保险费：</div>
+			<div class="item-value">{{TInfo.travel_insurance|cutFloat}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">活动描述：</div>
+			<div class="item-value">{{TInfo.travel_content|trtrFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">旅游承办公司：</div>
+			<div class="item-value">{{TInfo.travel_firm|trtrFilter}}</div>
+		</li>
+		<li class="inner no-padding">
+			<label class="weui_btn weui_btn_primary" ng-click="getTravelTradeById(TInfo)">我要购票</label>
+		</li>
+	</ul>
+</article>
+

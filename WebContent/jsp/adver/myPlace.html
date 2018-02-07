@@ -1,0 +1,47 @@
+ <header >
+            <div class="titlebar reverse">
+                <h1>我的发布</h1>
+            </div>
+            <ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive0]" ng-click="changeBar(0)">
+                    <label class="tab-label">未审核</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive1]" ng-click="changeBar(1)">
+                    <label class="tab-label">审核通过</label>
+                </li>
+                <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive2]" ng-click="changeBar(2)">
+                    <label class="tab-label">审核未通过</label>
+                </li>
+                <hr>
+            </ul>
+</header>
+
+<article style="margin-top: 85px;">
+	    <ul ng-repeat="ad in adList">
+		<li class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary"> 
+                    <div class="wuliao-title">
+                        <label>广告名称：</label>
+                        <span>{{ad.ad_title|adFilter}}</span>
+                    </div>
+                    <div class="detail clearfix">
+                        <span class="date">广告内容：{{ad.ad_content|adFilter}}</span>
+                    </div>
+		   		<div class="detail clearfix">
+                        <span class="date">联系人：{{ad.ad_name|adFilter}}</span>
+                        <span class="require">联系方式：<label>{{ad.ad_tel|adFilter}}</label></span>
+                    </div>
+                    <div class="org">
+                        <span>备注：{{ad.ad_remark}}</span>
+                        <label class="green" ng-click="deleteAd(ad.ad_id,ad.ad_title)">删除</label>                     
+                        <label class="green" ng-click="getAdById(ad.ad_id)"  ng-show='flag'>修改</label>  
+                         <label class="green" ng-click="selectAderInfo(ad.ad_id)">详情</label>
+                    </div>
+              </div>
+		</li>
+	</ul>      
+	<div class="loading-loading" style="display:none;"><span></span><span></span><span></span><span></span><span></span></div>       
+	<div class="limitHint">没有更多了！</div>     
+</article>
+
+

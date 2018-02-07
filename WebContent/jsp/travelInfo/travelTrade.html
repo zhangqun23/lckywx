@@ -1,0 +1,69 @@
+<article style="margin-top: 50px;">
+<form ng-submit="addTravelTrade()" method="post" enctype="multipart/form-data" name="angularForm"
+ 		style="overflow:hidden;">
+ 	
+		<ul class="form-box">
+
+			<li class="inner addTable">
+                    <div class="item-name">购买的成人票数：<span style="color: red">*</span></div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                            <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_mnum" ng-blur="getTotalFee()" required 
+                            name="mNum" ng-pattern="/^[1-9]\d*$/"> 
+                            <span class="formWarning" ng-show="angularForm.mNum.$error.pattern">请输入非零正整数</span>
+                        </div>                
+                    </div>
+			</li>
+			<li class="inner addTable">
+                    <div class="item-name">购买优惠票票数：</div>
+                    <div class="item-value">
+                    <div class="input-wrap">
+                            <input type="nunber" class="select-box" ng-model="TradeLimit.trtr_cnum" ng-blur="getTotalFee()" placeholder="此项可为空"
+ 							name="cNum" ng-pattern="/^[1-9]\d*$/"> 
+                            <span class="formWarning" ng-show="angularForm.cNum.$error.pattern">请输入非零正整数</span>
+                        </div>       
+                        
+                    </div>
+                    <span style="position:relative;top:-10px;color:#888888">优惠票包括儿童票、学生票、老年票</span>
+			</li>
+			<li class="inner addTable">
+				<div class="item-name">客户电话：<span style="color: red">*</span></div>
+				<div class="item-value">
+					<div class="input-wrap">
+						<input type="text" ng-model="TradeLimit.trtr_tel" name="cuphone" ng-pattern="/^1[3|4|5|7|8]\d{9}$/" required>
+						<span class="formWarning" ng-show="angularForm.cuphone.$error.pattern">手机格式不正确</span>
+					</div>
+				</div>
+			</li>
+			<li class="inner addTable">
+                    <div class="item-name">订单总金额：</div>
+                    <div class="item-value" style="color:red">{{totalfee}}</div>
+			</li>
+			<li class="inner addTable"">
+				<input type="checkbox" style="-webkit-appearance:checkbox;" required>
+				<span class="needToKonw" ng-click="showShadow()">我已阅读购票须知</span>
+            </li>
+			<li class="inner" style="border-top: 1px solid #d9d9d9;">
+                    <div class="item-value" style="margin-right:90px">
+                         <div class="a-wrap">
+                           <input type="submit" class="weui_btn weui_btn_primary" value="提交" ng-disabled="angularForm.$invalid">
+                         </div>
+                         </div>
+ 				    </div>
+			</li>
+            </ul>
+   </div>
+   </form>
+   
+<div class="shadowbox" style="height: 400px">
+	<div class="shadowbox-title">购票须知</div>
+	<div class="shadowbox-content">
+1、旅游团队到景区大门口签单处停车签单，组团社导游出示发团旅行社加盖红章的行程单；<br/>
+2、如发现有拉散客，倒票的等现象，按相关法律追究其法律责任；<br/>
+3、游客拥挤时须听从工作人员安排疏导；<br/>
+4、所有参与性项目凭团队登记表，每个参与性项目只限一次；<br/>
+	</div>
+	<input class="weui_btn weui_btn_primary" style="margin-top:28px" ng-click="showShadow()" value="我已阅读并且同意">
+</div>
+
+</article>

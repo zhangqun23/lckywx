@@ -1,0 +1,162 @@
+<header >
+    <div class="titlebar reverse">
+        <h1>信息查询</h1>
+    </div>
+    <ul class="tabbar animate-slide width-full" data-col="2" id="tabbar">
+        <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive3]" ng-click="changebarr(3)" >
+            <label class="tab-label">查询货车信息</label>
+        </li>
+        <li class="tab" ng-class="{true:'active',false:'inactive'}[show.isActive4]" ng-click="changebarr(4)">
+            <label class="tab-label">查询发车需求</label>
+        </li>
+        <hr>
+    </ul>
+</header>
+
+<article style="margin-top: 100px;" >
+    <!-- selectTruckNeed界面 -->
+    <div id = "table4">
+	<form ng-submit="selectTruckNeed()" method="post" enctype="multipart/form-data">
+
+		<div class="inner" >
+			<input type="text" name="startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="startTime" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required><div style="float: left;margin-right:10px">—</div>
+
+			<input type="text" name="endTime" style="width:25%;float: left"
+				ng-model="endTime" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required>
+			<br/>	
+			<input type="text" name="trne_eplace" style="width:25%;float: left;margin-left:10px;margin-top:20px;"
+				ng-model="trne_eplace" class="dfselect dateLayoutStyle" placeHolder="目的地">	
+		</div>
+		<div class="org">
+			<span><input type="submit" class="weui_btn weui_btn_primary"style=margin-top:20px; value="查询">
+		</div>
+	</form>
+	<br/>	
+	<ul ng-repeat="goodsInfo in selectTruckNeedList">
+		<li class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<div class="wuliao-title">	
+					<label>需求编号：</label> <span>{{goodsInfo.trne_id}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">联系人：{{goodsInfo.trne_name}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">联系电话：{{goodsInfo.trne_tel}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">货物类型：{{goodsInfo.trne_type}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">货物重量：{{goodsInfo.trne_weight}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">始发地：{{goodsInfo.trne_splace}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">目的地：<label>{{goodsInfo.trne_eplace}}</label></span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">需求时间：<label>{{goodsInfo.trne_time.time|dateType}}</label></span>
+
+				</div>
+				<div class="detail clearfix">
+					<span class="require">价格：<label>{{goodsInfo.trse_price}}</label></span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">出发时间：<label>{{goodsInfo.trse_time}}</label></span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">是否冰冻：<label>{{goodsInfo.is_freeze}}</label></span>
+				</div>
+					<span class="require">出发时间：<label>{{goodsInfo.trse_time.time|dateType}}</label></span>
+			</div>
+			
+				<div class="detail clearfix">
+					<span class="require">是否冰冻：<label>{{goodsInfo.is_freeze}}</label></span>
+				</div> 
+				<div class="detail clearfix">
+					<span class="require">审核状态：<label>{{goodsInfo.trne_check}}</label></span>
+				</div>
+				<div class="org">
+                     <span>备注：{{goodsInfo.trne_remark}}</span>
+                     <label class = "green" ng-click = "getTruckNeedById(goodsInfo.trne_id)">详情 </label>
+                </div>	
+		</li>
+	</ul>
+    </div>
+    
+    <!-- selectTruckSend界面 -->
+    <div id="table5" style="display:none">
+    <form ng-submit="selectTruckSend()" method="post" enctype="multipart/form-data">
+		<div class="inner" >
+			<input type="text" name="startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="startTime" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required><div style="float: left;margin-right:10px">—</div>
+
+			<input type="text" name="endTime" style="width:25%;float: left"
+				ng-model="endTime" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required>
+			<br/>	
+			<input type="text" name="trse_eplace" style="width:25%;float: left;margin-left:10px;margin-top:20px;"
+				ng-model="trse_eplace" class="dfselect dateLayoutStyle" placeHolder="目的地">	
+		</div>
+		<div class="org">
+			<span><input type="submit" class="weui_btn weui_btn_primary" style = "margin-top:20px;"value="查询">
+		</div>
+	</form>
+	<br/>
+	<ul ng-repeat="trckInfo in selectTruckSendList">
+		<li class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<div class="wuliao-title">
+					<label>需求编号：</label> <span>{{trckInfo.trse_id}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">剩余载重：{{trckInfo.trse_left_load}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="date">始发地：{{trckInfo.trse_splace}}</span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">目的地：<label>{{trckInfo.trse_eplace}}</label></span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">价格：<label>{{trckInfo.trse_price}}</label></span>
+				</div>
+				<div class="detail clearfix">
+					<span class="require">出发时间：<label>{{trckInfo.trse_time}}</label></span>
+				</div>
+				<div class="org">
+					<span >出发时间：{{trckInfo.trse_time.time|dateType}}</span>
+					<label class = "green" ng-click = "getTruckSendById(trckInfo.trse_id)">详情 </label>
+				</div>
+			</div>
+		</li>
+	</ul>
+	</div>
+	
+</article>
+
+<script type="text/javascript">
+	$(".switch").click(function() {
+		$(this).find(".tip-text").hide();
+		$(this).find(".chosen").show();
+		$(".box").addClass("choose");
+		$("footer").show();
+	});
+
+	$(".button").click(function() {
+		$(this).find(".tip-text").show();
+		$(this).find(".chosen").hide();
+		$(".box").removeClass("choose");
+		$("footer").hide();
+	})
+</script>

@@ -1,0 +1,78 @@
+
+<article style="margin-top: 50px;">
+
+	<ul class="order-tab clearfix">
+		<li class="green">需求信息</li>
+	</ul>
+	<ul class="order-box">
+		<li class="inner">
+			<div class="item-name">交易编号：</div>
+			<div class="item-value">{{BNeed.bune_id}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">联系电话：</div>
+			<div class="item-value">{{BNeed.bune_tel}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">乘车人数：</div>
+			<div class="item-value">{{BNeed.bune_num}}&nbsp;&nbsp;人</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">用车时长：</div>
+			<div class="item-value">{{BNeed.bune_time}}&nbsp;&nbsp;天</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">出发时间：</div>
+			<div class="item-value">{{BNeed.bune_gath_time.time |
+				dateType}}</div>
+		</li>
+
+		<li class="inner">
+			<div class="item-name">出发地点：</div>
+			<div class="item-value">{{BNeed.bune_gath_pla}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">目的地点：</div>
+			<div class="item-value">{{BNeed.bune_goal_pla}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">包车用途：</div>
+			<div class="item-value">{{BNeed.bune_purp}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">交易状态：</div>
+			<div class="item-value">{{BNeed.butr_state |butrState}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">交易时间：</div>
+			<div class="item-value">{{BNeed.butr_time.time  |dateType}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">押金：</div>
+			<div class="item-value">{{BNeed.butr_depo |isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">交易金额：</div>
+			<div class="item-value">{{BNeed.butr_money |isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">车牌号：</div>
+			<div class="item-value">{{BNeed.bune_bus |isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">是否开发票：</div>
+			<div class="item-value">{{BNeed.invoice_if |invoice_if}}</div>
+		</li>
+
+		<li class="inner">
+			<div class="item-name">发票号：</div>
+			<div class="item-value">{{BNeed.invoice_num | isOrNotNull}}</div>
+		</li>
+
+		<li class="inner">
+			<div class="item-name">备注：</div>
+			<div class="item-value">{{BNeed.bune_remark |isOrNotNull}}</div>
+		</li>
+	</ul>
+
+</article>

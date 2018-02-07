@@ -1,0 +1,141 @@
+
+<header>
+	<div class="titlebar reverse">
+		<h1>信息录入</h1>
+	</div>
+	<ul class="tabbar animate-slide width-full" data-col="3" id="tabbar">
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[show.isActive0]"
+			ng-click="changebar(0)"><label class="tab-label">司机车辆信息</label>
+		</li>
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[show.isActive1]"
+			ng-click="changebar(1)"><label class="tab-label">车主信息</label></li>
+		<li class="tab"
+			ng-class="{true:'active',false:'inactive'}[show.isActive2]"
+			ng-click="changebar(2)"><label class="tab-label">货主信息</label></li>
+		<hr>
+	</ul>
+</header>
+
+
+<article style="margin-top: 100px;">
+	<!-- truckNeed货主信息界面 -->
+	<div>
+		<form ng-submit="addTruckNeed()" method="post"
+			enctype="multipart/form-data" style="overflow: hidden;">
+			<ul class="form-box">
+				<li class="inner">
+					<div class="item-name">
+						货主姓名<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="trneLimit.trne_name" required>
+						</div>
+					</div>
+				</li>
+				<li class="inner" style="height: auto">
+					<div class="item-name">
+						联系电话<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input class="select-box" type="number"
+								ng-model="trneLimit.trne_tel"
+								ng-blur="checknum(trneLimit.trne_tel)" required>
+						</div>
+						<div class="limitNum">请输入正确的手机号码</div>
+					</div>
+				</li>
+
+				<li class="inner">
+					<div class="item-name">
+						货物类型<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="trneLimit.trne_type" required>
+						</div>
+					</div>
+				</li>
+
+				<li class="inner">
+					<div class="item-name">
+						货物重量<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="trneLimit.trne_weight"
+								placeholder="单位：千克" required>
+						</div>
+					</div>
+				</li>
+
+				<li class="inner">
+					<div class="item-name">
+						始发地<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="trneLimit.trne_splace" required>
+						</div>
+					</div>
+				</li>
+
+				<li class="inner">
+					<div class="item-name">
+						目的地<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="trneLimit.trne_eplace" required>
+						</div>
+					</div>
+				</li>
+
+				<li class="inner">
+					<div class="item-name">
+						需求时间<span class="lableimport">*</span>
+					</div>
+					<div class="item-value">
+						<div class="input-wrap">
+							<input type="text" ng-model="trneLimit.trne_time"
+								class="dfselect dateLayoutStyle"
+								onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+								required>
+						</div>
+					</div>
+				</li>
+
+				<div style="width: 125px; margin: auto;">
+					<input type="radio" name="radio" ng-model="trneLimit.is_freeze"
+						ng-value="0"
+						style="-webkit-appearance: radio; width: 20px; height: 20px">
+					<span style="font-size: 13px">不冰冻</span> <input type="radio"
+						name="radio" ng-model="trneLimit.is_freeze" ng-value="1"
+						style="-webkit-appearance: radio; width: 20px; height: 20px">
+					<span style="font-size: 13px">冰冻</span>
+				</div>
+
+				<li class="inner innerP">
+					<div class="item-name">备注：</div>
+					<div class="item-value">
+						<div class="p-wrap">
+							<textarea type="text" ng-model="trneLimit.trne_remark"></textarea>
+						</div>
+					</div>
+				</li>
+
+				<li class="inner">
+					<div class="item-value" style="margin-right: 90px">
+						<div class="a-wrap">
+							<input type="submit" class="weui_btn weui_btn_primary" value="提交">
+						</div>
+					</div>
+				</li>
+			</ul>
+		</form>
+	</div>
+</article>
+

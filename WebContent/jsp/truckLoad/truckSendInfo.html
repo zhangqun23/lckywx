@@ -1,0 +1,60 @@
+<article style="margin-top: 55px;">
+
+	<ul class="order-tab clearfix">
+		<li class="green">详情</li>
+	</ul>
+	<ul class="order-box">
+		<li class="inner">
+			<div class="item-name">剩余载重：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_left_load
+				|isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">始发地：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_splace
+				|isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">目的地：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_eplace |
+				isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">价格：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_price
+				|isOrNotNull}}&nbsp;&nbsp;(元/千克)</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">出发时间：</div>
+			<div class="item-value">{{selectTruckSendByIdList.trse_time.time
+				| dateType|isOrNotNull}}</div>
+		</li>
+						
+		<li class="inner">
+			<div class="item-name">车主姓名：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.driver.driver_name
+				|isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">车主联系方式：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.driver.driver_tel
+				|isOrNotNull}}</div>
+		</li>				
+		<li class="inner">
+			<div class="item-name">货车牌号：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.trck_number
+				|isOrNotNull}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">货车载重：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.trck_load|
+				isOrNotNull}}&nbsp;&nbsp;吨</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">是否可冷冻：</div>
+			<div class="item-value">{{selectTruckSendByIdList.truck.is_freeze
+				| isFreeze}}</div>
+		</li>
+	</ul>
+
+</article>

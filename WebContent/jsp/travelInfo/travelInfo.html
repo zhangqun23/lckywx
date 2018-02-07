@@ -1,0 +1,45 @@
+<article style="margin-top: 48px;">
+		<form ng-submit="selectTravelInfo()" method="post" enctype="multipart/form-data" style="overflow:hidden;">
+	    
+	</form>
+<!-- 	
+	<div ng-model="order" style="width:127px;margin:auto;">
+	    <input type="radio" name="radio" ng-model="order" value="travel_stime" style="-webkit-appearance:radio;"><span>按时间</span>
+	    <input type="radio" name="radio" ng-model="order" value="travel_mprice" style="-webkit-appearance:radio;"><span>按价格</span>
+	</div> -->        	
+	<div class="weui_cell" ng-repeat="TInfo in travelList | orderBy:order :desc" id="travelInfoAdd">
+                    <div class="weui_cell_bd weui_cell_primary">
+                    <div class="wuliao-title">
+                        <label>主题：</label>
+                        <span>{{TInfo.travel_title}}</span>
+                    </div>
+                    <div class="detail clearfix">
+                        <span class="date">旅游路线：{{TInfo.travel_route}}</span>
+                    </div>
+                    <div class="detail clearfix">
+                        <span class="date">成人票价：{{TInfo.travel_mprice | cutFloat}}</span>
+                    </div>
+                    <div class="detail clearfix">
+                        <span class="date">出发时间：{{TInfo.travel_stime.time | dateType}}</span>
+                    </div>
+                    <div class="detail clearfix">
+                        <span class="date">剩余票数：<lable class="lableimport">{{TInfo.travel_left_num}}</lable></span>
+                    </div>
+		   			<div class="detail clearfix">
+                        <span class="date">承办公司：{{TInfo.travel_firm}}</span>
+                        <span class="require">联系方式：<label>{{TInfo.travel_tel}}</label></span>
+                    </div>
+                    <div class="org">
+                        <span>活动描述：{{TInfo.travel_content|cutString}}</span>
+                        <label class="green" ng-click="getTravelTradeById(TInfo)">购票</label>
+                        <label class="green" ng-click="getTravelInfoById(TInfo.travel_id)">详情</label>
+                        
+                    </div>
+              </div>
+       </div>
+       		<div class="loading-loading" style="display:none;"><span></span><span></span><span></span><span></span><span></span></div>
+       <div class="limitHint">没有更多了！</div>
+</article>
+        
+        
+        
